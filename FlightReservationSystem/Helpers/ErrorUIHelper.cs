@@ -11,108 +11,143 @@ namespace FlightReservationSystem.Helpers
 {
     internal class ErrorUIHelper
     {
+        // Real errors
         public static void HighlightIndividual()
         {
-            if (!ErrorCollection.Has)
+            var errorCollection = ErrorCollection.Get;
+
+            if (errorCollection.Count == 0)
             {
                 DebugLogger.Log("[Dev] ErrorCollection is empty. Highlighting aborted.");
                 return;
             }
 
-            if (!ErrorUIRegistry.Has)
+            var errorUICollection = ErrorUICollection.Get;
+            
+            if (errorUICollection.Count == 0)
             {
-                DebugLogger.Log("[Dev] ErrorUIRegistry is empty. Highlighting aborted.");
+                DebugLogger.Log("[Dev] ErrorUICollection is empty. Highlighting aborted.");
                 return;
             }
-            else if (ErrorUIRegistry.Count < ErrorCollection.Count) 
+            else if (errorUICollection.Count < errorCollection.Count) 
             {
-                DebugLogger.Log("[Dev] Fewer ErrorUI entries than ErrorEntry items. Highlighting aborted.");
+                DebugLogger.Log("[Dev] Fewer ErrorUIRecord entries of ErrorUICollection than ErrorRecord entries of ErrorCollection. Highlighting aborted.");
                 return;
             }
 
-            var errors = ErrorCollection.Get;
-            var errorUIs = ErrorUIRegistry.Get;
+            int k = 0; // Counter for each error provider
 
-            for (int i = 0; i < ErrorCollection.Count; i++)
+            for (int i = 0; i < errorCollection.Count; i++)
             {
-                var error = errors[i];
-                var errorUI = errorUIs[i];
+                var errorRecord = errorCollection[i];
                 
-                if (error == null || errorUI == null)
+                if (errorRecord == null)
                 {
-                    DebugLogger.Log("[Dev] Encountered null ErrorEntry or ErrorUI. Highlighting aborted.");
+                    DebugLogger.Log($"[Dev] Encountered null ErrorRecord entry at index {i} of ErrorCollection. Highlighting aborted.");
                     return;
                 }
  
-                ErrorProvider provider = errorUI.Provider;
-                string errorMessage = error.Message;
-                var associatedControls = error.AssociatedControls;
+                string message = errorRecord.Message;
 
-                if (provider == null || errorMessage == null || associatedControls == null)
+                if (string.IsNullOrWhiteSpace(message))
                 {
-                    DebugLogger.Log("[Dev] provider, errorMessage or associatedControls is null. Highlighting aborted.");
+                    DebugLogger.Log($"[Dev] Message is null or whitespace from ErrorRecord entry at index {i} of ErrorCollection. Highlighting aborted.");
+                    return;
+                }
+
+                var associatedControls = errorRecord.AssociatedControls;
+
+                if (associatedControls == null)
+                {
+                    DebugLogger.Log($"[Dev] AssociatedControls is null from ErrorRecord entry at index {i} of ErrorCollection. Highlighting aborted.");
                     return;
                 }  
 
                 if (associatedControls.Count == 0)
                 {
-                    DebugLogger.Log("[Dev] associatedControls is empty. Highlighting aborted.");
+                    DebugLogger.Log($"[Dev] AssociatedControls is empty from ErrorRecord entry at index {i} of ErrorCollection. Highlighting aborted.");
                     return;
                 }
 
                 for (int j = 0; j < associatedControls.Count; j++)
                 {
-                    Control control = associatedControls[j];
+                    var errorUIRecord = errorUICollection[k];
 
-                    if (control == null)
+                    if (errorUIRecord == null)
                     {
-                        DebugLogger.Log("[Dev] Encountered null control. Highlighting aborted.");
+                        DebugLogger.Log($"[Dev] Encountered null ErrorUIRecord entry at index {k} of ErrorUICollection. Highlighting aborted.");
                         return;
                     }
 
-                    provider.SetError(control, errorMessage);
+                    ErrorProvider provider = errorUIRecord.Provider;
+
+                    if (provider == null)
+                    {
+                        DebugLogger.Log($"[Dev] Provider is null from ErrorUIRecord entry at index {k} of ErrorUICollection. Highlighting aborted.");
+                        return;
+                    }
+
+                    Control control = associatedControls[j];
+
+                    if (control == null)
+                    { 
+                        DebugLogger.Log($"[Dev] Encountered null Control (0) entry at index {j} of AssociatedControls from ErrorRecord entry at index {i} of ErrorCollection. Highlighting aborted.");
+                        return;
+                    }
+
+                    k++;
+
+                    provider.SetError(control, message);
                 }
             }
 
             ErrorCollection.Clear();
         }
 
+        // Self defined error
         public static void HighlightGlobal(string errorMessage)
         {
-            if (errorMessage == null)
+            if (string.IsNullOrWhiteSpace(errorMessage))
             {
-                DebugLogger.Log("[Dev] errorMessage is null. Highlighting aborted.");
+                DebugLogger.Log("[Dev] Parameter string (errorMessage) is null or whitespace. Highlighting aborted.");
                 return;
             }
 
-            if (!ErrorUIRegistry.Has)
+            var errorUICollection = ErrorUICollection.Get;
+
+            if (errorUICollection.Count == 0)
             {
-                DebugLogger.Log("[Dev] ErrorUIRegistry is empty. Highlighting aborted.");
+                DebugLogger.Log("[Dev] ErrorUICollection is empty. Highlighting aborted.");
                 return;
             }
 
-            var errorUIs = ErrorUIRegistry.Get;
-
-            for (int i = 0; i < ErrorUIRegistry.Count; i++)
+            for (int i = 0; i < errorUICollection.Count; i++)
             {
-                var errorUI = errorUIs[i];
+                var errorUIRecord = errorUICollection[i];
                 
-                if (errorUI == null)
+                if (errorUIRecord == null)
                 {
-                    DebugLogger.Log("[Dev] Encountered null ErrorUI entry. Highlighting aborted.");
+                    DebugLogger.Log($"[Dev] Encountered null ErrorUIRecord entry at index {i} of ErrorUICollection. Highlighting aborted.");
                     return;
                 }
 
-                ErrorProvider provider = errorUI.Provider;
-                Control control = errorUI.Target;
+                ErrorProvider provider = errorUIRecord.Provider;
 
-                if (provider == null || control == null)
+                if (provider == null)
                 {
-                    DebugLogger.Log("[Dev] provider or control is null. Highlighting aborted.");
+                    DebugLogger.Log($"[Dev] Provider is null from ErrorUIRecord entry at index {i} of ErrorUICollection. Highlighting aborted.");
                     return;
                 }
 
-                provider.SetError(control, errorMessage);
+                Control target = errorUIRecord.Target;
+
+                if (target == null)
+                {
+                    DebugLogger.Log($"[Dev] Target is null from ErrorUIRecord entry at index {i} of ErrorUICollection. Highlighting aborted.");
+                    return;
+                }
+
+                provider.SetError(target, errorMessage);
             }
         }
     }

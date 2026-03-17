@@ -10,33 +10,45 @@ namespace FlightReservationSystem.Helpers
 {
     internal class ListMessageFormatter
     {
-        public static string ErrorListMessage(List<ErrorEntry> errorEntry = null)
+        public static string ErrorListMessage(List<ErrorRecord> errorRecordList = null)
         {
-            // For standard values
-            if (errorEntry == null) errorEntry = ErrorCollection.Get;
+            // For default values
+            if (errorRecordList == null) errorRecordList = ErrorCollection.Get;
 
-            int errorCount = errorEntry.Count;
-
-            if (errorCount == 0)
+            if (errorRecordList.Count == 0)
             {
-                DebugLogger.Log("[Dev] No errors to format. Returning empty message.");
+                DebugLogger.Log("[Dev] Parameter List<ErrorRecord> (errorRecordList) is empty. Listing aborted.");
                 return "";
             }
         
-            string prefix = $"{errorCount} errors were found.\n\nPlease fix the following to proceed:\n";
+            string prefix = $"{errorRecordList.Count} errors were found.\n\nPlease fix the following to proceed:\n";
             StringBuilder listMessage = new StringBuilder();
 
-            for (int i = 0; i < errorCount; i++)
+            for (int i = 0; i < errorRecordList.Count; i++)
             {
-                var message = errorEntry[i].Message;
+                var errorRecord = errorRecordList[i];
 
-                if (message == null)
+                if (errorRecord == null)
                 {
-                    DebugLogger.Log("[Dev] Encountered null ErrorEntry. Formatting aborted.");
+                    DebugLogger.Log($"[Dev] Encountered null ErrorRecord entry at index {i} of parameter List<ErrorRecord> (errorRecordList). Listing aborted.");
+                    return "";
+                }
+
+                string message = errorRecord.Message;
+
+                if (string.IsNullOrWhiteSpace(message))
+                {
+                    DebugLogger.Log($"[Dev] Message is null or whitespace from ErrorRecord entry at index {i} of parameter List<ErrorRecord> (errorRecordList). Listing aborted");
                     return "";
                 }
                 
                 listMessage.AppendLine($"- {message}");
+            }
+
+            if (string.IsNullOrWhiteSpace(listMessage.ToString()))
+            {
+                DebugLogger.Log("[Dev] listMessage is null or whitespace. Listing aborted.");
+                return "";
             }
 
             return prefix + listMessage;

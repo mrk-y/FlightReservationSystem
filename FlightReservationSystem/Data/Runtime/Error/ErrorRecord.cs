@@ -7,10 +7,9 @@ using System.Windows.Forms;
 
 namespace FlightReservationSystem.Data.Runtime.Error
 {
-    internal class ErrorUI
+    internal class ErrorRecord
     {
-        public ErrorProvider Provider { get; set; }
-        public Control Target { get; set; }
-        public Control Field { get; set; }
+        public string Message { get; set; }
+        public List<Control> AssociatedControls { get; set; } = new List<Control>();
     }
 }

@@ -11,7 +11,7 @@ namespace FlightReservationSystem.Data.Runtime.User
         public string UserID { get; set; }
         public string Name { get; set; }
         public string HashedPassword { get; set; }
-        public string UserType { get; set; }
         public int UserTypeID { get; set; }
+        public string UserType { get; set; }
     }
 }

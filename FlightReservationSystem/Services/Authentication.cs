@@ -28,9 +28,14 @@ namespace FlightReservationSystem.Services
 
         public static void AuthenticateCredentials(string userID, string password)
         {   
-            if (userID == null || password == null)
+            if (string.IsNullOrWhiteSpace(userID)) {
+                DebugLogger.Log("[Dev] Parameter string (userID) is null or whitespace. Authentication aborted.");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(password))
             {
-                DebugLogger.Log("[Dev] userID or password is null. Authentication aborted.");
+                DebugLogger.Log("[Dev] Parameter string (password) is null or whitespace. Authentication aborted.");
                 return;
             }
 
@@ -39,7 +44,20 @@ namespace FlightReservationSystem.Services
                 try
                 {
                     string prefix = userID.Substring(0, 2);
+
+                    if (string.IsNullOrWhiteSpace(prefix))
+                    {
+                        DebugLogger.Log("[Dev] prefix is null or whitespace from parameter string (userID)");
+                        return;
+                    }
+                    
                     string userCode = userID.Substring(3, 4);
+
+                    if (string.IsNullOrWhiteSpace(userCode))
+                    {
+                        DebugLogger.Log("[Dev] userCode is null or whitespace from parameter string (userID)");
+                        return;
+                    }
 
                     connection.Open();
                     string sql = "SELECT u.UserCode, u.Name, u.Password, ut.UserTypeID, ut.Type, ut.Prefix " +
@@ -56,17 +74,50 @@ namespace FlightReservationSystem.Services
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
                             if (reader.Read())
-                            { 
+                            {
+                                string db_u_name = reader.GetString(1);
+
+                                if (string.IsNullOrWhiteSpace(db_u_name))
+                                {
+                                    DebugLogger.Log("[Dev] Name is null or whitespace from Users Table of Database. Authentication aborted.");
+                                    return;
+                                }
+
+                                string db_u_password = reader.GetString(2);
+
+                                if (string.IsNullOrWhiteSpace(db_u_password))
+                                {
+                                    DebugLogger.Log("[Dev] Password is null or whitespace from Users Table of Database. Authentication aborted.");
+                                    return;
+                                }
+
+                                int db_ut_userTypeID = reader.GetInt32(3);
+
+                                if (db_ut_userTypeID == 0)
+                                {
+                                    DebugLogger.Log("[Dev] UserTypeID is 0 from UserTypes Table of Database. Authentication aborted.");
+                                    return;
+                                }
+
+                                string db_ut_type = reader.GetString(4);
+
+                                if (string.IsNullOrWhiteSpace(db_ut_type))
+                                {
+                                    DebugLogger.Log("[Dev] Type is null or whitespace from UserTypes Table of Database. Authentication aborted.");
+                                    return;
+                                }
+
                                 User user = new User();
                                 user.UserID = $"{reader.GetString(5)}-{reader.GetString(0)}";
-                                user.Name = reader.GetString(1);
-                                user.HashedPassword = reader.GetString(2);
-                                user.UserType = reader.GetString(4);
-                                user.UserTypeID = reader.GetInt32(3);
+                                user.Name = db_u_name;
+                                user.HashedPassword = db_u_password;
+                                user.UserType = db_ut_type;
+                                user.UserTypeID = db_ut_userTypeID;
 
                                 if (!PasswordHelper.VerifyPassword(password, user.HashedPassword))
                                 {
-                                    ErrorManager.Add(new ErrorEntry { Message = "Incorrect password. ", AssociatedControls = { _login._lblPassword } });
+                                    ClearingHelper.ClearCurrentSpecificField("tbPassword");
+                                    ErrorManager.Add(new ErrorRecord { Message = "Incorrect password. ", AssociatedControls = { _login._lblPassword } });
                                     ErrorManager.Alert();
                                     ErrorManager.Highlight(true);
                                 }
@@ -78,7 +129,7 @@ namespace FlightReservationSystem.Services
                             }
                             else
                             {
-                                ErrorManager.Add(new ErrorEntry { Message = "There is no account with the provided User ID", AssociatedControls = { _login._lblUserID } });
+                                ErrorManager.Add(new ErrorRecord { Message = "There is no account with the provided User ID", AssociatedControls = { _login._lblUserID } });
                                 ErrorManager.Alert();
                                 ErrorManager.Highlight(true);
                             }
@@ -110,7 +161,39 @@ namespace FlightReservationSystem.Services
         {
             if (user == null)
             {
-                DebugLogger.Log("[Dev] user is null. Login aborted.");
+                DebugLogger.Log("[Dev] Parameter User (user) is null. Login aborted.");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(user.UserID))
+            {
+                DebugLogger.Log("[Dev] UserID is null or whitespace from parameter User (user). Login aborted.");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(user.Name))
+            {
+                DebugLogger.Log("[Dev] Name is null or whitespace from parameter User (user). Login aborted.");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(user.HashedPassword))
+            {
+                DebugLogger.Log("[Dev] HashedPassword is null or whitespace from parameter User (user). Login aborted.");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(user.UserType))
+            {
+                DebugLogger.Log("[Dev] UserType is null or whitespace from parameter User (user). Login aborted.");
+                return;
+            }
+
+            int userTypeID = user.UserTypeID;
+
+            if (userTypeID == 0)
+            {
+                DebugLogger.Log("[Dev] UserTypeID is 0 from parameter User (user). Login aborted.");
                 return;
             }
 
@@ -119,9 +202,8 @@ namespace FlightReservationSystem.Services
             ClearingHelper.ClearCurrentTextBoxFields();
             ClearingHelper.ClearCurrentProviders();
             ErrorCollection.Clear();
-            ErrorUIRegistry.Clear();
+            ErrorUICollection.Clear();
 
-            int userTypeID = user.UserTypeID;
             MainForm mainForm = new MainForm();
 
             if (userTypeID == 1)

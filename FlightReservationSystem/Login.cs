@@ -19,26 +19,30 @@ namespace FlightReservationSystem
     {
         public static Login Current { get; set; } = null; 
 
-        public Label _lblUserID => lblUserID;
+        public Label _lblUserID => lblUserID; 
         public Label _lblPassword => lblPassword;
 
         public Login()
         {
             InitializeComponent();
-            
-            Current = this;
-            
             InitData();
-            
         }
 
         private void InitData()
         {
-            // false means not visible
-            tbPassword.Tag = false;
+            Current = this;
+
+            if (Current == null)
+            {
+                DebugLogger.Log("[Dev] Login (Current) is null. Data initialization aborted.");
+                return;
+            }
+
+            tbPassword.Tag = false; // false means not visible
 
             ErrorCollection.Clear();
             PopulateErrorUIs();
+            Authentication.Init(Current);
         }
 
         private void TogglePasswordVisibility()
@@ -62,19 +66,19 @@ namespace FlightReservationSystem
 
         private void PopulateErrorUIs()
         {
-            ErrorUIRegistry.Add(new ErrorUI { Provider = errorProvider1, Target = lblUserID, Field = tbUserID });
-            ErrorUIRegistry.Add(new ErrorUI { Provider = errorProvider2, Target = lblPassword, Field = tbPassword });
+            ErrorUICollection.Add(new ErrorUIRecord { Provider = errorProvider1, Target = lblUserID, Field = tbUserID,  DefaultValue = "" });
+            ErrorUICollection.Add(new ErrorUIRecord { Provider = errorProvider2, Target = lblPassword, Field = tbPassword, DefaultValue = "" });
         }
 
         private bool AreLoginFieldsValid(string userID, string password)
         {
-            if (string.IsNullOrEmpty(userID)) ErrorManager.Add(new ErrorEntry { Message = "User ID field cannot be empty.", AssociatedControls = { lblUserID } });
-            else if (userID.Length < 7) ErrorManager.Add(new ErrorEntry { Message = "User ID must be 7 characters long.", AssociatedControls = { lblUserID } });
+            if (string.IsNullOrWhiteSpace(userID)) ErrorManager.Add(new ErrorRecord { Message = "User ID field cannot be empty.", AssociatedControls = { lblUserID } });
+            else if (userID.Length < 7) ErrorManager.Add(new ErrorRecord { Message = "User ID must be 7 characters long.", AssociatedControls = { lblUserID } });
                 
-            if (string.IsNullOrEmpty(password)) ErrorManager.Add(new ErrorEntry { Message = "Password field cannot be empty.", AssociatedControls = { lblPassword } });
-            else if (password.Length < 8) ErrorManager.Add(new ErrorEntry { Message = "Password must be at least 8 characters long.", AssociatedControls = { lblPassword } });
+            if (string.IsNullOrWhiteSpace(password)) ErrorManager.Add(new ErrorRecord { Message = "Password field cannot be empty.", AssociatedControls = { lblPassword } });
+            else if (password.Length < 8) ErrorManager.Add(new ErrorRecord { Message = "Password must be at least 8 characters long.", AssociatedControls = { lblPassword } });
 
-            if (ErrorCollection.Has)
+            if (ErrorCollection.Get.Count != 0)
             {
                 ErrorManager.Alert();
                 ErrorManager.Highlight(true);
@@ -90,7 +94,13 @@ namespace FlightReservationSystem
             {
                 DialogResult result = MessageBoxHelper.ShowQuestionMessage("Are you sure you want to exit?\nAny incomplete progress you made will be lost.");
 
-                if (result == DialogResult.No) e.Cancel = true;
+                if (result == DialogResult.No)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+
+                Application.Exit();
             }
         }
 
@@ -112,12 +122,14 @@ namespace FlightReservationSystem
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
+            ClearingHelper.ClearCurrentProviders();
+            ErrorCollection.Clear();
+
             string userID = tbUserID.Text.Trim();
             string password = tbPassword.Text.Trim();
 
             if (!AreLoginFieldsValid(userID, password)) return;
 
-            Authentication.Init(Current);
             Authentication.AuthenticateCredentials(userID, password);
         }
     }

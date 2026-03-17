@@ -16,63 +16,83 @@ namespace FlightReservationSystem.Helpers
         {
             if (content == null)
             {
-                DebugLogger.Log("[Dev] content is null. Update aborted.");
+                DebugLogger.Log("[Dev] Parameter UserControl (content) is null. Update aborted.");
                 return;
             }
 
-            if (content.FindForm() == null)
+            var form = content.FindForm();
+
+            if (form == null)
             {
-                DebugLogger.Log("[Dev] content.FindForm returned null. Update aborted.");
+                DebugLogger.Log("[Dev] Form of parameter UserControl (content) is null. Update aborted.");
                 return;
             }
-
-            Form form = content.FindForm();
             
             if (!(form is MainForm))
             {
-                DebugLogger.Log("[Dev] content form is not MainForm. Update aborted.");
+                DebugLogger.Log("[Dev] Form of parameter UserControl (content) is not MainForm. Update aborted.");
                 return;
             }
 
-            var navigationControls = MainForm._pnlNavigation.Controls;
+            var panelNavigation = MainForm._pnlNavigation;
+
+            if (panelNavigation == null)
+            {
+                DebugLogger.Log("[Dev] _pnlNavigation is null from MainForm Form of parameter UserControl (content). Update aborted.");
+                return;
+            }
+
+            var navigationControls = panelNavigation.Controls;
             
             if (navigationControls == null)
             {
-                DebugLogger.Log("[Dev] Navigation panel contains no controls. Update aborted.");
+                DebugLogger.Log("[Dev] _pnlNavigation Controls is null from Mainform Form of parameter UserControl (content). Update aborted.");
+                return;
+            }
+
+            if (navigationControls.Count == 0)
+            {
+                DebugLogger.Log("[Dev] _pnlNavigation Controls is empty from MainForm Form of parameter UserControl (content). Update aborted.");
                 return;
             }
 
             for (int i = 0; i < navigationControls.Count; i++)
             {
-                var control = navigationControls[i];
+                var navigationControl = navigationControls[i];
 
-                if (control == null)
+                if (navigationControl == null)
                 {
-                    DebugLogger.Log("[Dev] Encountered null control in navigation panel. Update aborted.");
+                    DebugLogger.Log($"[Dev] Encountered null Control entry at index {i} of _pnlNavigation Controls from MainForm Form of parameter UserControl (content). Update aborted.");
                     return;
                 }
 
-                if (control is SANavigation saNav)
+                if (navigationControl is SANavigation saNav)
                 {
                     var saNavControls = saNav.Controls;
 
                     if (saNavControls == null)
                     {
-                        DebugLogger.Log("[Dev] SANavigation contains no child controls. Update aborted.");
+                        DebugLogger.Log($"[Dev] SANavigation Controls is null from Control entry at index {i} of _pnlNavigation Controls from MainForm Form of parameter UserControl (content). Update aborted.");
+                        return;
+                    }
+
+                    if (saNavControls.Count == 0)
+                    {
+                        DebugLogger.Log($"[Dev] SANavigatiom Controls is empty from Control entry at index {i} of _pnlNavigation Controls from MainForm Form of parameter UserControl (content). Update aborted.");
                         return;
                     }
 
                     for (int j = 0; j < saNavControls.Count; j++)
                     {
-                        var control2 = saNavControls[j];
+                        var saNavControl = saNavControls[j];
 
-                        if (control2 == null)
+                        if (saNavControl == null)
                         {
-                            DebugLogger.Log("[Dev] Encountered null child control. Skipping.");
-                            continue;
+                            DebugLogger.Log($"[Dev] Encountered null Control entry at index {j} of SANavigation Controls from Control entry at index {i} of _pnlNavigation Controls from MainForm Form of parameter UserControl (content). Update aborted.");
+                            return;
                         }
 
-                        if (control2 is Button nav)
+                        if (saNavControl is Button nav)
                         {
                             if (nav.Tag is string tag && tag == content.Name)
                             {

@@ -14,27 +14,28 @@ namespace FlightReservationSystem.Helpers
     {
         public static void ClearCurrentProviders()
         {
-            if (!ErrorUIRegistry.Has) {
-                DebugLogger.Log("[Dev] ErrorUIRegistry is empty. Nothing to clear.");
+            var errorUICollection = ErrorUICollection.Get;
+
+            if (errorUICollection.Count == 0) {
+                DebugLogger.Log("[Dev] ErrorUICollection is empty. Clearing aborted.");
+                return;
             }
 
-            var errorUIs = ErrorUIRegistry.Get;
-
-            for (int i = 0; i < ErrorUIRegistry.Count; i++)
+            for (int i = 0; i < errorUICollection.Count; i++)
             {
-                var errorUI = errorUIs[i];
+                var errorUIRecord = errorUICollection[i];
 
-                if (errorUI == null)
+                if (errorUIRecord == null)
                 {
-                    DebugLogger.Log("[Dev] Encountered null ErrorUI entry. Clearing aborted.");
+                    DebugLogger.Log($"[Dev] Encountered null ErrorUIRecord entry at index {i} of ErrorUICollection. Clearing aborted.");
                     return;
                 }
 
-                ErrorProvider provider = errorUI.Provider;
+                ErrorProvider provider = errorUIRecord.Provider;
 
                 if (provider == null)
                 {
-                    DebugLogger.Log("[Dev] ErrorProvider is null. Clearing aborted.");
+                    DebugLogger.Log($"[Dev] Provider is null from ErrorUIRecord entry at index {i} of ErrorUICollection. Clearing aborted.");
                     return;
                 }
 
@@ -44,70 +45,67 @@ namespace FlightReservationSystem.Helpers
 
         public static void ClearCurrentTextBoxFields()
         {
-            if (!ErrorUIRegistry.Has)
+            var errorUICollection = ErrorUICollection.Get;
+
+            if (errorUICollection.Count == 0)
             {
-                DebugLogger.Log("[Dev] ErrorUIRegistry is empty. Nothing to clear.");
+                DebugLogger.Log("[Dev] ErrorUICollection is empty. Clearing aborted.");
                 return;
             }
-
-            var errorUIs = ErrorUIRegistry.Get;
   
-            for (int i = 0; i < ErrorUIRegistry.Count; i++)
+            for (int i = 0; i < errorUICollection.Count; i++)
             {
-                var errorUI = errorUIs[i];
+                var errorUIRecord = errorUICollection[i];
 
-                if (errorUI == null)
+                if (errorUIRecord == null)
                 {
-                    DebugLogger.Log("[Dev] Encountered null ErrorUI entry. Clearing aborted.");
+                    DebugLogger.Log($"[Dev] Encountered null ErrorUIRecord entry at index {i} of ErrorUICollection. Clearing aborted.");
                     return;
                 }
 
-                Control field = errorUI.Field;
+                Control field = errorUIRecord.Field;
 
                 if (field == null)
                 {
-                    DebugLogger.Log("[Dev] ErrorUI field control is null. Clearing aborted.");
+                    DebugLogger.Log($"[Dev] Field is null from ErrorUIRecord entry at index {i} of ErrorUICollection. Clearing aborted.");
                     return;
                 }
 
-                if (field is TextBox tb)
-                {
-                    tb.Clear();
-                }
+                if (field is TextBox tb) tb.Clear();
             }
         }
 
         public static void ClearCurrentSpecificField(string fieldName)
         {
-            if (fieldName == null)
+            if (string.IsNullOrWhiteSpace(fieldName))
             {
-                DebugLogger.Log("[Dev] Parameter fieldName is null. Operation aborted.");
+                DebugLogger.Log("[Dev] Parameter string (fieldName) is null or whitespace. Clearing aborted.");
                 return;
             }
 
-            if (!ErrorUIRegistry.Has)
+            var errorUICollection = ErrorUICollection.Get;
+
+            if (errorUICollection.Count == 0)
             {
-                DebugLogger.Log("[Dev] ErrorUIRegistry is empty. Nothing to clear.");
+                DebugLogger.Log("[Dev] ErrorUICollection is empty. Clearing aborted.");
                 return;
             }
-            
-            var errorUIs = ErrorUIRegistry.Get;
 
-            for (int i = 0; i < ErrorUIRegistry.Count; i++)
+            for (int i = 0; i < errorUICollection.Count; i++)
             {
-                var errorUI = errorUIs[i];
+                var errorUIRecord = errorUICollection[i];
 
-                if (errorUI == null)
+                if (errorUIRecord == null)
                 {
-                    DebugLogger.Log("[Dev] Encountered null ErrorUI entry. Clearing aborted.");
+                    DebugLogger.Log($"[Dev] Encountered null ErrorUIRecord entry at index {i} of ErrorUICollection. Clearing aborted.");
                     return;
                 }
 
-                Control field = errorUI.Field;
+                Control field = errorUIRecord.Field;
 
                 if (field == null)
                 {
-                    DebugLogger.Log("[Dev] ErrorUI field control is null. Clearing aborted.");
+                    DebugLogger.Log($"[Dev] Field is null from ErrorUIRecord entry at index {i} of ErrorUICollection. Clearing aborted.");
                     return;
                 }
 

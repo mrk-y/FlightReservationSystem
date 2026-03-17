@@ -27,9 +27,6 @@ namespace FlightReservationSystem
         public MainForm()
         {
             InitializeComponent();
-            
-            Current = this;
-            
             InitData();
         }
 
@@ -37,8 +34,8 @@ namespace FlightReservationSystem
         {
             if (content == null)
             {
-                DebugLogger.Log("[Dev] content is null. Cannot add content in MainForm.");
-                MessageBoxHelper.ShowDeveloperErrorMessage("Page's content does not exist, so no content can be shown.");
+                DebugLogger.Log("[Dev] Parameter UserControl (content) is null. Initialization aborted.");
+                MessageBoxHelper.ShowDeveloperErrorMessage("Page's content does not exist.");
                 return;
             }
 
@@ -65,16 +62,38 @@ namespace FlightReservationSystem
 
         private void InitData()
         {
-            lblUsernameVal.Text = Session._user.Name;
+            Current = this;
+            
+            if (Current == null)
+            {
+                DebugLogger.Log("[Dev] MainForm (Current) is null. Data initialization aborted.");
+                return;
+            }
+
+            string userName = Session._user.Name;
+
+            if (string.IsNullOrWhiteSpace(userName))
+            {
+                DebugLogger.Log("[Dev] Session (Name) is null or whitespace. Data initialization aborted.");
+                return;
+            }
+
+            lblUsernameVal.Text = userName;
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing)
             {
-                DialogResult result = MessageBoxHelper.ShowQuestionMessage("Are you sure you want to exit? Any incomplete progress you made will be lost.");
+                DialogResult result = MessageBoxHelper.ShowQuestionMessage("Are you sure you want to exit?\nAny incomplete progress you made will be lost.");
+                
+                if (result == DialogResult.No)
+                {
+                    e.Cancel = true;
+                    return;
+                }
 
-                if (result == DialogResult.No) e.Cancel = true;
+                Application.Exit();
             }
         }
     }

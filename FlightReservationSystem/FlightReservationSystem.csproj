@@ -176,9 +176,9 @@
   <ItemGroup>
     <Compile Include="Data\Reference\ColorPallete\ThemeColors.cs" />
     <Compile Include="Data\Runtime\Error\ErrorCollection.cs" />
-    <Compile Include="Data\Runtime\Error\ErrorEntry.cs" />
-    <Compile Include="Data\Runtime\Error\ErrorUI.cs" />
-    <Compile Include="Data\Runtime\Error\ErrorUIRegistry.cs" />
+    <Compile Include="Data\Runtime\Error\ErrorRecord.cs" />
+    <Compile Include="Data\Runtime\Error\ErrorUICollection.cs" />
+    <Compile Include="Data\Runtime\Error\ErrorUIRecord.cs" />
     <Compile Include="Data\Runtime\User\Session.cs" />
     <Compile Include="Data\Runtime\User\User.cs" />
     <Compile Include="Debugging\DebugLogger.cs" />
@@ -249,6 +249,7 @@
     <EmbeddedResource Include="UserControls\SystemAdmin\SANavigation.resx">
       <DependentUpon>SANavigation.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="CodingGuidelines.md" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

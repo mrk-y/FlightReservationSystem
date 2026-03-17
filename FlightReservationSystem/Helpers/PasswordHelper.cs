@@ -16,9 +16,9 @@ namespace FlightReservationSystem.Helpers
 
         public static string HashPassword(string password)
         {
-            if (string.IsNullOrEmpty(password))
+            if (string.IsNullOrWhiteSpace(password))
             {
-                DebugLogger.Log("[Dev] password is null or empty. Hashing aborted.");
+                DebugLogger.Log("[Dev] Parameter string (password) is null or whitespace. Hashing aborted.");
                 return "";
             }
 
@@ -37,9 +37,15 @@ namespace FlightReservationSystem.Helpers
 
         public static bool VerifyPassword(string password, string storedHash)
         {
-            if (string.IsNullOrEmpty(password) || string.IsNullOrEmpty(storedHash))
+            if (string.IsNullOrWhiteSpace(password))
             {
-                DebugLogger.Log("[Dev] password or storedHash is null or empty. Verification aborted.");
+                DebugLogger.Log("[Dev] Parameter string (password) is null or whitespace. Verification aborted.");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(storedHash))
+            {
+                DebugLogger.Log("[Dev] Parameter string (storedHash) is null or whitespace. Verification aborted.");
                 return false;
             }
 
