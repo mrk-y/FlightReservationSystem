@@ -34,9 +34,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "AddAircraft";
             this.Size = new System.Drawing.Size(1200, 544);
+            this.ParentChanged += new System.EventHandler(this.AddAircraft_ParentChanged);
             this.ResumeLayout(false);
 
         }

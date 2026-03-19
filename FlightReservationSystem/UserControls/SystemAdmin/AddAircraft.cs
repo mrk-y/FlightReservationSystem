@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FlightReservationSystem.Debugging;
+using FlightReservationSystem.Helpers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +17,29 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
         public AddAircraft()
         {
             InitializeComponent();
+            InitUI();
+        }
+
+        private void InitData()
+        {
+
+        }
+
+        private void InitUI()
+        {
+        }
+
+        private void AddAircraft_ParentChanged(object sender, EventArgs e)
+        {
+            var form = this.FindForm();
+            
+            if (form == null)
+            {
+                DebugLogger.Log("[Dev] Form is null from UserControl (AddAircraft) Form. Changing navigation UI aborted.");
+                return;
+            }
+
+            MainFormUIHelper.UpdateNavigationState(this);
         }
     }
 }

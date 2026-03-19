@@ -87,17 +87,16 @@ namespace FlightReservationSystem.Helpers
                         return;
                     }
 
-                    Control control = associatedControls[j];
+                    Control associatedControl = associatedControls[j];
 
-                    if (control == null)
+                    if (associatedControl == null)
                     { 
                         DebugLogger.Log($"[Dev] Encountered null Control (0) entry at index {j} of AssociatedControls from ErrorRecord entry at index {i} of ErrorCollection. Highlighting aborted.");
                         return;
                     }
 
                     k++;
-
-                    provider.SetError(control, message);
+                    provider.SetError(associatedControl, message);
                 }
             }
 

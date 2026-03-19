@@ -55,9 +55,6 @@ namespace FlightReservationSystem
             _pnlContent.ResumeLayout();
 
             _content = content;
-
-            MessageBox.Show(_navigation.Name);
-            MessageBox.Show(_content.Name);
         }
 
         private void InitData()
@@ -74,7 +71,7 @@ namespace FlightReservationSystem
 
             if (string.IsNullOrWhiteSpace(userName))
             {
-                DebugLogger.Log("[Dev] Session (Name) is null or whitespace. Data initialization aborted.");
+                DebugLogger.Log("[Dev] Name is null or whitespace from User from Session. Data initialization aborted.");
                 return;
             }
 
