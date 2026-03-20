@@ -18,13 +18,13 @@ namespace FlightReservationSystem.Data.Runtime.Error
         {
             if (errorRecord == null)
             {
-                DebugLogger.Log("[Dev] Parameter ErrorRecord (errorRecord) is null. Adding aborted.");
+                DebugLogger.LogWithStackTrace("errorRecord is null. Adding aborted.");
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(errorRecord.Message))
             {
-                DebugLogger.Log("[Dev] Message is null or whitespace from parameter ErrorRecord (errorRecord). Adding aborted.");
+                DebugLogger.LogWithStackTrace("errorRecord.Message is null or whitespace. Addding aborted.");
                 return;
             }
 
@@ -32,13 +32,13 @@ namespace FlightReservationSystem.Data.Runtime.Error
 
             if (associatedControls == null)
             {
-                DebugLogger.Log("[Dev] AssociatedControls is null from parameter ErrorRecord (errorRecord). Adding aborted.");
+                DebugLogger.LogWithStackTrace("associatedControls is null. Adding aborted.");
                 return;
             }
 
             if (associatedControls.Count == 0)
             {
-                DebugLogger.Log("[Dev] AssociatedControls is empty from parameter ErrorRecord (errorRecord). Adding aborted.");
+                DebugLogger.LogWithStackTrace("associatedControls is empty. Adding aborted.");
                 return;
             }
 
@@ -46,7 +46,7 @@ namespace FlightReservationSystem.Data.Runtime.Error
             {
                 if (associatedControls[i] == null)
                 {
-                    DebugLogger.Log($"[Dev] Encountered null Control (0) entry at index {i} of AssociatedControls from parameter ErrorRecord (errorRecord). Adding aborted.");
+                    DebugLogger.LogWithStackTrace($"associatedControls[{i}] is null. Adding aborted.");
                     return;
                 }
             }

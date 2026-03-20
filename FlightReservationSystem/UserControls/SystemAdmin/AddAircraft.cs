@@ -17,6 +17,7 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
         public AddAircraft()
         {
             InitializeComponent();
+            InitData();
             InitUI();
         }
 
@@ -27,15 +28,16 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
 
         private void InitUI()
         {
+
         }
 
         private void AddAircraft_ParentChanged(object sender, EventArgs e)
         {
             var form = this.FindForm();
-            
+
             if (form == null)
             {
-                DebugLogger.Log("[Dev] Form is null from UserControl (AddAircraft) Form. Changing navigation UI aborted.");
+                DebugLogger.LogWithStackTrace("form is null. Navigation UI change aborted.");
                 return;
             }
 

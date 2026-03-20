@@ -18,40 +18,41 @@ namespace FlightReservationSystem.Helpers
 
             if (errorCollection.Count == 0)
             {
-                DebugLogger.Log("[Dev] ErrorCollection is empty. Highlighting aborted.");
+                DebugLogger.LogWithStackTrace("errorCollection is empty. Highlighting aborted.");
                 return;
             }
 
             var errorUICollection = ErrorUICollection.Get;
-            
+
             if (errorUICollection.Count == 0)
             {
-                DebugLogger.Log("[Dev] ErrorUICollection is empty. Highlighting aborted.");
-                return;
-            }
-            else if (errorUICollection.Count < errorCollection.Count) 
-            {
-                DebugLogger.Log("[Dev] Fewer ErrorUIRecord entries of ErrorUICollection than ErrorRecord entries of ErrorCollection. Highlighting aborted.");
+                DebugLogger.LogWithStackTrace("errorUICollection is empty. Highlighting aborted.");
                 return;
             }
 
-            int k = 0; // Counter for each error provider
+            if (errorUICollection.Count < errorCollection.Sum(record => record.AssociatedControls.Count))
+            {
+                DebugLogger.LogWithStackTrace("errorUICollection entries is fewer than sum of all associatedControls. Highlighting aborted.");
+                return;
+            }
+
+            int k = 0;
 
             for (int i = 0; i < errorCollection.Count; i++)
             {
                 var errorRecord = errorCollection[i];
-                
+
                 if (errorRecord == null)
                 {
-                    DebugLogger.Log($"[Dev] Encountered null ErrorRecord entry at index {i} of ErrorCollection. Highlighting aborted.");
+                    DebugLogger.LogWithStackTrace($"errorRecord {i} is null. Highlighting aborted.");
                     return;
                 }
- 
+
                 string message = errorRecord.Message;
 
                 if (string.IsNullOrWhiteSpace(message))
                 {
-                    DebugLogger.Log($"[Dev] Message is null or whitespace from ErrorRecord entry at index {i} of ErrorCollection. Highlighting aborted.");
+                    DebugLogger.LogWithStackTrace($"message {i} is null or whitespace. Highlighting aborted.");
                     return;
                 }
 
@@ -59,13 +60,13 @@ namespace FlightReservationSystem.Helpers
 
                 if (associatedControls == null)
                 {
-                    DebugLogger.Log($"[Dev] AssociatedControls is null from ErrorRecord entry at index {i} of ErrorCollection. Highlighting aborted.");
+                    DebugLogger.LogWithStackTrace($"associatedControls {i} is null. Highlighting aborted.");
                     return;
-                }  
+                }
 
                 if (associatedControls.Count == 0)
                 {
-                    DebugLogger.Log($"[Dev] AssociatedControls is empty from ErrorRecord entry at index {i} of ErrorCollection. Highlighting aborted.");
+                    DebugLogger.LogWithStackTrace($"associatedControls {i} is empty. Highlighting aborted.");
                     return;
                 }
 
@@ -75,7 +76,7 @@ namespace FlightReservationSystem.Helpers
 
                     if (errorUIRecord == null)
                     {
-                        DebugLogger.Log($"[Dev] Encountered null ErrorUIRecord entry at index {k} of ErrorUICollection. Highlighting aborted.");
+                        DebugLogger.LogWithStackTrace($"errorUIRecord {k} is null. Highlighting aborted.");
                         return;
                     }
 
@@ -83,15 +84,15 @@ namespace FlightReservationSystem.Helpers
 
                     if (provider == null)
                     {
-                        DebugLogger.Log($"[Dev] Provider is null from ErrorUIRecord entry at index {k} of ErrorUICollection. Highlighting aborted.");
+                        DebugLogger.LogWithStackTrace($"provider {k} is null. Highlighting aborted.");
                         return;
                     }
 
                     Control associatedControl = associatedControls[j];
 
                     if (associatedControl == null)
-                    { 
-                        DebugLogger.Log($"[Dev] Encountered null Control (0) entry at index {j} of AssociatedControls from ErrorRecord entry at index {i} of ErrorCollection. Highlighting aborted.");
+                    {
+                        DebugLogger.LogWithStackTrace($"associatedControl {j} is null associatedControls {i}. Highlighting aborted.");
                         return;
                     }
 
@@ -108,7 +109,7 @@ namespace FlightReservationSystem.Helpers
         {
             if (string.IsNullOrWhiteSpace(errorMessage))
             {
-                DebugLogger.Log("[Dev] Parameter string (errorMessage) is null or whitespace. Highlighting aborted.");
+                DebugLogger.LogWithStackTrace("errorMessage is null or whitespace. Highlighting aborted.");
                 return;
             }
 
@@ -116,17 +117,17 @@ namespace FlightReservationSystem.Helpers
 
             if (errorUICollection.Count == 0)
             {
-                DebugLogger.Log("[Dev] ErrorUICollection is empty. Highlighting aborted.");
+                DebugLogger.LogWithStackTrace("errorUICollection is empty. Highlighting aborted.");
                 return;
             }
 
             for (int i = 0; i < errorUICollection.Count; i++)
             {
                 var errorUIRecord = errorUICollection[i];
-                
+
                 if (errorUIRecord == null)
                 {
-                    DebugLogger.Log($"[Dev] Encountered null ErrorUIRecord entry at index {i} of ErrorUICollection. Highlighting aborted.");
+                    DebugLogger.LogWithStackTrace($"errorUIRecord {i} is null. Highlighting aborted.");
                     return;
                 }
 
@@ -134,7 +135,7 @@ namespace FlightReservationSystem.Helpers
 
                 if (provider == null)
                 {
-                    DebugLogger.Log($"[Dev] Provider is null from ErrorUIRecord entry at index {i} of ErrorUICollection. Highlighting aborted.");
+                    DebugLogger.LogWithStackTrace($"provider {i} is null. Highlighting aborted.");
                     return;
                 }
 
@@ -142,7 +143,7 @@ namespace FlightReservationSystem.Helpers
 
                 if (target == null)
                 {
-                    DebugLogger.Log($"[Dev] Target is null from ErrorUIRecord entry at index {i} of ErrorUICollection. Highlighting aborted.");
+                    DebugLogger.LogWithStackTrace($"target {i} is null. Highlighting aborted.");
                     return;
                 }
 

@@ -28,18 +28,19 @@ namespace FlightReservationSystem.Services
 
         public static void AuthenticateCredentials(string userID, string password)
         {   
-            if (string.IsNullOrWhiteSpace(userID)) {
-                DebugLogger.Log("[Dev] Parameter string (userID) is null or whitespace. Authentication aborted.");
+            if (string.IsNullOrWhiteSpace(userID))
+            {
+                DebugLogger.LogWithStackTrace("userID is null or whitespace. Authentication aborted.");
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(password))
             {
-                DebugLogger.Log("[Dev] Parameter string (password) is null or whitespace. Authentication aborted.");
+                DebugLogger.LogWithStackTrace("password is null or whitespace. Authentication aborted.");
                 return;
             }
 
-            using (SqlConnection connection = DatabaseConnection.Get())
+            using (SqlConnection con = DatabaseConnection.Get())
             {
                 try
                 {
@@ -47,26 +48,26 @@ namespace FlightReservationSystem.Services
 
                     if (string.IsNullOrWhiteSpace(prefix))
                     {
-                        DebugLogger.Log("[Dev] prefix is null or whitespace from parameter string (userID)");
+                        DebugLogger.LogWithStackTrace("prefix is null or whitespace. Authentication aborted.");
                         return;
                     }
-                    
+
                     string userCode = userID.Substring(3, 4);
 
                     if (string.IsNullOrWhiteSpace(userCode))
                     {
-                        DebugLogger.Log("[Dev] userCode is null or whitespace from parameter string (userID)");
+                        DebugLogger.LogWithStackTrace("userCode is null or whitespace. Authentication aborted.");
                         return;
                     }
 
-                    connection.Open();
+                    con.Open();
                     string sql = "SELECT u.UserCode, u.Name, u.Password, ut.UserTypeID, ut.Type, ut.Prefix " +
                         "FROM Users u " +
                         "INNER JOIN UserTypes ut " +
                         "ON u.UserType = ut.UserTypeID " +
                         "WHERE u.IsActive = 1 AND ut.IsActive = 1 AND u.UserCode = @userCode AND ut.Prefix = @prefix ";
 
-                    using (SqlCommand cmd = new SqlCommand(sql, connection))
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
                     {
                         cmd.Parameters.AddWithValue("@userCode", userCode);
                         cmd.Parameters.AddWithValue("@prefix", prefix);
@@ -79,7 +80,7 @@ namespace FlightReservationSystem.Services
 
                                 if (string.IsNullOrWhiteSpace(db_u_name))
                                 {
-                                    DebugLogger.Log("[Dev] Name is null or whitespace from Users Table of Database. Authentication aborted.");
+                                    DebugLogger.LogWithStackTrace("db_u_name is null or whitespace from Users Table DB. Authentication aborted.");
                                     return;
                                 }
 
@@ -87,7 +88,7 @@ namespace FlightReservationSystem.Services
 
                                 if (string.IsNullOrWhiteSpace(db_u_password))
                                 {
-                                    DebugLogger.Log("[Dev] Password is null or whitespace from Users Table of Database. Authentication aborted.");
+                                    DebugLogger.LogWithStackTrace("db_u_password is null or whitespace from Users Table DB. Authentication aborted.");
                                     return;
                                 }
 
@@ -95,7 +96,7 @@ namespace FlightReservationSystem.Services
 
                                 if (db_ut_userTypeID == 0)
                                 {
-                                    DebugLogger.Log("[Dev] UserTypeID is 0 from UserTypes Table of Database. Authentication aborted.");
+                                    DebugLogger.LogWithStackTrace("db_ut_userTypeID is 0 from UserTypes Table DB. Authentication aborted.");
                                     return;
                                 }
 
@@ -103,7 +104,7 @@ namespace FlightReservationSystem.Services
 
                                 if (string.IsNullOrWhiteSpace(db_ut_type))
                                 {
-                                    DebugLogger.Log("[Dev] Type is null or whitespace from UserTypes Table of Database. Authentication aborted.");
+                                    DebugLogger.LogWithStackTrace("db_ut_type is null or whitespace from UserTypes Table DB. Authentication aborted.");
                                     return;
                                 }
 
@@ -116,10 +117,10 @@ namespace FlightReservationSystem.Services
 
                                 if (!PasswordHelper.VerifyPassword(password, user.HashedPassword))
                                 {
-                                    ClearingHelper.ClearCurrentSpecificField("tbPassword");
-                                    ErrorManager.Add(new ErrorRecord { Message = "Incorrect password. ", AssociatedControls = { _login._lblPassword } });
+                                    ErrorManager.Add(new ErrorRecord { Message = "Incorrect password.", AssociatedControls = { _login._lblPassword } });
                                     ErrorManager.Alert();
                                     ErrorManager.Highlight(true);
+                                    ControlValResetter.DefaultValueSpecificField("tbPassword");
                                 }
                                 else
                                 {
@@ -129,18 +130,18 @@ namespace FlightReservationSystem.Services
                             }
                             else
                             {
-                                ErrorManager.Add(new ErrorRecord { Message = "There is no account with the provided User ID", AssociatedControls = { _login._lblUserID } });
+                                ErrorManager.Add(new ErrorRecord { Message = "There is no account with the provided User ID.", AssociatedControls = { _login._lblUserID } });
                                 ErrorManager.Alert();
                                 ErrorManager.Highlight(true);
                             }
                         }
                     }
-                    
-                } 
+                }
                 catch (Exception ex)
                 {
-                    DebugLogger.Log($"[Exception] {ex.Message}.");
-                    MessageBoxHelper.ShowDeveloperErrorMessage("An unexpected error occurred while authenticating credentials.");
+                    DebugLogger.LogWithStackTrace($"{ex.Message}. Authentication aborted.");
+                    MessageBoxHelper.ShowDeveloperErrorMessage("An unexpected error occured while authenticating credentails.");
+                    return;
                 }
             }
         }
@@ -161,31 +162,25 @@ namespace FlightReservationSystem.Services
         {
             if (user == null)
             {
-                DebugLogger.Log("[Dev] Parameter User (user) is null. Login aborted.");
+                DebugLogger.LogWithStackTrace("user is null. Login aborted.");
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(user.UserID))
             {
-                DebugLogger.Log("[Dev] UserID is null or whitespace from parameter User (user). Login aborted.");
+                DebugLogger.LogWithStackTrace("user.UserID is null or whitespace. Login aborted.");
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(user.Name))
             {
-                DebugLogger.Log("[Dev] Name is null or whitespace from parameter User (user). Login aborted.");
+                DebugLogger.LogWithStackTrace("user.Name is null or whitespace. Login aborted.");
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(user.HashedPassword))
             {
-                DebugLogger.Log("[Dev] HashedPassword is null or whitespace from parameter User (user). Login aborted.");
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(user.UserType))
-            {
-                DebugLogger.Log("[Dev] UserType is null or whitespace from parameter User (user). Login aborted.");
+                DebugLogger.LogWithStackTrace("user.HashedPassword is null or whitespace. Login aborted.");
                 return;
             }
 
@@ -193,14 +188,19 @@ namespace FlightReservationSystem.Services
 
             if (userTypeID == 0)
             {
-                DebugLogger.Log("[Dev] UserTypeID is 0 from parameter User (user). Login aborted.");
+                DebugLogger.LogWithStackTrace("userTypeID is 0. Login aborted.");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(user.UserType))
+            {
+                DebugLogger.LogWithStackTrace("user.UserType is null or whitespace. Login aborted.");
                 return;
             }
 
             StoreUserCredentials(user);
-
-            ClearingHelper.ClearCurrentTextBoxFields();
-            ClearingHelper.ClearCurrentProviders();
+            ControlValResetter.ClearFields();
+            ControlValResetter.ClearProviders();
             ErrorCollection.Clear();
             ErrorUICollection.Clear();
 

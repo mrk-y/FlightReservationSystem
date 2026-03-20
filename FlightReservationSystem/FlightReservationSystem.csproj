@@ -182,7 +182,7 @@
     <Compile Include="Data\Runtime\User\Session.cs" />
     <Compile Include="Data\Runtime\User\User.cs" />
     <Compile Include="Debugging\DebugLogger.cs" />
-    <Compile Include="Helpers\ClearingHelper.cs" />
+    <Compile Include="Helpers\ControlValResetter.cs" />
     <Compile Include="Helpers\DatabaseConnection.cs" />
     <Compile Include="Helpers\DataSeeder.cs" />
     <Compile Include="Helpers\ErrorManager.cs" />
@@ -250,6 +250,7 @@
       <DependentUpon>SANavigation.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="CodingGuidelines.md" />
+    <None Include="float.md" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

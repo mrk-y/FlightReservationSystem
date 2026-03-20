@@ -17,10 +17,10 @@ namespace FlightReservationSystem.Helpers
 
             if (errorRecordList.Count == 0)
             {
-                DebugLogger.Log("[Dev] Parameter List<ErrorRecord> (errorRecordList) is empty. Listing aborted.");
+                DebugLogger.LogWithStackTrace("errorRecordList is empty. Listing aborted.");
                 return "";
             }
-        
+
             string prefix = $"{errorRecordList.Count} errors were found.\n\nPlease fix the following to proceed:\n";
             StringBuilder listMessage = new StringBuilder();
 
@@ -30,7 +30,7 @@ namespace FlightReservationSystem.Helpers
 
                 if (errorRecord == null)
                 {
-                    DebugLogger.Log($"[Dev] Encountered null ErrorRecord entry at index {i} of parameter List<ErrorRecord> (errorRecordList). Listing aborted.");
+                    DebugLogger.LogWithStackTrace($"errorRecord {i} is null. Listing aborted.");
                     return "";
                 }
 
@@ -38,16 +38,16 @@ namespace FlightReservationSystem.Helpers
 
                 if (string.IsNullOrWhiteSpace(message))
                 {
-                    DebugLogger.Log($"[Dev] Message is null or whitespace from ErrorRecord entry at index {i} of parameter List<ErrorRecord> (errorRecordList). Listing aborted");
+                    DebugLogger.LogWithStackTrace($"message {i} is null or whitespace. Listing aborted.");
                     return "";
                 }
-                
+
                 listMessage.AppendLine($"- {message}");
             }
 
             if (string.IsNullOrWhiteSpace(listMessage.ToString()))
             {
-                DebugLogger.Log("[Dev] listMessage is null or whitespace. Listing aborted.");
+                DebugLogger.LogWithStackTrace("listMessage is null or whitespace. Listing aborted.");
                 return "";
             }
 

@@ -15,5 +15,13 @@ namespace FlightReservationSystem.Debugging
             // Fornat: Why + What didn't happen + What did happen 
             Debug.WriteLine($"{filePath} ({lineNumber}) in {memberName}: {message} Returning early.");
         }
+
+        public static void LogWithStackTrace(string message, [CallerMemberName] string memberName = null, [CallerFilePath] string filePath = null, [CallerLineNumber] int lineNumber = 0)
+        {
+            string summary = $"[Dev] {message} (called from {memberName} in {filePath}:line {lineNumber})";
+            StackTrace st = new StackTrace(true);
+
+            Debug.WriteLine($"{summary}\n{st}");
+        }
     }
 }

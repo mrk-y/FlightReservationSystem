@@ -30,12 +30,33 @@ namespace FlightReservationSystem
             InitData();
         }
 
+        private void InitData()
+        {
+            Current = this;
+
+            if (Current == null)
+            {
+                DebugLogger.LogWithStackTrace("Current is null. Data initialization aborted.");
+                return;
+            }
+
+            string userName = Session._user.Name;
+
+            if (string.IsNullOrWhiteSpace(userName))
+            {
+                DebugLogger.LogWithStackTrace("userName is null or whitespace. Data initialization aborted.");
+                return;
+            }
+
+            lblUsernameVal.Text = userName;
+        }
+
         public static void Init(UserControl content, UserControl navigation = null)
         {
             if (content == null)
             {
-                DebugLogger.Log("[Dev] Parameter UserControl (content) is null. Initialization aborted.");
-                MessageBoxHelper.ShowDeveloperErrorMessage("Page's content does not exist.");
+                DebugLogger.LogWithStackTrace("content is null. Initialization aborted.");
+                MessageBoxHelper.ShowDeveloperErrorMessage("Page content does not exist.");
                 return;
             }
 
@@ -55,27 +76,6 @@ namespace FlightReservationSystem
             _pnlContent.ResumeLayout();
 
             _content = content;
-        }
-
-        private void InitData()
-        {
-            Current = this;
-            
-            if (Current == null)
-            {
-                DebugLogger.Log("[Dev] MainForm (Current) is null. Data initialization aborted.");
-                return;
-            }
-
-            string userName = Session._user.Name;
-
-            if (string.IsNullOrWhiteSpace(userName))
-            {
-                DebugLogger.Log("[Dev] Name is null or whitespace from User from Session. Data initialization aborted.");
-                return;
-            }
-
-            lblUsernameVal.Text = userName;
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

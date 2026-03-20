@@ -33,19 +33,19 @@
             // 
             // btnAddAircraft
             // 
-            this.btnAddAircraft.AutoSize = true;
             this.btnAddAircraft.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnAddAircraft.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
             this.btnAddAircraft.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAddAircraft.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
+            this.btnAddAircraft.FlatAppearance.BorderSize = 0;
             this.btnAddAircraft.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddAircraft.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddAircraft.ForeColor = System.Drawing.Color.White;
-            this.btnAddAircraft.Location = new System.Drawing.Point(0, 4);
-            this.btnAddAircraft.Margin = new System.Windows.Forms.Padding(0);
+            this.btnAddAircraft.Location = new System.Drawing.Point(0, 0);
+            this.btnAddAircraft.Margin = new System.Windows.Forms.Padding(0, 0, 8, 0);
             this.btnAddAircraft.Name = "btnAddAircraft";
-            this.btnAddAircraft.Padding = new System.Windows.Forms.Padding(2);
-            this.btnAddAircraft.Size = new System.Drawing.Size(87, 31);
+            this.btnAddAircraft.Padding = new System.Windows.Forms.Padding(3);
+            this.btnAddAircraft.Size = new System.Drawing.Size(87, 33);
             this.btnAddAircraft.TabIndex = 0;
             this.btnAddAircraft.Tag = "";
             this.btnAddAircraft.Text = "Add Aircraft";
@@ -55,12 +55,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.btnAddAircraft);
             this.Name = "SANavigation";
-            this.Size = new System.Drawing.Size(1264, 40);
+            this.Size = new System.Drawing.Size(1264, 33);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 

@@ -16,7 +16,7 @@ namespace FlightReservationSystem.Helpers
         {
             if (content == null)
             {
-                DebugLogger.Log("[Dev] Parameter UserControl (content) is null. Update aborted.");
+                DebugLogger.LogWithStackTrace("content is null. Update aborted.");
                 return;
             }
 
@@ -24,13 +24,13 @@ namespace FlightReservationSystem.Helpers
 
             if (form == null)
             {
-                DebugLogger.Log("[Dev] Form from parameter UserControl (content) is null. Update aborted.");
+                DebugLogger.LogWithStackTrace("form is null. Update aborted.");
                 return;
             }
 
             if (!(form is MainForm))
             {
-                DebugLogger.Log("[Dev] Form from parameter UserControl (content) is not of type MainForm. Update aborted.");
+                DebugLogger.LogWithStackTrace("form is not MainForm. Update aborted.");
                 return;
             }
 
@@ -38,7 +38,7 @@ namespace FlightReservationSystem.Helpers
 
             if (panelNavigation == null)
             {
-                DebugLogger.Log("[Dev] _pnlNavigation is null from MainForm from parameter UserControl (content). Update aborted.");
+                DebugLogger.LogWithStackTrace("panelNavigation is null. Update aborted.");
                 return;
             }
 
@@ -46,13 +46,13 @@ namespace FlightReservationSystem.Helpers
 
             if (navigationControls == null)
             {
-                DebugLogger.Log("[Dev] Controls is null from _pnlNavigation from MainForm from parameter UserControl (content). Update aborted.");
+                DebugLogger.LogWithStackTrace("navigationControls is null. Update aborted.");
                 return;
             }
 
             if (navigationControls.Count == 0)
             {
-                DebugLogger.Log("[Dev] Controls is empty from _pnlNavigation from MainForm from parameter UserControl (content). Update aborted.");
+                DebugLogger.LogWithStackTrace("navigationControls is empty. Update aborted.");
                 return;
             }
 
@@ -62,7 +62,7 @@ namespace FlightReservationSystem.Helpers
 
                 if (navigationControl == null)
                 {
-                    DebugLogger.Log($"[Dev] Encountered null Control (0) entry at index {i} of Controls from _pnlNavigation from MainForm from paramter UserControl (content). Update aborted.");
+                    DebugLogger.LogWithStackTrace($"navigationControl {i} is null. Update aborted.");
                     return;
                 }
 
@@ -72,101 +72,42 @@ namespace FlightReservationSystem.Helpers
 
                     if (saNavControls == null)
                     {
-                        DebugLogger.Log($"[Dev] Controls is empty from SANavigation ");
+                        DebugLogger.LogWithStackTrace($"saNavControls {i} is null. Update aborted.");
+                        return;
+                    }
+
+                    if (saNavControls.Count == 0)
+                    {
+                        DebugLogger.LogWithStackTrace($"saNavControls {i} is empty. Update aborted.");
+                        return;
+                    }
+
+                    for (int j = 0; j < saNavControls.Count; j++)
+                    {
+                        var saNavControl = saNavControls[j];
+
+                        if (saNavControl == null)
+                        {
+                            DebugLogger.LogWithStackTrace($"saNavControl {j} is null saNavControls {i}. Update aborted.");
+                            return;
+                        }
+
+                        if (saNavControl is Button btn)
+                        {
+                            if (btn.Tag is string tag && tag == content.Name)
+                            {
+                                btn.BackColor = ThemeColors.Secondary;
+                                btn.ForeColor = ThemeColors.Primary;
+                            }
+                            else
+                            {
+                                btn.BackColor = ThemeColors.Primary;
+                                btn.ForeColor = ThemeColors.Secondary;
+                            }
+                        }
                     }
                 } 
             }
-             
-
-
-            //var form = content.FindForm();
-
-            //if (form == null)
-            //{
-            //    DebugLogger.Log("[Dev] Form of parameter UserControl (content) is null. Update aborted.");
-            //    return;
-            //}
-            
-            //if (!(form is MainForm))
-            //{
-            //    DebugLogger.Log("[Dev] Form of parameter UserControl (content) is not MainForm. Update aborted.");
-            //    return;
-            //}
-
-            //var panelNavigation = MainForm._pnlNavigation;
-
-            //if (panelNavigation == null)
-            //{
-            //    DebugLogger.Log("[Dev] _pnlNavigation is null from MainForm Form of parameter UserControl (content). Update aborted.");
-            //    return;
-            //}
-
-            //var navigationControls = panelNavigation.Controls;
-            
-            //if (navigationControls == null)
-            //{
-            //    DebugLogger.Log("[Dev] _pnlNavigation Controls is null from Mainform Form of parameter UserControl (content). Update aborted.");
-            //    return;
-            //}
-
-            //if (navigationControls.Count == 0)
-            //{
-            //    DebugLogger.Log("[Dev] _pnlNavigation Controls is empty from MainForm Form of parameter UserControl (content). Update aborted.");
-            //    return;
-            //}
-
-            //for (int i = 0; i < navigationControls.Count; i++)
-            //{
-            //    var navigationControl = navigationControls[i];
-
-            //    if (navigationControl == null)
-            //    {
-            //        DebugLogger.Log($"[Dev] Encountered null Control entry at index {i} of _pnlNavigation Controls from MainForm Form of parameter UserControl (content). Update aborted.");
-            //        return;
-            //    }
-
-            //    if (navigationControl is SANavigation saNav)
-            //    {
-            //        var saNavControls = saNav.Controls;
-
-            //        if (saNavControls == null)
-            //        {
-            //            DebugLogger.Log($"[Dev] SANavigation Controls is null from Control entry at index {i} of _pnlNavigation Controls from MainForm Form of parameter UserControl (content). Update aborted.");
-            //            return;
-            //        }
-
-            //        if (saNavControls.Count == 0)
-            //        {
-            //            DebugLogger.Log($"[Dev] SANavigatiom Controls is empty from Control entry at index {i} of _pnlNavigation Controls from MainForm Form of parameter UserControl (content). Update aborted.");
-            //            return;
-            //        }
-
-            //        for (int j = 0; j < saNavControls.Count; j++)
-            //        {
-            //            var saNavControl = saNavControls[j];
-
-            //            if (saNavControl == null)
-            //            {
-            //                DebugLogger.Log($"[Dev] Encountered null Control entry at index {j} of SANavigation Controls from Control entry at index {i} of _pnlNavigation Controls from MainForm Form of parameter UserControl (content). Update aborted.");
-            //                return;
-            //            }
-
-            //            if (saNavControl is Button nav)
-            //            {
-            //                if (nav.Tag is string tag && tag == content.Name)
-            //                {
-            //                    nav.BackColor = ThemeColors.Secondary;
-            //                    nav.ForeColor = ThemeColors.Primary;
-            //                }
-            //                else
-            //                {
-            //                    nav.BackColor = ThemeColors.Primary;
-            //                    nav.ForeColor = ThemeColors.Secondary;
-            //                }
-            //            }
-            //        }
-            //    }
-            //} 
         }
     }
 }

@@ -35,13 +35,12 @@ namespace FlightReservationSystem
 
             if (Current == null)
             {
-                DebugLogger.Log("[Dev] Login (Current) is null. Data initialization aborted.");
+                DebugLogger.LogWithStackTrace("Current is null. Data initialization aborted.");
                 return;
             }
 
             tbPassword.Tag = false; // false means not visible
 
-            ErrorCollection.Clear();
             PopulateErrorUIs();
             Authentication.Init(Current);
         }
@@ -67,8 +66,8 @@ namespace FlightReservationSystem
 
         private void PopulateErrorUIs()
         {
-            ErrorUICollection.Add(new ErrorUIRecord { Provider = errorProvider1, Target = lblUserID, Field = tbUserID,  DefaultValue = "" });
-            ErrorUICollection.Add(new ErrorUIRecord { Provider = errorProvider2, Target = lblPassword, Field = tbPassword, DefaultValue = "" });
+            ErrorUICollection.Add(new ErrorUIRecord { Provider = errorProvider1, Target = lblUserID, Field = tbUserID,  DefaultValue = string.Empty });
+            ErrorUICollection.Add(new ErrorUIRecord { Provider = errorProvider2, Target = lblPassword, Field = tbPassword, DefaultValue = string.Empty });
         }
 
         private bool AreLoginFieldsValid(string userID, string password)
@@ -123,7 +122,7 @@ namespace FlightReservationSystem
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            ClearingHelper.ClearCurrentProviders();
+            ControlValResetter.ClearProviders();
             ErrorCollection.Clear();
 
             string userID = tbUserID.Text.Trim();

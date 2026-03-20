@@ -18,19 +18,18 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
         public SANavigation()
         {
             InitializeComponent();
-            _saNavigation = this;
             InitData();
         }
 
-        private static void InitData()
+        private void InitData()
         {
+            _saNavigation = this;
             NavigationTags();
         }
 
-        private static void NavigationTags()
+        private void NavigationTags()
         {
             _btnAddAircraft.Tag = "AddAircraft";
         }
-
     }
 }

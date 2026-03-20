@@ -28,21 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.header1 = new FlightReservationSystem.UserControls.Header();
             this.lblUsernameVal = new System.Windows.Forms.Label();
             this.lblWelcome = new System.Windows.Forms.Label();
             this.pnlNavigation = new System.Windows.Forms.Panel();
             this.pnlContent = new System.Windows.Forms.Panel();
+            this.header1 = new FlightReservationSystem.UserControls.Header();
             this.SuspendLayout();
-            // 
-            // header1
-            // 
-            this.header1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
-            this.header1.Location = new System.Drawing.Point(0, 0);
-            this.header1.Margin = new System.Windows.Forms.Padding(0);
-            this.header1.Name = "header1";
-            this.header1.Size = new System.Drawing.Size(1264, 50);
-            this.header1.TabIndex = 0;
             // 
             // lblUsernameVal
             // 
@@ -72,20 +63,28 @@
             // 
             // pnlNavigation
             // 
-            this.pnlNavigation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlNavigation.Location = new System.Drawing.Point(0, 50);
-            this.pnlNavigation.Margin = new System.Windows.Forms.Padding(0);
+            this.pnlNavigation.Location = new System.Drawing.Point(0, 52);
+            this.pnlNavigation.Margin = new System.Windows.Forms.Padding(0, 0, 0, 5);
             this.pnlNavigation.Name = "pnlNavigation";
-            this.pnlNavigation.Size = new System.Drawing.Size(1264, 40);
+            this.pnlNavigation.Size = new System.Drawing.Size(1264, 33);
             this.pnlNavigation.TabIndex = 3;
             // 
             // pnlContent
             // 
-            this.pnlContent.Location = new System.Drawing.Point(32, 114);
+            this.pnlContent.Location = new System.Drawing.Point(24, 114);
             this.pnlContent.Margin = new System.Windows.Forms.Padding(0, 24, 0, 0);
             this.pnlContent.Name = "pnlContent";
-            this.pnlContent.Size = new System.Drawing.Size(1200, 544);
+            this.pnlContent.Size = new System.Drawing.Size(1216, 544);
             this.pnlContent.TabIndex = 4;
+            // 
+            // header1
+            // 
+            this.header1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
+            this.header1.Location = new System.Drawing.Point(0, 0);
+            this.header1.Margin = new System.Windows.Forms.Padding(0);
+            this.header1.Name = "header1";
+            this.header1.Size = new System.Drawing.Size(1264, 50);
+            this.header1.TabIndex = 0;
             // 
             // MainForm
             // 
