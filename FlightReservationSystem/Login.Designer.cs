@@ -33,9 +33,9 @@
             this.picVisibility = new System.Windows.Forms.PictureBox();
             this.btnLogin = new System.Windows.Forms.Button();
             this.lblPassword = new System.Windows.Forms.Label();
-            this.tbPassword = new System.Windows.Forms.TextBox();
+            this.tbPasswordVal = new System.Windows.Forms.TextBox();
             this.lblUserID = new System.Windows.Forms.Label();
-            this.tbUserID = new System.Windows.Forms.TextBox();
+            this.tbUserIDVal = new System.Windows.Forms.TextBox();
             this.lblLogin = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.errorProvider2 = new System.Windows.Forms.ErrorProvider(this.components);
@@ -54,9 +54,9 @@
             this.pnlLogin.Controls.Add(this.picVisibility);
             this.pnlLogin.Controls.Add(this.btnLogin);
             this.pnlLogin.Controls.Add(this.lblPassword);
-            this.pnlLogin.Controls.Add(this.tbPassword);
+            this.pnlLogin.Controls.Add(this.tbPasswordVal);
             this.pnlLogin.Controls.Add(this.lblUserID);
-            this.pnlLogin.Controls.Add(this.tbUserID);
+            this.pnlLogin.Controls.Add(this.tbUserIDVal);
             this.pnlLogin.Controls.Add(this.lblLogin);
             this.pnlLogin.Location = new System.Drawing.Point(457, 188);
             this.pnlLogin.Margin = new System.Windows.Forms.Padding(0);
@@ -113,20 +113,20 @@
             this.lblPassword.Tag = "";
             this.lblPassword.Text = "Password *";
             // 
-            // tbPassword
+            // tbPasswordVal
             // 
-            this.tbPassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(248)))), ((int)(((byte)(255)))));
-            this.tbPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tbPassword.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbPassword.ForeColor = System.Drawing.Color.Black;
-            this.tbPassword.Location = new System.Drawing.Point(35, 178);
-            this.tbPassword.Margin = new System.Windows.Forms.Padding(0, 8, 0, 0);
-            this.tbPassword.MaxLength = 20;
-            this.tbPassword.Name = "tbPassword";
-            this.tbPassword.PasswordChar = '*';
-            this.tbPassword.Size = new System.Drawing.Size(240, 27);
-            this.tbPassword.TabIndex = 3;
-            this.tbPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbPassword_KeyPress);
+            this.tbPasswordVal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(248)))), ((int)(((byte)(255)))));
+            this.tbPasswordVal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tbPasswordVal.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbPasswordVal.ForeColor = System.Drawing.Color.Black;
+            this.tbPasswordVal.Location = new System.Drawing.Point(35, 178);
+            this.tbPasswordVal.Margin = new System.Windows.Forms.Padding(0, 8, 0, 0);
+            this.tbPasswordVal.MaxLength = 20;
+            this.tbPasswordVal.Name = "tbPasswordVal";
+            this.tbPasswordVal.PasswordChar = '*';
+            this.tbPasswordVal.Size = new System.Drawing.Size(240, 27);
+            this.tbPasswordVal.TabIndex = 3;
+            this.tbPasswordVal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbPassword_KeyPress);
             // 
             // lblUserID
             // 
@@ -141,19 +141,19 @@
             this.lblUserID.Tag = "";
             this.lblUserID.Text = "User ID *";
             // 
-            // tbUserID
+            // tbUserIDVal
             // 
-            this.tbUserID.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(248)))), ((int)(((byte)(255)))));
-            this.tbUserID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tbUserID.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbUserID.ForeColor = System.Drawing.Color.Black;
-            this.tbUserID.Location = new System.Drawing.Point(35, 104);
-            this.tbUserID.Margin = new System.Windows.Forms.Padding(0, 8, 35, 0);
-            this.tbUserID.MaxLength = 7;
-            this.tbUserID.Name = "tbUserID";
-            this.tbUserID.Size = new System.Drawing.Size(280, 27);
-            this.tbUserID.TabIndex = 1;
-            this.tbUserID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbUserID_KeyPress);
+            this.tbUserIDVal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(248)))), ((int)(((byte)(255)))));
+            this.tbUserIDVal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tbUserIDVal.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbUserIDVal.ForeColor = System.Drawing.Color.Black;
+            this.tbUserIDVal.Location = new System.Drawing.Point(35, 104);
+            this.tbUserIDVal.Margin = new System.Windows.Forms.Padding(0, 8, 35, 0);
+            this.tbUserIDVal.MaxLength = 7;
+            this.tbUserIDVal.Name = "tbUserIDVal";
+            this.tbUserIDVal.Size = new System.Drawing.Size(280, 27);
+            this.tbUserIDVal.TabIndex = 1;
+            this.tbUserIDVal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbUserID_KeyPress);
             // 
             // lblLogin
             // 
@@ -218,8 +218,8 @@
         #endregion
         private System.Windows.Forms.Panel pnlLogin;
         private System.Windows.Forms.Label lblLogin;
-        private System.Windows.Forms.TextBox tbUserID;
-        private System.Windows.Forms.TextBox tbPassword;
+        private System.Windows.Forms.TextBox tbUserIDVal;
+        private System.Windows.Forms.TextBox tbPasswordVal;
         private UserControls.Header pnlHeader;
         private System.Windows.Forms.Button btnLogin;
         private UserControls.Header header1;

@@ -39,7 +39,7 @@ namespace FlightReservationSystem
                 return;
             }
 
-            tbPassword.Tag = false; // false means not visible
+            tbPasswordVal.Tag = false; // false means not visible
 
             PopulateErrorUIs();
             Authentication.Init(Current);
@@ -47,27 +47,27 @@ namespace FlightReservationSystem
 
         private void TogglePasswordVisibility()
         {
-            if (tbPassword.Tag is bool visible)
+            if (tbPasswordVal.Tag is bool visible)
             {
                 if (visible)
                 {
-                    tbPassword.PasswordChar = '*';
+                    tbPasswordVal.PasswordChar = '*';
                     picVisibility.Image = Properties.Resources.eyeOpen;
                 }
                 else
                 {
-                    tbPassword.PasswordChar = '\0';
+                    tbPasswordVal.PasswordChar = '\0';
                     picVisibility.Image = Properties.Resources.eyeClosed;
                 }
 
-                tbPassword.Tag = !visible;
+                tbPasswordVal.Tag = !visible;
             }
         }
 
         private void PopulateErrorUIs()
         {
-            ErrorUICollection.Add(new ErrorUIRecord { Provider = errorProvider1, Target = lblUserID, Field = tbUserID,  DefaultValue = string.Empty });
-            ErrorUICollection.Add(new ErrorUIRecord { Provider = errorProvider2, Target = lblPassword, Field = tbPassword, DefaultValue = string.Empty });
+            ErrorUICollection.Add(new ErrorUIRecord { Provider = errorProvider1, Target = lblUserID, Field = tbUserIDVal,  DefaultValue = string.Empty });
+            ErrorUICollection.Add(new ErrorUIRecord { Provider = errorProvider2, Target = lblPassword, Field = tbPasswordVal, DefaultValue = string.Empty });
         }
 
         private bool AreLoginFieldsValid(string userID, string password)
@@ -125,8 +125,8 @@ namespace FlightReservationSystem
             ControlValResetter.ClearProviders();
             ErrorCollection.Clear();
 
-            string userID = tbUserID.Text.Trim();
-            string password = tbPassword.Text.Trim();
+            string userID = tbUserIDVal.Text.Trim();
+            string password = tbPasswordVal.Text.Trim();
 
             if (!AreLoginFieldsValid(userID, password)) return;
 

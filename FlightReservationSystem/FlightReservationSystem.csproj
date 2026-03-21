@@ -251,6 +251,7 @@
     </EmbeddedResource>
     <None Include="CodingGuidelines.md" />
     <None Include="float.md" />
+    <None Include="Info.md" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
