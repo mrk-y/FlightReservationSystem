@@ -56,6 +56,12 @@ namespace FlightReservationSystem.Helpers
                     return;
                 }
 
+                if (ValueChecker.HasSpaceStartEnd(message))
+                {
+                    DebugLogger.LogWithStackTrace($"message {i} starts or ends with space. Highlighting aborted.");
+                    return;
+                }
+
                 var associatedControls = errorRecord.AssociatedControls;
 
                 if (associatedControls == null)
@@ -110,6 +116,12 @@ namespace FlightReservationSystem.Helpers
             if (string.IsNullOrWhiteSpace(errorMessage))
             {
                 DebugLogger.LogWithStackTrace("errorMessage is null or whitespace. Highlighting aborted.");
+                return;
+            }
+
+            if (ValueChecker.HasSpaceStartEnd(errorMessage))
+            {
+                DebugLogger.LogWithStackTrace("errorMessage starts or ends with space. Highlighting aborted.");
                 return;
             }
 

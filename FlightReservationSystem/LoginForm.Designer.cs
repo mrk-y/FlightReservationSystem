@@ -1,6 +1,6 @@
 ﻿namespace FlightReservationSystem
 {
-    partial class Login
+    partial class LoginForm
     {
         /// <summary>
         /// Required designer variable.
@@ -69,7 +69,7 @@
             this.picVisibility.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(248)))), ((int)(((byte)(255)))));
             this.picVisibility.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picVisibility.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picVisibility.Image = global::FlightReservationSystem.Properties.Resources.eyeOpen;
+            this.picVisibility.Image = global::FlightReservationSystem.Properties.Resources.EyeOpen;
             this.picVisibility.Location = new System.Drawing.Point(288, 178);
             this.picVisibility.Margin = new System.Windows.Forms.Padding(0);
             this.picVisibility.Name = "picVisibility";
@@ -95,7 +95,7 @@
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Padding = new System.Windows.Forms.Padding(24, 2, 24, 2);
             this.btnLogin.Size = new System.Drawing.Size(101, 31);
-            this.btnLogin.TabIndex = 6;
+            this.btnLogin.TabIndex = 3;
             this.btnLogin.Text = "Login";
             this.btnLogin.UseVisualStyleBackColor = false;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
@@ -112,6 +112,7 @@
             this.lblPassword.TabIndex = 4;
             this.lblPassword.Tag = "";
             this.lblPassword.Text = "Password *";
+            this.lblPassword.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tbPasswordVal
             // 
@@ -125,7 +126,7 @@
             this.tbPasswordVal.Name = "tbPasswordVal";
             this.tbPasswordVal.PasswordChar = '*';
             this.tbPasswordVal.Size = new System.Drawing.Size(240, 27);
-            this.tbPasswordVal.TabIndex = 3;
+            this.tbPasswordVal.TabIndex = 2;
             this.tbPasswordVal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbPassword_KeyPress);
             // 
             // lblUserID
@@ -140,6 +141,7 @@
             this.lblUserID.TabIndex = 2;
             this.lblUserID.Tag = "";
             this.lblUserID.Text = "User ID *";
+            this.lblUserID.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tbUserIDVal
             // 
@@ -166,6 +168,7 @@
             this.lblLogin.Size = new System.Drawing.Size(63, 25);
             this.lblLogin.TabIndex = 0;
             this.lblLogin.Text = "Login";
+            this.lblLogin.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // errorProvider1
             // 

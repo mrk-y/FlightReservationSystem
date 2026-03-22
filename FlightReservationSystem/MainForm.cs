@@ -16,7 +16,7 @@ namespace FlightReservationSystem
 {
     public partial class MainForm : Form
     {
-        public static MainForm Current { get; set; } = null;
+        private static MainForm Current { get; set; } = null;
         public static Panel _pnlNavigation => Current.pnlNavigation;
         public static Panel _pnlContent => Current.pnlContent;
 
@@ -28,27 +28,6 @@ namespace FlightReservationSystem
         {
             InitializeComponent();
             InitData();
-        }
-
-        private void InitData()
-        {
-            Current = this;
-
-            if (Current == null)
-            {
-                DebugLogger.LogWithStackTrace("Current is null. Data initialization aborted.");
-                return;
-            }
-
-            string userName = Session._user.Name;
-
-            if (string.IsNullOrWhiteSpace(userName))
-            {
-                DebugLogger.LogWithStackTrace("userName is null or whitespace. Data initialization aborted.");
-                return;
-            }
-
-            lblUsernameVal.Text = userName;
         }
 
         public static void Init(UserControl content, UserControl navigation = null)
@@ -76,6 +55,52 @@ namespace FlightReservationSystem
             _pnlContent.ResumeLayout();
 
             _content = content;
+        }
+
+        private void InitData()
+        {
+            Current = this;
+
+            if (Current == null)
+            {
+                DebugLogger.LogWithStackTrace("Current is null. Data initialization aborted.");
+                return;
+            }
+
+            ShowUserIDName();
+        }
+
+        private void ShowUserIDName()
+        {
+            string userName = Session._user.Name;
+
+            if (string.IsNullOrWhiteSpace(userName))
+            {
+                DebugLogger.LogWithStackTrace("userName is null or whitespace. Data initialization aborted.");
+                return;
+            }
+
+            if (ValueChecker.HasSpaceStartEnd(userName))
+            {
+                DebugLogger.LogWithStackTrace("userName starts or ends with space. Data initialization aborted.");
+                return;
+            }
+
+            string userID = Session._user.UserID;
+
+            if (string.IsNullOrWhiteSpace(userID))
+            {
+                DebugLogger.LogWithStackTrace("userID is null or whitespace. Data initialization aborted.");
+                return;
+            }
+
+            if (ValueChecker.HasSpaceStartEnd(userID))
+            {
+                DebugLogger.LogWithStackTrace("userID starts or ends with space. Data initialization aborted.");
+                return;
+            }
+
+            lblUsernameVal.Text = $"{userName} ({userID})";
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

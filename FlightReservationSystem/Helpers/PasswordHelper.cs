@@ -22,6 +22,12 @@ namespace FlightReservationSystem.Helpers
                 return "";
             }
 
+            if (ValueChecker.HasSpaceStartEnd(password))
+            {
+                DebugLogger.LogWithStackTrace("password starts or ends with space. Hashing aborted.");
+                return "";
+            }
+
             byte[] salt = new byte[SaltSize];
             using (var rng = RandomNumberGenerator.Create()) rng.GetBytes(salt);
 
@@ -43,9 +49,21 @@ namespace FlightReservationSystem.Helpers
                 return false;
             }
 
+            if (ValueChecker.HasSpaceStartEnd(password))
+            {
+                DebugLogger.LogWithStackTrace("password starts or ends with space. Verification aborted.");
+                return false;
+            }
+
             if (string.IsNullOrWhiteSpace(storedHash))
             {
                 DebugLogger.LogWithStackTrace("storedHash is null or whitespace. Verification aborted.");
+                return false;
+            }
+
+            if (ValueChecker.HasSpaceStartEnd(storedHash))
+            {
+                DebugLogger.LogWithStackTrace("storedHash starts or ends with space. Verification aborted.");
                 return false;
             }
 

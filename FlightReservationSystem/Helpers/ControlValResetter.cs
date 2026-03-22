@@ -86,7 +86,7 @@ namespace FlightReservationSystem.Helpers
                     if (defaultValue is string val) tb.Text = val;
                     else
                     {
-                        DebugLogger.LogWithStackTrace($"defaultValue {i} is not string. Value defaulting aborted.");
+                        DebugLogger.LogWithStackTrace($"defaultValue {i} is not type string. Value defaulting aborted.");
                         return;
                     }
                 }
@@ -95,7 +95,7 @@ namespace FlightReservationSystem.Helpers
                     if (defaultValue is int val) cmb.SelectedIndex = val;
                     else
                     {
-                        DebugLogger.LogWithStackTrace($"defaultValue {i} is not int. Value defaulting aborted.");
+                        DebugLogger.LogWithStackTrace($"defaultValue {i} is not type int. Value defaulting aborted.");
                         return;
                     }
 
@@ -108,6 +108,12 @@ namespace FlightReservationSystem.Helpers
             if (string.IsNullOrWhiteSpace(fieldName))
             {
                 DebugLogger.LogWithStackTrace("fieldName is null or whitespace. Value defaulting aborted.");
+                return;
+            }
+
+            if (ValueChecker.HasSpaceStartEnd(fieldName))
+            {
+                DebugLogger.LogWithStackTrace("fieldName starts or ends with space. Value defaulting aborted.");
                 return;
             }
 
@@ -152,7 +158,7 @@ namespace FlightReservationSystem.Helpers
                         if (defaultValue is string val) tb.Text = val;
                         else
                         {
-                            DebugLogger.LogWithStackTrace($"defaultValue {i} is not string. Value defaulting aborted.");
+                            DebugLogger.LogWithStackTrace($"defaultValue {i} is not type string. Value defaulting aborted.");
                             return;
                         }
 
@@ -162,7 +168,7 @@ namespace FlightReservationSystem.Helpers
                         if (defaultValue is int val) cmb.SelectedIndex = val;
                         else
                         {
-                            DebugLogger.LogWithStackTrace($"defaultValue {i} is not int. Value defaulting aborted.");
+                            DebugLogger.LogWithStackTrace($"defaultValue {i} is not type int. Value defaulting aborted.");
                             return;
                         }
                     }
@@ -216,6 +222,12 @@ namespace FlightReservationSystem.Helpers
                 DebugLogger.LogWithStackTrace("fieldName is null or whitespace. Clearing aborted.");
                 return;
             }
+
+            if (ValueChecker.HasSpaceStartEnd(fieldName))
+            {
+                DebugLogger.LogWithStackTrace("fieldName starts or ends with space. Clearing aborted.");
+                return;
+            } 
 
             var errorUICollection = ErrorUICollection.Get;
 

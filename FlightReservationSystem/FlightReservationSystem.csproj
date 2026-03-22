@@ -182,8 +182,11 @@
     <Compile Include="Data\Runtime\User\Session.cs" />
     <Compile Include="Data\Runtime\User\User.cs" />
     <Compile Include="Debugging\DebugLogger.cs" />
+    <Compile Include="Helpers\ValueChecker.cs" />
+    <Compile Include="Helpers\ControlResolver.cs" />
     <Compile Include="Helpers\ControlValResetter.cs" />
     <Compile Include="Helpers\DatabaseConnection.cs" />
+    <Compile Include="Helpers\DataFormatter.cs" />
     <Compile Include="Helpers\DataSeeder.cs" />
     <Compile Include="Helpers\ErrorManager.cs" />
     <Compile Include="Helpers\ErrorUIHelper.cs" />
@@ -191,11 +194,11 @@
     <Compile Include="Helpers\MainFormUIHelper.cs" />
     <Compile Include="Helpers\MessageBoxHelper.cs" />
     <Compile Include="Helpers\PasswordHelper.cs" />
-    <Compile Include="Login.cs">
+    <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Login.Designer.cs">
-      <DependentUpon>Login.cs</DependentUpon>
+    <Compile Include="LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -205,12 +208,21 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Authentication.cs" />
+    <Compile Include="Services\AccountManagement.cs" />
+    <Compile Include="Services\AccountSession.cs" />
+    <Compile Include="Services\AircraftManagement.cs" />
+    <Compile Include="Services\IDGenerator.cs" />
     <Compile Include="UserControls\Header.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserControls\Header.Designer.cs">
       <DependentUpon>Header.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Others\AdminProgressStatus.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Others\AdminProgressStatus.Designer.cs">
+      <DependentUpon>AdminProgressStatus.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\SystemAdmin\AddAircraft.cs">
       <SubType>UserControl</SubType>
@@ -224,8 +236,8 @@
     <Compile Include="UserControls\SystemAdmin\SANavigation.Designer.cs">
       <DependentUpon>SANavigation.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Login.resx">
-      <DependentUpon>Login.cs</DependentUpon>
+    <EmbeddedResource Include="LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -242,6 +254,9 @@
     </Compile>
     <EmbeddedResource Include="UserControls\Header.resx">
       <DependentUpon>Header.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Others\AdminProgressStatus.resx">
+      <DependentUpon>AdminProgressStatus.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\SystemAdmin\AddAircraft.resx">
       <DependentUpon>AddAircraft.cs</DependentUpon>

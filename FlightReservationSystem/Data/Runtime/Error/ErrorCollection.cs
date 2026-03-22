@@ -1,4 +1,5 @@
 ﻿using FlightReservationSystem.Debugging;
+using FlightReservationSystem.Helpers;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -22,9 +23,17 @@ namespace FlightReservationSystem.Data.Runtime.Error
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(errorRecord.Message))
+            string message = errorRecord.Message;
+
+            if (string.IsNullOrWhiteSpace(message))
             {
-                DebugLogger.LogWithStackTrace("errorRecord.Message is null or whitespace. Addding aborted.");
+                DebugLogger.LogWithStackTrace("message is null or whitespace. Addding aborted.");
+                return;
+            }
+
+            if (ValueChecker.HasSpaceStartEnd(message))
+            {
+                DebugLogger.LogWithStackTrace("message starts or ends with space. Adding aborted.");
                 return;
             }
 

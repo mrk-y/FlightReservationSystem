@@ -35,7 +35,7 @@
             // 
             // picLogo
             // 
-            this.picLogo.Image = global::FlightReservationSystem.Properties.Resources.planeLogo;
+            this.picLogo.Image = global::FlightReservationSystem.Properties.Resources.Plane;
             this.picLogo.Location = new System.Drawing.Point(24, 9);
             this.picLogo.Margin = new System.Windows.Forms.Padding(0);
             this.picLogo.Name = "picLogo";

@@ -16,14 +16,14 @@ using System.Windows.Forms;
 
 namespace FlightReservationSystem
 {
-    public partial class Login : Form
+    public partial class LoginForm : Form
     {
-        public static Login Current { get; set; } = null; 
+        private static LoginForm Current { get; set; } = null; 
 
-        public Label _lblUserID => lblUserID; 
-        public Label _lblPassword => lblPassword;
+        public static Label _lblUserID => Current.lblUserID; 
+        public static Label _lblPassword => Current.lblPassword;
 
-        public Login()
+        public LoginForm()
         {
             InitializeComponent();
             InitData();
@@ -41,8 +41,7 @@ namespace FlightReservationSystem
 
             tbPasswordVal.Tag = false; // false means not visible
 
-            PopulateErrorUIs();
-            Authentication.Init(Current);
+            PopulateErrorUI();
         }
 
         private void TogglePasswordVisibility()
@@ -52,19 +51,19 @@ namespace FlightReservationSystem
                 if (visible)
                 {
                     tbPasswordVal.PasswordChar = '*';
-                    picVisibility.Image = Properties.Resources.eyeOpen;
+                    picVisibility.Image = Properties.Resources.EyeOpen;
                 }
                 else
                 {
                     tbPasswordVal.PasswordChar = '\0';
-                    picVisibility.Image = Properties.Resources.eyeClosed;
+                    picVisibility.Image = Properties.Resources.EyeClosed;
                 }
 
                 tbPasswordVal.Tag = !visible;
             }
         }
 
-        private void PopulateErrorUIs()
+        private void PopulateErrorUI()
         {
             ErrorUICollection.Add(new ErrorUIRecord { Provider = errorProvider1, Target = lblUserID, Field = tbUserIDVal,  DefaultValue = string.Empty });
             ErrorUICollection.Add(new ErrorUIRecord { Provider = errorProvider2, Target = lblPassword, Field = tbPasswordVal, DefaultValue = string.Empty });
@@ -86,6 +85,11 @@ namespace FlightReservationSystem
             } 
 
             return true;
+        }
+
+        public static void HideForm()
+        {
+            Current.Hide();   
         }
 
         private void Login_FormClosing(object sender, FormClosingEventArgs e)
@@ -130,7 +134,7 @@ namespace FlightReservationSystem
 
             if (!AreLoginFieldsValid(userID, password)) return;
 
-            Authentication.AuthenticateCredentials(userID, password);
+            AccountSession.AuthenticateLogin(userID, password);
         }
     }
 }

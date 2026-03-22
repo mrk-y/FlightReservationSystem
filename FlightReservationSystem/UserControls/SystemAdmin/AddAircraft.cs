@@ -12,13 +12,34 @@ using System.Windows.Forms;
 
 namespace FlightReservationSystem.UserControls.SystemAdmin
 {
-    public partial class AddAircraft : UserControl
+    public partial class AddAircraft : UserControl, ControlResolver.IAcceptButton
     {
+        public Button AcceptButton => btnAddAircraft;
+
+        // public static Button enterBtn => btnAddAircraft;
+
         public AddAircraft()
         {
             InitializeComponent();
             InitData();
             InitUI();
+        }
+
+        public void Init(MainForm mainForm)
+        {
+            if (mainForm == null)
+            {
+                DebugLogger.LogWithStackTrace("mainForm is null. Initialization aborted.");
+                return;
+            }
+
+            if (AcceptButton == null)
+            {
+                DebugLogger.LogWithStackTrace("AcceptButton is null. Initialization aborted.");
+                return;
+            }
+
+            mainForm.AcceptButton = AcceptButton;
         }
 
         private void InitData()

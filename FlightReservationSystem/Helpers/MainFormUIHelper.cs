@@ -30,7 +30,7 @@ namespace FlightReservationSystem.Helpers
 
             if (!(form is MainForm))
             {
-                DebugLogger.LogWithStackTrace("form is not MainForm. Update aborted.");
+                DebugLogger.LogWithStackTrace("form is not type MainForm. Update aborted.");
                 return;
             }
 
@@ -42,71 +42,63 @@ namespace FlightReservationSystem.Helpers
                 return;
             }
 
-            var navigationControls = panelNavigation.Controls;
-
-            if (navigationControls == null)
+            if (panelNavigation.Controls.Count == 0)
             {
-                DebugLogger.LogWithStackTrace("navigationControls is null. Update aborted.");
+                DebugLogger.LogWithStackTrace("panelNavigation.Controls is empty. Update aborted.");
                 return;
             }
 
-            if (navigationControls.Count == 0)
+            UserControl saNavigation = MainForm._navigation;
+            
+            if (saNavigation == null)
             {
-                DebugLogger.LogWithStackTrace("navigationControls is empty. Update aborted.");
+                DebugLogger.LogWithStackTrace("saNavigation is null. Update aborted.");
                 return;
             }
 
-            for (int i = 0; i < navigationControls.Count; i++)
+            if (!(saNavigation is SANavigation))
             {
-                var navigationControl = navigationControls[i];
+                DebugLogger.LogWithStackTrace("saNavigation is not type SANavigation. Update aborted.");
+                return;
+            }
 
-                if (navigationControl == null)
+            var saNavControls = saNavigation.Controls;
+
+            if (saNavControls.Count == 0)
+            {
+                DebugLogger.LogWithStackTrace("saNavControls is empty. Update aborted.");
+                return;
+            }
+
+            for (int i = 0; i < saNavControls.Count; i++)
+            {
+                var saNavControl = saNavControls[i];
+
+                if (saNavControl == null)
                 {
-                    DebugLogger.LogWithStackTrace($"navigationControl {i} is null. Update aborted.");
+                    DebugLogger.LogWithStackTrace($"saNavControl {i} is null. Update aborted.");
                     return;
-                }
-
-                if (navigationControl is SANavigation saNav)
-                {
-                    var saNavControls = saNav.Controls;
-
-                    if (saNavControls == null)
-                    {
-                        DebugLogger.LogWithStackTrace($"saNavControls {i} is null. Update aborted.");
-                        return;
-                    }
-
-                    if (saNavControls.Count == 0)
-                    {
-                        DebugLogger.LogWithStackTrace($"saNavControls {i} is empty. Update aborted.");
-                        return;
-                    }
-
-                    for (int j = 0; j < saNavControls.Count; j++)
-                    {
-                        var saNavControl = saNavControls[j];
-
-                        if (saNavControl == null)
-                        {
-                            DebugLogger.LogWithStackTrace($"saNavControl {j} is null saNavControls {i}. Update aborted.");
-                            return;
-                        }
-
-                        if (saNavControl is Button btn)
-                        {
-                            if (btn.Tag is string tag && tag == content.Name)
-                            {
-                                btn.BackColor = ThemeColors.Secondary;
-                                btn.ForeColor = ThemeColors.Primary;
-                            }
-                            else
-                            {
-                                btn.BackColor = ThemeColors.Primary;
-                                btn.ForeColor = ThemeColors.Secondary;
-                            }
-                        }
-                    }
                 } 
+
+                if (saNavControl is Button btn && btn.Tag is string tag)
+                {
+                    if (ValueChecker.HasSpaceStartEnd(tag))
+                    {
+                        DebugLogger.LogWithStackTrace($"tag {i} starts or ends with space. Update aborted.");
+                        return;
+                    }
+
+                    if (tag == content.Name)
+                    {
+                        btn.BackColor = ThemeColors.Secondary;
+                        btn.ForeColor = ThemeColors.Primary;
+                    }
+                    else
+                    {
+                        btn.BackColor = ThemeColors.Primary;
+                        btn.ForeColor = ThemeColors.Secondary;
+                    }
+                }
             }
         }
     }

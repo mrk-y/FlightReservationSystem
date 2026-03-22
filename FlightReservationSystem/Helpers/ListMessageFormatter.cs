@@ -42,12 +42,24 @@ namespace FlightReservationSystem.Helpers
                     return "";
                 }
 
+                if (ValueChecker.HasSpaceStartEnd(message))
+                {
+                    DebugLogger.LogWithStackTrace($"message {i} starts or ends with space. Listing aborted.");
+                    return "";
+                }
+
                 listMessage.AppendLine($"- {message}");
             }
 
             if (string.IsNullOrWhiteSpace(listMessage.ToString()))
             {
                 DebugLogger.LogWithStackTrace("listMessage is null or whitespace. Listing aborted.");
+                return "";
+            }
+
+            if (ValueChecker.HasSpaceStartEnd(listMessage.ToString()))
+            {
+                DebugLogger.LogWithStackTrace("listMessage starts or ends with space. Listing aborted.");
                 return "";
             }
 

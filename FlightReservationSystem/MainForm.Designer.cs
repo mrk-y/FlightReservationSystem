@@ -71,10 +71,10 @@
             // 
             // pnlContent
             // 
-            this.pnlContent.Location = new System.Drawing.Point(24, 114);
+            this.pnlContent.Location = new System.Drawing.Point(32, 114);
             this.pnlContent.Margin = new System.Windows.Forms.Padding(0, 24, 0, 0);
             this.pnlContent.Name = "pnlContent";
-            this.pnlContent.Size = new System.Drawing.Size(1216, 544);
+            this.pnlContent.Size = new System.Drawing.Size(1200, 544);
             this.pnlContent.TabIndex = 4;
             // 
             // header1

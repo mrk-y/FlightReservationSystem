@@ -19,9 +19,17 @@ namespace FlightReservationSystem.Helpers
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(errorRecord.Message))
+            string message = errorRecord.Message;
+
+            if (string.IsNullOrWhiteSpace(message))
             {
-                DebugLogger.LogWithStackTrace("errorRecord.Message is null or whitespace. Adding aborted.");
+                DebugLogger.LogWithStackTrace("message is null or whitespace. Adding aborted.");
+                return;
+            }
+
+            if (ValueChecker.HasSpaceStartEnd(message))
+            {
+                DebugLogger.LogWithStackTrace("message starts or ends with space. Adding aborted.");
                 return;
             }
 
@@ -57,7 +65,7 @@ namespace FlightReservationSystem.Helpers
         }
 
         public static void Highlight(bool individual, string errorMessage = null)
-        {   
+        {
             if (!individual && string.IsNullOrWhiteSpace(errorMessage))
             {
                 DebugLogger.LogWithStackTrace("individual is false and errorMessage is null or whitespace. Highlighting aborted.");
@@ -66,6 +74,12 @@ namespace FlightReservationSystem.Helpers
             else if (individual && !string.IsNullOrWhiteSpace(errorMessage))
             {
                 DebugLogger.LogWithStackTrace("individual is true and errorMessage is not null or whitespace. Highlighting aborted.");
+                return;
+            }
+
+            if (errorMessage != null && ValueChecker.HasSpaceStartEnd(errorMessage))
+            {
+                DebugLogger.LogWithStackTrace("errorMessage starts or ends with space. Highlighting aborted.");
                 return;
             }
 
