@@ -10,5 +10,9 @@ namespace FlightReservationSystem.Services
 
     internal class AircraftManagement
     {
+        public static void AddAircraft()
+        {
+            return;
+        }
     }
 }

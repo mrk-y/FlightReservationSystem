@@ -8,7 +8,7 @@ namespace FlightReservationSystem.Helpers
 {
     internal class ValueChecker
     {
-        public static bool HasSpaceStartEnd(string str)
+        public static bool HasStartEndSpace(string str)
         {
             return str.StartsWith(" ") || str.EndsWith(" ");
         }

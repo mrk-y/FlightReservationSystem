@@ -1,6 +1,6 @@
 ﻿namespace FlightReservationSystem.UserControls.Others
 {
-    partial class AdminProgressStatus
+    partial class SAProgressStatus
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,14 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lblProgress = new System.Windows.Forms.Label();
             this.lblStatusVal = new System.Windows.Forms.Label();
             this.lblSeparator2 = new System.Windows.Forms.Label();
             this.lblStatus = new System.Windows.Forms.Label();
             this.lblProgressVal = new System.Windows.Forms.Label();
             this.lblSeparator1 = new System.Windows.Forms.Label();
-            this.picQuestion2 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.picQuestion2)).BeginInit();
+            this.picQuestion1 = new System.Windows.Forms.PictureBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.picQuestion1)).BeginInit();
             this.SuspendLayout();
             // 
             // lblProgress
@@ -53,14 +55,13 @@
             // lblStatusVal
             // 
             this.lblStatusVal.AutoEllipsis = true;
-            this.lblStatusVal.AutoSize = true;
             this.lblStatusVal.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStatusVal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(80)))));
             this.lblStatusVal.Location = new System.Drawing.Point(293, 12);
             this.lblStatusVal.Margin = new System.Windows.Forms.Padding(0);
-            this.lblStatusVal.MaximumSize = new System.Drawing.Size(160, 17);
+            this.lblStatusVal.MinimumSize = new System.Drawing.Size(160, 17);
             this.lblStatusVal.Name = "lblStatusVal";
-            this.lblStatusVal.Size = new System.Drawing.Size(48, 17);
+            this.lblStatusVal.Size = new System.Drawing.Size(160, 17);
             this.lblStatusVal.TabIndex = 19;
             this.lblStatusVal.Text = "[Value]";
             // 
@@ -96,9 +97,9 @@
             this.lblProgressVal.Location = new System.Drawing.Point(129, 12);
             this.lblProgressVal.Margin = new System.Windows.Forms.Padding(0, 0, 32, 0);
             this.lblProgressVal.Name = "lblProgressVal";
-            this.lblProgressVal.Size = new System.Drawing.Size(48, 17);
+            this.lblProgressVal.Size = new System.Drawing.Size(20, 17);
             this.lblProgressVal.TabIndex = 16;
-            this.lblProgressVal.Text = "[Value]";
+            this.lblProgressVal.Text = "/3";
             // 
             // lblSeparator1
             // 
@@ -112,18 +113,18 @@
             this.lblSeparator1.TabIndex = 15;
             this.lblSeparator1.Text = ":";
             // 
-            // picQuestion2
+            // picQuestion1
             // 
-            this.picQuestion2.Image = global::FlightReservationSystem.Properties.Resources.Question;
-            this.picQuestion2.Location = new System.Drawing.Point(71, 13);
-            this.picQuestion2.Margin = new System.Windows.Forms.Padding(0, 0, 24, 0);
-            this.picQuestion2.Name = "picQuestion2";
-            this.picQuestion2.Size = new System.Drawing.Size(16, 16);
-            this.picQuestion2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.picQuestion2.TabIndex = 10;
-            this.picQuestion2.TabStop = false;
+            this.picQuestion1.Image = global::FlightReservationSystem.Properties.Resources.Question;
+            this.picQuestion1.Location = new System.Drawing.Point(71, 13);
+            this.picQuestion1.Margin = new System.Windows.Forms.Padding(0, 0, 24, 0);
+            this.picQuestion1.Name = "picQuestion1";
+            this.picQuestion1.Size = new System.Drawing.Size(16, 16);
+            this.picQuestion1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.picQuestion1.TabIndex = 10;
+            this.picQuestion1.TabStop = false;
             // 
-            // AdminProgressStatus
+            // SAProgressStatus
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -134,13 +135,13 @@
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.lblProgressVal);
             this.Controls.Add(this.lblSeparator1);
-            this.Controls.Add(this.picQuestion2);
+            this.Controls.Add(this.picQuestion1);
             this.Controls.Add(this.lblProgress);
             this.Margin = new System.Windows.Forms.Padding(0);
-            this.Name = "AdminProgressStatus";
+            this.Name = "SAProgressStatus";
             this.Padding = new System.Windows.Forms.Padding(12);
             this.Size = new System.Drawing.Size(465, 41);
-            ((System.ComponentModel.ISupportInitialize)(this.picQuestion2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picQuestion1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -149,11 +150,12 @@
         #endregion
 
         private System.Windows.Forms.Label lblProgress;
-        private System.Windows.Forms.PictureBox picQuestion2;
+        private System.Windows.Forms.PictureBox picQuestion1;
         private System.Windows.Forms.Label lblStatusVal;
         private System.Windows.Forms.Label lblSeparator2;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Label lblProgressVal;
         private System.Windows.Forms.Label lblSeparator1;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

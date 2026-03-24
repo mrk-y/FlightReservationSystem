@@ -105,6 +105,8 @@ namespace FlightReservationSystem
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            // Application exit verification
+
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 DialogResult result = MessageBoxHelper.ShowQuestionMessage("Are you sure you want to exit?\nAny incomplete progress you made will be lost.");

@@ -10,11 +10,11 @@ namespace FlightReservationSystem.Debugging
 {
     internal class DebugLogger
     {
-        public static void Log(string message, [CallerFilePath] string filePath = null, [CallerLineNumber] int lineNumber = default, [CallerMemberName] string memberName = null)
-        {
-            // Fornat: Why + What didn't happen + What did happen 
-            Debug.WriteLine($"{filePath} ({lineNumber}) in {memberName}: {message} Returning early.");
-        }
+        //public static void Log(string message, [CallerFilePath] string filePath = null, [CallerLineNumber] int lineNumber = default, [CallerMemberName] string memberName = null)
+        //{
+        //    // Fornat: Why + What didn't happen + What did happen 
+        //    Debug.WriteLine($"{filePath} ({lineNumber}) in {memberName}: {message} Returning early.");
+        //}
 
         public static void LogWithStackTrace(string message, [CallerMemberName] string memberName = null, [CallerFilePath] string filePath = null, [CallerLineNumber] int lineNumber = 0)
         {

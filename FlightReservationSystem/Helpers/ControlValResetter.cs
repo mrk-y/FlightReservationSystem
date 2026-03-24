@@ -25,23 +25,7 @@ namespace FlightReservationSystem.Helpers
 
             for (int i = 0; i < errorUICollection.Count; i++)
             {
-                var errorUIRecord = errorUICollection[i];
-
-                if (errorUIRecord == null)
-                {
-                    DebugLogger.LogWithStackTrace($"errorUIRecord {i} is null. Clearing aborted.");
-                    return;
-                }
-
-                var provider = errorUIRecord.Provider;
-
-                if (provider == null)
-                {
-                    DebugLogger.LogWithStackTrace($"provider {i} is null. Clearing aborted.");
-                    return;
-                }
-
-                provider.Clear();
+                errorUICollection[i].Provider.Clear();
             }
         }
 
@@ -58,48 +42,11 @@ namespace FlightReservationSystem.Helpers
             for (int i = 0; i < errorUICollection.Count; i++)
             {
                 var errorUIRecord = errorUICollection[i];
-
-                if (errorUIRecord == null)
-                {
-                    DebugLogger.LogWithStackTrace($"errorUIRecord {i} is null. Value defaulting aborted.");
-                    return;
-                }
-
                 Control field = errorUIRecord.Field;
-
-                if (field == null)
-                {
-                    DebugLogger.LogWithStackTrace($"field {i} is null. Value defaulting aborted.");
-                    return;
-                }
-
                 object defaultValue = errorUIRecord.DefaultValue;
 
-                if (object.Equals(defaultValue, null))
-                {
-                    DebugLogger.LogWithStackTrace($"defaultValue {i} is null. Value defaulting aborted.");
-                    return;
-                }
-
-                if (field is TextBox tb)
-                {
-                    if (defaultValue is string val) tb.Text = val;
-                    else
-                    {
-                        DebugLogger.LogWithStackTrace($"defaultValue {i} is not type string. Value defaulting aborted.");
-                        return;
-                    }
-                }
-                else if (field is ComboBox cmb)
-                {
-                    if (defaultValue is int val) cmb.SelectedIndex = val;
-                    else
-                    {
-                        DebugLogger.LogWithStackTrace($"defaultValue {i} is not type int. Value defaulting aborted.");
-                        return;
-                    }
-
-                }
+                if (field is TextBox tb && defaultValue is string tbVal) tb.Text = tbVal;
+                else if (field is ComboBox cmb && defaultValue is int cmbVal) cmb.SelectedIndex = cmbVal;
             }
         }
 
@@ -111,7 +58,7 @@ namespace FlightReservationSystem.Helpers
                 return;
             }
 
-            if (ValueChecker.HasSpaceStartEnd(fieldName))
+            if (ValueChecker.HasStartEndSpace(fieldName))
             {
                 DebugLogger.LogWithStackTrace("fieldName starts or ends with space. Value defaulting aborted.");
                 return;
@@ -128,50 +75,13 @@ namespace FlightReservationSystem.Helpers
             for (int i = 0; i < errorUICollection.Count; i++)
             {
                 var errorUIRecord = errorUICollection[i];
-
-                if (errorUIRecord == null)
-                {
-                    DebugLogger.LogWithStackTrace($"errorUIRecord {i} is null. Value defaulting aborted.");
-                    return;
-                }
-
                 Control field = errorUIRecord.Field;
-
-                if (field == null)
-                {
-                    DebugLogger.LogWithStackTrace($"field {i} is null. Value defaulting aborted.");
-                    return;
-                }
-
                 object defaultValue = errorUIRecord.DefaultValue;
-
-                if (object.Equals(defaultValue, null))
-                {
-                    DebugLogger.LogWithStackTrace($"defaultValue {i} is null. Value defaulting aborted.");
-                    return;
-                }
 
                 if (field.Name == fieldName)
                 {
-                    if (field is TextBox tb)
-                    {
-                        if (defaultValue is string val) tb.Text = val;
-                        else
-                        {
-                            DebugLogger.LogWithStackTrace($"defaultValue {i} is not type string. Value defaulting aborted.");
-                            return;
-                        }
-
-                    }
-                    else if (field is ComboBox cmb)
-                    {
-                        if (defaultValue is int val) cmb.SelectedIndex = val;
-                        else
-                        {
-                            DebugLogger.LogWithStackTrace($"defaultValue {i} is not type int. Value defaulting aborted.");
-                            return;
-                        }
-                    }
+                    if (field is TextBox tb && defaultValue is string tbVal) tb.Text = tbVal;
+                    else if (field is ComboBox cmb && defaultValue is int cmbVal) cmb.SelectedIndex = cmbVal;
                 }
             }
         }
@@ -188,30 +98,10 @@ namespace FlightReservationSystem.Helpers
 
             for (int i = 0; i < errorUICollection.Count; i++)
             {
-                var errorUIRecord = errorUICollection[i];
+                var field = errorUICollection[i].Field;
 
-                if (errorUIRecord == null)
-                {
-                    DebugLogger.LogWithStackTrace($"errorUIRecord {i} is null. Clearing aborted.");
-                    return;
-                }
-
-                var field = errorUIRecord.Field;
-
-                if (field == null)
-                {
-                    DebugLogger.LogWithStackTrace($"field {i} is null. Clearing aborted.");
-                    return;
-                }
-
-                if (field is TextBox tb)
-                {
-                    tb.Clear();
-                }
-                else if (field is ComboBox cmb)
-                {
-                    cmb.Items.Clear();
-                }
+                if (field is TextBox tb)  tb.Clear();
+                else if (field is ComboBox cmb) cmb.Items.Clear();
             }
         }
 
@@ -223,7 +113,7 @@ namespace FlightReservationSystem.Helpers
                 return;
             }
 
-            if (ValueChecker.HasSpaceStartEnd(fieldName))
+            if (ValueChecker.HasStartEndSpace(fieldName))
             {
                 DebugLogger.LogWithStackTrace("fieldName starts or ends with space. Clearing aborted.");
                 return;
@@ -239,32 +129,12 @@ namespace FlightReservationSystem.Helpers
 
             for (int i = 0; i < errorUICollection.Count; i++)
             {
-                var errorUIRecord = errorUICollection[i];
-
-                if (errorUIRecord == null)
-                {
-                    DebugLogger.LogWithStackTrace($"errorUIRecord {i} is null. Clearing aborted.");
-                    return;
-                }
-
-                var field = errorUIRecord.Field;
-
-                if (field == null)
-                {
-                    DebugLogger.LogWithStackTrace($"field {i} is null. Clearing aborted.");
-                    return;
-                }
+                var field = errorUICollection[i].Field;
 
                 if (field.Name == fieldName)
                 {
-                    if (field is TextBox tb)
-                    {
-                        tb.Clear();
-                    }
-                    else if (field is ComboBox cmb)
-                    {
-                        cmb.Items.Clear();
-                    }
+                    if (field is TextBox tb) tb.Clear();
+                    else if (field is ComboBox cmb) cmb.Items.Clear();
                 }
             }
         }

@@ -174,7 +174,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Reference\AircraftModel\AircraftModelCollection.cs" />
+    <Compile Include="Data\Reference\AircraftModel\AircraftModelRecord.cs" />
+    <Compile Include="Data\Reference\AircraftModel\SeatLayoutRecord.cs" />
+    <Compile Include="Data\Reference\Airline\AirlineCollection.cs" />
+    <Compile Include="Data\Reference\Airline\AirlineRecord.cs" />
+    <Compile Include="Data\Reference\Airport\AirportCollection.cs" />
+    <Compile Include="Data\Reference\Airport\AirportRecord.cs" />
     <Compile Include="Data\Reference\ColorPallete\ThemeColors.cs" />
+    <Compile Include="Data\Reference\ControlItem\CMBItemWTag.cs" />
+    <Compile Include="Data\Reference\SeatType\SeatTypeCollection.cs" />
+    <Compile Include="Data\Reference\SeatType\SeatTypeRecord.cs" />
+    <Compile Include="Data\Reference\Status\StatusCollection.cs" />
+    <Compile Include="Data\Reference\Status\StatusRecord.cs" />
     <Compile Include="Data\Runtime\Error\ErrorCollection.cs" />
     <Compile Include="Data\Runtime\Error\ErrorRecord.cs" />
     <Compile Include="Data\Runtime\Error\ErrorUICollection.cs" />
@@ -182,6 +194,7 @@
     <Compile Include="Data\Runtime\User\Session.cs" />
     <Compile Include="Data\Runtime\User\User.cs" />
     <Compile Include="Debugging\DebugLogger.cs" />
+    <Compile Include="Helpers\ResourceGetter.cs" />
     <Compile Include="Helpers\ValueChecker.cs" />
     <Compile Include="Helpers\ControlResolver.cs" />
     <Compile Include="Helpers\ControlValResetter.cs" />
@@ -211,18 +224,18 @@
     <Compile Include="Services\AccountManagement.cs" />
     <Compile Include="Services\AccountSession.cs" />
     <Compile Include="Services\AircraftManagement.cs" />
-    <Compile Include="Services\IDGenerator.cs" />
+    <Compile Include="Helpers\IDGenerator.cs" />
     <Compile Include="UserControls\Header.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserControls\Header.Designer.cs">
       <DependentUpon>Header.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Others\AdminProgressStatus.cs">
+    <Compile Include="UserControls\SystemAdmin\SAProgressStatus.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\Others\AdminProgressStatus.Designer.cs">
-      <DependentUpon>AdminProgressStatus.cs</DependentUpon>
+    <Compile Include="UserControls\SystemAdmin\SAProgressStatus.Designer.cs">
+      <DependentUpon>SAProgressStatus.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\SystemAdmin\AddAircraft.cs">
       <SubType>UserControl</SubType>
@@ -255,8 +268,8 @@
     <EmbeddedResource Include="UserControls\Header.resx">
       <DependentUpon>Header.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\Others\AdminProgressStatus.resx">
-      <DependentUpon>AdminProgressStatus.cs</DependentUpon>
+    <EmbeddedResource Include="UserControls\SystemAdmin\SAProgressStatus.resx">
+      <DependentUpon>SAProgressStatus.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\SystemAdmin\AddAircraft.resx">
       <DependentUpon>AddAircraft.cs</DependentUpon>
@@ -266,6 +279,7 @@
     </EmbeddedResource>
     <None Include="CodingGuidelines.md" />
     <None Include="float.md" />
+    <None Include="float2.md" />
     <None Include="Info.md" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

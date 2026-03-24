@@ -44,25 +44,6 @@ namespace FlightReservationSystem
             PopulateErrorUI();
         }
 
-        private void TogglePasswordVisibility()
-        {
-            if (tbPasswordVal.Tag is bool visible)
-            {
-                if (visible)
-                {
-                    tbPasswordVal.PasswordChar = '*';
-                    picVisibility.Image = Properties.Resources.EyeOpen;
-                }
-                else
-                {
-                    tbPasswordVal.PasswordChar = '\0';
-                    picVisibility.Image = Properties.Resources.EyeClosed;
-                }
-
-                tbPasswordVal.Tag = !visible;
-            }
-        }
-
         private void PopulateErrorUI()
         {
             ErrorUICollection.Add(new ErrorUIRecord { Provider = errorProvider1, Target = lblUserID, Field = tbUserIDVal,  DefaultValue = string.Empty });
@@ -94,6 +75,8 @@ namespace FlightReservationSystem
 
         private void Login_FormClosing(object sender, FormClosingEventArgs e)
         {
+            // Application exit verification
+
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 DialogResult result = MessageBoxHelper.ShowQuestionMessage("Are you sure you want to exit?\nAny incomplete progress you made will be lost.");
@@ -110,22 +93,44 @@ namespace FlightReservationSystem
 
         private void tbUserID_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (char.IsWhiteSpace(e.KeyChar)) e.Handled = true;
+            // Do not allow whitespaces and caps lock chars
+
+            if (char.IsWhiteSpace(e.KeyChar)) e.Handled = true;         
             else e.KeyChar = char.ToUpper(e.KeyChar);
         }
 
         private void tbPassword_KeyPress(object sender, KeyPressEventArgs e)
         {
+            // Do not allow whitespaces
+
             if (char.IsWhiteSpace(e.KeyChar)) e.Handled = true;
         }
 
         private void picVisibility_Click(object sender, EventArgs e)
         {
-            TogglePasswordVisibility();
+            // Toggle password visibility
+
+            if (tbPasswordVal.Tag is bool visible)
+            {
+                if (visible)
+                {
+                    tbPasswordVal.PasswordChar = '*';
+                    picVisibility.Image = Properties.Resources.EyeOpen;
+                }
+                else
+                {
+                    tbPasswordVal.PasswordChar = '\0';
+                    picVisibility.Image = Properties.Resources.EyeClosed;
+                }
+
+                tbPasswordVal.Tag = !visible;
+            }
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
+            // Login
+
             ControlValResetter.ClearProviders();
             ErrorCollection.Clear();
 

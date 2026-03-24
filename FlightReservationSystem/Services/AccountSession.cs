@@ -1,4 +1,5 @@
-﻿using FlightReservationSystem.Data.Runtime.Error;
+﻿using FlightReservationSystem.Data.Reference.AircraftModel;
+using FlightReservationSystem.Data.Runtime.Error;
 using FlightReservationSystem.Data.Runtime.User;
 using FlightReservationSystem.Debugging;
 using FlightReservationSystem.Helpers;
@@ -9,6 +10,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace FlightReservationSystem.Services
 {
@@ -45,58 +47,63 @@ namespace FlightReservationSystem.Services
                 return;
             }
 
+            string prefix = userID.Substring(0, 2);
+
+            if (string.IsNullOrWhiteSpace(prefix))
+            {
+                DebugLogger.LogWithStackTrace("prefix is null or whitespace. Login authentication aborted.");
+                return;
+            }
+
+            if (ValueChecker.HasSpaceStartEnd(prefix))
+            {
+                DebugLogger.LogWithStackTrace("prefix starts or ends with space. Login authentication aborted.");
+                return;
+            }
+
+            string uCode = userID.Substring(3, 4);
+
+            if (string.IsNullOrWhiteSpace(uCode))
+            {
+                DebugLogger.LogWithStackTrace("uCode is null or whitespace. Login authentication aborted.");
+                return;
+            }
+
+            if (ValueChecker.HasSpaceStartEnd(uCode))
+            {
+                DebugLogger.LogWithStackTrace("uCode starts or ends with space. Login authentication aborted.");
+                return;
+            }
+
             using (SqlConnection con = DatabaseConnection.Get())
             {
                 try
                 {
-                    string prefix = userID.Substring(0, 2);
-
-                    if (string.IsNullOrWhiteSpace(prefix))
-                    {
-                        DebugLogger.LogWithStackTrace("prefix is null or whitespace. Login authentication aborted.");
-                        return;
-                    }
-
-                    if (ValueChecker.HasSpaceStartEnd(prefix))
-                    {
-                        DebugLogger.LogWithStackTrace("prefix starts or ends with space. Login authentication aborted.");
-                        return;
-                    }
-
-                    string userCode = userID.Substring(3, 4);
-
-                    if (string.IsNullOrWhiteSpace(userCode))
-                    {
-                        DebugLogger.LogWithStackTrace("userCode is null or whitespace. Login authentication aborted.");
-                        return;
-                    }
-
-                    if (ValueChecker.HasSpaceStartEnd(userCode))
-                    {
-                        DebugLogger.LogWithStackTrace("userCode starts or ends with space. Login authentication aborted.");
-                        return;
-                    }
-
                     con.Open();
-                    string sql = "SELECT u.UserCode, u.Name, u.Password, ut.UserTypeID, ut.Type, ut.Prefix " +
+                    string sql = "SELECT u.Code AS u_Code, " +
+                        "u.Name AS u_Name, " +
+                        "u.Password AS u_Password, " +
+                        "ut.UserTypeID AS ut_UserTypeID, " +
+                        "ut.Type AS ut_Type, " +
+                        "ut.Prefix AS ut_Prefix " +
                         "FROM Users u " +
                         "INNER JOIN UserTypes ut " +
                         "ON u.UserType = ut.UserTypeID " +
                         "WHERE u.IsActive = 1 " +
                         "AND ut.IsActive = 1 " +
-                        "AND RIGHT('0000' + CAST(u.UserCode AS NVARCHAR(4)), 4) = @userCode " +
+                        "AND RIGHT('0000' + CAST(u.Code AS NVARCHAR(4)), 4) = @uCode " +
                         "AND ut.Prefix = @prefix ";
 
                     using (SqlCommand cmd = new SqlCommand(sql, con))
                     {
-                        cmd.Parameters.AddWithValue("@userCode", userCode);
+                        cmd.Parameters.AddWithValue("@uCode", uCode);
                         cmd.Parameters.AddWithValue("@prefix", prefix);
 
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
                             if (reader.Read())
                             {
-                                string db_u_name = reader.GetString(1);
+                                string db_u_name = reader.GetString(reader.GetOrdinal("u_Name"));
 
                                 if (string.IsNullOrWhiteSpace(db_u_name))
                                 {
@@ -110,7 +117,7 @@ namespace FlightReservationSystem.Services
                                     return;
                                 }
 
-                                string db_u_password = reader.GetString(2);
+                                string db_u_password = reader.GetString(reader.GetOrdinal("u_Password"));
 
                                 if (string.IsNullOrWhiteSpace(db_u_password))
                                 {
@@ -124,7 +131,7 @@ namespace FlightReservationSystem.Services
                                     return;
                                 }
 
-                                int db_ut_userTypeID = reader.GetInt32(3);
+                                int db_ut_userTypeID = reader.GetInt32(reader.GetOrdinal("ut_UserTypeID"));
 
                                 if (db_ut_userTypeID == 0)
                                 {
@@ -132,7 +139,7 @@ namespace FlightReservationSystem.Services
                                     return;
                                 }
 
-                                string db_ut_type = reader.GetString(4);
+                                string db_ut_type = reader.GetString(reader.GetOrdinal("ut_Type"));
 
                                 if (string.IsNullOrWhiteSpace(db_ut_type))
                                 {
@@ -147,7 +154,7 @@ namespace FlightReservationSystem.Services
                                 }
 
                                 User user = new User();
-                                user.UserID = DataFormatter.UserIDFormat(reader.GetString(5), reader.GetInt32(0));
+                                user.UserID = DataFormatter.UserIDFormat(reader.GetString(reader.GetOrdinal("ut_Prefix")), reader.GetInt32(reader.GetOrdinal("u_Code")));
                                 user.Name = db_u_name;
                                 user.HashedPassword = db_u_password;
                                 user.UserType = db_ut_type;
@@ -194,6 +201,18 @@ namespace FlightReservationSystem.Services
                 UserType = user.UserType,
                 UserTypeID = user.UserTypeID
             };
+        }
+
+        public static void PopulateReferencesForUser()
+        {
+            int userTypeID = Session._user.UserTypeID;
+
+            if (userTypeID == 1)
+            {
+                DataSeeder.PopulateAircraftModels();
+                DataSeeder.PopulateAirlines();
+                DataSeeder.PopulateAirports();
+            }
         }
 
         private static void LoginAccount(User user) // TODO: Complete the RA part
@@ -275,6 +294,7 @@ namespace FlightReservationSystem.Services
             ErrorUICollection.Clear();
 
             MainForm mainForm = new MainForm();
+            PopulateReferencesForUser();
 
             if (userTypeID == 1)
             {
