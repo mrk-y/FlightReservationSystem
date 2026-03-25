@@ -198,6 +198,12 @@
     <Compile Include="Data\Runtime\User\Session.cs" />
     <Compile Include="Data\Runtime\User\User.cs" />
     <Compile Include="Debugging\DebugLogger.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\ResourceGetter.cs" />
     <Compile Include="Helpers\ToImageConverter.cs" />
     <Compile Include="Helpers\ValueChecker.cs" />
