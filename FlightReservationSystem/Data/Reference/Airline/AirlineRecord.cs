@@ -19,9 +19,9 @@ namespace FlightReservationSystem.Data.Reference.Airline
 
         public static bool ID_Try(int id)
         {
-            if (id == 0)
+            if (!ValueChecker.IsIntValid(id, nameof(id)))
             {
-                DebugLogger.LogWithStackTrace("id is 0. Try false.");
+                DebugLogger.LogWithStackTrace("id invalid value. Try false.");
                 return false;
             }
 
@@ -30,15 +30,9 @@ namespace FlightReservationSystem.Data.Reference.Airline
 
         public static bool IATA_Try(string iata)
         {
-            if (string.IsNullOrWhiteSpace(iata))
+            if (!ValueChecker.IsStringValid(iata, nameof(iata)))
             {
-                DebugLogger.LogWithStackTrace("iata is null or whitespace. Try false.");
-                return false;
-            }
-
-            if (ValueChecker.HasStartEndSpace(iata))
-            {
-                DebugLogger.LogWithStackTrace("iata starts or ends with whitespace. Try false.");
+                DebugLogger.LogWithStackTrace("iata invalid value. Try false.");
                 return false;
             }
 
@@ -47,15 +41,9 @@ namespace FlightReservationSystem.Data.Reference.Airline
 
         public static bool ICAO_Try(string icao)
         {
-            if (string.IsNullOrWhiteSpace(icao))
+            if (!ValueChecker.IsStringValid(icao, nameof(icao)))
             {
-                DebugLogger.LogWithStackTrace("icao is null or whitespace. Try false.");
-                return false;
-            }
-
-            if (ValueChecker.HasStartEndSpace(icao))
-            {
-                DebugLogger.LogWithStackTrace("icao starts or ends with whitespace. Try false.");
+                DebugLogger.LogWithStackTrace("icao invalid value. Try false.");
                 return false;
             }
 
@@ -64,15 +52,9 @@ namespace FlightReservationSystem.Data.Reference.Airline
 
         public static bool Callsign_Try(string callsign)
         {
-            if (string.IsNullOrEmpty(callsign))
+            if (!ValueChecker.IsStringValid(callsign, nameof(callsign)))
             {
-                DebugLogger.LogWithStackTrace("callsign is null or whitespace. Try false.");
-                return false;
-            }
-
-            if (ValueChecker.HasStartEndSpace(callsign))
-            {
-                DebugLogger.LogWithStackTrace("callsign starts or ends with whitespace. Try false.");
+                DebugLogger.LogWithStackTrace("callsign invalid value. Try false.");
                 return false;
             }
 
@@ -81,15 +63,9 @@ namespace FlightReservationSystem.Data.Reference.Airline
 
         public static bool AirlineName_Try(string airlineName)
         {
-            if (string.IsNullOrWhiteSpace(airlineName))
+            if (!ValueChecker.IsStringValid(airlineName, nameof(airlineName)))
             {
-                DebugLogger.LogWithStackTrace("airlineName is null or whitespace. Try false.");
-                return false;
-            }
-
-            if (ValueChecker.HasStartEndSpace(airlineName))
-            {
-                DebugLogger.LogWithStackTrace("airlineName starts or ends with whitespace. Try false.");
+                DebugLogger.LogWithStackTrace("airlineName invalid value. Try false.");
                 return false;
             }
 

@@ -2,9 +2,11 @@
 using FlightReservationSystem.Data.Reference.Airline;
 using FlightReservationSystem.Data.Reference.Airport;
 using FlightReservationSystem.Data.Reference.ControlItem;
+using FlightReservationSystem.Data.Reference.Seat;
 using FlightReservationSystem.Debugging;
 using FlightReservationSystem.Helpers;
 using FlightReservationSystem.Services;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,8 +23,6 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
     {
         public Button AcceptButton => btnAddAircraft;
 
-        // public static Button enterBtn => btnAddAircraft;
-
         public AddAircraft()
         {
             InitializeComponent();
@@ -32,56 +32,31 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
 
         public void Init(MainForm mainForm)
         {
-            if (mainForm == null)
-            {
-                DebugLogger.LogWithStackTrace("mainForm is null. Initialization aborted.");
-                return;
-            }
-
-            if (AcceptButton == null)
-            {
-                DebugLogger.LogWithStackTrace("AcceptButton is null. Initialization aborted.");
-                return;
-            }
-
             mainForm.AcceptButton = AcceptButton;
         }
 
         private void InitData()
         {
             ShowAircraftID();
-            ModelCMBData();
-            AirlineCMBData();
-            AirportCMBData();
+            PopulateModelCMBData();
+            PopulateAirlineCMBData();
+            PopulateAirportCMBData();
             ShowToolTips();
-            saProgressStatus.Init(1);
+            SAProgress.ShowProgress(0, "Adding aircraft");
         }
 
         private void InitUI()
         {
-
+            ShowLegendColors();
         }
 
         private void ShowAircraftID()
         {
             string acID = IDGenerator.AircraftID();
-
-            if (string.IsNullOrWhiteSpace(acID))
-            {
-                DebugLogger.LogWithStackTrace("acID is null or whitespace. Showing ID aborted.");
-                return;
-            }
-
-            if (ValueChecker.HasSpaceStartEnd(acID))
-            {
-                DebugLogger.LogWithStackTrace("acID starts or ends with space. Showing ID aborted.");
-                return;
-            }
-
             lblAircraftIDVal.Text = acID;
         }
 
-        private void ModelCMBData()
+        private void PopulateModelCMBData()
         {
             var aircraftModelCollection = AircraftModelCollection.Get;
 
@@ -97,10 +72,14 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             for (int i = 0; i < aircraftModelCollection.Count; i++)
             {
                 var aircraftModelRecord = aircraftModelCollection[i];
-
                 string model = aircraftModelRecord.Model;
+                int id = aircraftModelRecord.ID;
 
-                itemList.Add(new CMBItemWTag { Display = model, Tag = aircraftModelRecord.ID });
+                itemList.Add(new CMBItemWTag
+                {
+                    Display = model,
+                    Tag = id
+                });
                 sourceList.Add(model);
             }
 
@@ -118,13 +97,38 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
 
             cmbModelVal.Items.Clear();
             cmbModelVal.Items.AddRange(itemList.ToArray());
-            cmbModelVal.SelectedIndex = 0;
+            cmbModelVal.SelectedIndex = 9;
 
             cmbModelVal.AutoCompleteCustomSource.Clear();
             cmbModelVal.AutoCompleteCustomSource.AddRange(sourceList.ToArray());
         }
 
-        private void AirlineCMBData()
+        private void ShowSetMapPreview()
+        {
+            var aircraftModelUIColelction = AircraftModelUICollection.Get;
+            
+            if (aircraftModelUIColelction.Count == 0)
+            {
+                DebugLogger.LogWithStackTrace("aircraftModelUIColelction is empty. Showing seat map preview aborted.");
+                return;
+            }
+            
+            var itemAircraftModelSelected = cmbModelVal.SelectedItem as CMBItemWTag;
+            
+            for (int i = 0; i < aircraftModelUIColelction.Count; i++)
+            {
+                var aircraftModelUIRecord = aircraftModelUIColelction[i];
+
+                if (itemAircraftModelSelected.Tag is int tagVal && aircraftModelUIRecord.ID == tagVal)
+                {
+                    var modelUI = aircraftModelUIRecord.ModelUI;
+                    picSeatMapPreview.Image = ToImageConverter.UserControlToImg(modelUI);
+                    break;
+                }
+            }
+        }
+
+        private void PopulateAirlineCMBData()
         {
             var airlineCollection = AirlineCollection.Get;
 
@@ -140,12 +144,14 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             for (int i = 0; i < airlineCollection.Count; i++)
             {
                 var airlineRecord = airlineCollection[i];
+                int id = airlineRecord.ID;
+                string displayVal = $"{airlineRecord.AirlineName} ({airlineRecord.IATA})";
 
-                string iata = airlineRecord.IATA;
-                string airlineName = airlineRecord.AirlineName;
-                string displayVal = $"{airlineName} ({iata})"; 
-
-                itemList.Add(new CMBItemWTag { Display = displayVal, Tag = airlineRecord.ID });
+                itemList.Add(new CMBItemWTag
+                {
+                    Display = displayVal,
+                    Tag = id
+                });
                 sourceList.Add(displayVal);
             }
 
@@ -169,7 +175,7 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             cmbAirlineVal.AutoCompleteCustomSource.AddRange(sourceList.ToArray());
         }
 
-        private void AirportCMBData()
+        private void PopulateAirportCMBData()
         {
             var airportCollection = AirportCollection.Get;
 
@@ -179,18 +185,11 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
                 return;
             }
 
-            for (int i = 0; i < airportCollection.Count; i++)
-            {
-                var airportRecord = airportCollection[i];
+            var airportRecord = airportCollection[6];
 
-                if (airportRecord.ID == 7)
-                {
-                    cmbAirportVal.Items.Clear();
-                    cmbAirportVal.Items.Add($"{airportRecord.IATA} - {airportRecord.AirportName} ({airportRecord.DisplayCity})");
-                    cmbAirportVal.SelectedIndex = 0;
-                    return;
-                }
-            }
+            cmbAirportVal.Items.Clear();
+            cmbAirportVal.Items.Add($"{airportRecord.IATA} - {airportRecord.AirportName} ({airportRecord.DisplayCity})");
+            cmbAirportVal.SelectedIndex = 0;
         }
 
         private void ShowToolTips()
@@ -198,15 +197,27 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             toolTip1.SetToolTip(picQuestion1, "Display Name is a combination of the aircraft model and aircraft name.");
         }
 
-        private void ShowLgendsSeatColors()
+        private void ShowLegendColors()
         {
+            btnRegPass.BackColor = SeatUICollection.Get[0].BackColor;
+            btnRegPass.FlatAppearance.BorderColor = SeatUICollection.Get[0].BorderColor;
 
+            btnExitRow.BackColor = SeatUICollection.Get[1].BackColor;
+            btnExitRow.FlatAppearance.BorderColor = SeatUICollection.Get[1].BorderColor;
+
+            btnPassWNuatAller.BackColor = SeatUICollection.Get[2].BackColor;
+            btnPassWNuatAller.FlatAppearance.BorderColor = SeatUICollection.Get[2].BorderColor;
+
+            btnUnaccomMinor.BackColor = SeatUICollection.Get[3].BackColor;
+            btnUnaccomMinor.FlatAppearance.BorderColor = SeatUICollection.Get[3].BorderColor;
+
+            btnWheelPass.BackColor = SeatUICollection.Get[4].BackColor;
+            btnWheelPass.FlatAppearance.BorderColor = SeatUICollection.Get[4].BorderColor;
         }
 
         private void cmbModelVal_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Automatically change totalSeats label
-
             var aircraftModelCollection = AircraftModelCollection.Get;
 
             if (aircraftModelCollection.Count == 0)
@@ -228,15 +239,16 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
                 }
             }
 
-            // Update display name based on input at start up
+            // Show aircraft model's seat map preview
+            ShowSetMapPreview();
 
+            // Update display name based on input at start up
             if (string.IsNullOrWhiteSpace(lblDisplayNameVal.Text)) lblDisplayNameVal.Text = cmbModelVal.SelectedItem.ToString();
         }
 
         private void cmbModelVal_Leave(object sender, EventArgs e)
         {
             // Automatically pick an item from cmbModelVal upon leave
-
             var cmbModelItems = cmbModelVal.Items;
 
             if (cmbModelItems.Count == 0)
@@ -264,7 +276,6 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
         private void tbAircraftNameVal_TextChanged(object sender, EventArgs e)
         {
             // Update display name based on input
-
             string model = cmbModelVal.SelectedItem.ToString();
             string trimmedACName = tbAircraftNameVal.Text.Trim();
 
@@ -275,7 +286,6 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
         private void cmbAirlineVal_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Automatically change airline image 
-
             var airlineCollection = AirlineCollection.Get;
 
             if (airlineCollection.Count == 0)
@@ -301,7 +311,6 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
         private void cmbAirlineVal_Leave(object sender, EventArgs e)
         {
             // Automatically pick an item from cmbAirlineVal upon leave
-
             var cmbAirlineItems = cmbAirlineVal.Items;
 
             if (cmbAirlineItems.Count == 0)
@@ -329,15 +338,6 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
         private void AddAircraft_ParentChanged(object sender, EventArgs e)
         {
             // Change navigation UI based on content
-
-            var form = this.FindForm();
-
-            if (form == null)
-            {
-                DebugLogger.LogWithStackTrace("form is null. Navigation UI change aborted.");
-                return;
-            }
-
             MainFormUIHelper.UpdateNavigationState(this);
         }
     }

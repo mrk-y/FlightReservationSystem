@@ -17,7 +17,7 @@ namespace FlightReservationSystem.Helpers
             if (resc != null && resc is Image img) return img;
             else
             {
-                DebugLogger.LogWithStackTrace("resc is null. Retrieving image aborted.");
+                DebugLogger.LogWithStackTrace("resc is null. Image retrieval aborted.");
                 return null;
             }
         }

@@ -16,18 +16,6 @@ namespace FlightReservationSystem.Helpers
 
         public static string HashPassword(string password)
         {
-            if (string.IsNullOrWhiteSpace(password))
-            {
-                DebugLogger.LogWithStackTrace("password is null or whitespace. Hashing aborted.");
-                return "";
-            }
-
-            if (ValueChecker.HasSpaceStartEnd(password))
-            {
-                DebugLogger.LogWithStackTrace("password starts or ends with space. Hashing aborted.");
-                return "";
-            }
-
             byte[] salt = new byte[SaltSize];
             using (var rng = RandomNumberGenerator.Create()) rng.GetBytes(salt);
 
@@ -43,30 +31,6 @@ namespace FlightReservationSystem.Helpers
 
         public static bool VerifyPassword(string password, string storedHash)
         {
-            if (string.IsNullOrWhiteSpace(password))
-            {
-                DebugLogger.LogWithStackTrace("password is null or whitespace. Verification aborted.");
-                return false;
-            }
-
-            if (ValueChecker.HasSpaceStartEnd(password))
-            {
-                DebugLogger.LogWithStackTrace("password starts or ends with space. Verification aborted.");
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(storedHash))
-            {
-                DebugLogger.LogWithStackTrace("storedHash is null or whitespace. Verification aborted.");
-                return false;
-            }
-
-            if (ValueChecker.HasSpaceStartEnd(storedHash))
-            {
-                DebugLogger.LogWithStackTrace("storedHash starts or ends with space. Verification aborted.");
-                return false;
-            }
-
             byte[] hashBytes = Convert.FromBase64String(storedHash);
 
             byte[] salt = new byte[SaltSize];

@@ -32,36 +32,37 @@ namespace FlightReservationSystem
         private void InitData()
         {
             Current = this;
-
+     
             if (Current == null)
             {
                 DebugLogger.LogWithStackTrace("Current is null. Data initialization aborted.");
                 return;
             }
 
-            tbPasswordVal.Tag = false; // false means not visible
+            // false means not visible
+            tbPasswordVal.Tag = false; 
 
             PopulateErrorUI();
         }
 
         private void PopulateErrorUI()
         {
-            ErrorUICollection.Add(new ErrorUIRecord { Provider = errorProvider1, Target = lblUserID, Field = tbUserIDVal,  DefaultValue = string.Empty });
-            ErrorUICollection.Add(new ErrorUIRecord { Provider = errorProvider2, Target = lblPassword, Field = tbPasswordVal, DefaultValue = string.Empty });
+            ErrorManager.AddErrorUI(new ErrorUIRecord { Provider = errorProvider1, Target = lblUserID, Field = tbUserIDVal, DefaultValue = string.Empty });
+            ErrorManager.AddErrorUI(new ErrorUIRecord { Provider = errorProvider2, Target = lblPassword, Field = tbPasswordVal, DefaultValue = string.Empty });
         }
 
         private bool AreLoginFieldsValid(string userID, string password)
         {
-            if (string.IsNullOrWhiteSpace(userID)) ErrorManager.Add(new ErrorRecord { Message = "User ID field cannot be empty.", AssociatedControls = { lblUserID } });
-            else if (userID.Length < 7) ErrorManager.Add(new ErrorRecord { Message = "User ID must be 7 characters long.", AssociatedControls = { lblUserID } });
+            if (string.IsNullOrWhiteSpace(userID)) ErrorManager.AddError(new ErrorRecord { Message = "User ID field cannot be empty.", AssociatedControls = { lblUserID } });
+            else if (userID.Length < 7) ErrorManager.AddError(new ErrorRecord { Message = "User ID must be 7 characters long.", AssociatedControls = { lblUserID } });
                 
-            if (string.IsNullOrWhiteSpace(password)) ErrorManager.Add(new ErrorRecord { Message = "Password field cannot be empty.", AssociatedControls = { lblPassword } });
-            else if (password.Length < 8) ErrorManager.Add(new ErrorRecord { Message = "Password must be at least 8 characters long.", AssociatedControls = { lblPassword } });
+            if (string.IsNullOrWhiteSpace(password)) ErrorManager.AddError(new ErrorRecord { Message = "Password field cannot be empty.", AssociatedControls = { lblPassword } });
+            else if (password.Length < 8) ErrorManager.AddError(new ErrorRecord { Message = "Password must be at least 8 characters long.", AssociatedControls = { lblPassword } });
 
-            if (ErrorCollection.Get.Count != 0)
+            if (ErrorManager.GetErrorCollection.Count != 0)
             {
-                ErrorManager.Alert();
-                ErrorManager.Highlight(true);
+                ErrorManager.ShowAlert();
+                ErrorManager.HighlightErrors(true);
                 return false;
             } 
 
@@ -76,7 +77,6 @@ namespace FlightReservationSystem
         private void Login_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Application exit verification
-
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 DialogResult result = MessageBoxHelper.ShowQuestionMessage("Are you sure you want to exit?\nAny incomplete progress you made will be lost.");
@@ -94,7 +94,6 @@ namespace FlightReservationSystem
         private void tbUserID_KeyPress(object sender, KeyPressEventArgs e)
         {
             // Do not allow whitespaces and caps lock chars
-
             if (char.IsWhiteSpace(e.KeyChar)) e.Handled = true;         
             else e.KeyChar = char.ToUpper(e.KeyChar);
         }
@@ -102,14 +101,12 @@ namespace FlightReservationSystem
         private void tbPassword_KeyPress(object sender, KeyPressEventArgs e)
         {
             // Do not allow whitespaces
-
             if (char.IsWhiteSpace(e.KeyChar)) e.Handled = true;
         }
 
         private void picVisibility_Click(object sender, EventArgs e)
         {
             // Toggle password visibility
-
             if (tbPasswordVal.Tag is bool visible)
             {
                 if (visible)
@@ -130,9 +127,8 @@ namespace FlightReservationSystem
         private void btnLogin_Click(object sender, EventArgs e)
         {
             // Login
-
-            ControlValResetter.ClearProviders();
-            ErrorCollection.Clear();
+            ErrorManager.ClearProviders();
+            ErrorManager.ClearErrorCollection();
 
             string userID = tbUserIDVal.Text.Trim();
             string password = tbPasswordVal.Text.Trim();

@@ -19,9 +19,9 @@ namespace FlightReservationSystem.Data.Reference.AircraftModel
         
         public static bool ID_Try(int id)
         {
-            if (id == 0)
+            if (!ValueChecker.IsIntValid(id, nameof(id)))
             {
-                DebugLogger.LogWithStackTrace("id is 0. Try false.");
+                DebugLogger.LogWithStackTrace("id invalid value. Try false.");
                 return false;
             }
 
@@ -30,15 +30,9 @@ namespace FlightReservationSystem.Data.Reference.AircraftModel
 
         public static bool Model_Try(string model)
         {
-            if (string.IsNullOrWhiteSpace(model))
+            if (!ValueChecker.IsStringValid(model, nameof(model)))
             {
-                DebugLogger.LogWithStackTrace("model is null or whitespace. Try false");
-                return false;
-            }
-
-            if (ValueChecker.HasStartEndSpace(model))
-            {
-                DebugLogger.LogWithStackTrace("model starts or ends with whitespace. Try false");
+                DebugLogger.LogWithStackTrace("model invalid value. Try false.");
                 return false;
             }
 
@@ -47,9 +41,9 @@ namespace FlightReservationSystem.Data.Reference.AircraftModel
 
         public static bool TotalSeats_Try(int totalSeats)
         {
-            if (totalSeats == 0)
+            if (!ValueChecker.IsIntValid(totalSeats, nameof(totalSeats)))
             {
-                DebugLogger.LogWithStackTrace("totalSeats is 0. Try false");
+                DebugLogger.LogWithStackTrace("totalSeats invalid value. Try false.");
                 return false;
             }
 
@@ -81,36 +75,13 @@ namespace FlightReservationSystem.Data.Reference.AircraftModel
                 }
 
                 string className = seatLayoutRecord.ClassName;
-
-                if (string.IsNullOrWhiteSpace(className))
-                {
-                    DebugLogger.LogWithStackTrace($"className {i} is null or whitespace. Try false.");
-                    return false;
-                }
-
-                if (ValueChecker.HasStartEndSpace(className))
-                {
-                    DebugLogger.LogWithStackTrace($"className {i} starts or ends with whitespace. Try false.");
-                    return false;
-                }
-
-                if (seatLayoutRecord.SeatCount == 0)
-                {
-                    DebugLogger.LogWithStackTrace($"seatLayoutRecord.SeatCount {i} is 0. Try false.");
-                    return false;
-                }
-
+                int seatCount = seatLayoutRecord.SeatCount;
                 string arrangement = seatLayoutRecord.Arrangement;
 
-                if (string.IsNullOrWhiteSpace(arrangement))
+                if (!SeatLayoutRecord.ClassName_Try(className) || !SeatLayoutRecord.SeatCount_Try(seatCount) ||
+                    !SeatLayoutRecord.Arrangement_Try(arrangement))
                 {
-                    DebugLogger.LogWithStackTrace($"arrangement {i} is null or whitespace. Try false");
-                    return false;
-                }
-
-                if (ValueChecker.HasStartEndSpace(arrangement))
-                {
-                    DebugLogger.LogWithStackTrace($"arrangement {i} starts or ends with whitespace. Try false.");
+                    DebugLogger.LogWithStackTrace($"seatLayoutCollection {i} invalid value. Try false.");
                     return false;
                 }
             }

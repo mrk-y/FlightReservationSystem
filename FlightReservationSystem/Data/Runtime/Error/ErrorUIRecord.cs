@@ -1,4 +1,5 @@
 ﻿using FlightReservationSystem.Debugging;
+using FlightReservationSystem.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace FlightReservationSystem.Data.Runtime.Error
 
         public static bool Provider_Try(ErrorProvider provider)
         {
-            if (provider == null)
+            if (provider == null) 
             {
                 DebugLogger.LogWithStackTrace("provider is null. Try false.");
                 return false;
@@ -49,28 +50,28 @@ namespace FlightReservationSystem.Data.Runtime.Error
             return true;
         }
 
-        public static bool DefaultValue_Try(object defaultValue, Control target)
+        public static bool DefaultValue_Try(object defaultValue, Control field)
         {
-            if (defaultValue == null)
+            if (defaultValue == null) 
             {
                 DebugLogger.LogWithStackTrace("defaultValue is null. Try false.");
                 return false;
             }
 
-            if (target == null)
+            if (field == null)
             {
-                DebugLogger.LogWithStackTrace("target is null. Try false.");
+                DebugLogger.LogWithStackTrace("field is null. Try false.");
                 return false;
             }
 
-            if (target.GetType() == typeof(TextBox) && defaultValue.GetType() != typeof(string))
+            if (field.GetType() == typeof(TextBox) && defaultValue.GetType() != typeof(string))
             {
-                DebugLogger.LogWithStackTrace("target and defaultValue not compatible. Try false.");
+                DebugLogger.LogWithStackTrace("field and defaultValue not compatible. Try false.");
                 return false;
             }
-            else if (target.GetType() == typeof(ComboBox) && defaultValue.GetType() != typeof(int))
+            else if (field.GetType() == typeof(ComboBox) && defaultValue.GetType() != typeof(int))
             {
-                DebugLogger.LogWithStackTrace("target and defaultValue not compatible. Try false.");
+                DebugLogger.LogWithStackTrace("field and defaultValue not compatible. Try false.");
                 return false;
             }
 

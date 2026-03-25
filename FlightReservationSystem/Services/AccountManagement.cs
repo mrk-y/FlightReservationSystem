@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 namespace FlightReservationSystem.Services
 {
     // Creating, deleting, updating account...
-
     internal class AccountManagement
     {
     }

@@ -10,9 +10,6 @@ namespace FlightReservationSystem.Helpers
 {
     internal class DatabaseConnection
     {
-        public static SqlConnection Get()
-        {
-            return new SqlConnection(ConfigurationManager.ConnectionStrings["DBConnection"].ConnectionString);
-        }
+        public static SqlConnection Get() => new SqlConnection(ConfigurationManager.ConnectionStrings["DBConnection"].ConnectionString);
     }
 }

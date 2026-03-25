@@ -19,15 +19,9 @@ namespace FlightReservationSystem.Data.Runtime.User
 
         public static bool UserID_Try(string userID)
         {
-            if (string.IsNullOrWhiteSpace(userID))
+            if (!ValueChecker.IsStringValid(userID, nameof(userID)))
             {
-                DebugLogger.LogWithStackTrace("userID is null or whitespace. Try false.");
-                return false;
-            }
-
-            if (ValueChecker.HasStartEndSpace(userID))
-            {
-                DebugLogger.LogWithStackTrace("userID starts or ends with whitespace. Try false.");
+                DebugLogger.LogWithStackTrace("userID invalid value. Try false.");
                 return false;
             }
 
@@ -36,15 +30,9 @@ namespace FlightReservationSystem.Data.Runtime.User
 
         public static bool Name_Try(string name)
         {
-            if (string.IsNullOrWhiteSpace(name))
+            if (!ValueChecker.IsStringValid(name, nameof(name)))
             {
-                DebugLogger.LogWithStackTrace("name is null or whitespace. Try false.");
-                return false;
-            }
-
-            if (ValueChecker.HasStartEndSpace(name))
-            {
-                DebugLogger.LogWithStackTrace("name starts or ends with whitespace. Try false.");
+                DebugLogger.LogWithStackTrace("name invalid value. Try false.");
                 return false;
             }
 
@@ -53,15 +41,9 @@ namespace FlightReservationSystem.Data.Runtime.User
 
         public static bool HashedPassword_Try(string hashedPassword)
         {
-            if (string.IsNullOrWhiteSpace(hashedPassword))
+            if (!ValueChecker.IsStringValid(hashedPassword, nameof(hashedPassword)))
             {
-                DebugLogger.LogWithStackTrace("hashedPassword is null or whitespace. Try false.");
-                return false;
-            }
-
-            if (ValueChecker.HasStartEndSpace(hashedPassword))
-            {
-                DebugLogger.LogWithStackTrace("hashedPassword starts or ends with whitespace. Try false.");
+                DebugLogger.LogWithStackTrace("hashedPassword invalid value. Try false.");
                 return false;
             }
 
@@ -70,9 +52,9 @@ namespace FlightReservationSystem.Data.Runtime.User
 
         public static bool UserTypeID_Try(int userTypeID)
         {
-            if (userTypeID == 0)
+            if (!ValueChecker.IsIntValid(userTypeID, nameof(userTypeID)))
             {
-                DebugLogger.LogWithStackTrace("userTypeID is 0. Try false.");
+                DebugLogger.LogWithStackTrace("userTypeID invalid value. Try false.");
                 return false;
             }
 
@@ -81,15 +63,9 @@ namespace FlightReservationSystem.Data.Runtime.User
 
         public static bool UserType_Try(string userType)
         {
-            if (string.IsNullOrWhiteSpace(userType))
+            if (!ValueChecker.IsStringValid(userType, nameof(userType)))
             {
-                DebugLogger.LogWithStackTrace("userType is null or whitespace. Try false.");
-                return false;
-            }
-
-            if (ValueChecker.HasStartEndSpace(userType))
-            {
-                DebugLogger.LogWithStackTrace("userType starts or ends with whitespace. Try false.");
+                DebugLogger.LogWithStackTrace("userType invalid value. Try false.");
                 return false;
             }
 

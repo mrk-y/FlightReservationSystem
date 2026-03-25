@@ -20,20 +20,20 @@ namespace FlightReservationSystem.Services
                 try
                 {
                     con.Open();
-                    string sql = "SELECT TOP 1 AircraftID " +
-                        "FROM Aircrafts " +
+                    string sql = "SELECT TOP 1 ac.AircraftID AS AircraftID " +
+                        "FROM Aircrafts ac " +
                         "ORDER BY AircraftID DESC ";
 
                     using (SqlCommand cmd = new SqlCommand(sql, con))
                     {
-                        object db_ac_aircraftID = cmd.ExecuteScalar();
+                        object db_ac_AircraftID = cmd.ExecuteScalar();
 
-                        if (db_ac_aircraftID == null || db_ac_aircraftID == DBNull.Value)
+                        if (db_ac_AircraftID == null)
                         {
-                            DebugLogger.LogWithStackTrace("db_ac_aircraftID is null. Generating ID aborted.");
+                            DebugLogger.LogWithStackTrace("db_ac_AircraftID is null from Aircrafts Table DB. ID generation aborted.");
                             return "";
                         }
-                        else return DataFormatter.AircraftIDFormat(Convert.ToInt32(db_ac_aircraftID) + 1);
+                        else return DataFormatter.AircraftIDFormat(Convert.ToInt32(db_ac_AircraftID) + 1);
                     }
                 }
                 catch (Exception ex)

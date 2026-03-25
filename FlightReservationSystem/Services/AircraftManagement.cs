@@ -12,7 +12,7 @@ namespace FlightReservationSystem.Services
     {
         public static void AddAircraft()
         {
-            return;
+            
         }
     }
 }

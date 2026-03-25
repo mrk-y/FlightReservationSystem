@@ -11,10 +11,7 @@ using System.Windows.Forms;
 namespace FlightReservationSystem.UserControls.SystemAdmin
 {
     public partial class SANavigation : UserControl
-    {
-        private static SANavigation _saNavigation = null;
-        private static Button _btnAddAircraft => _saNavigation.btnAddAircraft;
-
+    {        
         public SANavigation()
         {
             InitializeComponent();
@@ -23,13 +20,12 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
 
         private void InitData()
         {
-            _saNavigation = this;
             NavigationTags();
         }
 
         private void NavigationTags()
         {
-            _btnAddAircraft.Tag = "AddAircraft";
+            btnAddAircraft.Tag = "AddAircraft";
         }
     }
 }

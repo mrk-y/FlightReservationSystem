@@ -176,6 +176,8 @@
   <ItemGroup>
     <Compile Include="Data\Reference\AircraftModel\AircraftModelCollection.cs" />
     <Compile Include="Data\Reference\AircraftModel\AircraftModelRecord.cs" />
+    <Compile Include="Data\Reference\AircraftModel\AircraftModelUICollection.cs" />
+    <Compile Include="Data\Reference\AircraftModel\AircraftModelUIRecord.cs" />
     <Compile Include="Data\Reference\AircraftModel\SeatLayoutRecord.cs" />
     <Compile Include="Data\Reference\Airline\AirlineCollection.cs" />
     <Compile Include="Data\Reference\Airline\AirlineRecord.cs" />
@@ -183,8 +185,10 @@
     <Compile Include="Data\Reference\Airport\AirportRecord.cs" />
     <Compile Include="Data\Reference\ColorPallete\ThemeColors.cs" />
     <Compile Include="Data\Reference\ControlItem\CMBItemWTag.cs" />
-    <Compile Include="Data\Reference\SeatType\SeatTypeCollection.cs" />
-    <Compile Include="Data\Reference\SeatType\SeatTypeRecord.cs" />
+    <Compile Include="Data\Reference\Seat\SeatCollection.cs" />
+    <Compile Include="Data\Reference\Seat\SeatRecord.cs" />
+    <Compile Include="Data\Reference\Seat\SeatUICollection.cs" />
+    <Compile Include="Data\Reference\Seat\SeatUIRecord.cs" />
     <Compile Include="Data\Reference\Status\StatusCollection.cs" />
     <Compile Include="Data\Reference\Status\StatusRecord.cs" />
     <Compile Include="Data\Runtime\Error\ErrorCollection.cs" />
@@ -195,15 +199,13 @@
     <Compile Include="Data\Runtime\User\User.cs" />
     <Compile Include="Debugging\DebugLogger.cs" />
     <Compile Include="Helpers\ResourceGetter.cs" />
+    <Compile Include="Helpers\ToImageConverter.cs" />
     <Compile Include="Helpers\ValueChecker.cs" />
     <Compile Include="Helpers\ControlResolver.cs" />
-    <Compile Include="Helpers\ControlValResetter.cs" />
     <Compile Include="Helpers\DatabaseConnection.cs" />
     <Compile Include="Helpers\DataFormatter.cs" />
     <Compile Include="Helpers\DataSeeder.cs" />
     <Compile Include="Helpers\ErrorManager.cs" />
-    <Compile Include="Helpers\ErrorUIHelper.cs" />
-    <Compile Include="Helpers\ListMessageFormatter.cs" />
     <Compile Include="Helpers\MainFormUIHelper.cs" />
     <Compile Include="Helpers\MessageBoxHelper.cs" />
     <Compile Include="Helpers\PasswordHelper.cs" />
@@ -225,17 +227,23 @@
     <Compile Include="Services\AccountSession.cs" />
     <Compile Include="Services\AircraftManagement.cs" />
     <Compile Include="Helpers\IDGenerator.cs" />
+    <Compile Include="UserControls\AircraftModelsUI\Airbus_A321_200.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\AircraftModelsUI\Airbus_A321_200.Designer.cs">
+      <DependentUpon>Airbus_A321_200.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AircraftModelsUI\ATR_72_600.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\AircraftModelsUI\ATR_72_600.Designer.cs">
+      <DependentUpon>ATR_72_600.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Header.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserControls\Header.Designer.cs">
       <DependentUpon>Header.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\SystemAdmin\SAProgressStatus.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\SystemAdmin\SAProgressStatus.Designer.cs">
-      <DependentUpon>SAProgressStatus.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\SystemAdmin\AddAircraft.cs">
       <SubType>UserControl</SubType>
@@ -248,6 +256,12 @@
     </Compile>
     <Compile Include="UserControls\SystemAdmin\SANavigation.Designer.cs">
       <DependentUpon>SANavigation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SystemAdmin\SAProgress.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\SystemAdmin\SAProgress.Designer.cs">
+      <DependentUpon>SAProgress.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
@@ -265,17 +279,23 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UserControls\AircraftModelsUI\Airbus_A321_200.resx">
+      <DependentUpon>Airbus_A321_200.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\AircraftModelsUI\ATR_72_600.resx">
+      <DependentUpon>ATR_72_600.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\Header.resx">
       <DependentUpon>Header.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\SystemAdmin\SAProgressStatus.resx">
-      <DependentUpon>SAProgressStatus.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\SystemAdmin\AddAircraft.resx">
       <DependentUpon>AddAircraft.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\SystemAdmin\SANavigation.resx">
       <DependentUpon>SANavigation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\SystemAdmin\SAProgress.resx">
+      <DependentUpon>SAProgress.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="CodingGuidelines.md" />
     <None Include="float.md" />
@@ -297,6 +317,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controls\" />
+    <Folder Include="Data\Runtime\ControlUI\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Data.SqlClient.SNI.6.0.2\build\net462\Microsoft.Data.SqlClient.SNI.targets" Condition="Exists('..\packages\Microsoft.Data.SqlClient.SNI.6.0.2\build\net462\Microsoft.Data.SqlClient.SNI.targets')" />

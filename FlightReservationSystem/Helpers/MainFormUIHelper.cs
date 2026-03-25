@@ -20,31 +20,9 @@ namespace FlightReservationSystem.Helpers
                 return;
             }
 
-            var form = content.FindForm();
-
-            if (form == null)
+            if (MainForm._pnlNavigation.Controls.Count == 0)
             {
-                DebugLogger.LogWithStackTrace("form is null. Update aborted.");
-                return;
-            }
-
-            if (!(form is MainForm))
-            {
-                DebugLogger.LogWithStackTrace("form is not type MainForm. Update aborted.");
-                return;
-            }
-
-            var panelNavigation = MainForm._pnlNavigation;
-
-            if (panelNavigation == null)
-            {
-                DebugLogger.LogWithStackTrace("panelNavigation is null. Update aborted.");
-                return;
-            }
-
-            if (panelNavigation.Controls.Count == 0)
-            {
-                DebugLogger.LogWithStackTrace("panelNavigation.Controls is empty. Update aborted.");
+                DebugLogger.LogWithStackTrace("MainForm._pnlNavigation.Controls is empty. Update aborted.");
                 return;
             }
 
@@ -54,7 +32,7 @@ namespace FlightReservationSystem.Helpers
             {
                 DebugLogger.LogWithStackTrace("saNavigation is null. Update aborted.");
                 return;
-            }
+            } 
 
             if (!(saNavigation is SANavigation))
             {
@@ -64,30 +42,12 @@ namespace FlightReservationSystem.Helpers
 
             var saNavControls = saNavigation.Controls;
 
-            if (saNavControls.Count == 0)
-            {
-                DebugLogger.LogWithStackTrace("saNavControls is empty. Update aborted.");
-                return;
-            }
-
             for (int i = 0; i < saNavControls.Count; i++)
             {
                 var saNavControl = saNavControls[i];
 
-                if (saNavControl == null)
-                {
-                    DebugLogger.LogWithStackTrace($"saNavControl {i} is null. Update aborted.");
-                    return;
-                } 
-
                 if (saNavControl is Button btn && btn.Tag is string tag)
                 {
-                    if (ValueChecker.HasSpaceStartEnd(tag))
-                    {
-                        DebugLogger.LogWithStackTrace($"tag {i} starts or ends with space. Update aborted.");
-                        return;
-                    }
-
                     if (tag == content.Name)
                     {
                         btn.BackColor = ThemeColors.Secondary;

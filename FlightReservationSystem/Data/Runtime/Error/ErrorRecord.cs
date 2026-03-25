@@ -17,15 +17,9 @@ namespace FlightReservationSystem.Data.Runtime.Error
 
         public static bool Message_Try(string message)
         {
-            if (string.IsNullOrWhiteSpace(message))
+            if (!ValueChecker.IsStringValid(message, nameof(message)))
             {
-                DebugLogger.LogWithStackTrace("message is null or whitespace. Try false.");
-                return false;
-            }
-
-            if (ValueChecker.HasStartEndSpace(message))
-            {
-                DebugLogger.LogWithStackTrace("message starts or ends with whitespace. Try false.");
+                DebugLogger.LogWithStackTrace("message invalid value. Try false.");
                 return false;
             }
 
@@ -49,10 +43,10 @@ namespace FlightReservationSystem.Data.Runtime.Error
             for (int i = 0; i < associatedControls.Count; i++)
             {
                 var associatedControl = associatedControls[i];
-                
+
                 if (associatedControl == null)
                 {
-                    DebugLogger.LogWithStackTrace("associatedControl is null. Try false.");
+                    DebugLogger.LogWithStackTrace($"associatedControl {i} is null. Try false.");
                     return false;
                 }
             }

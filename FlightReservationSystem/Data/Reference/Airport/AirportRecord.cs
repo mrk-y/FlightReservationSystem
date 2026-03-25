@@ -24,9 +24,9 @@ namespace FlightReservationSystem.Data.Reference.Airport
     
         public static bool ID_Try(int id)
         {
-            if (id == 0)
+            if (!ValueChecker.IsIntValid(id, nameof(id)))
             {
-                DebugLogger.LogWithStackTrace("id is 0. Try false.");
+                DebugLogger.LogWithStackTrace("id invalid value. Try false.");
                 return false;
             }
 
@@ -35,15 +35,9 @@ namespace FlightReservationSystem.Data.Reference.Airport
 
         public static bool IATA_Try(string iata)
         {
-            if (string.IsNullOrWhiteSpace(iata))
+            if (!ValueChecker.IsStringValid(iata, nameof(iata)))
             {
-                DebugLogger.LogWithStackTrace("iata is null or whitespace. Try false.");
-                return false;
-            }
-
-            if (ValueChecker.HasStartEndSpace(iata))
-            {
-                DebugLogger.LogWithStackTrace("iata starts or ends with whitespace. Try false.");
+                DebugLogger.LogWithStackTrace("iata invalid value. Try false.");
                 return false;
             }
 
@@ -52,15 +46,9 @@ namespace FlightReservationSystem.Data.Reference.Airport
 
         public static bool ICAO_Try(string icao)
         {
-            if (string.IsNullOrWhiteSpace(icao))
+            if (!ValueChecker.IsStringValid(icao, nameof(icao)))
             {
-                DebugLogger.LogWithStackTrace("icao is null or whitespace. Try false.");
-                return false;
-            }
-
-            if (ValueChecker.HasStartEndSpace(icao))
-            {
-                DebugLogger.LogWithStackTrace("icao starts or ends with whitespace. Try false.");
+                DebugLogger.LogWithStackTrace("icao invalid value. Try false.");
                 return false;
             }
 
@@ -69,15 +57,9 @@ namespace FlightReservationSystem.Data.Reference.Airport
 
         public static bool AirportName_Try(string airportName)
         {
-            if (string.IsNullOrWhiteSpace(airportName))
+            if (!ValueChecker.IsStringValid(airportName, nameof(airportName)))
             {
-                DebugLogger.LogWithStackTrace("airportName is null or whitespace. Try false.");
-                return false;
-            }
-
-            if (ValueChecker.HasStartEndSpace(airportName))
-            {
-                DebugLogger.LogWithStackTrace("airportName starts or ends with whitespace. Try false.");
+                DebugLogger.LogWithStackTrace("airportName invalid value. Try false.");
                 return false;
             }
 
@@ -86,15 +68,9 @@ namespace FlightReservationSystem.Data.Reference.Airport
 
         public static bool Location_Try(string location)
         {
-            if (string.IsNullOrWhiteSpace(location))
+            if (!ValueChecker.IsStringValid(location, nameof(location)))
             {
-                DebugLogger.LogWithStackTrace("location is null or whitespace. Try false.");
-                return false;
-            }
-
-            if (ValueChecker.HasStartEndSpace(location))
-            {
-                DebugLogger.LogWithStackTrace("location starts or ends with whitespace. Try false.");
+                DebugLogger.LogWithStackTrace("location invalid value. Try false.");
                 return false;
             }
 
@@ -103,15 +79,9 @@ namespace FlightReservationSystem.Data.Reference.Airport
 
         public static bool DisplayCity_Try(string displayCity)
         {
-            if (string.IsNullOrWhiteSpace(displayCity))
+            if (!ValueChecker.IsStringValid(displayCity, nameof(displayCity)))
             {
-                DebugLogger.LogWithStackTrace("displayCity is null or whitespace. Try false.");
-                return false;
-            }
-
-            if (ValueChecker.HasStartEndSpace(displayCity))
-            {
-                DebugLogger.LogWithStackTrace("displayCity starts or ends with whitespace. Try false.");
+                DebugLogger.LogWithStackTrace("displayCity invalid value. Try false.");
                 return false;
             }
 
@@ -120,15 +90,9 @@ namespace FlightReservationSystem.Data.Reference.Airport
 
         public static bool Latitude_Try(double latitude)
         {
-            if (double.IsNaN(latitude))
+            if (!ValueChecker.IsDoubleValid(latitude, nameof(latitude)))
             {
-                DebugLogger.LogWithStackTrace("latitude is NaN. Try false.");
-                return false;
-            }
-
-            if (latitude == 0)
-            {
-                DebugLogger.LogWithStackTrace("latitude is 0. Try false.");
+                DebugLogger.LogWithStackTrace("latitude invalid value. Try false.");
                 return false;
             }
 
@@ -137,15 +101,9 @@ namespace FlightReservationSystem.Data.Reference.Airport
 
         public static bool Longitude_Try(double longitude)
         {
-            if (double.IsNaN(longitude))
+            if (!ValueChecker.IsDoubleValid(longitude, nameof(longitude)))
             {
-                DebugLogger.LogWithStackTrace("longitude is NaN. Try false.");
-                return false;
-            }
-
-            if (longitude == 0)
-            {
-                DebugLogger.LogWithStackTrace("longitude is 0. Try false.");
+                DebugLogger.LogWithStackTrace("longitude invalid value. Try false.");
                 return false;
             }
 
@@ -154,15 +112,9 @@ namespace FlightReservationSystem.Data.Reference.Airport
 
         public static bool Category_Try(string category)
         {
-            if (string.IsNullOrWhiteSpace(category))
+            if (!ValueChecker.IsStringValid(category, nameof(category)))
             {
-                DebugLogger.LogWithStackTrace("category is null or whitespace. Try false.");
-                return false;
-            }
-
-            if (ValueChecker.HasStartEndSpace(category))
-            {
-                DebugLogger.LogWithStackTrace("category starts or ends with whitespace. Try false.");
+                DebugLogger.LogWithStackTrace("category invalid value. Try false.");
                 return false;
             }
 
@@ -171,15 +123,9 @@ namespace FlightReservationSystem.Data.Reference.Airport
 
         public static bool CriticalAircraft_Try(string criticalAircraft)
         {
-            if (string.IsNullOrWhiteSpace(criticalAircraft))
+            if (!ValueChecker.IsStringValid(criticalAircraft, nameof(criticalAircraft)))
             {
-                DebugLogger.LogWithStackTrace("criticalAircraft is null or whitespace. Try false.");
-                return false;
-            }
-
-            if (ValueChecker.HasStartEndSpace(criticalAircraft))
-            {
-                DebugLogger.LogWithStackTrace("criticalAircraft starts or ends with whitespace. Try false.");
+                DebugLogger.LogWithStackTrace("criticalAircraft invalid value. Try false.");
                 return false;
             }
 

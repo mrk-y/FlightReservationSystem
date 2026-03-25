@@ -18,15 +18,9 @@ namespace FlightReservationSystem.Data.Reference.ControlItem
 
         public static bool Display_Try(string display)
         {
-            if (string.IsNullOrWhiteSpace(display))
+            if (!ValueChecker.IsStringValid(display, nameof(display)))
             {
-                DebugLogger.LogWithStackTrace("display is null or whitespace. Try false.");
-                return false;
-            }
-
-            if (ValueChecker.HasStartEndSpace(display))
-            {
-                DebugLogger.LogWithStackTrace("display starts or ends with whitespace. Try false.");
+                DebugLogger.LogWithStackTrace("display invalid value. Try false.");
                 return false;
             }
 
@@ -41,10 +35,13 @@ namespace FlightReservationSystem.Data.Reference.ControlItem
                 return false;
             }
 
-            if (tag is int tagInt && tagInt == 0)
+            if (tag is int tagInt)
             {
-                DebugLogger.LogWithStackTrace("tagInt is 0. Try false.");
-                return false;
+                if (!ValueChecker.IsIntValid(tagInt, nameof(tagInt)))
+                {
+                    DebugLogger.LogWithStackTrace("tagInt invalid value. Try false.");
+                    return false;
+                }
             }
 
             return true;

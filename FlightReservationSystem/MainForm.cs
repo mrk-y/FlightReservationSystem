@@ -73,32 +73,7 @@ namespace FlightReservationSystem
         private void ShowUserIDName()
         {
             string userName = Session._user.Name;
-
-            if (string.IsNullOrWhiteSpace(userName))
-            {
-                DebugLogger.LogWithStackTrace("userName is null or whitespace. Data initialization aborted.");
-                return;
-            }
-
-            if (ValueChecker.HasSpaceStartEnd(userName))
-            {
-                DebugLogger.LogWithStackTrace("userName starts or ends with space. Data initialization aborted.");
-                return;
-            }
-
             string userID = Session._user.UserID;
-
-            if (string.IsNullOrWhiteSpace(userID))
-            {
-                DebugLogger.LogWithStackTrace("userID is null or whitespace. Data initialization aborted.");
-                return;
-            }
-
-            if (ValueChecker.HasSpaceStartEnd(userID))
-            {
-                DebugLogger.LogWithStackTrace("userID starts or ends with space. Data initialization aborted.");
-                return;
-            }
 
             lblUsernameVal.Text = $"{userName} ({userID})";
         }
@@ -106,7 +81,6 @@ namespace FlightReservationSystem
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Application exit verification
-
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 DialogResult result = MessageBoxHelper.ShowQuestionMessage("Are you sure you want to exit?\nAny incomplete progress you made will be lost.");
