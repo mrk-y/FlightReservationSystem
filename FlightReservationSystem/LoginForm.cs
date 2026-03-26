@@ -134,7 +134,6 @@ namespace FlightReservationSystem
             string password = tbPasswordVal.Text.Trim();
 
             if (!AreLoginFieldsValid(userID, password)) return;
-
             AccountSession.AuthenticateLogin(userID, password);
         }
     }

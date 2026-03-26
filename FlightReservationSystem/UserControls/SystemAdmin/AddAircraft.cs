@@ -3,6 +3,7 @@ using FlightReservationSystem.Data.Reference.Airline;
 using FlightReservationSystem.Data.Reference.Airport;
 using FlightReservationSystem.Data.Reference.ControlItem;
 using FlightReservationSystem.Data.Reference.Seat;
+using FlightReservationSystem.Data.Runtime.Error;
 using FlightReservationSystem.Debugging;
 using FlightReservationSystem.Helpers;
 using FlightReservationSystem.Services;
@@ -13,6 +14,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -48,6 +50,15 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
         private void InitUI()
         {
             ShowLegendColors();
+            PopulateErrorUI();
+        }
+
+        private void PopulateErrorUI()
+        {
+            ErrorManager.AddErrorUI(new ErrorUIRecord { Provider = errorProvider1, Target = lblModel, Field = cmbModelVal, DefaultValue = 9 });
+            ErrorManager.AddErrorUI(new ErrorUIRecord { Provider = errorProvider2, Target = lblAircraftName, Field = tbAircraftNameVal, DefaultValue = String.Empty });
+            ErrorManager.AddErrorUI(new ErrorUIRecord { Provider = errorProvider3, Target = lblAirline, Field = cmbAirlineVal, DefaultValue = 0 });
+            ErrorManager.AddErrorUI(new ErrorUIRecord { Provider = errorProvider4, Target = lblAirport, Field = cmbAirportVal, DefaultValue = 0 });
         }
 
         private void ShowAircraftID()
@@ -186,9 +197,13 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             }
 
             var airportRecord = airportCollection[6];
+            string displayVal = $"{airportRecord.IATA} - {airportRecord.AirportName} ({airportRecord.DisplayCity})";
+            var itemList = new List<CMBItemWTag>();
+
+            itemList.Add(new CMBItemWTag { Display = displayVal, Tag = 7 });
 
             cmbAirportVal.Items.Clear();
-            cmbAirportVal.Items.Add($"{airportRecord.IATA} - {airportRecord.AirportName} ({airportRecord.DisplayCity})");
+            cmbAirportVal.Items.AddRange(itemList.ToArray());
             cmbAirportVal.SelectedIndex = 0;
         }
 
@@ -213,6 +228,21 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
 
             btnWheelPass.BackColor = SeatUICollection.Get[4].BackColor;
             btnWheelPass.FlatAppearance.BorderColor = SeatUICollection.Get[4].BorderColor;
+        }
+
+        private bool AreAddAircraftFieldsValid(string aircraft, int model, int airline, int airport, string baseName)
+        {
+            if (!ValueChecker.IsStringValid(aircraft) || !ValueChecker.IsIntValid(model) ||
+                model == 0 || !ValueChecker.IsIntValid(airline) ||
+                airline == 0 || !ValueChecker.IsIntValid(airport) ||
+                airport == 0)
+            {
+                DebugLogger.LogWithStackTrace("Wrong value from AddAircraft. Adding aircraft aborted.");
+                MessageBoxHelper.ShowErrorMessage("Incorrect value.");
+                return false;
+            }
+
+            return true;
         }
 
         private void cmbModelVal_SelectedIndexChanged(object sender, EventArgs e)
@@ -339,6 +369,22 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
         {
             // Change navigation UI based on content
             MainFormUIHelper.UpdateNavigationState(this);
+        }
+
+        private void btnAddAircraft_Click(object sender, EventArgs e)
+        {
+            // Add aircraft
+            DialogResult result = MessageBoxHelper.ShowQuestionMessage("Are you sure you want to add this aircraft?");
+            if (result == DialogResult.No) return;
+
+            string aircraft = lblDisplayNameVal.Text;
+            int model = cmbModelVal.SelectedItem is CMBItemWTag modelItem && modelItem.Tag is int modelVal ? modelVal : 0;
+            int airline = cmbAirlineVal.SelectedItem is CMBItemWTag airlineItem && airlineItem.Tag is int airlineVal ? airlineVal : 0;
+            int airport = cmbAirportVal.SelectedItem is CMBItemWTag airportItem && airportItem.Tag is int airportVal ? airportVal : 0;
+            string baseName = tbAircraftNameVal.Text.Trim();
+
+            if (!AreAddAircraftFieldsValid(aircraft, model, airline, airport, baseName)) return;
+            AircraftManagement.AddAircraft(aircraft, model, airline, airport, baseName);
         }
     }
 }
