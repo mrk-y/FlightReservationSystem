@@ -8,13 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FlightReservationSystem
+namespace FlightReservationSystem.UserControls.Reservation_Agent
 {
-    public partial class RAForm : Form
+    public partial class RANavigation : UserControl
     {
-        public RAForm()
+        public RANavigation()
         {
             InitializeComponent();
+        }
+
+        private void RANavigation_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
