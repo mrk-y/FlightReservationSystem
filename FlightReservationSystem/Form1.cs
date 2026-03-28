@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace FlightReservationSystem
 {
-    public partial class Form1 : Form
+    public partial class RAForm : Form
     {
-        public Form1()
+        public RAForm()
         {
             InitializeComponent();
         }
