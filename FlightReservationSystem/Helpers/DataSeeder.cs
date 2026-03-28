@@ -2,7 +2,9 @@
 using FlightReservationSystem.Data.Reference.Airline;
 using FlightReservationSystem.Data.Reference.Airport;
 using FlightReservationSystem.Data.Reference.Seat;
+using FlightReservationSystem.Data.Reference.Terminal;
 using FlightReservationSystem.Debugging;
+using FlightReservationSystem.Data.Runtime.Json.Gate;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -11,6 +13,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FlightReservationSystem.Data.Reference.ControlItem;
 
 namespace FlightReservationSystem.Helpers
 {
@@ -26,7 +29,8 @@ namespace FlightReservationSystem.Helpers
                     string sql = "SELECT acmdl.ModelID AS acmdl_ModelID, " +
                         "acmdl.Model AS acmdl_Model, " +
                         "acmdl.TotalSeats AS acmdl_TotalSeats, " +
-                        "acmdl.SeatLayout AS acmdl_SeatLayout " +
+                        "acmdl.SeatLayout AS acmdl_SeatLayout, " +
+                        "acmdl.SpeedKMH AS acmdl_SpeedKMH " +
                         "FROM AircraftModels acmdl " +
                         "WHERE acmdl.IsActive = 1 ";
 
@@ -40,20 +44,15 @@ namespace FlightReservationSystem.Helpers
                                 string db_acmdl_Model = reader.GetString(reader.GetOrdinal("acmdl_Model"));
                                 int db_acmdl_TotalSeats = reader.GetInt32(reader.GetOrdinal("acmdl_TotalSeats"));
                                 List<SeatLayoutRecord> db_acmdl_SeatLayout = JsonSerializer.Deserialize<List<SeatLayoutRecord>>(reader.GetString(reader.GetOrdinal("acmdl_SeatLayout")));
+                                int db_acmdl_SpeedKMH = reader.GetInt32(reader.GetOrdinal("acmdl_SpeedKMH"));
 
-                                if (!AircraftModelRecord.ID_Try(db_acmdl_ModelID) || !AircraftModelRecord.Model_Try(db_acmdl_Model) ||
-                                    !AircraftModelRecord.TotalSeats_Try(db_acmdl_TotalSeats) || !AircraftModelRecord.SeatLayoutCollection_Try(db_acmdl_SeatLayout))
-                                {
-                                    DebugLogger.LogWithStackTrace("Wrong value from AircraftModels Table DB. Populating aborted.");
-                                    return;
-                                }
-
-                                AircraftModelCollection.Add(new AircraftModelRecord
+                                AircraftManager.AddAircraftModel(new AircraftModelRecord
                                 {
                                     ID = db_acmdl_ModelID,
                                     Model = db_acmdl_Model,
                                     TotalSeats = db_acmdl_TotalSeats,
-                                    SeatLayoutCollection = db_acmdl_SeatLayout
+                                    SeatLayoutCollection = db_acmdl_SeatLayout,
+                                    Speed = db_acmdl_SpeedKMH
                                 });
                             }
                         }
@@ -95,14 +94,7 @@ namespace FlightReservationSystem.Helpers
                                 string db_al_Callsign = reader.GetString(reader.GetOrdinal("al_Callsign"));
                                 string db_al_Airline = reader.GetString(reader.GetOrdinal("al_Airline"));
 
-                                if (!AirlineRecord.ID_Try(db_al_AirlineID) || !AirlineRecord.IATA_Try(db_al_IATA) || 
-                                    !AirlineRecord.ICAO_Try(db_al_ICAO) || !AirlineRecord.Callsign_Try(db_al_Callsign) ||
-                                    !AirlineRecord.AirlineName_Try(db_al_Airline)) {
-                                    DebugLogger.LogWithStackTrace("Wrong value from Airlines Table DB. Populating aborted.");
-                                    return;
-                                }
-
-                                AirlineCollection.Add(new AirlineRecord
+                                AirlineManager.AddAirline(new AirlineRecord
                                 {
                                     ID = db_al_AirlineID,
                                     IATA = db_al_IATA,
@@ -160,17 +152,7 @@ namespace FlightReservationSystem.Helpers
                                 string db_ap_Category = reader.GetString(reader.GetOrdinal("ap_Category"));
                                 string db_ap_CriticalAircraft = reader.GetString(reader.GetOrdinal("ap_CriticalAircraft"));
 
-                                if (!AirportRecord.ID_Try(db_ap_AirportID) || !AirportRecord.IATA_Try(db_ap_IATA) || 
-                                    !AirportRecord.ICAO_Try(db_ap_ICAO) || !AirportRecord.AirportName_Try(db_ap_Airport) || 
-                                    !AirportRecord.Location_Try(db_ap_Location) || !AirportRecord.DisplayCity_Try(db_ap_DisplayCity) ||
-                                    !AirportRecord.Latitude_Try(db_ap_Latitude) || !AirportRecord.Longitude_Try(db_ap_Longitude) || 
-                                    !AirportRecord.Category_Try(db_ap_Category) || !AirportRecord.CriticalAircraft_Try(db_ap_CriticalAircraft))
-                                {
-                                    DebugLogger.LogWithStackTrace("Wrong value from Airports Table DB. Populating aborted.");
-                                    return;
-                                }
-
-                                AirportCollection.Add(new AirportRecord
+                                AirportManager.AddAirport(new AirportRecord
                                 {
                                     ID = db_ap_AirportID,
                                     IATA = db_ap_IATA,
@@ -219,18 +201,62 @@ namespace FlightReservationSystem.Helpers
                                 string db_st_Code = reader.GetString(reader.GetOrdinal("st_Code"));
                                 string db_st_Seat = reader.GetString(reader.GetOrdinal("st_Seat"));
 
-                                if (!SeatRecord.ID_Try(db_st_SeatID) || !SeatRecord.Code_Try(db_st_Code) ||
-                                    !SeatRecord.SeatType_Try(db_st_Seat))
-                                {
-                                    DebugLogger.LogWithStackTrace("Wrong value from SeatTypes Table DB. Populating aborted.");
-                                    return;
-                                }
-
-                                SeatCollection.Add(new SeatRecord
+                                SeatManager.AddSeatType(new SeatTypeRecord
                                 {
                                     ID = db_st_SeatID,
                                     Code = db_st_Code,
                                     SeatType = db_st_Seat
+                                });
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DebugLogger.LogWithStackTrace($"{ex.Message}. Populating aborted.");
+                    MessageBoxHelper.ShowDeveloperErrorMessage("An unexpected error occured while populating data.");
+                    return;
+                }
+            }
+        }
+
+        public static void PopulateGatesTerminals()
+        {
+            using (SqlConnection con = DatabaseConnection.Get())
+            {
+                try
+                {
+                    con.Open();
+                    string sql = "SELECT tm.TerminalID AS tm_TerminalID, " +
+                        "tm.TerminalNo AS tm_TerminalNo, " +
+                        "tm.Classification AS tm_Classification, " +
+                        "tm.Gates AS tm_Gates, " +
+                        "tm.Airport AS tm_Airport, " +
+                        "tm.Status AS tm_Status " +
+                        "FROM Terminals tm " +
+                        "WHERE tm.IsActive = 1 ";
+
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                int db_tm_TerminalID = reader.GetInt32(reader.GetOrdinal("tm_TerminalID"));
+                                int db_tm_TerminalNo = reader.GetInt32(reader.GetOrdinal("tm_TerminalNo"));
+                                string db_tm_Classification = reader.GetString(reader.GetOrdinal("tm_Classification"));
+                                List<GateRecord> db_tm_Gates = JsonSerializer.Deserialize<List<GateRecord>>(reader.GetString(reader.GetOrdinal("tm_Gates")));
+                                int db_tm_Airport = reader.GetInt32(reader.GetOrdinal("tm_Airport"));
+                                int db_tm_Status = reader.GetInt32(reader.GetOrdinal("tm_Status"));
+
+                                TerminalManager.AddTerminal(new TerminalRecord
+                                {
+                                    ID = db_tm_TerminalID,
+                                    Number = db_tm_TerminalNo,
+                                    Classification = db_tm_Classification,
+                                    Gates = db_tm_Gates,
+                                    AirportID = db_tm_Airport,
+                                    Status = db_tm_Status,
                                 });
                             }
                         }

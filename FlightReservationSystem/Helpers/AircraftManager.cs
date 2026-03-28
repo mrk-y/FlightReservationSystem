@@ -1,5 +1,7 @@
-﻿using FlightReservationSystem.Debugging;
-using FlightReservationSystem.Helpers;
+﻿using FlightReservationSystem.Data.Reference.AircraftModel;
+using FlightReservationSystem.Data.Runtime.Error;
+using FlightReservationSystem.Debugging;
+using FlightReservationSystem.Services;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -7,13 +9,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FlightReservationSystem.Services
+namespace FlightReservationSystem.Helpers
 {
-    // Generating ids
-
-    internal class IDGenerator
+    internal class AircraftManager
     {
-        public static string AircraftID()
+        public static string NewAircraftID()
         {
             using (SqlConnection con = DatabaseConnection.Get())
             {
@@ -44,5 +44,23 @@ namespace FlightReservationSystem.Services
                 }
             }
         }
+
+        public static void AddAircraftModel(AircraftModelRecord aircraftModelRecord)
+        {
+            if (!AircraftModelRecord.ID_Try(aircraftModelRecord.ID) || !AircraftModelRecord.Model_Try(aircraftModelRecord.Model) ||
+                !AircraftModelRecord.TotalSeats_Try(aircraftModelRecord.TotalSeats) || !AircraftModelRecord.SeatLayoutCollection_Try(aircraftModelRecord.SeatLayoutCollection) ||
+                !AircraftModelRecord.Speed_Try(aircraftModelRecord.Speed))
+            {
+                DebugLogger.LogWithStackTrace("Wrong value. Adding aborted.");
+                return;
+            }
+
+            AircraftModelCollection.Add(aircraftModelRecord);
+        }
+
+        public static List<AircraftModelRecord> GetAircraftModelCollection => AircraftModelCollection.Get;
+
+        public static List<AircraftModelUIRecord> GetAircraftModelUICollection => AircraftModelUICollection.Get;
+
     }
 }

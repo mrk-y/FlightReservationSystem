@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FlightReservationSystem.Data.Reference.Seat
 {
-    internal class SeatRecord
+    internal class SeatTypeRecord
     {
         public int ID { get; set; }
         public string Code { get; set; }

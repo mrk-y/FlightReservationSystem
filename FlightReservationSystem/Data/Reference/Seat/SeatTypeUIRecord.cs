@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FlightReservationSystem.Data.Reference.Seat
 {
-    internal class SeatUIRecord
+    internal class SeatTypeUIRecord
     {
         public int ID { get; set; }
         public Color BackColor { get; set; }

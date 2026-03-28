@@ -38,15 +38,9 @@ namespace FlightReservationSystem.Helpers
 
         public static List<ErrorUIRecord> GetErrorUICollection => ErrorUICollection.Get;
 
-        public static void ClearErrorCollection()
-        {
-            ErrorCollection.Clear();
-        }
+        public static void ClearErrorCollection() => ErrorCollection.Clear();
 
-        public static void ClearErrorUICollection()
-        {
-            ErrorUICollection.Clear();
-        }
+        public static void ClearErrorUICollection() => ErrorUICollection.Clear();
 
         // >> Start of ShowAlert 
         private static string ErrorListMessage()
@@ -182,6 +176,29 @@ namespace FlightReservationSystem.Helpers
         }
         // << End of HighlightError
 
+        public static bool HasUncompleteProgress()
+        {
+            var errorUICollection = GetErrorUICollection;
+
+            if (errorUICollection.Count == 0)
+            {
+                DebugLogger.LogWithStackTrace("errorUICollection is empty. Uncomplete progress checker aborted.");
+                return false;
+            }
+
+            for (int i = 0; i < errorUICollection.Count; i++)
+            {
+                var errorUIRecord = errorUICollection[i];
+                var field = errorUIRecord.Field;
+                var defaultValue = errorUIRecord.DefaultValue;
+
+                if (field is TextBox tb && defaultValue is string tbVal && tb.Text != tbVal) return true;
+                else if (field is ComboBox cmb && defaultValue is int cmbVal && cmb.SelectedIndex != cmbVal) return true;
+            }
+
+            return false;
+        }
+
         public static void ClearProviders()
         {
             var errorUICollection = ErrorUICollection.Get;
@@ -266,7 +283,7 @@ namespace FlightReservationSystem.Helpers
                 var field = errorUICollection[i].Field;
 
                 if (field is TextBox tb) tb.Clear();
-                else if (field is ComboBox cmb) cmb.Items.Clear();
+                else if (field is ComboBox cmb) cmb.DataSource = null;
             }
         }
 
@@ -293,7 +310,7 @@ namespace FlightReservationSystem.Helpers
                 if (field.Name == fieldName)
                 {
                     if (field is TextBox tb) tb.Clear();
-                    else if (field is ComboBox cmb) cmb.Items.Clear();
+                    else if (field is ComboBox cmb) cmb.DataSource = null;
                 }
             }
         }

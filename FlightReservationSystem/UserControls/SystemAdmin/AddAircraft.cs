@@ -15,16 +15,15 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FlightReservationSystem.UserControls.SystemAdmin
 {
-    public partial class AddAircraft : UserControl, ControlResolver.IAcceptButton
+    public partial class AddAircraft : UserControl
     {
-        public Button AcceptButton => btnAddAircraft;
-
         public AddAircraft()
         {
             InitializeComponent();
@@ -32,44 +31,38 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             InitUI();
         }
 
-        public void Init(MainForm mainForm)
-        {
-            mainForm.AcceptButton = AcceptButton;
-        }
-
         private void InitData()
         {
             ShowAircraftID();
-            PopulateModelCMBData();
-            PopulateAirlineCMBData();
-            PopulateAirportCMBData();
+            ApplyModelCMBData();
+            ApplyAirlineCMBData();
+            ApplyAirportCMBData();
             ShowToolTips();
             SAProgress.ShowProgress(0, "Adding aircraft");
         }
 
         private void InitUI()
         {
-            ShowLegendColors();
             PopulateErrorUI();
         }
 
         private void PopulateErrorUI()
         {
-            ErrorManager.AddErrorUI(new ErrorUIRecord { Provider = errorProvider1, Target = lblModel, Field = cmbModelVal, DefaultValue = 9 });
+            ErrorManager.AddErrorUI(new ErrorUIRecord { Provider = errorProvider1, Target = lblModel, Field = cmbModelVal, DefaultValue = 0 });
             ErrorManager.AddErrorUI(new ErrorUIRecord { Provider = errorProvider2, Target = lblAircraftName, Field = tbAircraftNameVal, DefaultValue = String.Empty });
             ErrorManager.AddErrorUI(new ErrorUIRecord { Provider = errorProvider3, Target = lblAirline, Field = cmbAirlineVal, DefaultValue = 0 });
-            ErrorManager.AddErrorUI(new ErrorUIRecord { Provider = errorProvider4, Target = lblAirport, Field = cmbAirportVal, DefaultValue = 0 });
+            ErrorManager.AddErrorUI(new ErrorUIRecord { Provider = errorProvider4, Target = lblAirport, Field = cmbAirportVal, DefaultValue = 6 });
         }
 
         private void ShowAircraftID()
         {
-            string acID = IDGenerator.AircraftID();
+            string acID = AircraftManager.NewAircraftID();
             lblAircraftIDVal.Text = acID;
         }
 
-        private void PopulateModelCMBData()
+        private void ApplyModelCMBData()
         {
-            var aircraftModelCollection = AircraftModelCollection.Get;
+            var aircraftModelCollection = AircraftManager.GetAircraftModelCollection;
 
             if (aircraftModelCollection.Count == 0)
             {
@@ -83,65 +76,49 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             for (int i = 0; i < aircraftModelCollection.Count; i++)
             {
                 var aircraftModelRecord = aircraftModelCollection[i];
-                string model = aircraftModelRecord.Model;
+                string display = aircraftModelRecord.Model;
                 int id = aircraftModelRecord.ID;
 
-                itemList.Add(new CMBItemWTag
-                {
-                    Display = model,
-                    Tag = id
-                });
-                sourceList.Add(model);
+                itemList.Add(new CMBItemWTag { Display = display, Value = id });
+                sourceList.Add(display);
             }
 
-            if (itemList.Count == 0)
-            {
-                DebugLogger.LogWithStackTrace("itemList is empty. Applying data aborted.");
-                return;
-            }
-
-            if (sourceList.Count == 0)
-            {
-                DebugLogger.LogWithStackTrace("sourceList is empty. Applying data aborted.");
-                return;
-            }
-
-            cmbModelVal.Items.Clear();
-            cmbModelVal.Items.AddRange(itemList.ToArray());
-            cmbModelVal.SelectedIndex = 9;
-
+            cmbModelVal.DisplayMember = "Display";
+            cmbModelVal.ValueMember = "Value";
+            cmbModelVal.DataSource = itemList;
+            cmbModelVal.SelectedIndex = 0;
             cmbModelVal.AutoCompleteCustomSource.Clear();
             cmbModelVal.AutoCompleteCustomSource.AddRange(sourceList.ToArray());
         }
 
         private void ShowSetMapPreview()
         {
-            var aircraftModelUIColelction = AircraftModelUICollection.Get;
-            
-            if (aircraftModelUIColelction.Count == 0)
+            var aircraftModelUICollection = AircraftManager.GetAircraftModelUICollection;
+
+            if (aircraftModelUICollection.Count == 0)
             {
-                DebugLogger.LogWithStackTrace("aircraftModelUIColelction is empty. Showing seat map preview aborted.");
+                DebugLogger.LogWithStackTrace("aircraftModelUICollection is empty. Showing seat map preview aborted.");
                 return;
             }
-            
-            var itemAircraftModelSelected = cmbModelVal.SelectedItem as CMBItemWTag;
-            
-            for (int i = 0; i < aircraftModelUIColelction.Count; i++)
-            {
-                var aircraftModelUIRecord = aircraftModelUIColelction[i];
 
-                if (itemAircraftModelSelected.Tag is int tagVal && aircraftModelUIRecord.ID == tagVal)
+            var selectedModelValue = cmbModelVal.SelectedValue;
+
+            for (int i = 0; i < aircraftModelUICollection.Count; i++)
+            {
+                var aircraftModelUIRecord = aircraftModelUICollection[i];
+
+                if (selectedModelValue is int modelVal && aircraftModelUIRecord.ID == modelVal)
                 {
                     var modelUI = aircraftModelUIRecord.ModelUI;
-                    picSeatMapPreview.Image = ToImageConverter.UserControlToImg(modelUI);
-                    break;
+                    picSeatMapPreview.Image = SeatManager.SeatMapToImg(modelUI);
+                    return;
                 }
             }
         }
 
-        private void PopulateAirlineCMBData()
+        private void ApplyAirlineCMBData()
         {
-            var airlineCollection = AirlineCollection.Get;
+            var airlineCollection = AirlineManager.GetAirlineCollection;
 
             if (airlineCollection.Count == 0)
             {
@@ -155,40 +132,24 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             for (int i = 0; i < airlineCollection.Count; i++)
             {
                 var airlineRecord = airlineCollection[i];
-                int id = airlineRecord.ID;
-                string displayVal = $"{airlineRecord.AirlineName} ({airlineRecord.IATA})";
+                var display = $"{airlineRecord.AirlineName} {airlineRecord.IATA}";
+                var id = airlineRecord.ID;
 
-                itemList.Add(new CMBItemWTag
-                {
-                    Display = displayVal,
-                    Tag = id
-                });
-                sourceList.Add(displayVal);
+                itemList.Add(new CMBItemWTag { Display = display, Value = id });
+                sourceList.Add(display);
             }
 
-            if (itemList.Count == 0)
-            {
-                DebugLogger.LogWithStackTrace("itemList is empty. Applying data aborted.");
-                return;
-            }
-
-            if (sourceList.Count == 0)
-            {
-                DebugLogger.LogWithStackTrace("sourceList is empty. Applying data aborted.");
-                return;
-            }
-
-            cmbAirlineVal.Items.Clear();
-            cmbAirlineVal.Items.AddRange(itemList.ToArray());
+            cmbAirlineVal.DisplayMember = "Display";
+            cmbAirlineVal.ValueMember = "Value";
+            cmbAirlineVal.DataSource = itemList;
             cmbAirlineVal.SelectedIndex = 0;
-
             cmbAirlineVal.AutoCompleteCustomSource.Clear();
             cmbAirlineVal.AutoCompleteCustomSource.AddRange(sourceList.ToArray());
         }
 
-        private void PopulateAirportCMBData()
+        private void ApplyAirportCMBData()
         {
-            var airportCollection = AirportCollection.Get;
+            var airportCollection = AirportManager.GetAirportCollection;
 
             if (airportCollection.Count == 0)
             {
@@ -196,38 +157,30 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
                 return;
             }
 
-            var airportRecord = airportCollection[6];
-            string displayVal = $"{airportRecord.IATA} - {airportRecord.AirportName} ({airportRecord.DisplayCity})";
             var itemList = new List<CMBItemWTag>();
+            var sourceList = new List<string>();
 
-            itemList.Add(new CMBItemWTag { Display = displayVal, Tag = 7 });
+            for (int i = 0; i < airportCollection.Count; i++)
+            {
+                var airportRecord = airportCollection[i];
+                string display = $"{airportRecord.IATA} - {airportRecord.AirportName} ({airportRecord.DisplayCity})";
+                var id = airportRecord.ID;
 
-            cmbAirportVal.Items.Clear();
-            cmbAirportVal.Items.AddRange(itemList.ToArray());
-            cmbAirportVal.SelectedIndex = 0;
+                itemList.Add(new CMBItemWTag{ Display = display, Value = id });
+                sourceList.Add(display);
+            }
+
+            cmbAirportVal.DisplayMember = "Display";
+            cmbAirportVal.ValueMember = "Value";
+            cmbAirportVal.DataSource = itemList;
+            cmbAirportVal.SelectedIndex = 6;
+            cmbAirportVal.AutoCompleteCustomSource.Clear();
+            cmbAirportVal.AutoCompleteCustomSource.AddRange(sourceList.ToArray());
         }
 
         private void ShowToolTips()
         {
             toolTip1.SetToolTip(picQuestion1, "Display Name is a combination of the aircraft model and aircraft name.");
-        }
-
-        private void ShowLegendColors()
-        {
-            btnRegPass.BackColor = SeatUICollection.Get[0].BackColor;
-            btnRegPass.FlatAppearance.BorderColor = SeatUICollection.Get[0].BorderColor;
-
-            btnExitRow.BackColor = SeatUICollection.Get[1].BackColor;
-            btnExitRow.FlatAppearance.BorderColor = SeatUICollection.Get[1].BorderColor;
-
-            btnPassWNuatAller.BackColor = SeatUICollection.Get[2].BackColor;
-            btnPassWNuatAller.FlatAppearance.BorderColor = SeatUICollection.Get[2].BorderColor;
-
-            btnUnaccomMinor.BackColor = SeatUICollection.Get[3].BackColor;
-            btnUnaccomMinor.FlatAppearance.BorderColor = SeatUICollection.Get[3].BorderColor;
-
-            btnWheelPass.BackColor = SeatUICollection.Get[4].BackColor;
-            btnWheelPass.FlatAppearance.BorderColor = SeatUICollection.Get[4].BorderColor;
         }
 
         private bool AreAddAircraftFieldsValid(string aircraft, int model, int airline, int airport, string baseName)
@@ -248,7 +201,7 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
         private void cmbModelVal_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Automatically change totalSeats label
-            var aircraftModelCollection = AircraftModelCollection.Get;
+            var aircraftModelCollection = AircraftManager.GetAircraftModelCollection;
 
             if (aircraftModelCollection.Count == 0)
             {
@@ -256,24 +209,28 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
                 return;
             }
 
-            var itemModelSelected = cmbModelVal.SelectedItem as CMBItemWTag;
+            var selectedModelValue = cmbModelVal.SelectedValue;
 
             for (int i = 0; i < aircraftModelCollection.Count; i++)
             {
                 var aircraftModelRecord = aircraftModelCollection[i];
 
-                if (itemModelSelected.Tag is int tagVal && aircraftModelRecord.ID == tagVal) 
+                if (selectedModelValue is int modelVal && aircraftModelRecord.ID == modelVal)
                 {
                     lblTotalSeatsVal.Text = aircraftModelRecord.TotalSeats.ToString();
                     break;
                 }
             }
 
-            // Show aircraft model's seat map preview
+            // Show airport model's seat map preview
             ShowSetMapPreview();
 
-            // Update display name based on input at start up
-            if (string.IsNullOrWhiteSpace(lblDisplayNameVal.Text)) lblDisplayNameVal.Text = cmbModelVal.SelectedItem.ToString();
+            // Update display name based on input
+            string selectedModelDisplay = cmbModelVal.Text;
+            string trimmedAircraftname = tbAircraftNameVal.Text.Trim();
+
+            if (trimmedAircraftname.Length == 0) lblDisplayNameVal.Text = $"{selectedModelDisplay}";
+            else lblDisplayNameVal.Text = $"{selectedModelDisplay} - {trimmedAircraftname}";
         }
 
         private void cmbModelVal_Leave(object sender, EventArgs e)
@@ -283,17 +240,17 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
 
             if (cmbModelItems.Count == 0)
             {
-                DebugLogger.LogWithStackTrace("cmbModelItems is empty. Selection on leave aborted.");
+                DebugLogger.LogWithStackTrace("cmbModelItems is empty. Auto selection on leave aborted.");
                 return;
             }
 
-            string itemModelSelected = cmbModelVal.Text.Trim();
+            string selectedModelDisplay = cmbModelVal.Text;
 
-            for (int i = 0; i < cmbModelVal.Items.Count; i++)
+            for (int i = 0; i < cmbModelItems.Count; i++)
             {
-                var item = cmbModelVal.Items[i] as CMBItemWTag;
+                var modelDisplay = cmbModelVal.GetItemText(cmbModelVal.Items[i]);
 
-                if (item.Display.IndexOf(itemModelSelected, StringComparison.OrdinalIgnoreCase) >= 0)
+                if (modelDisplay.IndexOf(selectedModelDisplay, StringComparison.OrdinalIgnoreCase) >= 0)
                 {
                     cmbModelVal.SelectedIndex = i;
                     return;
@@ -306,17 +263,17 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
         private void tbAircraftNameVal_TextChanged(object sender, EventArgs e)
         {
             // Update display name based on input
-            string model = cmbModelVal.SelectedItem.ToString();
-            string trimmedACName = tbAircraftNameVal.Text.Trim();
+            string selectedModelDisplay = cmbModelVal.Text;
+            string trimmedAircraftname = tbAircraftNameVal.Text.Trim();
 
-            if (trimmedACName.Length == 0) lblDisplayNameVal.Text = $"{model}";
-            else lblDisplayNameVal.Text = $"{model} - {trimmedACName}";
+            if (trimmedAircraftname.Length == 0) lblDisplayNameVal.Text = $"{selectedModelDisplay}";
+            else lblDisplayNameVal.Text = $"{selectedModelDisplay} - {trimmedAircraftname}";
         }
 
         private void cmbAirlineVal_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Automatically change airline image 
-            var airlineCollection = AirlineCollection.Get;
+            // Automatically change airline image
+            var airlineCollection = AirlineManager.GetAirlineCollection;
 
             if (airlineCollection.Count == 0)
             {
@@ -324,16 +281,16 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
                 return;
             }
 
-            var itemAirlineSelected = cmbAirlineVal.SelectedItem as CMBItemWTag;
+            var selectedAirlineValue = cmbAirlineVal.SelectedValue;
 
-            for (int i = 0; i < airlineCollection.Count; i++)
+            for (int i = 0; i <  airlineCollection.Count; i++)
             {
                 var airlineRecord = airlineCollection[i];
 
-                if (itemAirlineSelected.Tag is int tagVal && airlineRecord.ID == tagVal)
+                if (selectedAirlineValue is int airlineVal && airlineRecord.ID == airlineVal)
                 {
-                    picAirlineImg.Image = ResourceGetter.GetAirlineImage(airlineRecord.ICAO);
-                    break;
+                    picAirlineImg.Image = AirlineManager.AirlineToImage(airlineRecord.ICAO);
+                    return;
                 }
             }
         }
@@ -345,21 +302,21 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
 
             if (cmbAirlineItems.Count == 0)
             {
-                DebugLogger.LogWithStackTrace("cmbAirlineItems is empty. Selection on leave aborted.");
+                DebugLogger.LogWithStackTrace("cmbAirlineItems is empty. Auto selection on leave aborted.");
                 return;
             }
 
-            string itemAirlineSelected = cmbAirlineVal.Text.Trim();
+            string selectedAirlineDisplay = cmbAirlineVal.Text;
 
-            for (int i = 0; i < cmbAirlineVal.Items.Count; i++)
+            for (int i = 0; i < cmbAirlineItems.Count; i++)
             {
-                var item = cmbAirlineVal.Items[i] as CMBItemWTag;
+                var airlineDisplay = cmbAirlineVal.GetItemText(cmbAirlineVal.Items[i]);
 
-                if (item.Display.IndexOf(itemAirlineSelected, StringComparison.OrdinalIgnoreCase) >= 0)
+                if (airlineDisplay.IndexOf(selectedAirlineDisplay, StringComparison.OrdinalIgnoreCase) >= 0)
                 {
                     cmbAirlineVal.SelectedIndex = i;
                     return;
-                }
+                } 
             }
 
             cmbAirlineVal.SelectedIndex = 0;
@@ -378,9 +335,9 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             if (result == DialogResult.No) return;
 
             string aircraft = lblDisplayNameVal.Text;
-            int model = cmbModelVal.SelectedItem is CMBItemWTag modelItem && modelItem.Tag is int modelVal ? modelVal : 0;
-            int airline = cmbAirlineVal.SelectedItem is CMBItemWTag airlineItem && airlineItem.Tag is int airlineVal ? airlineVal : 0;
-            int airport = cmbAirportVal.SelectedItem is CMBItemWTag airportItem && airportItem.Tag is int airportVal ? airportVal : 0;
+            int model = cmbModelVal.SelectedValue is int modelVal ? modelVal : 0;
+            int airline = cmbAirlineVal.SelectedValue is int airlineVal ? airlineVal : 0;
+            int airport = cmbAirportVal.SelectedValue is int airportVal ? airportVal : 0;
             string baseName = tbAircraftNameVal.Text.Trim();
 
             if (!AreAddAircraftFieldsValid(aircraft, model, airline, airport, baseName)) return;

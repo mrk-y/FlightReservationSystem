@@ -16,3 +16,12 @@ Status meaning:
 	* Red: Cancelled
 	* Gray: Gate closed
 	* Flashing yellow: Final Call
+
+GateRecord Statuses:
+	* 0 = Inactive
+	* 1 = Available
+	* 2 = Occupied
+
+TerminalRecord Statuses:
+	* 0 = Inactive
+	* 1 = Available

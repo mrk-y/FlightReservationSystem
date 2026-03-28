@@ -11,7 +11,7 @@ namespace FlightReservationSystem.Data.Reference.ControlItem
     internal class CMBItemWTag
     {
         public string Display { get; set; }
-        public object Tag { get; set; }
+        public object Value { get; set; }
 
 
         public override string ToString() => Display;
@@ -27,19 +27,19 @@ namespace FlightReservationSystem.Data.Reference.ControlItem
             return true;
         }
 
-        public static bool Tag_Try(object tag)
+        public static bool Value_Try(object value)
         {
-            if (tag == null)
+            if (value == null)
             {
-                DebugLogger.LogWithStackTrace("tag is null. Try false.");
+                DebugLogger.LogWithStackTrace("value is null. Try false.");
                 return false;
             }
 
-            if (tag is int tagInt)
+            if (value is int valueInt)
             {
-                if (!ValueChecker.IsIntValid(tagInt, nameof(tagInt)))
+                if (!ValueChecker.IsIntValid(valueInt, nameof(valueInt)))
                 {
-                    DebugLogger.LogWithStackTrace("tagInt invalid value. Try false.");
+                    DebugLogger.LogWithStackTrace("valueInt invalid value. Try false.");
                     return false;
                 }
             }

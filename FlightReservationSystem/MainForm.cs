@@ -41,6 +41,8 @@ namespace FlightReservationSystem
 
             if (navigation != null)
             {
+
+
                 _pnlNavigation.SuspendLayout();
                 _pnlNavigation.Controls.Clear();
                 _pnlNavigation.Controls.Add(navigation);

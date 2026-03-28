@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlightReservationSystem.Helpers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,12 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
         public AssignRoute()
         {
             InitializeComponent();
+        }
+
+        private void AssignRoute_ParentChanged(object sender, EventArgs e)
+        {
+            // Change navigation UI based on content
+            MainFormUIHelper.UpdateNavigationState(this);
         }
     }
 }

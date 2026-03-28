@@ -1,4 +1,5 @@
-﻿using FlightReservationSystem.Debugging;
+﻿using FlightReservationSystem.Data.Runtime.User;
+using FlightReservationSystem.Debugging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,14 +9,28 @@ using System.Threading.Tasks;
 
 namespace FlightReservationSystem.Helpers
 {
-    internal class PasswordHelper
+    internal class UserManager
     {
-        private const int SaltSize = 16;
-        private const int HashSize = 32;
-        private const int Iterations = 20_000; // PBKDF2 iterations
+        public static void AddUser(User user)
+        {
+            if (!User.UserID_Try(user.UserID) || !User.Name_Try(user.Name) ||
+                !User.HashedPassword_Try(user.HashedPassword) || !User.UserTypeID_Try(user.UserTypeID) ||
+                !User.UserType_Try(user.UserType))
+            {
+                DebugLogger.LogWithStackTrace("Wrong value. Adding aborted.");
+                return;
+            }
+
+            Session._user = user;
+        }
+
+        public static User GetUser => Session._user;
 
         public static string HashPassword(string password)
         {
+            const int SaltSize = 16;
+            const int HashSize = 32;
+            const int Iterations = 20_000;
             byte[] salt = new byte[SaltSize];
             using (var rng = RandomNumberGenerator.Create()) rng.GetBytes(salt);
 
@@ -31,8 +46,10 @@ namespace FlightReservationSystem.Helpers
 
         public static bool VerifyPassword(string password, string storedHash)
         {
+            const int SaltSize = 16;
+            const int HashSize = 32;
+            const int Iterations = 20_000;
             byte[] hashBytes = Convert.FromBase64String(storedHash);
-
             byte[] salt = new byte[SaltSize];
             Array.Copy(hashBytes, 0, salt, 0, SaltSize);
 

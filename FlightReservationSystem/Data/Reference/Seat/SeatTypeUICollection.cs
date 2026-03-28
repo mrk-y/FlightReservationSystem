@@ -7,35 +7,35 @@ using System.Threading.Tasks;
 
 namespace FlightReservationSystem.Data.Reference.Seat
 {
-    internal class SeatUICollection
+    internal class SeatTypeUICollection
     {
-        private static readonly List<SeatUIRecord> _seatUIRecordList = new List<SeatUIRecord>
+        private static readonly List<SeatTypeUIRecord> _seatUIRecordList = new List<SeatTypeUIRecord>
         {
-            new SeatUIRecord
+            new SeatTypeUIRecord
             {
                 ID = 1,
                 BackColor = Color.FromKnownColor(KnownColor.LightGray),
                 BorderColor = Color.FromKnownColor(KnownColor.LightGray)
             },
-            new SeatUIRecord
+            new SeatTypeUIRecord
             {
                 ID = 2,
                 BackColor = Color.FromKnownColor(KnownColor.DarkRed),
                 BorderColor = Color.FromKnownColor(KnownColor.DarkRed)
             },
-            new SeatUIRecord
+            new SeatTypeUIRecord
             {
                 ID = 3,
                 BackColor = Color.FromKnownColor(KnownColor.GreenYellow),
                 BorderColor = Color.FromKnownColor(KnownColor.GreenYellow)
             },
-            new SeatUIRecord
+            new SeatTypeUIRecord
             {
                 ID = 4,
                 BackColor = Color.FromKnownColor(KnownColor.DeepSkyBlue),
                 BorderColor = Color.FromKnownColor(KnownColor.DeepSkyBlue)
             },
-            new SeatUIRecord
+            new SeatTypeUIRecord
             {
                 ID = 5,
                 BackColor = Color.Empty,
@@ -44,6 +44,6 @@ namespace FlightReservationSystem.Data.Reference.Seat
         };
 
 
-        public static List<SeatUIRecord> Get => _seatUIRecordList;
+        public static List<SeatTypeUIRecord> Get => _seatUIRecordList;
     }
 }

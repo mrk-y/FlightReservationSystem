@@ -15,6 +15,7 @@ namespace FlightReservationSystem.Data.Reference.AircraftModel
         public string Model { get; set; }
         public int TotalSeats { get; set; }
         public List<SeatLayoutRecord> SeatLayoutCollection { get; set; } = new List<SeatLayoutRecord>();
+        public int Speed { get; set; }
 
         
         public static bool ID_Try(int id)
@@ -81,9 +82,20 @@ namespace FlightReservationSystem.Data.Reference.AircraftModel
                 if (!SeatLayoutRecord.ClassName_Try(className) || !SeatLayoutRecord.SeatCount_Try(seatCount) ||
                     !SeatLayoutRecord.Arrangement_Try(arrangement))
                 {
-                    DebugLogger.LogWithStackTrace($"seatLayoutCollection {i} invalid value. Try false.");
+                    DebugLogger.LogWithStackTrace($"seatLayoutRecord {i} invalid value. Try false.");
                     return false;
                 }
+            }
+
+            return true;
+        }
+
+        public static bool Speed_Try(int speed)
+        {
+            if (!ValueChecker.IsIntValid(speed))
+            {
+                DebugLogger.LogWithStackTrace("speed invalid value. Try false.");
+                return false;
             }
 
             return true;

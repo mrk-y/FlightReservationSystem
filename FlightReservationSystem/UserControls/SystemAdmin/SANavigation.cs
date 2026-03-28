@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlightReservationSystem.Helpers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -26,6 +27,52 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
         private void NavigationTags()
         {
             btnAddAircraft.Tag = "AddAircraft";
+            btnAssignRoute.Tag = "AssignRoute";
+        }
+
+        private void btnAddAircraft_Click(object sender, EventArgs e)
+        {
+            if (ErrorManager.HasUncompleteProgress())
+            {
+                DialogResult result = MessageBoxHelper.ShowQuestionMessage("There is incomplete progress. Do you wish to proceed?");
+                if (result == DialogResult.Yes)
+                {
+                    ErrorManager.ClearErrorCollection();
+                    ErrorManager.ClearErrorUICollection();
+
+                    MainForm.Init(new AddAircraft());
+                }
+
+                return;
+            }
+
+            ErrorManager.ClearErrorCollection();
+            ErrorManager.ClearErrorUICollection();
+
+            MainForm.Init(new AddAircraft());
+
+        }
+
+        private void btnAssignRoute_Click(object sender, EventArgs e)
+        {
+            if (ErrorManager.HasUncompleteProgress())
+            {
+                DialogResult result = MessageBoxHelper.ShowQuestionMessage("There is incomplete progress. Do you wish to proceed?");
+                if (result == DialogResult.Yes)
+                {
+                    ErrorManager.ClearErrorCollection();
+                    ErrorManager.ClearErrorUICollection();
+
+                    MainForm.Init(new AssignRoute());
+                }
+
+                return;
+            }
+
+            ErrorManager.ClearErrorCollection();
+            ErrorManager.ClearErrorUICollection();
+
+            MainForm.Init(new AssignRoute());
         }
     }
 }

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.label6 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.pnlComfort = new System.Windows.Forms.Panel();
             this.button10 = new System.Windows.Forms.Button();
             this.button14 = new System.Windows.Forms.Button();
             this.button15 = new System.Windows.Forms.Button();
@@ -47,7 +47,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.pnlEconomy = new System.Windows.Forms.Panel();
             this.button61 = new System.Windows.Forms.Button();
             this.button38 = new System.Windows.Forms.Button();
             this.button62 = new System.Windows.Forms.Button();
@@ -130,15 +130,28 @@
             this.label26 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
-            this.panel2.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.pnl1 = new System.Windows.Forms.Panel();
+            this.lblWheelPass = new System.Windows.Forms.Label();
+            this.lblLegend = new System.Windows.Forms.Label();
+            this.btnRegPass = new System.Windows.Forms.Button();
+            this.btnWheelPass = new System.Windows.Forms.Button();
+            this.lblRegPass = new System.Windows.Forms.Label();
+            this.btnExitRow = new System.Windows.Forms.Button();
+            this.lblUnaccomMinor = new System.Windows.Forms.Label();
+            this.lblExitRow = new System.Windows.Forms.Label();
+            this.btnPassWNuatAller = new System.Windows.Forms.Button();
+            this.btnUnaccomMinor = new System.Windows.Forms.Button();
+            this.lblPassWNutAller = new System.Windows.Forms.Label();
+            this.pnlComfort.SuspendLayout();
+            this.pnlEconomy.SuspendLayout();
+            this.pnl1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(29, 0);
+            this.label6.Location = new System.Drawing.Point(29, 82);
             this.label6.Margin = new System.Windows.Forms.Padding(0);
             this.label6.MinimumSize = new System.Drawing.Size(0, 40);
             this.label6.Name = "label6";
@@ -146,33 +159,33 @@
             this.label6.TabIndex = 4;
             this.label6.Text = "COMFORT CLASS";
             // 
-            // panel2
+            // pnlComfort
             // 
-            this.panel2.AutoSize = true;
-            this.panel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.button10);
-            this.panel2.Controls.Add(this.button14);
-            this.panel2.Controls.Add(this.button15);
-            this.panel2.Controls.Add(this.label4);
-            this.panel2.Controls.Add(this.button16);
-            this.panel2.Controls.Add(this.button17);
-            this.panel2.Controls.Add(this.button18);
-            this.panel2.Controls.Add(this.label5);
-            this.panel2.Controls.Add(this.button4);
-            this.panel2.Controls.Add(this.button5);
-            this.panel2.Controls.Add(this.button6);
-            this.panel2.Controls.Add(this.label3);
-            this.panel2.Controls.Add(this.button3);
-            this.panel2.Controls.Add(this.button2);
-            this.panel2.Controls.Add(this.button1);
-            this.panel2.Controls.Add(this.label2);
-            this.panel2.Location = new System.Drawing.Point(0, 48);
-            this.panel2.Margin = new System.Windows.Forms.Padding(0, 8, 8, 8);
-            this.panel2.Name = "panel2";
-            this.panel2.Padding = new System.Windows.Forms.Padding(8, 24, 8, 24);
-            this.panel2.Size = new System.Drawing.Size(182, 306);
-            this.panel2.TabIndex = 5;
+            this.pnlComfort.AutoSize = true;
+            this.pnlComfort.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.pnlComfort.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlComfort.Controls.Add(this.button10);
+            this.pnlComfort.Controls.Add(this.button14);
+            this.pnlComfort.Controls.Add(this.button15);
+            this.pnlComfort.Controls.Add(this.label4);
+            this.pnlComfort.Controls.Add(this.button16);
+            this.pnlComfort.Controls.Add(this.button17);
+            this.pnlComfort.Controls.Add(this.button18);
+            this.pnlComfort.Controls.Add(this.label5);
+            this.pnlComfort.Controls.Add(this.button4);
+            this.pnlComfort.Controls.Add(this.button5);
+            this.pnlComfort.Controls.Add(this.button6);
+            this.pnlComfort.Controls.Add(this.label3);
+            this.pnlComfort.Controls.Add(this.button3);
+            this.pnlComfort.Controls.Add(this.button2);
+            this.pnlComfort.Controls.Add(this.button1);
+            this.pnlComfort.Controls.Add(this.label2);
+            this.pnlComfort.Location = new System.Drawing.Point(0, 130);
+            this.pnlComfort.Margin = new System.Windows.Forms.Padding(0, 8, 8, 8);
+            this.pnlComfort.Name = "pnlComfort";
+            this.pnlComfort.Padding = new System.Windows.Forms.Padding(8, 24, 8, 24);
+            this.pnlComfort.Size = new System.Drawing.Size(182, 306);
+            this.pnlComfort.TabIndex = 5;
             // 
             // button10
             // 
@@ -187,6 +200,7 @@
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(36, 36);
             this.button10.TabIndex = 22;
+            this.button10.Tag = "A3";
             this.button10.UseVisualStyleBackColor = false;
             // 
             // button14
@@ -202,6 +216,7 @@
             this.button14.Name = "button14";
             this.button14.Size = new System.Drawing.Size(36, 36);
             this.button14.TabIndex = 21;
+            this.button14.Tag = "A2";
             this.button14.UseVisualStyleBackColor = false;
             // 
             // button15
@@ -217,6 +232,7 @@
             this.button15.Name = "button15";
             this.button15.Size = new System.Drawing.Size(36, 36);
             this.button15.TabIndex = 20;
+            this.button15.Tag = "A1";
             this.button15.UseVisualStyleBackColor = false;
             // 
             // label4
@@ -245,6 +261,7 @@
             this.button16.Name = "button16";
             this.button16.Size = new System.Drawing.Size(36, 36);
             this.button16.TabIndex = 18;
+            this.button16.Tag = "C3";
             this.button16.UseVisualStyleBackColor = false;
             // 
             // button17
@@ -260,6 +277,7 @@
             this.button17.Name = "button17";
             this.button17.Size = new System.Drawing.Size(36, 36);
             this.button17.TabIndex = 17;
+            this.button17.Tag = "C2";
             this.button17.UseVisualStyleBackColor = false;
             // 
             // button18
@@ -275,6 +293,7 @@
             this.button18.Name = "button18";
             this.button18.Size = new System.Drawing.Size(36, 36);
             this.button18.TabIndex = 16;
+            this.button18.Tag = "C1";
             this.button18.UseVisualStyleBackColor = false;
             // 
             // label5
@@ -303,6 +322,7 @@
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(36, 36);
             this.button4.TabIndex = 7;
+            this.button4.Tag = "H3";
             this.button4.UseVisualStyleBackColor = false;
             // 
             // button5
@@ -318,6 +338,7 @@
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(36, 36);
             this.button5.TabIndex = 6;
+            this.button5.Tag = "H2";
             this.button5.UseVisualStyleBackColor = false;
             // 
             // button6
@@ -333,6 +354,7 @@
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(36, 36);
             this.button6.TabIndex = 5;
+            this.button6.Tag = "H1";
             this.button6.UseVisualStyleBackColor = false;
             // 
             // label3
@@ -361,7 +383,7 @@
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(36, 36);
             this.button3.TabIndex = 3;
-            this.button3.Tag = "3";
+            this.button3.Tag = "K3";
             this.button3.UseVisualStyleBackColor = false;
             // 
             // button2
@@ -377,7 +399,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(36, 36);
             this.button2.TabIndex = 2;
-            this.button2.Tag = "";
+            this.button2.Tag = "K2";
             this.button2.UseVisualStyleBackColor = false;
             // 
             // button1
@@ -413,7 +435,7 @@
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(514, 0);
+            this.label19.Location = new System.Drawing.Point(514, 82);
             this.label19.Margin = new System.Windows.Forms.Padding(0);
             this.label19.MinimumSize = new System.Drawing.Size(0, 40);
             this.label19.Name = "label19";
@@ -421,81 +443,81 @@
             this.label19.TabIndex = 60;
             this.label19.Text = "ECONOMY CLASS";
             // 
-            // panel1
+            // pnlEconomy
             // 
-            this.panel1.AutoSize = true;
-            this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.button61);
-            this.panel1.Controls.Add(this.button38);
-            this.panel1.Controls.Add(this.button62);
-            this.panel1.Controls.Add(this.button41);
-            this.panel1.Controls.Add(this.button63);
-            this.panel1.Controls.Add(this.button44);
-            this.panel1.Controls.Add(this.button64);
-            this.panel1.Controls.Add(this.button47);
-            this.panel1.Controls.Add(this.button65);
-            this.panel1.Controls.Add(this.button49);
-            this.panel1.Controls.Add(this.button66);
-            this.panel1.Controls.Add(this.button50);
-            this.panel1.Controls.Add(this.button67);
-            this.panel1.Controls.Add(this.button51);
-            this.panel1.Controls.Add(this.button68);
-            this.panel1.Controls.Add(this.button52);
-            this.panel1.Controls.Add(this.button69);
-            this.panel1.Controls.Add(this.button53);
-            this.panel1.Controls.Add(this.button70);
-            this.panel1.Controls.Add(this.button54);
-            this.panel1.Controls.Add(this.button71);
-            this.panel1.Controls.Add(this.button55);
-            this.panel1.Controls.Add(this.button72);
-            this.panel1.Controls.Add(this.button56);
-            this.panel1.Controls.Add(this.button57);
-            this.panel1.Controls.Add(this.button58);
-            this.panel1.Controls.Add(this.button59);
-            this.panel1.Controls.Add(this.button60);
-            this.panel1.Controls.Add(this.button37);
-            this.panel1.Controls.Add(this.button39);
-            this.panel1.Controls.Add(this.button40);
-            this.panel1.Controls.Add(this.button42);
-            this.panel1.Controls.Add(this.button43);
-            this.panel1.Controls.Add(this.button45);
-            this.panel1.Controls.Add(this.button46);
-            this.panel1.Controls.Add(this.button48);
-            this.panel1.Controls.Add(this.button25);
-            this.panel1.Controls.Add(this.button26);
-            this.panel1.Controls.Add(this.button27);
-            this.panel1.Controls.Add(this.button28);
-            this.panel1.Controls.Add(this.button29);
-            this.panel1.Controls.Add(this.button30);
-            this.panel1.Controls.Add(this.button31);
-            this.panel1.Controls.Add(this.button32);
-            this.panel1.Controls.Add(this.button33);
-            this.panel1.Controls.Add(this.button34);
-            this.panel1.Controls.Add(this.button35);
-            this.panel1.Controls.Add(this.button36);
-            this.panel1.Controls.Add(this.button7);
-            this.panel1.Controls.Add(this.button8);
-            this.panel1.Controls.Add(this.button9);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.button11);
-            this.panel1.Controls.Add(this.button12);
-            this.panel1.Controls.Add(this.button13);
-            this.panel1.Controls.Add(this.label7);
-            this.panel1.Controls.Add(this.button19);
-            this.panel1.Controls.Add(this.button20);
-            this.panel1.Controls.Add(this.button21);
-            this.panel1.Controls.Add(this.label8);
-            this.panel1.Controls.Add(this.button22);
-            this.panel1.Controls.Add(this.button23);
-            this.panel1.Controls.Add(this.button24);
-            this.panel1.Controls.Add(this.label9);
-            this.panel1.Location = new System.Drawing.Point(190, 48);
-            this.panel1.Margin = new System.Windows.Forms.Padding(0, 8, 0, 8);
-            this.panel1.Name = "panel1";
-            this.panel1.Padding = new System.Windows.Forms.Padding(8, 24, 8, 24);
-            this.panel1.Size = new System.Drawing.Size(806, 306);
-            this.panel1.TabIndex = 23;
+            this.pnlEconomy.AutoSize = true;
+            this.pnlEconomy.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.pnlEconomy.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlEconomy.Controls.Add(this.button61);
+            this.pnlEconomy.Controls.Add(this.button38);
+            this.pnlEconomy.Controls.Add(this.button62);
+            this.pnlEconomy.Controls.Add(this.button41);
+            this.pnlEconomy.Controls.Add(this.button63);
+            this.pnlEconomy.Controls.Add(this.button44);
+            this.pnlEconomy.Controls.Add(this.button64);
+            this.pnlEconomy.Controls.Add(this.button47);
+            this.pnlEconomy.Controls.Add(this.button65);
+            this.pnlEconomy.Controls.Add(this.button49);
+            this.pnlEconomy.Controls.Add(this.button66);
+            this.pnlEconomy.Controls.Add(this.button50);
+            this.pnlEconomy.Controls.Add(this.button67);
+            this.pnlEconomy.Controls.Add(this.button51);
+            this.pnlEconomy.Controls.Add(this.button68);
+            this.pnlEconomy.Controls.Add(this.button52);
+            this.pnlEconomy.Controls.Add(this.button69);
+            this.pnlEconomy.Controls.Add(this.button53);
+            this.pnlEconomy.Controls.Add(this.button70);
+            this.pnlEconomy.Controls.Add(this.button54);
+            this.pnlEconomy.Controls.Add(this.button71);
+            this.pnlEconomy.Controls.Add(this.button55);
+            this.pnlEconomy.Controls.Add(this.button72);
+            this.pnlEconomy.Controls.Add(this.button56);
+            this.pnlEconomy.Controls.Add(this.button57);
+            this.pnlEconomy.Controls.Add(this.button58);
+            this.pnlEconomy.Controls.Add(this.button59);
+            this.pnlEconomy.Controls.Add(this.button60);
+            this.pnlEconomy.Controls.Add(this.button37);
+            this.pnlEconomy.Controls.Add(this.button39);
+            this.pnlEconomy.Controls.Add(this.button40);
+            this.pnlEconomy.Controls.Add(this.button42);
+            this.pnlEconomy.Controls.Add(this.button43);
+            this.pnlEconomy.Controls.Add(this.button45);
+            this.pnlEconomy.Controls.Add(this.button46);
+            this.pnlEconomy.Controls.Add(this.button48);
+            this.pnlEconomy.Controls.Add(this.button25);
+            this.pnlEconomy.Controls.Add(this.button26);
+            this.pnlEconomy.Controls.Add(this.button27);
+            this.pnlEconomy.Controls.Add(this.button28);
+            this.pnlEconomy.Controls.Add(this.button29);
+            this.pnlEconomy.Controls.Add(this.button30);
+            this.pnlEconomy.Controls.Add(this.button31);
+            this.pnlEconomy.Controls.Add(this.button32);
+            this.pnlEconomy.Controls.Add(this.button33);
+            this.pnlEconomy.Controls.Add(this.button34);
+            this.pnlEconomy.Controls.Add(this.button35);
+            this.pnlEconomy.Controls.Add(this.button36);
+            this.pnlEconomy.Controls.Add(this.button7);
+            this.pnlEconomy.Controls.Add(this.button8);
+            this.pnlEconomy.Controls.Add(this.button9);
+            this.pnlEconomy.Controls.Add(this.label1);
+            this.pnlEconomy.Controls.Add(this.button11);
+            this.pnlEconomy.Controls.Add(this.button12);
+            this.pnlEconomy.Controls.Add(this.button13);
+            this.pnlEconomy.Controls.Add(this.label7);
+            this.pnlEconomy.Controls.Add(this.button19);
+            this.pnlEconomy.Controls.Add(this.button20);
+            this.pnlEconomy.Controls.Add(this.button21);
+            this.pnlEconomy.Controls.Add(this.label8);
+            this.pnlEconomy.Controls.Add(this.button22);
+            this.pnlEconomy.Controls.Add(this.button23);
+            this.pnlEconomy.Controls.Add(this.button24);
+            this.pnlEconomy.Controls.Add(this.label9);
+            this.pnlEconomy.Location = new System.Drawing.Point(190, 130);
+            this.pnlEconomy.Margin = new System.Windows.Forms.Padding(0, 8, 0, 8);
+            this.pnlEconomy.Name = "pnlEconomy";
+            this.pnlEconomy.Padding = new System.Windows.Forms.Padding(8, 24, 8, 24);
+            this.pnlEconomy.Size = new System.Drawing.Size(806, 306);
+            this.pnlEconomy.TabIndex = 23;
             // 
             // button61
             // 
@@ -510,6 +532,7 @@
             this.button61.Name = "button61";
             this.button61.Size = new System.Drawing.Size(36, 36);
             this.button61.TabIndex = 34;
+            this.button61.Tag = "A18";
             this.button61.UseVisualStyleBackColor = false;
             // 
             // button38
@@ -525,6 +548,7 @@
             this.button38.Name = "button38";
             this.button38.Size = new System.Drawing.Size(36, 36);
             this.button38.TabIndex = 62;
+            this.button38.Tag = "A15";
             this.button38.UseVisualStyleBackColor = false;
             // 
             // button62
@@ -540,6 +564,7 @@
             this.button62.Name = "button62";
             this.button62.Size = new System.Drawing.Size(36, 36);
             this.button62.TabIndex = 33;
+            this.button62.Tag = "A17";
             this.button62.UseVisualStyleBackColor = false;
             // 
             // button41
@@ -555,6 +580,7 @@
             this.button41.Name = "button41";
             this.button41.Size = new System.Drawing.Size(36, 36);
             this.button41.TabIndex = 61;
+            this.button41.Tag = "C15";
             this.button41.UseVisualStyleBackColor = false;
             // 
             // button63
@@ -570,6 +596,7 @@
             this.button63.Name = "button63";
             this.button63.Size = new System.Drawing.Size(36, 36);
             this.button63.TabIndex = 32;
+            this.button63.Tag = "A16";
             this.button63.UseVisualStyleBackColor = false;
             // 
             // button44
@@ -585,6 +612,7 @@
             this.button44.Name = "button44";
             this.button44.Size = new System.Drawing.Size(36, 36);
             this.button44.TabIndex = 60;
+            this.button44.Tag = "H15";
             this.button44.UseVisualStyleBackColor = false;
             // 
             // button64
@@ -600,6 +628,7 @@
             this.button64.Name = "button64";
             this.button64.Size = new System.Drawing.Size(36, 36);
             this.button64.TabIndex = 31;
+            this.button64.Tag = "C18";
             this.button64.UseVisualStyleBackColor = false;
             // 
             // button47
@@ -615,7 +644,7 @@
             this.button47.Name = "button47";
             this.button47.Size = new System.Drawing.Size(36, 36);
             this.button47.TabIndex = 59;
-            this.button47.Tag = "";
+            this.button47.Tag = "K15";
             this.button47.UseVisualStyleBackColor = false;
             // 
             // button65
@@ -631,6 +660,7 @@
             this.button65.Name = "button65";
             this.button65.Size = new System.Drawing.Size(36, 36);
             this.button65.TabIndex = 30;
+            this.button65.Tag = "C17";
             this.button65.UseVisualStyleBackColor = false;
             // 
             // button49
@@ -646,6 +676,7 @@
             this.button49.Name = "button49";
             this.button49.Size = new System.Drawing.Size(36, 36);
             this.button49.TabIndex = 58;
+            this.button49.Tag = "A14";
             this.button49.UseVisualStyleBackColor = false;
             // 
             // button66
@@ -661,6 +692,7 @@
             this.button66.Name = "button66";
             this.button66.Size = new System.Drawing.Size(36, 36);
             this.button66.TabIndex = 29;
+            this.button66.Tag = "C16";
             this.button66.UseVisualStyleBackColor = false;
             // 
             // button50
@@ -676,6 +708,7 @@
             this.button50.Name = "button50";
             this.button50.Size = new System.Drawing.Size(36, 36);
             this.button50.TabIndex = 57;
+            this.button50.Tag = "A13";
             this.button50.UseVisualStyleBackColor = false;
             // 
             // button67
@@ -691,6 +724,7 @@
             this.button67.Name = "button67";
             this.button67.Size = new System.Drawing.Size(36, 36);
             this.button67.TabIndex = 28;
+            this.button67.Tag = "H18";
             this.button67.UseVisualStyleBackColor = false;
             // 
             // button51
@@ -706,6 +740,7 @@
             this.button51.Name = "button51";
             this.button51.Size = new System.Drawing.Size(36, 36);
             this.button51.TabIndex = 56;
+            this.button51.Tag = "A12";
             this.button51.UseVisualStyleBackColor = false;
             // 
             // button68
@@ -721,6 +756,7 @@
             this.button68.Name = "button68";
             this.button68.Size = new System.Drawing.Size(36, 36);
             this.button68.TabIndex = 27;
+            this.button68.Tag = "H17";
             this.button68.UseVisualStyleBackColor = false;
             // 
             // button52
@@ -736,6 +772,7 @@
             this.button52.Name = "button52";
             this.button52.Size = new System.Drawing.Size(36, 36);
             this.button52.TabIndex = 55;
+            this.button52.Tag = "C14";
             this.button52.UseVisualStyleBackColor = false;
             // 
             // button69
@@ -751,6 +788,7 @@
             this.button69.Name = "button69";
             this.button69.Size = new System.Drawing.Size(36, 36);
             this.button69.TabIndex = 26;
+            this.button69.Tag = "H16";
             this.button69.UseVisualStyleBackColor = false;
             // 
             // button53
@@ -766,6 +804,7 @@
             this.button53.Name = "button53";
             this.button53.Size = new System.Drawing.Size(36, 36);
             this.button53.TabIndex = 54;
+            this.button53.Tag = "C13";
             this.button53.UseVisualStyleBackColor = false;
             // 
             // button70
@@ -781,7 +820,7 @@
             this.button70.Name = "button70";
             this.button70.Size = new System.Drawing.Size(36, 36);
             this.button70.TabIndex = 25;
-            this.button70.Tag = "3";
+            this.button70.Tag = "K18";
             this.button70.UseVisualStyleBackColor = false;
             // 
             // button54
@@ -797,6 +836,7 @@
             this.button54.Name = "button54";
             this.button54.Size = new System.Drawing.Size(36, 36);
             this.button54.TabIndex = 53;
+            this.button54.Tag = "C12";
             this.button54.UseVisualStyleBackColor = false;
             // 
             // button71
@@ -812,7 +852,7 @@
             this.button71.Name = "button71";
             this.button71.Size = new System.Drawing.Size(36, 36);
             this.button71.TabIndex = 24;
-            this.button71.Tag = "2";
+            this.button71.Tag = "K17";
             this.button71.UseVisualStyleBackColor = false;
             // 
             // button55
@@ -828,6 +868,7 @@
             this.button55.Name = "button55";
             this.button55.Size = new System.Drawing.Size(36, 36);
             this.button55.TabIndex = 52;
+            this.button55.Tag = "H14";
             this.button55.UseVisualStyleBackColor = false;
             // 
             // button72
@@ -843,7 +884,7 @@
             this.button72.Name = "button72";
             this.button72.Size = new System.Drawing.Size(36, 36);
             this.button72.TabIndex = 23;
-            this.button72.Tag = "";
+            this.button72.Tag = "K16";
             this.button72.UseVisualStyleBackColor = false;
             // 
             // button56
@@ -859,6 +900,7 @@
             this.button56.Name = "button56";
             this.button56.Size = new System.Drawing.Size(36, 36);
             this.button56.TabIndex = 51;
+            this.button56.Tag = "H13";
             this.button56.UseVisualStyleBackColor = false;
             // 
             // button57
@@ -874,6 +916,7 @@
             this.button57.Name = "button57";
             this.button57.Size = new System.Drawing.Size(36, 36);
             this.button57.TabIndex = 50;
+            this.button57.Tag = "H12";
             this.button57.UseVisualStyleBackColor = false;
             // 
             // button58
@@ -889,7 +932,7 @@
             this.button58.Name = "button58";
             this.button58.Size = new System.Drawing.Size(36, 36);
             this.button58.TabIndex = 49;
-            this.button58.Tag = "3";
+            this.button58.Tag = "K14";
             this.button58.UseVisualStyleBackColor = false;
             // 
             // button59
@@ -905,7 +948,7 @@
             this.button59.Name = "button59";
             this.button59.Size = new System.Drawing.Size(36, 36);
             this.button59.TabIndex = 48;
-            this.button59.Tag = "2";
+            this.button59.Tag = "K13";
             this.button59.UseVisualStyleBackColor = false;
             // 
             // button60
@@ -921,7 +964,7 @@
             this.button60.Name = "button60";
             this.button60.Size = new System.Drawing.Size(36, 36);
             this.button60.TabIndex = 47;
-            this.button60.Tag = "";
+            this.button60.Tag = "K12";
             this.button60.UseVisualStyleBackColor = false;
             // 
             // button37
@@ -937,6 +980,7 @@
             this.button37.Name = "button37";
             this.button37.Size = new System.Drawing.Size(36, 36);
             this.button37.TabIndex = 46;
+            this.button37.Tag = "A11";
             this.button37.UseVisualStyleBackColor = false;
             // 
             // button39
@@ -952,6 +996,7 @@
             this.button39.Name = "button39";
             this.button39.Size = new System.Drawing.Size(36, 36);
             this.button39.TabIndex = 44;
+            this.button39.Tag = "A10";
             this.button39.UseVisualStyleBackColor = false;
             // 
             // button40
@@ -967,6 +1012,7 @@
             this.button40.Name = "button40";
             this.button40.Size = new System.Drawing.Size(36, 36);
             this.button40.TabIndex = 43;
+            this.button40.Tag = "C11";
             this.button40.UseVisualStyleBackColor = false;
             // 
             // button42
@@ -982,6 +1028,7 @@
             this.button42.Name = "button42";
             this.button42.Size = new System.Drawing.Size(36, 36);
             this.button42.TabIndex = 41;
+            this.button42.Tag = "C10";
             this.button42.UseVisualStyleBackColor = false;
             // 
             // button43
@@ -997,6 +1044,7 @@
             this.button43.Name = "button43";
             this.button43.Size = new System.Drawing.Size(36, 36);
             this.button43.TabIndex = 40;
+            this.button43.Tag = "H11";
             this.button43.UseVisualStyleBackColor = false;
             // 
             // button45
@@ -1012,6 +1060,7 @@
             this.button45.Name = "button45";
             this.button45.Size = new System.Drawing.Size(36, 36);
             this.button45.TabIndex = 38;
+            this.button45.Tag = "H10";
             this.button45.UseVisualStyleBackColor = false;
             // 
             // button46
@@ -1027,7 +1076,7 @@
             this.button46.Name = "button46";
             this.button46.Size = new System.Drawing.Size(36, 36);
             this.button46.TabIndex = 37;
-            this.button46.Tag = "3";
+            this.button46.Tag = "K11";
             this.button46.UseVisualStyleBackColor = false;
             // 
             // button48
@@ -1043,7 +1092,7 @@
             this.button48.Name = "button48";
             this.button48.Size = new System.Drawing.Size(36, 36);
             this.button48.TabIndex = 35;
-            this.button48.Tag = "";
+            this.button48.Tag = "K10";
             this.button48.UseVisualStyleBackColor = false;
             // 
             // button25
@@ -1059,6 +1108,7 @@
             this.button25.Name = "button25";
             this.button25.Size = new System.Drawing.Size(36, 36);
             this.button25.TabIndex = 34;
+            this.button25.Tag = "A9";
             this.button25.UseVisualStyleBackColor = false;
             // 
             // button26
@@ -1074,6 +1124,7 @@
             this.button26.Name = "button26";
             this.button26.Size = new System.Drawing.Size(36, 36);
             this.button26.TabIndex = 33;
+            this.button26.Tag = "A8";
             this.button26.UseVisualStyleBackColor = false;
             // 
             // button27
@@ -1089,6 +1140,7 @@
             this.button27.Name = "button27";
             this.button27.Size = new System.Drawing.Size(36, 36);
             this.button27.TabIndex = 32;
+            this.button27.Tag = "A7";
             this.button27.UseVisualStyleBackColor = false;
             // 
             // button28
@@ -1104,6 +1156,7 @@
             this.button28.Name = "button28";
             this.button28.Size = new System.Drawing.Size(36, 36);
             this.button28.TabIndex = 31;
+            this.button28.Tag = "C9";
             this.button28.UseVisualStyleBackColor = false;
             // 
             // button29
@@ -1119,6 +1172,7 @@
             this.button29.Name = "button29";
             this.button29.Size = new System.Drawing.Size(36, 36);
             this.button29.TabIndex = 30;
+            this.button29.Tag = "C8";
             this.button29.UseVisualStyleBackColor = false;
             // 
             // button30
@@ -1134,6 +1188,7 @@
             this.button30.Name = "button30";
             this.button30.Size = new System.Drawing.Size(36, 36);
             this.button30.TabIndex = 29;
+            this.button30.Tag = "C7";
             this.button30.UseVisualStyleBackColor = false;
             // 
             // button31
@@ -1149,6 +1204,7 @@
             this.button31.Name = "button31";
             this.button31.Size = new System.Drawing.Size(36, 36);
             this.button31.TabIndex = 28;
+            this.button31.Tag = "H9";
             this.button31.UseVisualStyleBackColor = false;
             // 
             // button32
@@ -1164,6 +1220,7 @@
             this.button32.Name = "button32";
             this.button32.Size = new System.Drawing.Size(36, 36);
             this.button32.TabIndex = 27;
+            this.button32.Tag = "H8";
             this.button32.UseVisualStyleBackColor = false;
             // 
             // button33
@@ -1179,6 +1236,7 @@
             this.button33.Name = "button33";
             this.button33.Size = new System.Drawing.Size(36, 36);
             this.button33.TabIndex = 26;
+            this.button33.Tag = "H7";
             this.button33.UseVisualStyleBackColor = false;
             // 
             // button34
@@ -1194,7 +1252,7 @@
             this.button34.Name = "button34";
             this.button34.Size = new System.Drawing.Size(36, 36);
             this.button34.TabIndex = 25;
-            this.button34.Tag = "3";
+            this.button34.Tag = "K9";
             this.button34.UseVisualStyleBackColor = false;
             // 
             // button35
@@ -1210,7 +1268,7 @@
             this.button35.Name = "button35";
             this.button35.Size = new System.Drawing.Size(36, 36);
             this.button35.TabIndex = 24;
-            this.button35.Tag = "2";
+            this.button35.Tag = "K8";
             this.button35.UseVisualStyleBackColor = false;
             // 
             // button36
@@ -1226,7 +1284,7 @@
             this.button36.Name = "button36";
             this.button36.Size = new System.Drawing.Size(36, 36);
             this.button36.TabIndex = 23;
-            this.button36.Tag = "";
+            this.button36.Tag = "K7";
             this.button36.UseVisualStyleBackColor = false;
             // 
             // button7
@@ -1242,6 +1300,7 @@
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(36, 36);
             this.button7.TabIndex = 22;
+            this.button7.Tag = "A6";
             this.button7.UseVisualStyleBackColor = false;
             // 
             // button8
@@ -1257,6 +1316,7 @@
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(36, 36);
             this.button8.TabIndex = 21;
+            this.button8.Tag = "A5";
             this.button8.UseVisualStyleBackColor = false;
             // 
             // button9
@@ -1272,6 +1332,7 @@
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(36, 36);
             this.button9.TabIndex = 20;
+            this.button9.Tag = "A4";
             this.button9.UseVisualStyleBackColor = false;
             // 
             // label1
@@ -1300,6 +1361,7 @@
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(36, 36);
             this.button11.TabIndex = 18;
+            this.button11.Tag = "C6";
             this.button11.UseVisualStyleBackColor = false;
             // 
             // button12
@@ -1315,6 +1377,7 @@
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(36, 36);
             this.button12.TabIndex = 17;
+            this.button12.Tag = "C5";
             this.button12.UseVisualStyleBackColor = false;
             // 
             // button13
@@ -1330,6 +1393,7 @@
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(36, 36);
             this.button13.TabIndex = 16;
+            this.button13.Tag = "C4";
             this.button13.UseVisualStyleBackColor = false;
             // 
             // label7
@@ -1358,6 +1422,7 @@
             this.button19.Name = "button19";
             this.button19.Size = new System.Drawing.Size(36, 36);
             this.button19.TabIndex = 7;
+            this.button19.Tag = "H6";
             this.button19.UseVisualStyleBackColor = false;
             // 
             // button20
@@ -1373,6 +1438,7 @@
             this.button20.Name = "button20";
             this.button20.Size = new System.Drawing.Size(36, 36);
             this.button20.TabIndex = 6;
+            this.button20.Tag = "H5";
             this.button20.UseVisualStyleBackColor = false;
             // 
             // button21
@@ -1388,6 +1454,7 @@
             this.button21.Name = "button21";
             this.button21.Size = new System.Drawing.Size(36, 36);
             this.button21.TabIndex = 5;
+            this.button21.Tag = "H4";
             this.button21.UseVisualStyleBackColor = false;
             // 
             // label8
@@ -1416,7 +1483,7 @@
             this.button22.Name = "button22";
             this.button22.Size = new System.Drawing.Size(36, 36);
             this.button22.TabIndex = 3;
-            this.button22.Tag = "3";
+            this.button22.Tag = "K6";
             this.button22.UseVisualStyleBackColor = false;
             // 
             // button23
@@ -1432,7 +1499,7 @@
             this.button23.Name = "button23";
             this.button23.Size = new System.Drawing.Size(36, 36);
             this.button23.TabIndex = 2;
-            this.button23.Tag = "2";
+            this.button23.Tag = "K5";
             this.button23.UseVisualStyleBackColor = false;
             // 
             // button24
@@ -1448,7 +1515,7 @@
             this.button24.Name = "button24";
             this.button24.Size = new System.Drawing.Size(36, 36);
             this.button24.TabIndex = 1;
-            this.button24.Tag = "";
+            this.button24.Tag = "K4";
             this.button24.UseVisualStyleBackColor = false;
             // 
             // label9
@@ -1468,7 +1535,7 @@
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(33, 362);
+            this.label20.Location = new System.Drawing.Point(33, 444);
             this.label20.Margin = new System.Windows.Forms.Padding(0);
             this.label20.MinimumSize = new System.Drawing.Size(36, 40);
             this.label20.Name = "label20";
@@ -1481,7 +1548,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(81, 362);
+            this.label10.Location = new System.Drawing.Point(81, 444);
             this.label10.Margin = new System.Windows.Forms.Padding(0);
             this.label10.MinimumSize = new System.Drawing.Size(36, 40);
             this.label10.Name = "label10";
@@ -1494,7 +1561,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(129, 362);
+            this.label11.Location = new System.Drawing.Point(129, 444);
             this.label11.Margin = new System.Windows.Forms.Padding(0);
             this.label11.MinimumSize = new System.Drawing.Size(36, 40);
             this.label11.Name = "label11";
@@ -1507,7 +1574,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(223, 362);
+            this.label12.Location = new System.Drawing.Point(223, 444);
             this.label12.Margin = new System.Windows.Forms.Padding(0);
             this.label12.MinimumSize = new System.Drawing.Size(36, 40);
             this.label12.Name = "label12";
@@ -1520,7 +1587,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(271, 362);
+            this.label13.Location = new System.Drawing.Point(271, 444);
             this.label13.Margin = new System.Windows.Forms.Padding(0);
             this.label13.MinimumSize = new System.Drawing.Size(36, 40);
             this.label13.Name = "label13";
@@ -1533,7 +1600,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(367, 362);
+            this.label14.Location = new System.Drawing.Point(367, 444);
             this.label14.Margin = new System.Windows.Forms.Padding(0);
             this.label14.MinimumSize = new System.Drawing.Size(36, 40);
             this.label14.Name = "label14";
@@ -1546,7 +1613,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(319, 362);
+            this.label15.Location = new System.Drawing.Point(319, 444);
             this.label15.Margin = new System.Windows.Forms.Padding(0);
             this.label15.MinimumSize = new System.Drawing.Size(36, 40);
             this.label15.Name = "label15";
@@ -1559,7 +1626,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(463, 362);
+            this.label16.Location = new System.Drawing.Point(463, 444);
             this.label16.Margin = new System.Windows.Forms.Padding(0);
             this.label16.MinimumSize = new System.Drawing.Size(36, 40);
             this.label16.Name = "label16";
@@ -1572,7 +1639,7 @@
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(415, 362);
+            this.label17.Location = new System.Drawing.Point(415, 444);
             this.label17.Margin = new System.Windows.Forms.Padding(0);
             this.label17.MinimumSize = new System.Drawing.Size(36, 40);
             this.label17.Name = "label17";
@@ -1585,7 +1652,7 @@
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(511, 362);
+            this.label18.Location = new System.Drawing.Point(511, 444);
             this.label18.Margin = new System.Windows.Forms.Padding(0);
             this.label18.MinimumSize = new System.Drawing.Size(36, 40);
             this.label18.Name = "label18";
@@ -1598,7 +1665,7 @@
             // 
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(895, 362);
+            this.label21.Location = new System.Drawing.Point(895, 444);
             this.label21.Margin = new System.Windows.Forms.Padding(0);
             this.label21.MinimumSize = new System.Drawing.Size(36, 40);
             this.label21.Name = "label21";
@@ -1611,7 +1678,7 @@
             // 
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(847, 362);
+            this.label22.Location = new System.Drawing.Point(847, 444);
             this.label22.Margin = new System.Windows.Forms.Padding(0);
             this.label22.MinimumSize = new System.Drawing.Size(36, 40);
             this.label22.Name = "label22";
@@ -1624,7 +1691,7 @@
             // 
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(799, 362);
+            this.label23.Location = new System.Drawing.Point(799, 444);
             this.label23.Margin = new System.Windows.Forms.Padding(0);
             this.label23.MinimumSize = new System.Drawing.Size(36, 40);
             this.label23.Name = "label23";
@@ -1637,7 +1704,7 @@
             // 
             this.label24.AutoSize = true;
             this.label24.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.Location = new System.Drawing.Point(751, 362);
+            this.label24.Location = new System.Drawing.Point(751, 444);
             this.label24.Margin = new System.Windows.Forms.Padding(0);
             this.label24.MinimumSize = new System.Drawing.Size(36, 40);
             this.label24.Name = "label24";
@@ -1650,7 +1717,7 @@
             // 
             this.label25.AutoSize = true;
             this.label25.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.Location = new System.Drawing.Point(703, 362);
+            this.label25.Location = new System.Drawing.Point(703, 444);
             this.label25.Margin = new System.Windows.Forms.Padding(0);
             this.label25.MinimumSize = new System.Drawing.Size(36, 40);
             this.label25.Name = "label25";
@@ -1663,7 +1730,7 @@
             // 
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(655, 362);
+            this.label26.Location = new System.Drawing.Point(655, 444);
             this.label26.Margin = new System.Windows.Forms.Padding(0);
             this.label26.MinimumSize = new System.Drawing.Size(36, 40);
             this.label26.Name = "label26";
@@ -1676,7 +1743,7 @@
             // 
             this.label27.AutoSize = true;
             this.label27.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(607, 362);
+            this.label27.Location = new System.Drawing.Point(607, 444);
             this.label27.Margin = new System.Windows.Forms.Padding(0);
             this.label27.MinimumSize = new System.Drawing.Size(36, 40);
             this.label27.Name = "label27";
@@ -1689,7 +1756,7 @@
             // 
             this.label28.AutoSize = true;
             this.label28.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.Location = new System.Drawing.Point(943, 362);
+            this.label28.Location = new System.Drawing.Point(943, 444);
             this.label28.Margin = new System.Windows.Forms.Padding(0);
             this.label28.MinimumSize = new System.Drawing.Size(36, 40);
             this.label28.Name = "label28";
@@ -1698,13 +1765,175 @@
             this.label28.Text = "18";
             this.label28.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
+            // pnl1
+            // 
+            this.pnl1.AutoSize = true;
+            this.pnl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.pnl1.BackColor = System.Drawing.Color.White;
+            this.pnl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnl1.Controls.Add(this.lblWheelPass);
+            this.pnl1.Controls.Add(this.lblLegend);
+            this.pnl1.Controls.Add(this.btnRegPass);
+            this.pnl1.Controls.Add(this.btnWheelPass);
+            this.pnl1.Controls.Add(this.lblRegPass);
+            this.pnl1.Controls.Add(this.btnExitRow);
+            this.pnl1.Controls.Add(this.lblUnaccomMinor);
+            this.pnl1.Controls.Add(this.lblExitRow);
+            this.pnl1.Controls.Add(this.btnPassWNuatAller);
+            this.pnl1.Controls.Add(this.btnUnaccomMinor);
+            this.pnl1.Controls.Add(this.lblPassWNutAller);
+            this.pnl1.Location = new System.Drawing.Point(0, 0);
+            this.pnl1.Margin = new System.Windows.Forms.Padding(0, 0, 0, 40);
+            this.pnl1.Name = "pnl1";
+            this.pnl1.Padding = new System.Windows.Forms.Padding(12);
+            this.pnl1.Size = new System.Drawing.Size(840, 42);
+            this.pnl1.TabIndex = 79;
+            // 
+            // lblWheelPass
+            // 
+            this.lblWheelPass.AutoSize = true;
+            this.lblWheelPass.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWheelPass.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(80)))));
+            this.lblWheelPass.Location = new System.Drawing.Point(697, 13);
+            this.lblWheelPass.Margin = new System.Windows.Forms.Padding(0);
+            this.lblWheelPass.Name = "lblWheelPass";
+            this.lblWheelPass.Size = new System.Drawing.Size(129, 15);
+            this.lblWheelPass.TabIndex = 12;
+            this.lblWheelPass.Text = "Wheelchair Passenger";
+            // 
+            // lblLegend
+            // 
+            this.lblLegend.AutoSize = true;
+            this.lblLegend.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLegend.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
+            this.lblLegend.Location = new System.Drawing.Point(12, 13);
+            this.lblLegend.Margin = new System.Windows.Forms.Padding(0, 0, 16, 0);
+            this.lblLegend.Name = "lblLegend";
+            this.lblLegend.Size = new System.Drawing.Size(51, 15);
+            this.lblLegend.TabIndex = 4;
+            this.lblLegend.Text = "Legend:";
+            // 
+            // btnRegPass
+            // 
+            this.btnRegPass.Enabled = false;
+            this.btnRegPass.FlatAppearance.BorderSize = 2;
+            this.btnRegPass.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRegPass.Location = new System.Drawing.Point(79, 12);
+            this.btnRegPass.Margin = new System.Windows.Forms.Padding(0, 0, 4, 0);
+            this.btnRegPass.Name = "btnRegPass";
+            this.btnRegPass.Size = new System.Drawing.Size(16, 16);
+            this.btnRegPass.TabIndex = 4;
+            this.btnRegPass.TabStop = false;
+            this.btnRegPass.UseVisualStyleBackColor = true;
+            // 
+            // btnWheelPass
+            // 
+            this.btnWheelPass.Enabled = false;
+            this.btnWheelPass.FlatAppearance.BorderSize = 2;
+            this.btnWheelPass.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnWheelPass.Location = new System.Drawing.Point(677, 12);
+            this.btnWheelPass.Margin = new System.Windows.Forms.Padding(0, 0, 4, 0);
+            this.btnWheelPass.Name = "btnWheelPass";
+            this.btnWheelPass.Size = new System.Drawing.Size(16, 16);
+            this.btnWheelPass.TabIndex = 11;
+            this.btnWheelPass.TabStop = false;
+            this.btnWheelPass.UseVisualStyleBackColor = true;
+            // 
+            // lblRegPass
+            // 
+            this.lblRegPass.AutoSize = true;
+            this.lblRegPass.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRegPass.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(80)))));
+            this.lblRegPass.Location = new System.Drawing.Point(99, 13);
+            this.lblRegPass.Margin = new System.Windows.Forms.Padding(0, 0, 16, 0);
+            this.lblRegPass.Name = "lblRegPass";
+            this.lblRegPass.Size = new System.Drawing.Size(109, 15);
+            this.lblRegPass.TabIndex = 4;
+            this.lblRegPass.Text = "Regular Passenger";
+            // 
+            // btnExitRow
+            // 
+            this.btnExitRow.Enabled = false;
+            this.btnExitRow.FlatAppearance.BorderSize = 2;
+            this.btnExitRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExitRow.Location = new System.Drawing.Point(224, 12);
+            this.btnExitRow.Margin = new System.Windows.Forms.Padding(0, 0, 4, 0);
+            this.btnExitRow.Name = "btnExitRow";
+            this.btnExitRow.Size = new System.Drawing.Size(16, 16);
+            this.btnExitRow.TabIndex = 5;
+            this.btnExitRow.TabStop = false;
+            this.btnExitRow.UseVisualStyleBackColor = true;
+            // 
+            // lblUnaccomMinor
+            // 
+            this.lblUnaccomMinor.AutoSize = true;
+            this.lblUnaccomMinor.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUnaccomMinor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(80)))));
+            this.lblUnaccomMinor.Location = new System.Drawing.Point(529, 13);
+            this.lblUnaccomMinor.Margin = new System.Windows.Forms.Padding(0, 0, 16, 0);
+            this.lblUnaccomMinor.Name = "lblUnaccomMinor";
+            this.lblUnaccomMinor.Size = new System.Drawing.Size(132, 15);
+            this.lblUnaccomMinor.TabIndex = 10;
+            this.lblUnaccomMinor.Text = "Unaccompanied Minor";
+            // 
+            // lblExitRow
+            // 
+            this.lblExitRow.AutoSize = true;
+            this.lblExitRow.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblExitRow.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(80)))));
+            this.lblExitRow.Location = new System.Drawing.Point(244, 13);
+            this.lblExitRow.Margin = new System.Windows.Forms.Padding(0, 0, 16, 0);
+            this.lblExitRow.Name = "lblExitRow";
+            this.lblExitRow.Size = new System.Drawing.Size(56, 15);
+            this.lblExitRow.TabIndex = 6;
+            this.lblExitRow.Text = "Exit Row";
+            // 
+            // btnPassWNuatAller
+            // 
+            this.btnPassWNuatAller.Enabled = false;
+            this.btnPassWNuatAller.FlatAppearance.BorderSize = 2;
+            this.btnPassWNuatAller.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPassWNuatAller.Location = new System.Drawing.Point(316, 12);
+            this.btnPassWNuatAller.Margin = new System.Windows.Forms.Padding(0, 0, 4, 0);
+            this.btnPassWNuatAller.Name = "btnPassWNuatAller";
+            this.btnPassWNuatAller.Size = new System.Drawing.Size(16, 16);
+            this.btnPassWNuatAller.TabIndex = 7;
+            this.btnPassWNuatAller.TabStop = false;
+            this.btnPassWNuatAller.UseVisualStyleBackColor = true;
+            // 
+            // btnUnaccomMinor
+            // 
+            this.btnUnaccomMinor.Enabled = false;
+            this.btnUnaccomMinor.FlatAppearance.BorderSize = 2;
+            this.btnUnaccomMinor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUnaccomMinor.Location = new System.Drawing.Point(509, 12);
+            this.btnUnaccomMinor.Margin = new System.Windows.Forms.Padding(0, 0, 4, 0);
+            this.btnUnaccomMinor.Name = "btnUnaccomMinor";
+            this.btnUnaccomMinor.Size = new System.Drawing.Size(16, 16);
+            this.btnUnaccomMinor.TabIndex = 9;
+            this.btnUnaccomMinor.TabStop = false;
+            this.btnUnaccomMinor.UseVisualStyleBackColor = true;
+            // 
+            // lblPassWNutAller
+            // 
+            this.lblPassWNutAller.AutoSize = true;
+            this.lblPassWNutAller.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPassWNutAller.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(80)))));
+            this.lblPassWNutAller.Location = new System.Drawing.Point(336, 13);
+            this.lblPassWNutAller.Margin = new System.Windows.Forms.Padding(0, 0, 16, 0);
+            this.lblPassWNutAller.Name = "lblPassWNutAller";
+            this.lblPassWNutAller.Size = new System.Drawing.Size(157, 15);
+            this.lblPassWNutAller.TabIndex = 8;
+            this.lblPassWNutAller.Text = "Passenger with Nut Allergy";
+            // 
             // ATR_72_600
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BackColor = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(248)))), ((int)(((byte)(255)))));
+            this.Controls.Add(this.pnl1);
             this.Controls.Add(this.label28);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.label22);
@@ -1723,17 +1952,19 @@
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label20);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.pnlEconomy);
             this.Controls.Add(this.label19);
-            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.pnlComfort);
             this.Controls.Add(this.label6);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "ATR_72_600";
-            this.Size = new System.Drawing.Size(996, 402);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.Size = new System.Drawing.Size(996, 484);
+            this.pnlComfort.ResumeLayout(false);
+            this.pnlComfort.PerformLayout();
+            this.pnlEconomy.ResumeLayout(false);
+            this.pnlEconomy.PerformLayout();
+            this.pnl1.ResumeLayout(false);
+            this.pnl1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1742,7 +1973,7 @@
         #endregion
 
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel pnlComfort;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button button14;
         private System.Windows.Forms.Button button15;
@@ -1760,7 +1991,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel pnlEconomy;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button9;
@@ -1843,5 +2074,17 @@
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Panel pnl1;
+        private System.Windows.Forms.Label lblWheelPass;
+        private System.Windows.Forms.Label lblLegend;
+        private System.Windows.Forms.Button btnRegPass;
+        private System.Windows.Forms.Button btnWheelPass;
+        private System.Windows.Forms.Label lblRegPass;
+        private System.Windows.Forms.Button btnExitRow;
+        private System.Windows.Forms.Label lblUnaccomMinor;
+        private System.Windows.Forms.Label lblExitRow;
+        private System.Windows.Forms.Button btnPassWNuatAller;
+        private System.Windows.Forms.Button btnUnaccomMinor;
+        private System.Windows.Forms.Label lblPassWNutAller;
     }
 }

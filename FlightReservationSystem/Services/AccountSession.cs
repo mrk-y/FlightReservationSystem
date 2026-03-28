@@ -3,6 +3,7 @@ using FlightReservationSystem.Data.Runtime.Error;
 using FlightReservationSystem.Data.Runtime.User;
 using FlightReservationSystem.Debugging;
 using FlightReservationSystem.Helpers;
+using FlightReservationSystem.UserControls.AircraftModelsUI;
 using FlightReservationSystem.UserControls.SystemAdmin;
 using System;
 using System.Collections.Generic;
@@ -70,22 +71,16 @@ namespace FlightReservationSystem.Services
                                 int db_ut_UserTypeID = reader.GetInt32(reader.GetOrdinal("ut_UserTypeID"));
                                 string db_ut_Type = reader.GetString(reader.GetOrdinal("ut_Type"));
 
-                                if (!User.UserID_Try(db_UserID) || !User.Name_Try(db_u_Name) ||
-                                    !User.HashedPassword_Try(db_u_Password) || !User.UserTypeID_Try(db_ut_UserTypeID) ||
-                                    !User.UserType_Try(db_ut_Type))
+                                UserManager.AddUser(new User
                                 {
-                                    DebugLogger.LogWithStackTrace("Wrong value from Users or UserTypes Table DB. Authentication aborted.");
-                                    return;
-                                }
+                                    UserID = db_UserID,
+                                    Name = db_u_Name,
+                                    HashedPassword = db_u_Password,
+                                    UserTypeID = db_ut_UserTypeID,
+                                    UserType = db_ut_Type
+                                });
 
-                                User user = new User();
-                                user.UserID = db_UserID;
-                                user.Name = db_u_Name;
-                                user.HashedPassword = db_u_Password;
-                                user.UserTypeID = db_ut_UserTypeID;
-                                user.UserType = db_ut_Type;
-
-                                if (!PasswordHelper.VerifyPassword(password, user.HashedPassword))
+                                if (!UserManager.VerifyPassword(password, UserManager.GetUser.HashedPassword))
                                 {
                                     ErrorManager.AddError(new ErrorRecord { Message = "Incorrect password.", AssociatedControls = { LoginForm._lblPassword } });
                                     ErrorManager.ShowAlert();
@@ -95,7 +90,7 @@ namespace FlightReservationSystem.Services
                                 else
                                 {
                                     MessageBoxHelper.ShowSuccessMessage("Account found. Logging in...");
-                                    LoginAccount(user);
+                                    LoginAccount(UserManager.GetUser);
                                 }
                             }
                             else
@@ -116,21 +111,9 @@ namespace FlightReservationSystem.Services
             }
         }
 
-        private static void StoreLoginCredentials(User user)
+        public static void PopulateReferencesForUser(User user)
         {
-            Session._user = new User
-            {
-                UserID = user.UserID,
-                Name = user.Name,
-                HashedPassword = user.HashedPassword,
-                UserType = user.UserType,
-                UserTypeID = user.UserTypeID
-            };
-        }
-
-        public static void PopulateReferencesForUser()
-        {
-            int userTypeID = Session._user.UserTypeID;
+            int userTypeID = user.UserTypeID;
 
             if (userTypeID == 1)
             {
@@ -138,29 +121,25 @@ namespace FlightReservationSystem.Services
                 DataSeeder.PopulateAirlines();
                 DataSeeder.PopulateAirports();
                 DataSeeder.PopulateSeatTypes();
+                DataSeeder.PopulateGatesTerminals();
             }
         }
 
         private static void LoginAccount(User user) // TODO: Complete the RA part
         {
-            StoreLoginCredentials(user);
-            ErrorManager.DefaultValueFields();
-            ErrorManager.ClearFields();
-            ErrorManager.ClearProviders();
             ErrorManager.ClearErrorCollection();
             ErrorManager.ClearErrorUICollection();
 
             MainForm mainForm = new MainForm();
             int userTypeID = user.UserTypeID;
 
-            PopulateReferencesForUser();
+            PopulateReferencesForUser(user);
 
             if (userTypeID == 1)
             {
                 AddAircraft addAircraft = new AddAircraft();
                 SANavigation saNavigation = new SANavigation();
 
-                addAircraft.Init(mainForm);
                 MainForm.Init(addAircraft, saNavigation);
                 mainForm.Show();
                 LoginForm.HideForm();
