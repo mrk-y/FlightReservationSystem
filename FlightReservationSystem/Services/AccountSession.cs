@@ -144,6 +144,7 @@ namespace FlightReservationSystem.Services
         private static void LoginAccount(User user) // TODO: Complete the RA part
         {
             StoreLoginCredentials(user);
+            ErrorManager.DefaultValueFields();
             ErrorManager.ClearFields();
             ErrorManager.ClearProviders();
             ErrorManager.ClearErrorCollection();

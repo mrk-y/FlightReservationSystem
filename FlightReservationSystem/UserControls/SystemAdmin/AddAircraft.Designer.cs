@@ -31,12 +31,14 @@
             this.components = new System.ComponentModel.Container();
             this.pnl2 = new System.Windows.Forms.Panel();
             this.pnl1 = new System.Windows.Forms.Panel();
+            this.picAirlineImg = new System.Windows.Forms.PictureBox();
             this.pnl3 = new System.Windows.Forms.Panel();
             this.lblTotalSeatsVal = new System.Windows.Forms.Label();
             this.lblSeparator3 = new System.Windows.Forms.Label();
             this.lblTotalSeats = new System.Windows.Forms.Label();
             this.lblDisplayNameVal = new System.Windows.Forms.Label();
             this.lblSeparator2 = new System.Windows.Forms.Label();
+            this.picQuestion1 = new System.Windows.Forms.PictureBox();
             this.lblDisplayName = new System.Windows.Forms.Label();
             this.lblAircraftIDVal = new System.Windows.Forms.Label();
             this.lblSeparator1 = new System.Windows.Forms.Label();
@@ -57,6 +59,7 @@
             this.btnRegPass = new System.Windows.Forms.Button();
             this.btnWheelPass = new System.Windows.Forms.Button();
             this.lblRegPass = new System.Windows.Forms.Label();
+            this.btnExitRow = new System.Windows.Forms.Button();
             this.lblUnaccomMinor = new System.Windows.Forms.Label();
             this.lblExitRow = new System.Windows.Forms.Label();
             this.btnPassWNuatAller = new System.Windows.Forms.Button();
@@ -64,19 +67,24 @@
             this.lblPassWNutAller = new System.Windows.Forms.Label();
             this.btnAddAircraft = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.btnExitRow = new System.Windows.Forms.Button();
             this.picSeatMapPreview = new System.Windows.Forms.PictureBox();
-            this.picAirlineImg = new System.Windows.Forms.PictureBox();
-            this.picQuestion1 = new System.Windows.Forms.PictureBox();
             this.saStatus = new FlightReservationSystem.UserControls.SystemAdmin.SAProgress();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errorProvider2 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errorProvider3 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errorProvider4 = new System.Windows.Forms.ErrorProvider(this.components);
             this.pnl2.SuspendLayout();
             this.pnl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAirlineImg)).BeginInit();
             this.pnl3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picQuestion1)).BeginInit();
             this.pnl4.SuspendLayout();
             this.pnl5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picSeatMapPreview)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picAirlineImg)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picQuestion1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider4)).BeginInit();
             this.SuspendLayout();
             // 
             // pnl2
@@ -105,6 +113,17 @@
             this.pnl1.Padding = new System.Windows.Forms.Padding(4);
             this.pnl1.Size = new System.Drawing.Size(96, 96);
             this.pnl1.TabIndex = 8;
+            // 
+            // picAirlineImg
+            // 
+            this.picAirlineImg.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(248)))), ((int)(((byte)(255)))));
+            this.picAirlineImg.Location = new System.Drawing.Point(4, 4);
+            this.picAirlineImg.Margin = new System.Windows.Forms.Padding(0);
+            this.picAirlineImg.Name = "picAirlineImg";
+            this.picAirlineImg.Size = new System.Drawing.Size(86, 86);
+            this.picAirlineImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picAirlineImg.TabIndex = 1;
+            this.picAirlineImg.TabStop = false;
             // 
             // pnl3
             // 
@@ -182,6 +201,17 @@
             this.lblSeparator2.Size = new System.Drawing.Size(10, 15);
             this.lblSeparator2.TabIndex = 7;
             this.lblSeparator2.Text = ":";
+            // 
+            // picQuestion1
+            // 
+            this.picQuestion1.Image = global::FlightReservationSystem.Properties.Resources.Question;
+            this.picQuestion1.Location = new System.Drawing.Point(86, 26);
+            this.picQuestion1.Margin = new System.Windows.Forms.Padding(0, 0, 24, 8);
+            this.picQuestion1.Name = "picQuestion1";
+            this.picQuestion1.Size = new System.Drawing.Size(16, 16);
+            this.picQuestion1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.picQuestion1.TabIndex = 6;
+            this.picQuestion1.TabStop = false;
             // 
             // lblDisplayName
             // 
@@ -457,6 +487,19 @@
             this.lblRegPass.TabIndex = 4;
             this.lblRegPass.Text = "Regular Passenger";
             // 
+            // btnExitRow
+            // 
+            this.btnExitRow.Enabled = false;
+            this.btnExitRow.FlatAppearance.BorderSize = 2;
+            this.btnExitRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExitRow.Location = new System.Drawing.Point(224, 12);
+            this.btnExitRow.Margin = new System.Windows.Forms.Padding(0, 0, 4, 0);
+            this.btnExitRow.Name = "btnExitRow";
+            this.btnExitRow.Size = new System.Drawing.Size(16, 16);
+            this.btnExitRow.TabIndex = 5;
+            this.btnExitRow.TabStop = false;
+            this.btnExitRow.UseVisualStyleBackColor = true;
+            // 
             // lblUnaccomMinor
             // 
             this.lblUnaccomMinor.AutoSize = true;
@@ -537,19 +580,7 @@
             this.btnAddAircraft.TabIndex = 6;
             this.btnAddAircraft.Text = "Add Aircraft";
             this.btnAddAircraft.UseVisualStyleBackColor = false;
-            // 
-            // btnExitRow
-            // 
-            this.btnExitRow.Enabled = false;
-            this.btnExitRow.FlatAppearance.BorderSize = 2;
-            this.btnExitRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExitRow.Location = new System.Drawing.Point(224, 12);
-            this.btnExitRow.Margin = new System.Windows.Forms.Padding(0, 0, 4, 0);
-            this.btnExitRow.Name = "btnExitRow";
-            this.btnExitRow.Size = new System.Drawing.Size(16, 16);
-            this.btnExitRow.TabIndex = 5;
-            this.btnExitRow.TabStop = false;
-            this.btnExitRow.UseVisualStyleBackColor = true;
+            this.btnAddAircraft.Click += new System.EventHandler(this.btnAddAircraft_Click);
             // 
             // picSeatMapPreview
             // 
@@ -562,28 +593,6 @@
             this.picSeatMapPreview.TabIndex = 4;
             this.picSeatMapPreview.TabStop = false;
             // 
-            // picAirlineImg
-            // 
-            this.picAirlineImg.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(248)))), ((int)(((byte)(255)))));
-            this.picAirlineImg.Location = new System.Drawing.Point(4, 4);
-            this.picAirlineImg.Margin = new System.Windows.Forms.Padding(0);
-            this.picAirlineImg.Name = "picAirlineImg";
-            this.picAirlineImg.Size = new System.Drawing.Size(86, 86);
-            this.picAirlineImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picAirlineImg.TabIndex = 1;
-            this.picAirlineImg.TabStop = false;
-            // 
-            // picQuestion1
-            // 
-            this.picQuestion1.Image = global::FlightReservationSystem.Properties.Resources.Question;
-            this.picQuestion1.Location = new System.Drawing.Point(86, 26);
-            this.picQuestion1.Margin = new System.Windows.Forms.Padding(0, 0, 24, 8);
-            this.picQuestion1.Name = "picQuestion1";
-            this.picQuestion1.Size = new System.Drawing.Size(16, 16);
-            this.picQuestion1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.picQuestion1.TabIndex = 6;
-            this.picQuestion1.TabStop = false;
-            // 
             // saStatus
             // 
             this.saStatus.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -595,6 +604,22 @@
             this.saStatus.Padding = new System.Windows.Forms.Padding(12);
             this.saStatus.Size = new System.Drawing.Size(286, 39);
             this.saStatus.TabIndex = 7;
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
+            // errorProvider2
+            // 
+            this.errorProvider2.ContainerControl = this;
+            // 
+            // errorProvider3
+            // 
+            this.errorProvider3.ContainerControl = this;
+            // 
+            // errorProvider4
+            // 
+            this.errorProvider4.ContainerControl = this;
             // 
             // AddAircraft
             // 
@@ -614,15 +639,19 @@
             this.ParentChanged += new System.EventHandler(this.AddAircraft_ParentChanged);
             this.pnl2.ResumeLayout(false);
             this.pnl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picAirlineImg)).EndInit();
             this.pnl3.ResumeLayout(false);
             this.pnl3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picQuestion1)).EndInit();
             this.pnl4.ResumeLayout(false);
             this.pnl4.PerformLayout();
             this.pnl5.ResumeLayout(false);
             this.pnl5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picSeatMapPreview)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picAirlineImg)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picQuestion1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -669,5 +698,9 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private SAProgress saStatus;
         private System.Windows.Forms.Button btnExitRow;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.ErrorProvider errorProvider2;
+        private System.Windows.Forms.ErrorProvider errorProvider3;
+        private System.Windows.Forms.ErrorProvider errorProvider4;
     }
 }

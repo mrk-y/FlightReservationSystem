@@ -377,7 +377,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(36, 36);
             this.button2.TabIndex = 2;
-            this.button2.Tag = "2";
+            this.button2.Tag = "";
             this.button2.UseVisualStyleBackColor = false;
             // 
             // button1
@@ -393,7 +393,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(36, 36);
             this.button1.TabIndex = 1;
-            this.button1.Tag = "";
+            this.button1.Tag = "K1";
             this.button1.UseVisualStyleBackColor = false;
             // 
             // label2

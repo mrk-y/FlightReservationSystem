@@ -257,6 +257,12 @@
     <Compile Include="UserControls\SystemAdmin\AddAircraft.Designer.cs">
       <DependentUpon>AddAircraft.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\SystemAdmin\AssignRoute.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\SystemAdmin\AssignRoute.Designer.cs">
+      <DependentUpon>AssignRoute.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\SystemAdmin\SANavigation.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -296,6 +302,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\SystemAdmin\AddAircraft.resx">
       <DependentUpon>AddAircraft.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\SystemAdmin\AssignRoute.resx">
+      <DependentUpon>AssignRoute.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\SystemAdmin\SANavigation.resx">
       <DependentUpon>SANavigation.cs</DependentUpon>
