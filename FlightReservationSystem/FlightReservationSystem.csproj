@@ -211,6 +211,14 @@
     <Compile Include="Data\Runtime\User\Session.cs" />
     <Compile Include="Data\Runtime\User\User.cs" />
     <Compile Include="Debugging\DebugLogger.cs" />
+    <Compile Include="RAForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RAForm.Designer.cs">
+      <DependentUpon>RAForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\ResourceGetter.cs" />
+    <Compile Include="Helpers\ToImageConverter.cs" />
     <Compile Include="Helpers\AircraftManager.cs" />
     <Compile Include="Helpers\AirlineManager.cs" />
     <Compile Include="Helpers\AirportManager.cs" />
@@ -260,6 +268,36 @@
     <Compile Include="UserControls\Header.Designer.cs">
       <DependentUpon>Header.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Reservation_Agent\RAFlightCards.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Reservation_Agent\RAFlightCards.Designer.cs">
+      <DependentUpon>RAFlightCards.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Reservation_Agent\RAFlights.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Reservation_Agent\RAFlights.Designer.cs">
+      <DependentUpon>RAFlights.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Reservation_Agent\RANavigation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Reservation_Agent\RANavigation.Designer.cs">
+      <DependentUpon>RANavigation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Reservation_Agent\RAPassengerDetails.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Reservation_Agent\RAPassengerDetails.Designer.cs">
+      <DependentUpon>RAPassengerDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Reservation_Agent\RAPayment.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Reservation_Agent\RAPayment.Designer.cs">
+      <DependentUpon>RAPayment.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\SystemAdmin\AddAircraft.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -290,6 +328,9 @@
     <Compile Include="UserControls\SystemAdmin\SASeatMapCostum.Designer.cs">
       <DependentUpon>SASeatMapCostum.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="RAForm.resx">
+      <DependentUpon>RAForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -314,6 +355,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\Header.resx">
       <DependentUpon>Header.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Reservation_Agent\RAFlightCards.resx">
+      <DependentUpon>RAFlightCards.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Reservation_Agent\RAFlights.resx">
+      <DependentUpon>RAFlights.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Reservation_Agent\RANavigation.resx">
+      <DependentUpon>RANavigation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Reservation_Agent\RAPassengerDetails.resx">
+      <DependentUpon>RAPassengerDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Reservation_Agent\RAPayment.resx">
+      <DependentUpon>RAPayment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\SystemAdmin\AddAircraft.resx">
       <DependentUpon>AddAircraft.cs</DependentUpon>

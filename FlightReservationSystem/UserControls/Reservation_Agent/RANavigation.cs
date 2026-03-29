@@ -8,16 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FlightReservationSystem.UserControls
+namespace FlightReservationSystem.UserControls.Reservation_Agent
 {
-    public partial class Header : UserControl
+    public partial class RANavigation : UserControl
     {
-        public Header()
+        public RANavigation()
         {
             InitializeComponent();
         }
 
-        private void Header_Load(object sender, EventArgs e)
+        private void RANavigation_Load(object sender, EventArgs e)
         {
 
         }
