@@ -15,7 +15,7 @@ namespace FlightReservationSystem.Helpers
         {
             if (!AirlineRecord.ID_Try(airlineRecord.ID) || !AirlineRecord.IATA_Try(airlineRecord.IATA) ||
                 !AirlineRecord.ICAO_Try(airlineRecord.ICAO) || !AirlineRecord.Callsign_Try(airlineRecord.Callsign) ||
-                !AirlineRecord.AirlineName_Try(airlineRecord.AirlineName))
+                !AirlineRecord.Name_Try(airlineRecord.Name))
             {
                 DebugLogger.LogWithStackTrace("Wrong value. Adding aborted.");
                 return;

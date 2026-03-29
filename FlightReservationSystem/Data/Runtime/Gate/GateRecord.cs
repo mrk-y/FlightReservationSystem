@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FlightReservationSystem.Data.Runtime.Json.Gate
+namespace FlightReservationSystem.Data.Runtime.Gate
 {
     internal class GateRecord
     {
@@ -18,7 +18,7 @@ namespace FlightReservationSystem.Data.Runtime.Json.Gate
 
         public static bool ID_Try(int id)
         {
-            if (!ValueChecker.IsIntValid(id))
+            if (!ValueChecker.IsIntValid(id, nameof(id)))
             {
                 DebugLogger.LogWithStackTrace("id invalid value. Try false.");
                 return false;
@@ -29,7 +29,7 @@ namespace FlightReservationSystem.Data.Runtime.Json.Gate
 
         public static bool Type_Try(string type)
         {
-            if (!ValueChecker.IsStringValid(type))
+            if (!ValueChecker.IsStringValid(type, nameof(type)))
             {
                 DebugLogger.LogWithStackTrace("type invalid value. Try false.");
                 return false;
@@ -40,7 +40,7 @@ namespace FlightReservationSystem.Data.Runtime.Json.Gate
 
         public static bool AircraftID_Try(int aircraftID)
         {
-            if (!ValueChecker.IsIntValid(aircraftID))
+            if (!ValueChecker.IsIntValid(aircraftID, nameof(aircraftID)))
             {
                 DebugLogger.LogWithStackTrace("aircraftID invalid value. Try false.");
                 return false;
@@ -51,7 +51,7 @@ namespace FlightReservationSystem.Data.Runtime.Json.Gate
 
         public static bool Status_Try(int status)
         {
-            if (!ValueChecker.IsIntValid(status))
+            if (!ValueChecker.IsIntValid(status, nameof(status)))
             {
                 DebugLogger.LogWithStackTrace("status invalid value. Try false.");
                 return false;

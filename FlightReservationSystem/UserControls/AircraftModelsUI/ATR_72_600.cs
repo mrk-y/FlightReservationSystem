@@ -1,4 +1,4 @@
-﻿using FlightReservationSystem.Data.Reference.Seat;
+﻿using FlightReservationSystem.Helpers;
 using FlightReservationSystem.Debugging;
 using System;
 using System.Collections.Generic;
@@ -28,20 +28,20 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
 
         private void ShowLegendColors()
         {
-            btnRegPass.BackColor = SeatTypeUICollection.Get[0].BackColor;
-            btnRegPass.FlatAppearance.BorderColor = SeatTypeUICollection.Get[0].BorderColor;
+            btnRegPass.BackColor = AircraftManager.GetSeatTypeUICollection[0].BackColor;
+            btnRegPass.FlatAppearance.BorderColor = AircraftManager.GetSeatTypeUICollection[0].BorderColor;
 
-            btnExitRow.BackColor = SeatTypeUICollection.Get[1].BackColor;
-            btnExitRow.FlatAppearance.BorderColor = SeatTypeUICollection.Get[1].BorderColor;
+            btnExitRow.BackColor = AircraftManager.GetSeatTypeUICollection[1].BackColor;
+            btnExitRow.FlatAppearance.BorderColor = AircraftManager.GetSeatTypeUICollection[1].BorderColor;
 
-            btnPassWNuatAller.BackColor = SeatTypeUICollection.Get[2].BackColor;
-            btnPassWNuatAller.FlatAppearance.BorderColor = SeatTypeUICollection.Get[2].BorderColor;
+            btnPassWNuatAller.BackColor = AircraftManager.GetSeatTypeUICollection[2].BackColor;
+            btnPassWNuatAller.FlatAppearance.BorderColor = AircraftManager.GetSeatTypeUICollection[2].BorderColor;
 
-            btnUnaccomMinor.BackColor = SeatTypeUICollection.Get[3].BackColor;
-            btnUnaccomMinor.FlatAppearance.BorderColor = SeatTypeUICollection.Get[3].BorderColor;
+            btnUnaccomMinor.BackColor = AircraftManager.GetSeatTypeUICollection[3].BackColor;
+            btnUnaccomMinor.FlatAppearance.BorderColor = AircraftManager.GetSeatTypeUICollection[3].BorderColor;
 
-            btnWheelPass.BackColor = SeatTypeUICollection.Get[4].BackColor;
-            btnWheelPass.FlatAppearance.BorderColor = SeatTypeUICollection.Get[4].BorderColor;
+            btnWheelPass.BackColor = AircraftManager.GetSeatTypeUICollection[4].BackColor;
+            btnWheelPass.FlatAppearance.BorderColor = AircraftManager.GetSeatTypeUICollection[4].BorderColor;
         }
 
         private void ShowTags()

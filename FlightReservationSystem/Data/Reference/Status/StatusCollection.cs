@@ -14,7 +14,7 @@ namespace FlightReservationSystem.Data.Reference.Status
             new StatusRecord 
             { 
                 ID = 1, 
-                StatusName = "Scheduled", 
+                Name = "Scheduled", 
                 StatusColors = new List<Color> 
                 { 
                     Color.FromArgb(255, 255, 255) 
@@ -22,8 +22,8 @@ namespace FlightReservationSystem.Data.Reference.Status
             },
             new StatusRecord 
             { 
-                ID = 2, 
-                StatusName = "Boarding", 
+                ID = 2,
+                Name = "Boarding", 
                 StatusColors = new List<Color> 
                 { 
                     Color.FromArgb(255, 202, 7) 
@@ -31,8 +31,8 @@ namespace FlightReservationSystem.Data.Reference.Status
             },
             new StatusRecord 
             { 
-                ID = 3, 
-                StatusName = "In Flight", 
+                ID = 3,
+                Name = "In Flight", 
                 StatusColors = new List<Color> 
                 { 
                     Color.FromArgb(0, 38, 184) 
@@ -41,7 +41,7 @@ namespace FlightReservationSystem.Data.Reference.Status
             new StatusRecord 
             { 
                 ID = 4, 
-                StatusName = "Landed", 
+                Name = "Landed", 
                 StatusColors = new List < Color > 
                 { 
                     Color.FromArgb(52, 167, 49) 
@@ -50,7 +50,7 @@ namespace FlightReservationSystem.Data.Reference.Status
             new StatusRecord 
             { 
                 ID = 5, 
-                StatusName = "Delayed", 
+                Name = "Delayed", 
                 StatusColors = new List < Color > 
                 { 
                     Color.FromArgb(255, 113, 27) 
@@ -59,7 +59,7 @@ namespace FlightReservationSystem.Data.Reference.Status
             new StatusRecord 
             { 
                 ID = 6, 
-                StatusName = "Cancelled", 
+                Name = "Cancelled", 
                 StatusColors = new List < Color > 
                 { 
                     Color.FromArgb(220, 33, 49) 
@@ -68,7 +68,7 @@ namespace FlightReservationSystem.Data.Reference.Status
             new StatusRecord 
             { 
                 ID = 7, 
-                StatusName = "Gate closed", 
+                Name = "Gate closed", 
                 StatusColors = new List < Color > 
                 { 
                     Color.FromArgb(102, 102, 102) 
@@ -77,7 +77,7 @@ namespace FlightReservationSystem.Data.Reference.Status
             new StatusRecord 
             { 
                 ID = 8, 
-                StatusName = "Final Call", 
+                Name = "Final Call", 
                 StatusColors = new List<Color> 
                 { 
                     Color.FromArgb(255, 202, 7), 

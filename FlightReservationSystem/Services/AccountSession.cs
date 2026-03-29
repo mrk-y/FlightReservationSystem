@@ -73,14 +73,14 @@ namespace FlightReservationSystem.Services
 
                                 UserManager.AddUser(new User
                                 {
-                                    UserID = db_UserID,
+                                    ID = db_UserID,
                                     Name = db_u_Name,
-                                    HashedPassword = db_u_Password,
-                                    UserTypeID = db_ut_UserTypeID,
-                                    UserType = db_ut_Type
+                                    Password = db_u_Password,
+                                    TypeID = db_ut_UserTypeID,
+                                    TypeName = db_ut_Type
                                 });
 
-                                if (!UserManager.VerifyPassword(password, UserManager.GetUser.HashedPassword))
+                                if (!UserManager.VerifyPassword(password, UserManager.GetUser.Password))
                                 {
                                     ErrorManager.AddError(new ErrorRecord { Message = "Incorrect password.", AssociatedControls = { LoginForm._lblPassword } });
                                     ErrorManager.ShowAlert();
@@ -90,7 +90,7 @@ namespace FlightReservationSystem.Services
                                 else
                                 {
                                     MessageBoxHelper.ShowSuccessMessage("Account found. Logging in...");
-                                    LoginAccount(UserManager.GetUser);
+                                    LoginAccount();
                                 }
                             }
                             else
@@ -111,9 +111,9 @@ namespace FlightReservationSystem.Services
             }
         }
 
-        public static void PopulateReferencesForUser(User user)
+        public static void PopulateReferencesForUser()
         {
-            int userTypeID = user.UserTypeID;
+            int userTypeID = UserManager.GetUser.TypeID;
 
             if (userTypeID == 1)
             {
@@ -121,19 +121,19 @@ namespace FlightReservationSystem.Services
                 DataSeeder.PopulateAirlines();
                 DataSeeder.PopulateAirports();
                 DataSeeder.PopulateSeatTypes();
-                DataSeeder.PopulateGatesTerminals();
+                DataSeeder.PopulateTerminals();
             }
         }
 
-        private static void LoginAccount(User user) // TODO: Complete the RA part
+        private static void LoginAccount() // TODO: Complete the RA part
         {
             ErrorManager.ClearErrorCollection();
             ErrorManager.ClearErrorUICollection();
 
             MainForm mainForm = new MainForm();
-            int userTypeID = user.UserTypeID;
+            int userTypeID = UserManager.GetUser.TypeID;
 
-            PopulateReferencesForUser(user);
+            PopulateReferencesForUser();
 
             if (userTypeID == 1)
             {

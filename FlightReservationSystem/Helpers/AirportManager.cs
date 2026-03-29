@@ -13,10 +13,9 @@ namespace FlightReservationSystem.Helpers
         public static void AddAirport(AirportRecord airportRecord)
         {
             if (!AirportRecord.ID_Try(airportRecord.ID) || !AirportRecord.IATA_Try(airportRecord.IATA) ||
-                !AirportRecord.ICAO_Try(airportRecord.ICAO) || !AirportRecord.AirportName_Try(airportRecord.AirportName) ||
+                !AirportRecord.ICAO_Try(airportRecord.ICAO) || !AirportRecord.Name_Try(airportRecord.Name) ||
                 !AirportRecord.Location_Try(airportRecord.Location) || !AirportRecord.DisplayCity_Try(airportRecord.DisplayCity) ||
-                !AirportRecord.Latitude_Try(airportRecord.Latitude) || !AirportRecord.Longitude_Try(airportRecord.Longitude) ||
-                !AirportRecord.Category_Try(airportRecord.Category) || !AirportRecord.CriticalAircraft_Try(airportRecord.CriticalAircraft))
+                !AirportRecord.Latitude_Try(airportRecord.Latitude) || !AirportRecord.Longitude_Try(airportRecord.Longitude))
             {
                 DebugLogger.LogWithStackTrace("Wrong value. Adding aborted.");
                 return;

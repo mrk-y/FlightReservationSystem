@@ -1,4 +1,4 @@
-﻿using FlightReservationSystem.Data.Reference.Terminal;
+﻿using FlightReservationSystem.Data.Runtime.Gate;
 using FlightReservationSystem.Debugging;
 using System;
 using System.Collections.Generic;
@@ -24,5 +24,7 @@ namespace FlightReservationSystem.Helpers
         }
 
         public static List<TerminalRecord> GetTerminalCollection => TerminalCollection.Get;
+
+        public static void ClearTerminalCollection() => TerminalCollection.Clear();
     }
 }

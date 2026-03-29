@@ -2,7 +2,6 @@
 using FlightReservationSystem.Data.Reference.Airline;
 using FlightReservationSystem.Data.Reference.Airport;
 using FlightReservationSystem.Data.Reference.ControlItem;
-using FlightReservationSystem.Data.Reference.Seat;
 using FlightReservationSystem.Data.Runtime.Error;
 using FlightReservationSystem.Debugging;
 using FlightReservationSystem.Helpers;
@@ -19,6 +18,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace FlightReservationSystem.UserControls.SystemAdmin
 {
@@ -38,12 +38,12 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             ApplyAirlineCMBData();
             ApplyAirportCMBData();
             ShowToolTips();
-            SAProgress.ShowProgress(0, "Adding aircraft");
         }
 
         private void InitUI()
         {
             PopulateErrorUI();
+            ShowProgress();
         }
 
         private void PopulateErrorUI()
@@ -59,6 +59,11 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             string acID = AircraftManager.NewAircraftID();
             lblAircraftIDVal.Text = acID;
         }
+
+        public void ShowProgress()
+        {
+            lblProgressVal.Text = $"Adding aircraft (1/3)";
+        } 
 
         private void ApplyModelCMBData()
         {
@@ -76,7 +81,7 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             for (int i = 0; i < aircraftModelCollection.Count; i++)
             {
                 var aircraftModelRecord = aircraftModelCollection[i];
-                string display = aircraftModelRecord.Model;
+                string display = aircraftModelRecord.Name;
                 int id = aircraftModelRecord.ID;
 
                 itemList.Add(new CMBItemWTag { Display = display, Value = id });
@@ -109,8 +114,8 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
 
                 if (selectedModelValue is int modelVal && aircraftModelUIRecord.ID == modelVal)
                 {
-                    var modelUI = aircraftModelUIRecord.ModelUI;
-                    picSeatMapPreview.Image = SeatManager.SeatMapToImg(modelUI);
+                    var modelUI = aircraftModelUIRecord.UI;
+                    picSeatMapPreview.Image = AircraftManager.SeatMapToImg(modelUI);
                     return;
                 }
             }
@@ -132,7 +137,7 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             for (int i = 0; i < airlineCollection.Count; i++)
             {
                 var airlineRecord = airlineCollection[i];
-                var display = $"{airlineRecord.AirlineName} {airlineRecord.IATA}";
+                var display = $"{airlineRecord.Name} {airlineRecord.IATA}";
                 var id = airlineRecord.ID;
 
                 itemList.Add(new CMBItemWTag { Display = display, Value = id });
@@ -163,7 +168,7 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             for (int i = 0; i < airportCollection.Count; i++)
             {
                 var airportRecord = airportCollection[i];
-                string display = $"{airportRecord.IATA} - {airportRecord.AirportName} ({airportRecord.DisplayCity})";
+                string display = $"{airportRecord.IATA} - {airportRecord.Name} ({airportRecord.DisplayCity})";
                 var id = airportRecord.ID;
 
                 itemList.Add(new CMBItemWTag{ Display = display, Value = id });
@@ -180,14 +185,15 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
 
         private void ShowToolTips()
         {
-            toolTip1.SetToolTip(picQuestion1, "Display Name is a combination of the aircraft model and aircraft name.");
+            toolTip1.SetToolTip(picQuestion1, "A combination of the aircraft model and aircraft name.");
+            toolTip3.SetToolTip(picQuestion2, "Complete all progress to enable aircraft for reservation.");
         }
 
-        private bool AreAddAircraftFieldsValid(string aircraft, int model, int airline, int airport, string baseName)
+        private bool AreAddAircraftFieldsValid(string aircraft, int model, int airline, int airport)
         {
-            if (!ValueChecker.IsStringValid(aircraft) || !ValueChecker.IsIntValid(model) ||
-                model == 0 || !ValueChecker.IsIntValid(airline) ||
-                airline == 0 || !ValueChecker.IsIntValid(airport) ||
+            if (!ValueChecker.IsStringValid(aircraft, nameof(aircraft)) || !ValueChecker.IsIntValid(model, nameof(model)) ||
+                model == 0 || !ValueChecker.IsIntValid(airline, nameof(airline)) ||
+                airline == 0 || !ValueChecker.IsIntValid(airport, nameof(airport)) ||
                 airport == 0)
             {
                 DebugLogger.LogWithStackTrace("Wrong value from AddAircraft. Adding aircraft aborted.");
@@ -196,6 +202,25 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             }
 
             return true;
+        }
+
+        private void UpdateDisplayName()
+        {
+            string selectedModelDisplay = cmbModelVal.Text;
+            string trimmedAircraftname = tbAircraftNameVal.Text.Trim();
+
+            if (trimmedAircraftname.Length == 0) lblDisplayNameVal.Text = $"{selectedModelDisplay}";
+            else lblDisplayNameVal.Text = $"{selectedModelDisplay} - {trimmedAircraftname}";
+        }
+
+        private void lblDisplayNameVal_MouseHover(object sender, EventArgs e)
+        {
+            var lbl = (Label)sender;
+
+            Size textSize = TextRenderer.MeasureText(lbl.Text, lbl.Font);
+
+            if (textSize.Width > lbl.ClientSize.Width) toolTip2.SetToolTip(lbl, lbl.Text); 
+            else toolTip2.SetToolTip(lbl, null);
         }
 
         private void cmbModelVal_SelectedIndexChanged(object sender, EventArgs e)
@@ -226,11 +251,7 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             ShowSetMapPreview();
 
             // Update display name based on input
-            string selectedModelDisplay = cmbModelVal.Text;
-            string trimmedAircraftname = tbAircraftNameVal.Text.Trim();
-
-            if (trimmedAircraftname.Length == 0) lblDisplayNameVal.Text = $"{selectedModelDisplay}";
-            else lblDisplayNameVal.Text = $"{selectedModelDisplay} - {trimmedAircraftname}";
+            UpdateDisplayName();
         }
 
         private void cmbModelVal_Leave(object sender, EventArgs e)
@@ -263,11 +284,7 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
         private void tbAircraftNameVal_TextChanged(object sender, EventArgs e)
         {
             // Update display name based on input
-            string selectedModelDisplay = cmbModelVal.Text;
-            string trimmedAircraftname = tbAircraftNameVal.Text.Trim();
-
-            if (trimmedAircraftname.Length == 0) lblDisplayNameVal.Text = $"{selectedModelDisplay}";
-            else lblDisplayNameVal.Text = $"{selectedModelDisplay} - {trimmedAircraftname}";
+            UpdateDisplayName();
         }
 
         private void cmbAirlineVal_SelectedIndexChanged(object sender, EventArgs e)
@@ -340,7 +357,7 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             int airport = cmbAirportVal.SelectedValue is int airportVal ? airportVal : 0;
             string baseName = tbAircraftNameVal.Text.Trim();
 
-            if (!AreAddAircraftFieldsValid(aircraft, model, airline, airport, baseName)) return;
+            if (!AreAddAircraftFieldsValid(aircraft, model, airline, airport)) return;
             AircraftManagement.AddAircraft(aircraft, model, airline, airport, baseName);
         }
     }

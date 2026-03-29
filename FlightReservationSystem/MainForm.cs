@@ -74,8 +74,8 @@ namespace FlightReservationSystem
 
         private void ShowUserIDName()
         {
-            string userName = Session._user.Name;
-            string userID = Session._user.UserID;
+            string userName = UserManager.GetUser.Name;
+            string userID = UserManager.GetUser.ID;
 
             lblUsernameVal.Text = $"{userName} ({userID})";
         }

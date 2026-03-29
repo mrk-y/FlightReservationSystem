@@ -1,4 +1,4 @@
-﻿using FlightReservationSystem.Data.Runtime.Json.SeatAssign;
+﻿using FlightReservationSystem.Data.Runtime.Aircraft;
 using FlightReservationSystem.Debugging;
 using FlightReservationSystem.Helpers;
 using System;
@@ -17,11 +17,12 @@ namespace FlightReservationSystem.Services
     // Adding aircrafts ...
     internal class AircraftManagement
     {
+        // >> Start of AddAircraft
         private static List<int> GetSeatTypeIDs(Button seat)
         {
             List<int> ids = new List<int>();
 
-            var seatTypeUICollection = SeatManager.GetSeatTypeUICollection;
+            var seatTypeUICollection = AircraftManager.GetSeatTypeUICollection;
 
             if (seatTypeUICollection.Count == 0)
             {
@@ -43,14 +44,14 @@ namespace FlightReservationSystem.Services
             return ids;
         }
 
-        private static void PopulateSeatAssign(int model)
+        private static List<SeatAssignRecord> CreateSeatAssign(int model)
         {
             var aircraftModelUICollection = AircraftManager.GetAircraftModelUICollection;
 
             if (aircraftModelUICollection == null)
             {
                 DebugLogger.LogWithStackTrace("aircraftModelUICollection is empty. Populating aborted.");
-                return;
+                return null;
             }
 
             UserControl modelUI = null;
@@ -61,19 +62,19 @@ namespace FlightReservationSystem.Services
 
                 if (aircraftModelUIRecord.ID == model) 
                 {
-                    modelUI = aircraftModelUIRecord.ModelUI;
+                    modelUI = aircraftModelUIRecord.UI;
                     break;
                 }
             }
 
-            SeatManager.ClearSeatAssignCollection();
+            List<SeatAssignRecord> seatAssignCollection = new List<SeatAssignRecord>();
 
             var modelUIControls = modelUI.Controls;
 
             if (modelUIControls == null)
             {
                 DebugLogger.LogWithStackTrace("modelUIControls is null. Populating aborted.");
-                return;
+                return null;
             }
 
             for (int i = 0; i <  modelUIControls.Count; i++)
@@ -83,7 +84,7 @@ namespace FlightReservationSystem.Services
                 if (modelUIControl == null)
                 {
                     DebugLogger.LogWithStackTrace($"modelUIControl {i} is null. Populating aborted.");
-                    return;
+                    return null;
                 }
 
                 if (modelUIControl is Panel pnl)
@@ -93,7 +94,7 @@ namespace FlightReservationSystem.Services
                     if (pnlControls == null)
                     {
                         DebugLogger.LogWithStackTrace($"pnlControls {i} is null. Populating aborted.");
-                        return;
+                        return null;
                     }
 
                     for (int j = 0; j < pnlControls.Count; j++)
@@ -103,7 +104,7 @@ namespace FlightReservationSystem.Services
                         if (pnlControl == null)
                         {
                             DebugLogger.LogWithStackTrace($"pnlControl {j}, {i} is null. Populating aborted.");
-                            return;
+                            return null;
                         }
 
                         if (pnlControl is Button btn)
@@ -111,29 +112,42 @@ namespace FlightReservationSystem.Services
                             if (btn == null)
                             {
                                 DebugLogger.LogWithStackTrace($"btn {j}, {i} is null. Populating aborted.");
-                                return;
+                                return null;
                             }
 
-                            if (btn.Tag is string tagVal) SeatManager.AddSeatAssign(new SeatAssignRecord { SeatCode = tagVal, SeatTypes = GetSeatTypeIDs(btn) });
+                            if (btn.Tag is string tagVal) seatAssignCollection.Add(new SeatAssignRecord { Code = tagVal, Types = GetSeatTypeIDs(btn) });
                         }
                     }
                 }
             }
+
+
+            if (seatAssignCollection == null)
+            {
+                DebugLogger.LogWithStackTrace("seatAssignCollection is null. Creating seat assignment aborted.");
+                return null;
+            }
+
+            if (seatAssignCollection.Count == 0)
+            {
+                DebugLogger.LogWithStackTrace("seatAssignCollection is empty. Creating seat assignment aborted.");
+                return null;
+            }
+
+            return seatAssignCollection; 
         }
 
         public static void AddAircraft(string aircraft, int model, int airline, int airport, string baseName)
         {
-            string status = "Incomplete";
-           
-            PopulateSeatAssign(model);
+            int status = 1;
 
             using (SqlConnection con = DatabaseConnection.Get())
             {
                 try
                 {
                     con.Open();
-                    string sql = "INSERT INTO Aircrafts (Aircraft, Model, Airline, Airport, BaseName, Status, SeatLayout) " +
-                        "VALUES (@Aircraft, @Model, @Airline, @Airport, @BaseName, @Status, @SeatLayout) ";
+                    string sql = "INSERT INTO Aircrafts (Aircraft, Model, Airline, Airport, BaseName, Status, SeatAssignments) " +
+                        "VALUES (@Aircraft, @Model, @Airline, @Airport, @BaseName, @Status, @SeatAssignments) ";
 
                     using (SqlCommand cmd = new SqlCommand(sql, con))
                     {
@@ -144,10 +158,10 @@ namespace FlightReservationSystem.Services
                         cmd.Parameters.AddWithValue("@BaseName", baseName);
                         cmd.Parameters.AddWithValue("@Status", status);
 
-                        List<SeatAssignRecord> seatAssignCollection = SeatManager.GetSeatAssignCollection;
-                        string seatLayout = JsonSerializer.Serialize(seatAssignCollection);
+                        List<SeatAssignRecord> seatAssignCollection = CreateSeatAssign(model);
+                        string seatAssignments = JsonSerializer.Serialize(seatAssignCollection);
 
-                        cmd.Parameters.AddWithValue("@SeatLayout", seatLayout);
+                        cmd.Parameters.AddWithValue("@SeatAssignments", seatAssignments);
 
                         cmd.ExecuteNonQuery();
                         MessageBoxHelper.ShowSuccessMessage("Aircraft successfully added.");
@@ -162,5 +176,6 @@ namespace FlightReservationSystem.Services
                 }
             }
         }
+        // << End of AddAircraft
     }
 }

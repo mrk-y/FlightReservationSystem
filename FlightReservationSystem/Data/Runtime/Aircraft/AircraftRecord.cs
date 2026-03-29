@@ -1,4 +1,4 @@
-using FlightReservationSystem.Debugging;
+﻿using FlightReservationSystem.Debugging;
 using FlightReservationSystem.Helpers;
 using System;
 using System.Collections.Generic;
@@ -12,10 +12,10 @@ namespace FlightReservationSystem.Data.Runtime.Aircraft
     {
         public int ID {  get; set; }
         public string Name { get; set; }
+        public string BaseName { get; set; }
         public int ModelID { get; set; }
         public int AirlineID { get; set; }
         public int AirportID { get; set; }
-        public string BaseName { get; set; }
         public List<SeatAssignRecord> SeatAssignments { get; set; } = new List<SeatAssignRecord>();
         public int Status { get; set; }
 
@@ -36,6 +36,17 @@ namespace FlightReservationSystem.Data.Runtime.Aircraft
             if (!ValueChecker.IsStringValid(name, nameof(name)))
             {
                 DebugLogger.LogWithStackTrace("name invalid value. Try false.");
+                return false;
+            }
+
+            return true;
+        }
+
+        public static bool BaseName_Try(string baseName)
+        {
+            if (!ValueChecker.IsStringValid(baseName, nameof(baseName)))
+            {
+                DebugLogger.LogWithStackTrace("baseName invalid value. Try false.");
                 return false;
             }
 
@@ -69,17 +80,6 @@ namespace FlightReservationSystem.Data.Runtime.Aircraft
             if (!ValueChecker.IsIntValid(airportID, nameof(airportID)))
             {
                 DebugLogger.LogWithStackTrace("airportID invalid value. Try false.");
-                return false;
-            }
-
-            return true;
-        }
-
-        public static bool BaseName_Try(string baseName)
-        {
-            if (!ValueChecker.IsStringValid(baseName, nameof(baseName)))
-            {
-                DebugLogger.LogWithStackTrace("baseName invalid value. Try false.");
                 return false;
             }
 

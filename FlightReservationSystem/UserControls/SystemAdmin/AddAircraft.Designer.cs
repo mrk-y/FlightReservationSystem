@@ -32,6 +32,10 @@
             this.pnl2 = new System.Windows.Forms.Panel();
             this.picAirlineImg = new System.Windows.Forms.PictureBox();
             this.pnl3 = new System.Windows.Forms.Panel();
+            this.picQuestion2 = new System.Windows.Forms.PictureBox();
+            this.lblProgress = new System.Windows.Forms.Label();
+            this.lblSeparator4 = new System.Windows.Forms.Label();
+            this.lblProgressVal = new System.Windows.Forms.Label();
             this.lblTotalSeatsVal = new System.Windows.Forms.Label();
             this.lblSeparator3 = new System.Windows.Forms.Label();
             this.lblTotalSeats = new System.Windows.Forms.Label();
@@ -59,10 +63,12 @@
             this.errorProvider3 = new System.Windows.Forms.ErrorProvider(this.components);
             this.errorProvider4 = new System.Windows.Forms.ErrorProvider(this.components);
             this.btnAddAircraft = new System.Windows.Forms.Button();
-            this.saStatus = new FlightReservationSystem.UserControls.SystemAdmin.SAProgress();
+            this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTip3 = new System.Windows.Forms.ToolTip(this.components);
             this.pnl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picAirlineImg)).BeginInit();
             this.pnl3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picQuestion2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picQuestion1)).BeginInit();
             this.pnl4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picSeatMapPreview)).BeginInit();
@@ -84,7 +90,7 @@
             this.pnl2.Margin = new System.Windows.Forms.Padding(0, 0, 16, 32);
             this.pnl2.Name = "pnl2";
             this.pnl2.Padding = new System.Windows.Forms.Padding(12);
-            this.pnl2.Size = new System.Drawing.Size(418, 110);
+            this.pnl2.Size = new System.Drawing.Size(558, 118);
             this.pnl2.TabIndex = 0;
             // 
             // picAirlineImg
@@ -100,6 +106,11 @@
             // 
             // pnl3
             // 
+            this.pnl3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.pnl3.Controls.Add(this.picQuestion2);
+            this.pnl3.Controls.Add(this.lblProgress);
+            this.pnl3.Controls.Add(this.lblSeparator4);
+            this.pnl3.Controls.Add(this.lblProgressVal);
             this.pnl3.Controls.Add(this.lblTotalSeatsVal);
             this.pnl3.Controls.Add(this.lblSeparator3);
             this.pnl3.Controls.Add(this.lblTotalSeats);
@@ -113,18 +124,65 @@
             this.pnl3.Location = new System.Drawing.Point(100, 12);
             this.pnl3.Margin = new System.Windows.Forms.Padding(0);
             this.pnl3.Name = "pnl3";
-            this.pnl3.Size = new System.Drawing.Size(304, 84);
+            this.pnl3.Size = new System.Drawing.Size(444, 92);
             this.pnl3.TabIndex = 1;
+            // 
+            // picQuestion2
+            // 
+            this.picQuestion2.Image = global::FlightReservationSystem.Properties.Resources.Question;
+            this.picQuestion2.Location = new System.Drawing.Point(59, 76);
+            this.picQuestion2.Margin = new System.Windows.Forms.Padding(0, 0, 24, 0);
+            this.picQuestion2.Name = "picQuestion2";
+            this.picQuestion2.Size = new System.Drawing.Size(16, 16);
+            this.picQuestion2.TabIndex = 8;
+            this.picQuestion2.TabStop = false;
+            // 
+            // lblProgress
+            // 
+            this.lblProgress.AutoSize = true;
+            this.lblProgress.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProgress.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(80)))));
+            this.lblProgress.Location = new System.Drawing.Point(0, 77);
+            this.lblProgress.Margin = new System.Windows.Forms.Padding(0, 0, 4, 0);
+            this.lblProgress.Name = "lblProgress";
+            this.lblProgress.Size = new System.Drawing.Size(55, 15);
+            this.lblProgress.TabIndex = 14;
+            this.lblProgress.Text = "Progress";
+            // 
+            // lblSeparator4
+            // 
+            this.lblSeparator4.AutoSize = true;
+            this.lblSeparator4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSeparator4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(80)))));
+            this.lblSeparator4.Location = new System.Drawing.Point(126, 77);
+            this.lblSeparator4.Margin = new System.Windows.Forms.Padding(0, 0, 8, 0);
+            this.lblSeparator4.Name = "lblSeparator4";
+            this.lblSeparator4.Size = new System.Drawing.Size(10, 15);
+            this.lblSeparator4.TabIndex = 13;
+            this.lblSeparator4.Text = ":";
+            // 
+            // lblProgressVal
+            // 
+            this.lblProgressVal.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProgressVal.ForeColor = System.Drawing.Color.Black;
+            this.lblProgressVal.Location = new System.Drawing.Point(144, 75);
+            this.lblProgressVal.Margin = new System.Windows.Forms.Padding(0);
+            this.lblProgressVal.MaximumSize = new System.Drawing.Size(300, 17);
+            this.lblProgressVal.MinimumSize = new System.Drawing.Size(300, 17);
+            this.lblProgressVal.Name = "lblProgressVal";
+            this.lblProgressVal.Size = new System.Drawing.Size(300, 17);
+            this.lblProgressVal.TabIndex = 12;
             // 
             // lblTotalSeatsVal
             // 
             this.lblTotalSeatsVal.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalSeatsVal.ForeColor = System.Drawing.Color.Black;
-            this.lblTotalSeatsVal.Location = new System.Drawing.Point(144, 67);
-            this.lblTotalSeatsVal.Margin = new System.Windows.Forms.Padding(0);
-            this.lblTotalSeatsVal.MinimumSize = new System.Drawing.Size(160, 17);
+            this.lblTotalSeatsVal.Location = new System.Drawing.Point(144, 50);
+            this.lblTotalSeatsVal.Margin = new System.Windows.Forms.Padding(0, 0, 0, 8);
+            this.lblTotalSeatsVal.MaximumSize = new System.Drawing.Size(300, 17);
+            this.lblTotalSeatsVal.MinimumSize = new System.Drawing.Size(300, 17);
             this.lblTotalSeatsVal.Name = "lblTotalSeatsVal";
-            this.lblTotalSeatsVal.Size = new System.Drawing.Size(160, 17);
+            this.lblTotalSeatsVal.Size = new System.Drawing.Size(300, 17);
             this.lblTotalSeatsVal.TabIndex = 11;
             // 
             // lblSeparator3
@@ -132,8 +190,8 @@
             this.lblSeparator3.AutoSize = true;
             this.lblSeparator3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSeparator3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(80)))));
-            this.lblSeparator3.Location = new System.Drawing.Point(126, 69);
-            this.lblSeparator3.Margin = new System.Windows.Forms.Padding(0, 0, 8, 0);
+            this.lblSeparator3.Location = new System.Drawing.Point(126, 52);
+            this.lblSeparator3.Margin = new System.Windows.Forms.Padding(0, 0, 8, 8);
             this.lblSeparator3.Name = "lblSeparator3";
             this.lblSeparator3.Size = new System.Drawing.Size(10, 15);
             this.lblSeparator3.TabIndex = 10;
@@ -144,8 +202,8 @@
             this.lblTotalSeats.AutoSize = true;
             this.lblTotalSeats.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalSeats.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(80)))));
-            this.lblTotalSeats.Location = new System.Drawing.Point(-3, 69);
-            this.lblTotalSeats.Margin = new System.Windows.Forms.Padding(0, 0, 24, 0);
+            this.lblTotalSeats.Location = new System.Drawing.Point(0, 52);
+            this.lblTotalSeats.Margin = new System.Windows.Forms.Padding(0, 0, 24, 8);
             this.lblTotalSeats.Name = "lblTotalSeats";
             this.lblTotalSeats.Size = new System.Drawing.Size(67, 15);
             this.lblTotalSeats.TabIndex = 9;
@@ -158,11 +216,12 @@
             this.lblDisplayNameVal.ForeColor = System.Drawing.Color.Black;
             this.lblDisplayNameVal.Location = new System.Drawing.Point(144, 25);
             this.lblDisplayNameVal.Margin = new System.Windows.Forms.Padding(0, 0, 0, 8);
-            this.lblDisplayNameVal.MaximumSize = new System.Drawing.Size(160, 34);
-            this.lblDisplayNameVal.MinimumSize = new System.Drawing.Size(160, 34);
+            this.lblDisplayNameVal.MaximumSize = new System.Drawing.Size(300, 17);
+            this.lblDisplayNameVal.MinimumSize = new System.Drawing.Size(300, 17);
             this.lblDisplayNameVal.Name = "lblDisplayNameVal";
-            this.lblDisplayNameVal.Size = new System.Drawing.Size(160, 34);
+            this.lblDisplayNameVal.Size = new System.Drawing.Size(300, 17);
             this.lblDisplayNameVal.TabIndex = 8;
+            this.lblDisplayNameVal.MouseHover += new System.EventHandler(this.lblDisplayNameVal_MouseHover);
             // 
             // lblSeparator2
             // 
@@ -205,9 +264,10 @@
             this.lblAircraftIDVal.ForeColor = System.Drawing.Color.Black;
             this.lblAircraftIDVal.Location = new System.Drawing.Point(144, 0);
             this.lblAircraftIDVal.Margin = new System.Windows.Forms.Padding(0, 0, 0, 8);
-            this.lblAircraftIDVal.MinimumSize = new System.Drawing.Size(160, 17);
+            this.lblAircraftIDVal.MaximumSize = new System.Drawing.Size(300, 17);
+            this.lblAircraftIDVal.MinimumSize = new System.Drawing.Size(300, 17);
             this.lblAircraftIDVal.Name = "lblAircraftIDVal";
-            this.lblAircraftIDVal.Size = new System.Drawing.Size(160, 17);
+            this.lblAircraftIDVal.Size = new System.Drawing.Size(300, 17);
             this.lblAircraftIDVal.TabIndex = 4;
             // 
             // lblSeparator1
@@ -248,7 +308,7 @@
             this.pnl4.Controls.Add(this.lblAircraftName);
             this.pnl4.Controls.Add(this.cmbModelVal);
             this.pnl4.Controls.Add(this.lblModel);
-            this.pnl4.Location = new System.Drawing.Point(450, 0);
+            this.pnl4.Location = new System.Drawing.Point(574, 0);
             this.pnl4.Margin = new System.Windows.Forms.Padding(0, 0, 0, 32);
             this.pnl4.Name = "pnl4";
             this.pnl4.Padding = new System.Windows.Forms.Padding(12);
@@ -378,7 +438,7 @@
             // 
             this.picSeatMapPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picSeatMapPreview.Location = new System.Drawing.Point(0, 187);
-            this.picSeatMapPreview.Margin = new System.Windows.Forms.Padding(0, 0, 0, 16);
+            this.picSeatMapPreview.Margin = new System.Windows.Forms.Padding(0, 0, 0, 32);
             this.picSeatMapPreview.Name = "picSeatMapPreview";
             this.picSeatMapPreview.Size = new System.Drawing.Size(600, 200);
             this.picSeatMapPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -411,7 +471,7 @@
             this.btnAddAircraft.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddAircraft.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddAircraft.ForeColor = System.Drawing.Color.White;
-            this.btnAddAircraft.Location = new System.Drawing.Point(823, 403);
+            this.btnAddAircraft.Location = new System.Drawing.Point(0, 419);
             this.btnAddAircraft.Margin = new System.Windows.Forms.Padding(0);
             this.btnAddAircraft.Name = "btnAddAircraft";
             this.btnAddAircraft.Padding = new System.Windows.Forms.Padding(8, 2, 8, 2);
@@ -421,24 +481,11 @@
             this.btnAddAircraft.UseVisualStyleBackColor = false;
             this.btnAddAircraft.Click += new System.EventHandler(this.btnAddAircraft_Click);
             // 
-            // saStatus
-            // 
-            this.saStatus.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.saStatus.BackColor = System.Drawing.Color.White;
-            this.saStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.saStatus.Location = new System.Drawing.Point(0, 505);
-            this.saStatus.Margin = new System.Windows.Forms.Padding(0);
-            this.saStatus.Name = "saStatus";
-            this.saStatus.Padding = new System.Windows.Forms.Padding(12);
-            this.saStatus.Size = new System.Drawing.Size(286, 39);
-            this.saStatus.TabIndex = 7;
-            // 
             // AddAircraft
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(248)))), ((int)(((byte)(255)))));
-            this.Controls.Add(this.saStatus);
             this.Controls.Add(this.btnAddAircraft);
             this.Controls.Add(this.picSeatMapPreview);
             this.Controls.Add(this.lblSeatMapPrev);
@@ -452,6 +499,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picAirlineImg)).EndInit();
             this.pnl3.ResumeLayout(false);
             this.pnl3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picQuestion2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picQuestion1)).EndInit();
             this.pnl4.ResumeLayout(false);
             this.pnl4.PerformLayout();
@@ -467,16 +515,8 @@
 
         #endregion
         private System.Windows.Forms.Panel pnl2;
-        private System.Windows.Forms.Panel pnl3;
-        private System.Windows.Forms.Label lblAircraftID;
-        private System.Windows.Forms.Label lblSeparator1;
         private System.Windows.Forms.Label lblAircraftIDVal;
-        private System.Windows.Forms.Label lblDisplayName;
-        private System.Windows.Forms.PictureBox picQuestion1;
-        private System.Windows.Forms.Label lblSeparator2;
         private System.Windows.Forms.Label lblDisplayNameVal;
-        private System.Windows.Forms.Label lblTotalSeats;
-        private System.Windows.Forms.Label lblSeparator3;
         private System.Windows.Forms.Label lblTotalSeatsVal;
         private System.Windows.Forms.Panel pnl4;
         private System.Windows.Forms.Label lblModel;
@@ -490,12 +530,25 @@
         private System.Windows.Forms.Label lblSeatMapPrev;
         private System.Windows.Forms.PictureBox picSeatMapPreview;
         private System.Windows.Forms.ToolTip toolTip1;
-        private SAProgress saStatus;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.ErrorProvider errorProvider2;
         private System.Windows.Forms.ErrorProvider errorProvider3;
         private System.Windows.Forms.ErrorProvider errorProvider4;
         private System.Windows.Forms.Button btnAddAircraft;
         private System.Windows.Forms.PictureBox picAirlineImg;
+        private System.Windows.Forms.PictureBox picQuestion1;
+        private System.Windows.Forms.Panel pnl3;
+        private System.Windows.Forms.Label lblSeparator3;
+        private System.Windows.Forms.Label lblTotalSeats;
+        private System.Windows.Forms.Label lblSeparator2;
+        private System.Windows.Forms.Label lblDisplayName;
+        private System.Windows.Forms.Label lblSeparator1;
+        private System.Windows.Forms.Label lblAircraftID;
+        private System.Windows.Forms.ToolTip toolTip2;
+        private System.Windows.Forms.Label lblProgressVal;
+        private System.Windows.Forms.Label lblSeparator4;
+        private System.Windows.Forms.Label lblProgress;
+        private System.Windows.Forms.PictureBox picQuestion2;
+        private System.Windows.Forms.ToolTip toolTip3;
     }
 }

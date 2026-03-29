@@ -10,6 +10,6 @@ namespace FlightReservationSystem.Data.Reference.AircraftModel
     internal class AircraftModelUIRecord
     {
         public int ID { get; set; }
-        public UserControl ModelUI { get; set; }
+        public UserControl UI { get; set; }
     }
 }

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FlightReservationSystem.Data.Reference.Seat
+namespace FlightReservationSystem.Data.Reference.SeatType
 {
     internal class SeatTypeUICollection
     {

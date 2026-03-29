@@ -181,35 +181,39 @@
     <Compile Include="Data\Reference\AircraftModel\AircraftModelRecord.cs" />
     <Compile Include="Data\Reference\AircraftModel\AircraftModelUICollection.cs" />
     <Compile Include="Data\Reference\AircraftModel\AircraftModelUIRecord.cs" />
-    <Compile Include="Data\Reference\AircraftModel\SeatLayoutRecord.cs" />
     <Compile Include="Data\Reference\Airline\AirlineCollection.cs" />
     <Compile Include="Data\Reference\Airline\AirlineRecord.cs" />
     <Compile Include="Data\Reference\Airport\AirportCollection.cs" />
     <Compile Include="Data\Reference\Airport\AirportRecord.cs" />
     <Compile Include="Data\Reference\ColorPallete\ThemeColors.cs" />
     <Compile Include="Data\Reference\ControlItem\CMBItemWTag.cs" />
-    <Compile Include="Data\Reference\Seat\SeatTypeCollection.cs" />
-    <Compile Include="Data\Reference\Seat\SeatTypeRecord.cs" />
-    <Compile Include="Data\Reference\Seat\SeatTypeUICollection.cs" />
-    <Compile Include="Data\Reference\Seat\SeatTypeUIRecord.cs" />
+    <Compile Include="Data\Reference\CrewType\CrewTypeCollection.cs" />
+    <Compile Include="Data\Reference\CrewType\CrewTypeRecord.cs" />
+    <Compile Include="Data\Runtime\Crew\CrewCollection.cs" />
+    <Compile Include="Data\Runtime\Crew\CrewRecord.cs" />
+    <Compile Include="Data\Reference\SeatType\SeatTypeCollection.cs" />
+    <Compile Include="Data\Reference\SeatType\SeatTypeRecord.cs" />
+    <Compile Include="Data\Reference\SeatType\SeatTypeUICollection.cs" />
+    <Compile Include="Data\Reference\SeatType\SeatTypeUIRecord.cs" />
     <Compile Include="Data\Reference\Status\StatusCollection.cs" />
     <Compile Include="Data\Reference\Status\StatusRecord.cs" />
-    <Compile Include="Data\Runtime\Json\Gate\TerminalCollection.cs" />
-    <Compile Include="Data\Runtime\Json\Gate\TerminalRecord.cs" />
+    <Compile Include="Data\Runtime\Aircraft\AircraftCollection.cs" />
+    <Compile Include="Data\Runtime\Aircraft\AircraftRecord.cs" />
+    <Compile Include="Data\Runtime\Aircraft\CrewAssignRecord.cs" />
+    <Compile Include="Data\Runtime\Gate\TerminalCollection.cs" />
+    <Compile Include="Data\Runtime\Gate\TerminalRecord.cs" />
     <Compile Include="Data\Runtime\Error\ErrorCollection.cs" />
     <Compile Include="Data\Runtime\Error\ErrorRecord.cs" />
     <Compile Include="Data\Runtime\Error\ErrorUICollection.cs" />
     <Compile Include="Data\Runtime\Error\ErrorUIRecord.cs" />
-    <Compile Include="Data\Runtime\Json\Gate\GateRecord.cs" />
-    <Compile Include="Data\Runtime\Json\SeatAssign\SeatAssignCollection.cs" />
-    <Compile Include="Data\Runtime\Json\SeatAssign\SeatAssignRecord.cs" />
+    <Compile Include="Data\Runtime\Gate\GateRecord.cs" />
+    <Compile Include="Data\Runtime\Aircraft\SeatAssignRecord.cs" />
     <Compile Include="Data\Runtime\User\Session.cs" />
     <Compile Include="Data\Runtime\User\User.cs" />
     <Compile Include="Debugging\DebugLogger.cs" />
     <Compile Include="Helpers\AircraftManager.cs" />
     <Compile Include="Helpers\AirlineManager.cs" />
     <Compile Include="Helpers\AirportManager.cs" />
-    <Compile Include="Helpers\SeatManager.cs" />
     <Compile Include="Helpers\StatusManager.cs" />
     <Compile Include="Helpers\TerminalManager.cs" />
     <Compile Include="Helpers\UserManager.cs" />
@@ -237,6 +241,7 @@
     <Compile Include="Services\AccountManagement.cs" />
     <Compile Include="Services\AccountSession.cs" />
     <Compile Include="Services\AircraftManagement.cs" />
+    <Compile Include="Services\CrewManagement.cs" />
     <Compile Include="UserControls\AircraftModelsUI\Airbus_A321_200.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -261,6 +266,12 @@
     <Compile Include="UserControls\SystemAdmin\AddAircraft.Designer.cs">
       <DependentUpon>AddAircraft.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\SystemAdmin\AssignCrews.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\SystemAdmin\AssignCrews.Designer.cs">
+      <DependentUpon>AssignCrews.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\SystemAdmin\AssignRoute.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -272,12 +283,6 @@
     </Compile>
     <Compile Include="UserControls\SystemAdmin\SANavigation.Designer.cs">
       <DependentUpon>SANavigation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\SystemAdmin\SAProgress.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\SystemAdmin\SAProgress.Designer.cs">
-      <DependentUpon>SAProgress.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\SystemAdmin\SASeatMapCostum.cs">
       <SubType>UserControl</SubType>
@@ -313,14 +318,14 @@
     <EmbeddedResource Include="UserControls\SystemAdmin\AddAircraft.resx">
       <DependentUpon>AddAircraft.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\SystemAdmin\AssignCrews.resx">
+      <DependentUpon>AssignCrews.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\SystemAdmin\AssignRoute.resx">
       <DependentUpon>AssignRoute.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\SystemAdmin\SANavigation.resx">
       <DependentUpon>SANavigation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\SystemAdmin\SAProgress.resx">
-      <DependentUpon>SAProgress.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\SystemAdmin\SASeatMapCostum.resx">
       <DependentUpon>SASeatMapCostum.cs</DependentUpon>

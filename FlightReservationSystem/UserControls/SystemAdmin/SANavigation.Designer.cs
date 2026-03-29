@@ -30,6 +30,7 @@
         {
             this.btnAddAircraft = new System.Windows.Forms.Button();
             this.btnAssignRoute = new System.Windows.Forms.Button();
+            this.btnAssignCrews = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnAddAircraft
@@ -65,7 +66,7 @@
             this.btnAssignRoute.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAssignRoute.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAssignRoute.ForeColor = System.Drawing.Color.White;
-            this.btnAssignRoute.Location = new System.Drawing.Point(97, 0);
+            this.btnAssignRoute.Location = new System.Drawing.Point(199, 0);
             this.btnAssignRoute.Margin = new System.Windows.Forms.Padding(0, 0, 8, 0);
             this.btnAssignRoute.Name = "btnAssignRoute";
             this.btnAssignRoute.Padding = new System.Windows.Forms.Padding(4);
@@ -76,12 +77,35 @@
             this.btnAssignRoute.UseVisualStyleBackColor = false;
             this.btnAssignRoute.Click += new System.EventHandler(this.btnAssignRoute_Click);
             // 
+            // btnAssignCrews
+            // 
+            this.btnAssignCrews.AutoSize = true;
+            this.btnAssignCrews.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnAssignCrews.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
+            this.btnAssignCrews.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAssignCrews.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
+            this.btnAssignCrews.FlatAppearance.BorderSize = 0;
+            this.btnAssignCrews.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAssignCrews.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAssignCrews.ForeColor = System.Drawing.Color.White;
+            this.btnAssignCrews.Location = new System.Drawing.Point(97, 0);
+            this.btnAssignCrews.Margin = new System.Windows.Forms.Padding(0, 0, 8, 0);
+            this.btnAssignCrews.Name = "btnAssignCrews";
+            this.btnAssignCrews.Padding = new System.Windows.Forms.Padding(4);
+            this.btnAssignCrews.Size = new System.Drawing.Size(94, 33);
+            this.btnAssignCrews.TabIndex = 2;
+            this.btnAssignCrews.Tag = "";
+            this.btnAssignCrews.Text = "Assign Crews";
+            this.btnAssignCrews.UseVisualStyleBackColor = false;
+            this.btnAssignCrews.Click += new System.EventHandler(this.btnAssignCrews_Click);
+            // 
             // SANavigation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.btnAssignCrews);
             this.Controls.Add(this.btnAssignRoute);
             this.Controls.Add(this.btnAddAircraft);
             this.Name = "SANavigation";
@@ -95,5 +119,6 @@
 
         private System.Windows.Forms.Button btnAddAircraft;
         private System.Windows.Forms.Button btnAssignRoute;
+        private System.Windows.Forms.Button btnAssignCrews;
     }
 }

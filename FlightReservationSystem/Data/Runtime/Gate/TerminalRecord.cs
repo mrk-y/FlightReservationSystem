@@ -1,4 +1,4 @@
-﻿using FlightReservationSystem.Data.Runtime.Json.Gate;
+﻿using FlightReservationSystem.Data.Runtime.Gate;
 using FlightReservationSystem.Debugging;
 using FlightReservationSystem.Helpers;
 using System;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FlightReservationSystem.Data.Reference.Terminal
+namespace FlightReservationSystem.Data.Runtime.Gate
 {
     internal class TerminalRecord
     {
@@ -21,7 +21,7 @@ namespace FlightReservationSystem.Data.Reference.Terminal
 
         public static bool ID_Try(int id)
         {
-            if (!ValueChecker.IsIntValid(id))
+            if (!ValueChecker.IsIntValid(id, nameof(id)))
             {
                 DebugLogger.LogWithStackTrace("id invalid value. Try false.");
                 return false;
@@ -32,7 +32,7 @@ namespace FlightReservationSystem.Data.Reference.Terminal
 
         public static bool Number_Try(int number)
         {
-            if (!ValueChecker.IsIntValid(number))
+            if (!ValueChecker.IsIntValid(number, nameof(number)))
             {
                 DebugLogger.LogWithStackTrace("number invalid value. Try false.");
                 return false;
@@ -43,7 +43,7 @@ namespace FlightReservationSystem.Data.Reference.Terminal
 
         public static bool Classification_Try(string classification)
         {
-            if (!ValueChecker.IsStringValid(classification))
+            if (!ValueChecker.IsStringValid(classification, nameof(classification)))
             {
                 DebugLogger.LogWithStackTrace("classification invalid value. Try false.");
                 return false;
@@ -94,7 +94,7 @@ namespace FlightReservationSystem.Data.Reference.Terminal
 
         public static bool AirportID_Try(int airportID)
         {
-            if (!ValueChecker.IsIntValid(airportID))
+            if (!ValueChecker.IsIntValid(airportID, nameof(airportID)))
             {
                 DebugLogger.LogWithStackTrace("airportID invalid value. Try false.");
                 return false;
@@ -105,7 +105,7 @@ namespace FlightReservationSystem.Data.Reference.Terminal
 
         public static bool Status_Try(int status)
         {
-            if (!ValueChecker.IsIntValid(status))
+            if (!ValueChecker.IsIntValid(status, nameof(status)))
             {
                 DebugLogger.LogWithStackTrace("status invalid value. Try false.");
                 return false;

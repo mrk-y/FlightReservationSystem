@@ -1,10 +1,10 @@
 ﻿using FlightReservationSystem.Data.Reference.AircraftModel;
 using FlightReservationSystem.Data.Reference.Airline;
 using FlightReservationSystem.Data.Reference.Airport;
-using FlightReservationSystem.Data.Reference.Seat;
-using FlightReservationSystem.Data.Reference.Terminal;
+using FlightReservationSystem.Data.Reference.SeatType;
+using FlightReservationSystem.Data.Runtime.Aircraft;
+using FlightReservationSystem.Data.Runtime.Crew;
 using FlightReservationSystem.Debugging;
-using FlightReservationSystem.Data.Runtime.Json.Gate;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -14,6 +14,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FlightReservationSystem.Data.Reference.ControlItem;
+using FlightReservationSystem.Data.Runtime.Gate;
 
 namespace FlightReservationSystem.Helpers
 {
@@ -30,7 +31,8 @@ namespace FlightReservationSystem.Helpers
                         "acmdl.Model AS acmdl_Model, " +
                         "acmdl.TotalSeats AS acmdl_TotalSeats, " +
                         "acmdl.SeatLayout AS acmdl_SeatLayout, " +
-                        "acmdl.SpeedKMH AS acmdl_SpeedKMH " +
+                        "acmdl.SpeedKMH AS acmdl_SpeedKMH," +
+                        "acmdl.FACount AS acmdl_FACount " +
                         "FROM AircraftModels acmdl " +
                         "WHERE acmdl.IsActive = 1 ";
 
@@ -43,16 +45,16 @@ namespace FlightReservationSystem.Helpers
                                 int db_acmdl_ModelID = reader.GetInt32(reader.GetOrdinal("acmdl_ModelID"));
                                 string db_acmdl_Model = reader.GetString(reader.GetOrdinal("acmdl_Model"));
                                 int db_acmdl_TotalSeats = reader.GetInt32(reader.GetOrdinal("acmdl_TotalSeats"));
-                                List<SeatLayoutRecord> db_acmdl_SeatLayout = JsonSerializer.Deserialize<List<SeatLayoutRecord>>(reader.GetString(reader.GetOrdinal("acmdl_SeatLayout")));
                                 int db_acmdl_SpeedKMH = reader.GetInt32(reader.GetOrdinal("acmdl_SpeedKMH"));
+                                int db_acmdl_FACount = reader.GetInt32(reader.GetOrdinal("acmdl_FACount"));
 
                                 AircraftManager.AddAircraftModel(new AircraftModelRecord
                                 {
                                     ID = db_acmdl_ModelID,
-                                    Model = db_acmdl_Model,
+                                    Name = db_acmdl_Model,
                                     TotalSeats = db_acmdl_TotalSeats,
-                                    SeatLayoutCollection = db_acmdl_SeatLayout,
-                                    Speed = db_acmdl_SpeedKMH
+                                    Speed = db_acmdl_SpeedKMH,
+                                    FlightAttenantsCount = db_acmdl_FACount
                                 });
                             }
                         }
@@ -100,7 +102,7 @@ namespace FlightReservationSystem.Helpers
                                     IATA = db_al_IATA,
                                     ICAO = db_al_ICAO,
                                     Callsign = db_al_Callsign,
-                                    AirlineName = db_al_Airline
+                                    Name = db_al_Airline
                                 });
                             }
                         }
@@ -149,21 +151,17 @@ namespace FlightReservationSystem.Helpers
                                 string db_ap_DisplayCity = reader.GetString(reader.GetOrdinal("ap_DisplayCity"));
                                 double db_ap_Latitude = reader.GetDouble(reader.GetOrdinal("ap_Latitude"));
                                 double db_ap_Longitude = reader.GetDouble(reader.GetOrdinal("ap_Longitude"));
-                                string db_ap_Category = reader.GetString(reader.GetOrdinal("ap_Category"));
-                                string db_ap_CriticalAircraft = reader.GetString(reader.GetOrdinal("ap_CriticalAircraft"));
 
                                 AirportManager.AddAirport(new AirportRecord
                                 {
                                     ID = db_ap_AirportID,
                                     IATA = db_ap_IATA,
                                     ICAO = db_ap_ICAO,
-                                    AirportName = db_ap_Airport,
+                                    Name = db_ap_Airport,
                                     Location = db_ap_Location,
                                     DisplayCity = db_ap_DisplayCity,
                                     Latitude = db_ap_Latitude,
-                                    Longitude = db_ap_Longitude,
-                                    Category = db_ap_Category,
-                                    CriticalAircraft = db_ap_CriticalAircraft
+                                    Longitude = db_ap_Longitude
                                 });
                             }
                         }
@@ -201,11 +199,11 @@ namespace FlightReservationSystem.Helpers
                                 string db_st_Code = reader.GetString(reader.GetOrdinal("st_Code"));
                                 string db_st_Seat = reader.GetString(reader.GetOrdinal("st_Seat"));
 
-                                SeatManager.AddSeatType(new SeatTypeRecord
+                                AircraftManager.AddSeatType(new SeatTypeRecord
                                 {
                                     ID = db_st_SeatID,
                                     Code = db_st_Code,
-                                    SeatType = db_st_Seat
+                                    Name = db_st_Seat
                                 });
                             }
                         }
@@ -220,7 +218,7 @@ namespace FlightReservationSystem.Helpers
             }
         }
 
-        public static void PopulateGatesTerminals()
+        public static void PopulateTerminals()
         {
             using (SqlConnection con = DatabaseConnection.Get())
             {
@@ -248,7 +246,7 @@ namespace FlightReservationSystem.Helpers
                                 List<GateRecord> db_tm_Gates = JsonSerializer.Deserialize<List<GateRecord>>(reader.GetString(reader.GetOrdinal("tm_Gates")));
                                 int db_tm_Airport = reader.GetInt32(reader.GetOrdinal("tm_Airport"));
                                 int db_tm_Status = reader.GetInt32(reader.GetOrdinal("tm_Status"));
-
+                                
                                 TerminalManager.AddTerminal(new TerminalRecord
                                 {
                                     ID = db_tm_TerminalID,
@@ -257,6 +255,120 @@ namespace FlightReservationSystem.Helpers
                                     Gates = db_tm_Gates,
                                     AirportID = db_tm_Airport,
                                     Status = db_tm_Status,
+                                });
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DebugLogger.LogWithStackTrace($"{ex.Message}. Populating aborted.");
+                    MessageBoxHelper.ShowDeveloperErrorMessage("An unexpected error occured while populating data.");
+                    return;
+                }
+            }
+        }
+
+        public static void PopulateAircraftStat1()
+        {
+            AircraftManager.ClearAircraftCollection();
+
+            using (SqlConnection con = DatabaseConnection.Get())
+            {
+                try
+                {
+                    con.Open();
+                    string sql = "SELECT ac.AircraftID AS ac_AircraftID, " +
+                        "ac.Aircraft AS ac_Aircraft," +
+                        "ac.Model AS ac_Model, " +
+                        "ac.Airline AS ac_Airline, " +
+                        "ac.Airport AS ac_Airport, " +
+                        "ac.Status AS ac_Status " +
+                        "FROM Aircrafts ac " +
+                        "WHERE ac.IsActive = 1 AND " +
+                        "ac.Status = 1 ";
+
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        using (SqlDataReader reader =  cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                int db_ac_AircraftID = reader.GetInt32(reader.GetOrdinal("ac_AircraftID"));
+                                string db_ac_Aircraft = reader.GetString(reader.GetOrdinal("ac_Aircraft"));
+                                int db_ac_Model = reader.GetInt32(reader.GetOrdinal("ac_Model"));
+                                int db_ac_Airline = reader.GetInt32(reader.GetOrdinal("ac_Airline"));
+                                int db_ac_Airport = reader.GetInt32(reader.GetOrdinal("ac_Airport"));
+                                int db_ac_Status = reader.GetInt32(reader.GetOrdinal("ac_Status"));
+
+                                AircraftManager.AddAircraftStat1(new AircraftRecord
+                                {
+                                    ID = db_ac_AircraftID,
+                                    Name = db_ac_Aircraft,
+                                    ModelID = db_ac_Model,
+                                    AirlineID = db_ac_Airline,
+                                    AirportID = db_ac_Airport,
+                                    Status = db_ac_Status
+                                });
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DebugLogger.LogWithStackTrace($"{ex.Message}. Populating aborted.");
+                    MessageBoxHelper.ShowDeveloperErrorMessage("An unexpedted error occured while populating data.");
+                    return;
+                }
+            }
+        }
+
+        public static void PopulateCrewStat1()
+        {
+            AircraftManager.ClearCrewCollection();
+
+            using (SqlConnection con = DatabaseConnection.Get())
+            {
+                try
+                {
+                    con.Open();
+                    string sql = "SELECT c.CrewID AS c_CrewID, " +
+                        "c.LastName AS c_LastName, " +
+                        "c.FirstName AS c_FirstName, " +
+                        "c.MiddleName AS c_MiddleName, " +
+                        "c.Birthdate AS c_Birthdate, " +
+                        "c.Gender AS c_Gender, " +
+                        "c.CrewType AS c_CrewType, " +
+                        "c.Status AS c_Status " +
+                        "FROM Crews c " +
+                        "WHERE IsActive = 1 AND " +
+                        "Status = 1 ";
+
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                int db_c_CrewID = reader.GetInt32(reader.GetOrdinal("c_CrewID"));
+                                string db_c_LastName = reader.GetString(reader.GetOrdinal("c_LastName"));
+                                string db_c_FirstName = reader.GetString(reader.GetOrdinal("c_FirstName"));
+                                string db_c_MiddleName = reader.GetString(reader.GetOrdinal("c_MiddleName"));
+                                DateTime db_c_Birthdate = reader.GetDateTime(reader.GetOrdinal("c_Birthdate"));
+                                string db_c_Gender = reader.GetString(reader.GetOrdinal("c_Gender"));
+                                int db_c_CrewType = reader.GetInt32(reader.GetOrdinal("c_CrewType"));
+                                int db_c_Status = reader.GetInt32(reader.GetOrdinal("c_Status"));
+
+                                AircraftManager.AddCrew(new CrewRecord
+                                {
+                                    ID = db_c_CrewID,
+                                    LastName = db_c_LastName,
+                                    FirstName = db_c_FirstName,
+                                    MiddleName = db_c_MiddleName,
+                                    Birthdate = db_c_Birthdate,
+                                    Gender = db_c_Gender,
+                                    CrewTypeID = db_c_CrewType,
+                                    Status = db_c_Status
                                 });
                             }
                         }

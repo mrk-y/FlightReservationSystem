@@ -13,9 +13,9 @@ namespace FlightReservationSystem.Helpers
     {
         public static void AddUser(User user)
         {
-            if (!User.UserID_Try(user.UserID) || !User.Name_Try(user.Name) ||
-                !User.HashedPassword_Try(user.HashedPassword) || !User.UserTypeID_Try(user.UserTypeID) ||
-                !User.UserType_Try(user.UserType))
+            if (!User.ID_Try(user.ID) || !User.Name_Try(user.Name) ||
+                !User.Password_Try(user.Password) || !User.TypeID_Try(user.TypeID) ||
+                !User.TypeName_Try(user.TypeName))
             {
                 DebugLogger.LogWithStackTrace("Wrong value. Adding aborted.");
                 return;

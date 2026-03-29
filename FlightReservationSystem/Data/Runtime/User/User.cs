@@ -10,18 +10,18 @@ namespace FlightReservationSystem.Data.Runtime.User
 {
     internal class User
     {
-        public string UserID { get; set; }
+        public string ID { get; set; }
         public string Name { get; set; }
-        public string HashedPassword { get; set; }
-        public int UserTypeID { get; set; }
-        public string UserType { get; set; }
+        public string Password { get; set; }
+        public int TypeID { get; set; }
+        public string TypeName { get; set; }
+       
 
-
-        public static bool UserID_Try(string userID)
+        public static bool ID_Try(string id)
         {
-            if (!ValueChecker.IsStringValid(userID, nameof(userID)))
+            if (!ValueChecker.IsStringValid(id, nameof(id)))
             {
-                DebugLogger.LogWithStackTrace("userID invalid value. Try false.");
+                DebugLogger.LogWithStackTrace("id invalid value. Try false.");
                 return false;
             }
 
@@ -39,33 +39,33 @@ namespace FlightReservationSystem.Data.Runtime.User
             return true;
         }
 
-        public static bool HashedPassword_Try(string hashedPassword)
+        public static bool Password_Try(string password)
         {
-            if (!ValueChecker.IsStringValid(hashedPassword, nameof(hashedPassword)))
+            if (!ValueChecker.IsStringValid(password, nameof(password)))
             {
-                DebugLogger.LogWithStackTrace("hashedPassword invalid value. Try false.");
+                DebugLogger.LogWithStackTrace("password invalid value. Try false.");
                 return false;
             }
 
             return true;
         }
 
-        public static bool UserTypeID_Try(int userTypeID)
+        public static bool TypeID_Try(int typeID)
         {
-            if (!ValueChecker.IsIntValid(userTypeID, nameof(userTypeID)))
+            if (!ValueChecker.IsIntValid(typeID, nameof(typeID)))
             {
-                DebugLogger.LogWithStackTrace("userTypeID invalid value. Try false.");
+                DebugLogger.LogWithStackTrace("typeID invalid value. Try false.");
                 return false;
             }
 
             return true;
         }
 
-        public static bool UserType_Try(string userType)
+        public static bool TypeName_Try(string typeName)
         {
-            if (!ValueChecker.IsStringValid(userType, nameof(userType)))
+            if (!ValueChecker.IsStringValid(typeName, nameof(typeName)))
             {
-                DebugLogger.LogWithStackTrace("userType invalid value. Try false.");
+                DebugLogger.LogWithStackTrace("typeName invalid value. Try false.");
                 return false;
             }
 

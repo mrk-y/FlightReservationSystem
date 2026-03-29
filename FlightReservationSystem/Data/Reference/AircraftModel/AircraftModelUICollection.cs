@@ -15,7 +15,7 @@ namespace FlightReservationSystem.Data.Reference.AircraftModel
             new AircraftModelUIRecord
             {
                 ID = 10,
-                ModelUI = new ATR_72_600()
+                UI = new ATR_72_600()
             }
         };
 

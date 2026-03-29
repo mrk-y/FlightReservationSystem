@@ -14,7 +14,7 @@ namespace FlightReservationSystem.Data.Reference.Airline
         public string IATA { get; set; }
         public string ICAO { get; set; }
         public string Callsign { get; set; }
-        public string AirlineName {  get; set; }
+        public string Name {  get; set; }
 
 
         public static bool ID_Try(int id)
@@ -61,11 +61,11 @@ namespace FlightReservationSystem.Data.Reference.Airline
             return true;
         } 
 
-        public static bool AirlineName_Try(string airlineName)
+        public static bool Name_Try(string name)
         {
-            if (!ValueChecker.IsStringValid(airlineName, nameof(airlineName)))
+            if (!ValueChecker.IsStringValid(name, nameof(name)))
             {
-                DebugLogger.LogWithStackTrace("airlineName invalid value. Try false.");
+                DebugLogger.LogWithStackTrace("name invalid value. Try false.");
                 return false;
             }
 

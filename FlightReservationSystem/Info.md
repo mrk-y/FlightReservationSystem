@@ -16,7 +16,7 @@ Status meaning:
 	* Red: Cancelled
 	* Gray: Gate closed
 	* Flashing yellow: Final Call
-
+		
 GateRecord Statuses:
 	* 0 = Inactive
 	* 1 = Available
@@ -25,3 +25,19 @@ GateRecord Statuses:
 TerminalRecord Statuses:
 	* 0 = Inactive
 	* 1 = Available
+
+Crew Statuses:
+	* 1 = Available
+	* 2 = Not Available
+
+Aircraft Statuses:
+	* 0 = Inactive
+	* 1 = Just added in db
+	* 2 = Crews added
+	* 3 = Route assigned
+	* 5 = Scheduled
+	* 6 = Boarding
+	* 7 = In Flight
+	* 8 = Landed
+	* 9 = Delayed
+	* 10 = Cancelled

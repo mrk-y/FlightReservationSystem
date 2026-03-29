@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FlightReservationSystem.Data.Reference.Terminal
+namespace FlightReservationSystem.Data.Runtime.Gate
 {
     internal class TerminalCollection
     {

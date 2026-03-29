@@ -13,13 +13,11 @@ namespace FlightReservationSystem.Data.Reference.Airport
         public int ID { get; set; }
         public string IATA { get; set; }
         public string ICAO { get; set; }
-        public string AirportName { get; set; }
+        public string Name { get; set; }
         public string Location { get; set; }
         public string DisplayCity { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
-        public string Category { get; set; }
-        public string CriticalAircraft { get; set; } 
     
     
         public static bool ID_Try(int id)
@@ -55,11 +53,11 @@ namespace FlightReservationSystem.Data.Reference.Airport
             return true;
         }
 
-        public static bool AirportName_Try(string airportName)
+        public static bool Name_Try(string name)
         {
-            if (!ValueChecker.IsStringValid(airportName, nameof(airportName)))
+            if (!ValueChecker.IsStringValid(name, nameof(name)))
             {
-                DebugLogger.LogWithStackTrace("airportName invalid value. Try false.");
+                DebugLogger.LogWithStackTrace("name invalid value. Try false.");
                 return false;
             }
 
@@ -104,28 +102,6 @@ namespace FlightReservationSystem.Data.Reference.Airport
             if (!ValueChecker.IsDoubleValid(longitude, nameof(longitude)))
             {
                 DebugLogger.LogWithStackTrace("longitude invalid value. Try false.");
-                return false;
-            }
-
-            return true;
-        }
-
-        public static bool Category_Try(string category)
-        {
-            if (!ValueChecker.IsStringValid(category, nameof(category)))
-            {
-                DebugLogger.LogWithStackTrace("category invalid value. Try false.");
-                return false;
-            }
-
-            return true;
-        }
-
-        public static bool CriticalAircraft_Try(string criticalAircraft)
-        {
-            if (!ValueChecker.IsStringValid(criticalAircraft, nameof(criticalAircraft)))
-            {
-                DebugLogger.LogWithStackTrace("criticalAircraft invalid value. Try false.");
                 return false;
             }
 

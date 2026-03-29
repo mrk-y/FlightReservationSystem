@@ -10,7 +10,7 @@ namespace FlightReservationSystem.Data.Reference.Status
     internal class StatusRecord
     {
         public int ID { get; set; }
-        public string StatusName { get; set; }
+        public string Name { get; set; }
         public List<Color> StatusColors { get; set; } = new List<Color>();
     }
 }
