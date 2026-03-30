@@ -44,10 +44,54 @@ namespace FlightReservationSystem
         {
             switch (page)
             {
-                case "Flights": ShowFlights(); break;
-                case "Passenger": ShowPassengers(); break;
-                case "Seats": ShowSeats(); break;
-                case "Payment": ShowPayment(); break;
+                case "Flights":
+                    ShowFlights();
+                    break;
+
+                case "Passenger":
+                    if (_selectedFlight == null)
+                    {
+                        MessageBox.Show(
+                            "Please select a flight first.",
+                            "No Flight Selected",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                        _navigation.SetActiveButton(_navigation.btnViewFlights);
+                        ShowFlights();
+                        return;
+                    }
+                    ShowPassengers();
+                    break;
+
+                case "Seats":
+                    if (_selectedFlight == null)
+                    {
+                        MessageBox.Show(
+                            "Please select a flight first.",
+                            "No Flight Selected",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                        _navigation.SetActiveButton(_navigation.btnViewFlights);
+                        ShowFlights();
+                        return;
+                    }
+                    ShowSeats();
+                    break;
+
+                case "Payment":
+                    if (_selectedFlight == null)
+                    {
+                        MessageBox.Show(
+                            "Please select a flight first.",
+                            "No Flight Selected",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                        _navigation.SetActiveButton(_navigation.btnViewFlights);
+                        ShowFlights();
+                        return;
+                    }
+                    ShowPayment();
+                    break;
             }
         }
 
@@ -63,7 +107,6 @@ namespace FlightReservationSystem
         private void ShowFlights()
         {
             ResetPanel();
-
 
             RAFlights flights = new RAFlights();
             flights.Dock = DockStyle.Fill;
@@ -97,8 +140,8 @@ namespace FlightReservationSystem
                 {
                     form.OnProceed += (s, e) =>
                     {
-                        _navigation.SetActiveButton(_navigation.btnPayment);
-                        ShowPayment();
+                        _navigation.SetActiveButton(_navigation.btnAddPassengerSeat);
+                        ShowSeats();
                     };
                 }
 
@@ -111,23 +154,12 @@ namespace FlightReservationSystem
         {
             ResetPanel();
 
-            if (_selectedFlight == null)
-            {
-                MessageBox.Show(
-                    "No flight selected. Please select a flight first.",
-                    "No Flight Selected",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
-                ShowFlights();
-                return;
-            }
-
             UserControl seatMap = ResolveAircraftUI(_selectedFlight.Model);
 
             if (seatMap == null)
             {
                 MessageBox.Show(
-                    $"No seat map available for aircraft: {_selectedFlight.Model}\n\nProceeding to payment.",
+                    $"No seat map available for aircraft: '{_selectedFlight.Model}'\n\nProceeding to payment.",
                     "Seat Map Unavailable",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
@@ -142,21 +174,11 @@ namespace FlightReservationSystem
         }
 
         // ── Aircraft UI resolver ──────────────────────────────────
-        // Matches the flight's Model string (from DB) to the correct
-        // AircraftModelsUI UserControl.
-        //
-        // DB Model values: "ATR 72-600", "Airbus A321-200",
-        //   "Airbus A320-200", "Airbus A320neo", "Airbus A321neo",
-        //   "Airbus A319-100"
-        // UserControls available: ATR_72_600, Airbus_A321_200
-        //
-        // To add more: just add a new else-if block below.
         private UserControl ResolveAircraftUI(string model)
         {
             if (string.IsNullOrWhiteSpace(model))
                 return null;
 
-            // Normalize for loose matching
             string n = model.ToLower().Replace(" ", "").Replace("-", "");
 
             if (n.Contains("atr") && n.Contains("72"))
@@ -165,7 +187,6 @@ namespace FlightReservationSystem
             if (n.Contains("a321"))
                 return new Airbus_A321_200();
 
-            // No match yet — add new aircraft UIs here as you build them:
             // if (n.Contains("a320")) return new Airbus_A320_200();
             // if (n.Contains("a319")) return new Airbus_A319_100();
 
