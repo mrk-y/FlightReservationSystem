@@ -103,7 +103,7 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
                 SELECT
                     f.FlightID,
                     a.Aircraft,
-                    a.Model,
+                    m.Model,
                     a.BaseName,
                     f.DurationMin,
                     f.DistanceKM,
@@ -119,10 +119,11 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
                     f.Departure,
                     f.Arrival
                 FROM Flights f
-                LEFT JOIN Aircrafts a  ON a.AircraftID = f.Aircraft
-                LEFT JOIN Airports ao  ON ao.AirportID = f.Origin
-                LEFT JOIN Airports ad  ON ad.AirportID = f.Destination
-                LEFT JOIN Terminals t  ON t.TerminalID = f.Terminal
+                LEFT JOIN Aircrafts a      ON a.AircraftID = f.Aircraft
+                LEFT JOIN AircraftModels m ON m.ModelID = a.Model
+                LEFT JOIN Airports ao      ON ao.AirportID = f.Origin
+                LEFT JOIN Airports ad      ON ad.AirportID = f.Destination
+                LEFT JOIN Terminals t      ON t.TerminalID = f.Terminal
                 WHERE f.IsActive = 1
                 ORDER BY f.Departure ASC";
 

@@ -1,11 +1,8 @@
-﻿using System;
+﻿using FlightReservationSystem.Helpers;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FlightReservationSystem.UserControls.AircraftModelsUI
@@ -13,24 +10,18 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
     /// <summary>
     /// Airbus A321-200 seat map.
     ///
-    /// On load:
-    ///  - Applies legend colours (same helper used by ATR_72_600).
-    ///  - Stamps every seat button with its full "Letter + Row" label
-    ///    (e.g. "A1", "C3", "K12") so the reservation system can track
-    ///    exactly which seat was picked.
+    /// Layout (234 seats total):
+    ///   Business Class  (panel2) – 2+2 config, rows A C H K,  3 columns  =  12 seats
+    ///   Comfort  Class  (panel1) – 3+2 config, rows A B C H J K, 5 columns = 30 seats
+    ///   Economy  Class  (panel3) – 3+3 config, rows A B C H J K, 32 columns = 192 seats
     ///
-    /// How the label is built
-    /// ──────────────────────
-    ///  The Designer places a Label (MinimumSize.Width == 20, Text = letter)
-    ///  to the left of each seat row.  The buttons in that row share the
-    ///  same Top value as the label.  We pair them up at runtime:
+    /// Seat labels (e.g. "A1", "K32") are derived at runtime from button geometry:
+    ///   • Row letter  – taken from the Label whose MinimumSize.Width == 20 that
+    ///                   shares the same Top value as the button row.
+    ///   • Seat number – buttons in each row are sorted left-to-right and numbered 1, 2, 3 …
     ///
-    ///      label.Top == button.Top  →  letter = label.Text
-    ///      button.Tag               →  row number string ("1", "2", …)
-    ///      result stored in Tag     →  "A1", "A2", … "K32", etc.
-    ///
-    ///  The text shown on the button is then set to the combined label so
-    ///  both the UI and any downstream code read the same value.
+    /// This approach requires no Tags in the Designer and is resilient to future
+    /// column additions (just add more buttons at the same Top value).
     /// </summary>
     public partial class Airbus_A321_200 : UserControl
     {
@@ -43,77 +34,74 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
         private void InitUI()
         {
             ShowLegendColors();
-            StampSeatLabels();
+            StampAllPanels();
         }
 
-        // ── Legend colours (mirrors ATR_72_600) ───────────────────
+        // ── Legend colours ────────────────────────────────────────
         private void ShowLegendColors()
         {
-            // Guard: AircraftManager may not be available in design mode.
-            try
-            {
-                // The A321 Designer does not expose named legend buttons,
-                // so we skip the legend panel here; it can be added to the
-                // designer later the same way as ATR_72_600.
-                // If your A321 designer gains btnRegPass / btnExitRow etc.,
-                // wire them here exactly like ATR_72_600.ShowLegendColors().
-            }
-            catch { /* design-time safety */ }
+            // Wire legend buttons here once they are added to the Designer,
+            // the same way ATR_72_600.ShowLegendColors() does it.
+            // Example:
+            //   btnRegPass.BackColor = AircraftManager.GetSeatTypeUICollection[0].BackColor;
+            //   btnRegPass.FlatAppearance.BorderColor = AircraftManager.GetSeatTypeUICollection[0].BorderColor;
         }
 
         // ── Seat label stamping ───────────────────────────────────
         /// <summary>
-        /// Walk every panel in the control, build a "row Top → letter"
-        /// map from the Labels, then write "letter + tag" into each
-        /// Button's Tag and Text.
+        /// Entry point: stamp every Panel that is a direct child of this UserControl.
+        /// Each cabin section (Business / Comfort / Economy) is its own Panel.
         /// </summary>
-        private void StampSeatLabels()
+        private void StampAllPanels()
         {
-            StampPanel(this);
+            foreach (Control c in this.Controls)
+            {
+                if (c is Panel pnl)
+                    StampPanel(pnl);
+            }
         }
 
-        private void StampPanel(Control container)
+        /// <summary>
+        /// For a single cabin panel:
+        ///   1. Build a Top → letter map from Labels with MinimumSize.Width == 20.
+        ///   2. Group buttons by their Top value (= one seat row per Top).
+        ///   3. Sort each group left-to-right and assign seat numbers 1, 2, 3 …
+        ///   4. Write "letter + number" into each button's Tag and Text.
+        /// </summary>
+        private void StampPanel(Panel panel)
         {
-            // 1. Collect row-letter labels inside this container
-            //    The Designer gives them MinimumSize = (20, 36) and they
-            //    hold a single capital letter ("A", "C", "D", …).
-            var rowLetterByTop = new System.Collections.Generic.Dictionary<int, string>();
-
-            foreach (Control c in container.Controls)
+            // Step 1 – row-letter labels
+            var letterByTop = new Dictionary<int, string>();
+            foreach (Control c in panel.Controls)
             {
-                if (c is Label lbl &&
-                    lbl.MinimumSize.Width == 20 &&
-                    lbl.Text.Trim().Length == 1 &&
-                    char.IsLetter(lbl.Text.Trim()[0]))
+                if (c is Label lbl
+                    && lbl.MinimumSize.Width == 20
+                    && lbl.Text.Trim().Length == 1
+                    && char.IsLetter(lbl.Text.Trim()[0]))
                 {
-                    rowLetterByTop[c.Top] = lbl.Text.Trim();
+                    letterByTop[lbl.Top] = lbl.Text.Trim();
                 }
             }
 
-            // 2. Stamp each Button whose Tag is a bare row number
-            foreach (Control c in container.Controls)
+            // Step 2 – group buttons by Top
+            var buttonsByTop = panel.Controls
+                .OfType<Button>()
+                .GroupBy(b => b.Top)
+                .ToDictionary(g => g.Key, g => g.OrderBy(b => b.Left).ToList());
+
+            // Step 3 & 4 – stamp
+            foreach (var kvp in buttonsByTop)
             {
-                if (c is Button btn)
-                {
-                    string tag = btn.Tag as string;
-                    if (string.IsNullOrWhiteSpace(tag)) continue;
+                if (!letterByTop.TryGetValue(kvp.Key, out string letter))
+                    continue;   // row header label not found – skip
 
-                    // Already stamped?
-                    if (tag.Length > 1 && !int.TryParse(tag, out _)) continue;
-
-                    // Find the letter for this button's row
-                    if (rowLetterByTop.TryGetValue(btn.Top, out string letter))
-                    {
-                        string seatLabel = letter + tag;   // e.g. "A1", "K32"
-                        btn.Tag = seatLabel;
-                        btn.Font = new Font("Segoe UI", 6f);
-                        btn.Text = seatLabel;
-                    }
-                }
-                else if (c is Panel pnl)
+                var rowButtons = kvp.Value;
+                for (int i = 0; i < rowButtons.Count; i++)
                 {
-                    // Recurse — each cabin section is its own Panel
-                    StampPanel(pnl);
+                    string seatId = letter + (i + 1).ToString(); // e.g. "A1", "K32"
+                    rowButtons[i].Tag = seatId;
+                    rowButtons[i].Text = seatId;
+                    rowButtons[i].Font = new Font("Segoe UI", 6f);
                 }
             }
         }
