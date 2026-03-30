@@ -41,12 +41,16 @@
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.lblPhone = new System.Windows.Forms.Label();
             this.txtPhone = new System.Windows.Forms.TextBox();
+            this.lblSeatClass = new System.Windows.Forms.Label();
+            this.cmbSeatClass = new System.Windows.Forms.ComboBox();
+            this.lblSeatClassDesc = new System.Windows.Forms.Label();
             this.pnlSpecial = new System.Windows.Forms.Panel();
             this.lblSpecialTitle = new System.Windows.Forms.Label();
             this.lblSpecialSubtitle = new System.Windows.Forms.Label();
             this.chkPeanutAllergy = new System.Windows.Forms.CheckBox();
             this.lblPeanutDesc = new System.Windows.Forms.Label();
             this.chkWheelchair = new System.Windows.Forms.CheckBox();
+            this.lblWheelchairDesc = new System.Windows.Forms.Label();
             this.chkUnaccompaniedMinor = new System.Windows.Forms.CheckBox();
             this.lblUnaccompaniedDesc = new System.Windows.Forms.Label();
             this.lblGuardianName = new System.Windows.Forms.Label();
@@ -56,7 +60,6 @@
             this.lblGuardianRelation = new System.Windows.Forms.Label();
             this.txtGuardianRelation = new System.Windows.Forms.TextBox();
             this.btnProceed = new System.Windows.Forms.Button();
-            this.lblWheelchairDesc = new System.Windows.Forms.Label();
             this.pnlMain.SuspendLayout();
             this.pnlSpecial.SuspendLayout();
             this.SuspendLayout();
@@ -93,6 +96,9 @@
             this.pnlMain.Controls.Add(this.txtEmail);
             this.pnlMain.Controls.Add(this.lblPhone);
             this.pnlMain.Controls.Add(this.txtPhone);
+            this.pnlMain.Controls.Add(this.lblSeatClass);
+            this.pnlMain.Controls.Add(this.cmbSeatClass);
+            this.pnlMain.Controls.Add(this.lblSeatClassDesc);
             this.pnlMain.Controls.Add(this.pnlSpecial);
             this.pnlMain.Controls.Add(this.btnProceed);
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -378,7 +384,7 @@
             this.txtEmail.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txtEmail.Location = new System.Drawing.Point(24, 249);
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(260, 25);
+            this.txtEmail.Size = new System.Drawing.Size(220, 25);
             this.txtEmail.TabIndex = 25;
             // 
             // lblPhone
@@ -386,7 +392,7 @@
             this.lblPhone.AutoSize = true;
             this.lblPhone.Font = new System.Drawing.Font("Segoe UI Semibold", 9F);
             this.lblPhone.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(50)))));
-            this.lblPhone.Location = new System.Drawing.Point(298, 232);
+            this.lblPhone.Location = new System.Drawing.Point(258, 232);
             this.lblPhone.Name = "lblPhone";
             this.lblPhone.Size = new System.Drawing.Size(96, 15);
             this.lblPhone.TabIndex = 26;
@@ -396,21 +402,54 @@
             // 
             this.txtPhone.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtPhone.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtPhone.Location = new System.Drawing.Point(298, 249);
+            this.txtPhone.Location = new System.Drawing.Point(258, 249);
             this.txtPhone.Name = "txtPhone";
-            this.txtPhone.Size = new System.Drawing.Size(200, 25);
+            this.txtPhone.Size = new System.Drawing.Size(180, 25);
             this.txtPhone.TabIndex = 27;
+            // 
+            // lblSeatClass
+            // 
+            this.lblSeatClass.AutoSize = true;
+            this.lblSeatClass.Font = new System.Drawing.Font("Segoe UI Semibold", 9F);
+            this.lblSeatClass.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(50)))));
+            this.lblSeatClass.Location = new System.Drawing.Point(452, 232);
+            this.lblSeatClass.Name = "lblSeatClass";
+            this.lblSeatClass.Size = new System.Drawing.Size(67, 15);
+            this.lblSeatClass.TabIndex = 30;
+            this.lblSeatClass.Text = "Seat Class *";
+            // 
+            // cmbSeatClass
+            // 
+            this.cmbSeatClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSeatClass.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cmbSeatClass.Items.AddRange(new object[] {
+            "Economy",
+            "Comfort",
+            "Business"});
+            this.cmbSeatClass.Location = new System.Drawing.Point(452, 249);
+            this.cmbSeatClass.Name = "cmbSeatClass";
+            this.cmbSeatClass.Size = new System.Drawing.Size(160, 25);
+            this.cmbSeatClass.TabIndex = 31;
+            // 
+            // lblSeatClassDesc
+            // 
+            this.lblSeatClassDesc.Font = new System.Drawing.Font("Segoe UI", 8F);
+            this.lblSeatClassDesc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(120)))));
+            this.lblSeatClassDesc.Location = new System.Drawing.Point(452, 277);
+            this.lblSeatClassDesc.Name = "lblSeatClassDesc";
+            this.lblSeatClassDesc.Size = new System.Drawing.Size(300, 14);
+            this.lblSeatClassDesc.TabIndex = 32;
             // 
             // pnlSpecial
             // 
             this.pnlSpecial.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(252)))));
             this.pnlSpecial.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlSpecial.Controls.Add(this.lblWheelchairDesc);
             this.pnlSpecial.Controls.Add(this.lblSpecialTitle);
             this.pnlSpecial.Controls.Add(this.lblSpecialSubtitle);
             this.pnlSpecial.Controls.Add(this.chkPeanutAllergy);
             this.pnlSpecial.Controls.Add(this.lblPeanutDesc);
             this.pnlSpecial.Controls.Add(this.chkWheelchair);
+            this.pnlSpecial.Controls.Add(this.lblWheelchairDesc);
             this.pnlSpecial.Controls.Add(this.chkUnaccompaniedMinor);
             this.pnlSpecial.Controls.Add(this.lblUnaccompaniedDesc);
             this.pnlSpecial.Controls.Add(this.lblGuardianName);
@@ -419,7 +458,7 @@
             this.pnlSpecial.Controls.Add(this.txtGuardianPhone);
             this.pnlSpecial.Controls.Add(this.lblGuardianRelation);
             this.pnlSpecial.Controls.Add(this.txtGuardianRelation);
-            this.pnlSpecial.Location = new System.Drawing.Point(24, 292);
+            this.pnlSpecial.Location = new System.Drawing.Point(24, 300);
             this.pnlSpecial.Name = "pnlSpecial";
             this.pnlSpecial.Size = new System.Drawing.Size(1150, 100);
             this.pnlSpecial.TabIndex = 28;
@@ -431,9 +470,9 @@
             this.lblSpecialTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(50)))));
             this.lblSpecialTitle.Location = new System.Drawing.Point(14, 10);
             this.lblSpecialTitle.Name = "lblSpecialTitle";
-            this.lblSpecialTitle.Size = new System.Drawing.Size(187, 19);
+            this.lblSpecialTitle.Size = new System.Drawing.Size(212, 19);
             this.lblSpecialTitle.TabIndex = 0;
-            this.lblSpecialTitle.Text = "Special Requests & Assistance";
+            this.lblSpecialTitle.Text = "Special Requests And Assistance";
             // 
             // lblSpecialSubtitle
             // 
@@ -478,6 +517,17 @@
             this.chkWheelchair.Size = new System.Drawing.Size(117, 21);
             this.chkWheelchair.TabIndex = 4;
             this.chkWheelchair.Text = "♿ Wheelchair";
+            // 
+            // lblWheelchairDesc
+            // 
+            this.lblWheelchairDesc.AutoSize = true;
+            this.lblWheelchairDesc.Font = new System.Drawing.Font("Segoe UI", 8F);
+            this.lblWheelchairDesc.ForeColor = System.Drawing.Color.Gray;
+            this.lblWheelchairDesc.Location = new System.Drawing.Point(358, 76);
+            this.lblWheelchairDesc.Name = "lblWheelchairDesc";
+            this.lblWheelchairDesc.Size = new System.Drawing.Size(201, 13);
+            this.lblWheelchairDesc.TabIndex = 13;
+            this.lblWheelchairDesc.Text = "Crew notified to assist the passenger.";
             // 
             // chkUnaccompaniedMinor
             // 
@@ -576,24 +626,13 @@
             this.btnProceed.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnProceed.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
             this.btnProceed.ForeColor = System.Drawing.Color.White;
-            this.btnProceed.Location = new System.Drawing.Point(994, 408);
+            this.btnProceed.Location = new System.Drawing.Point(994, 416);
             this.btnProceed.Name = "btnProceed";
             this.btnProceed.Size = new System.Drawing.Size(160, 40);
             this.btnProceed.TabIndex = 29;
             this.btnProceed.Text = "Proceed  >";
             this.btnProceed.UseVisualStyleBackColor = false;
             this.btnProceed.Click += new System.EventHandler(this.btnProceed_Click);
-            // 
-            // lblWheelchairDesc
-            // 
-            this.lblWheelchairDesc.AutoSize = true;
-            this.lblWheelchairDesc.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.lblWheelchairDesc.ForeColor = System.Drawing.Color.Gray;
-            this.lblWheelchairDesc.Location = new System.Drawing.Point(360, 80);
-            this.lblWheelchairDesc.Name = "lblWheelchairDesc";
-            this.lblWheelchairDesc.Size = new System.Drawing.Size(185, 13);
-            this.lblWheelchairDesc.TabIndex = 13;
-            this.lblWheelchairDesc.Text = "Crew notified to Assist the person.";
             // 
             // RAPassengerDetails
             // 
@@ -632,16 +671,19 @@
         private System.Windows.Forms.DateTimePicker dtpPassportExpiry;
         private System.Windows.Forms.Label lblEmail, lblPhone;
         private System.Windows.Forms.TextBox txtEmail, txtPhone;
+        private System.Windows.Forms.Label lblSeatClass;
+        private System.Windows.Forms.ComboBox cmbSeatClass;
+        private System.Windows.Forms.Label lblSeatClassDesc;
         private System.Windows.Forms.Panel pnlSpecial;
         private System.Windows.Forms.Label lblSpecialTitle, lblSpecialSubtitle;
         private System.Windows.Forms.CheckBox chkPeanutAllergy;
         private System.Windows.Forms.Label lblPeanutDesc;
         private System.Windows.Forms.CheckBox chkWheelchair;
+        private System.Windows.Forms.Label lblWheelchairDesc;
         private System.Windows.Forms.CheckBox chkUnaccompaniedMinor;
         private System.Windows.Forms.Label lblUnaccompaniedDesc;
         private System.Windows.Forms.Label lblGuardianName, lblGuardianPhone, lblGuardianRelation;
         private System.Windows.Forms.TextBox txtGuardianName, txtGuardianPhone, txtGuardianRelation;
         private System.Windows.Forms.Button btnProceed;
-        private System.Windows.Forms.Label lblWheelchairDesc;
     }
 }

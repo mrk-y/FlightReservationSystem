@@ -53,6 +53,7 @@
             this.btnViewFlights.Tag = "";
             this.btnViewFlights.Text = "Flights";
             this.btnViewFlights.UseVisualStyleBackColor = false;
+            this.btnViewFlights.Click += new System.EventHandler(this.btnViewFlights_Click);
             // 
             // btnAddPassenger
             // 
@@ -74,6 +75,7 @@
             this.btnAddPassenger.Tag = "";
             this.btnAddPassenger.Text = "Placeholder For Verification";
             this.btnAddPassenger.UseVisualStyleBackColor = false;
+            this.btnAddPassenger.Click += new System.EventHandler(this.btnAddPassenger_Click);
             // 
             // btnAddPassengerSeat
             // 
@@ -95,6 +97,7 @@
             this.btnAddPassengerSeat.Tag = "";
             this.btnAddPassengerSeat.Text = "Seats";
             this.btnAddPassengerSeat.UseVisualStyleBackColor = false;
+            this.btnAddPassengerSeat.Click += new System.EventHandler(this.btnAddPassengerSeat_Click);
             // 
             // btnPayment
             // 
@@ -116,6 +119,7 @@
             this.btnPayment.Tag = "";
             this.btnPayment.Text = "Payment";
             this.btnPayment.UseVisualStyleBackColor = false;
+            this.btnPayment.Click += new System.EventHandler(this.btnPayment_Click);
             // 
             // RANavigation
             // 
@@ -136,9 +140,9 @@
         }
         #endregion
 
-        private System.Windows.Forms.Button btnViewFlights;
-        private System.Windows.Forms.Button btnAddPassenger;
-        private System.Windows.Forms.Button btnAddPassengerSeat;
-        private System.Windows.Forms.Button btnPayment;
+        public System.Windows.Forms.Button btnViewFlights;
+        public System.Windows.Forms.Button btnAddPassenger;
+        public System.Windows.Forms.Button btnAddPassengerSeat;
+        public System.Windows.Forms.Button btnPayment;
     }
 }

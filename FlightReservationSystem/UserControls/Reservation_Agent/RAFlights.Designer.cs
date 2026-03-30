@@ -14,6 +14,7 @@
         {
             this.pnlMain = new System.Windows.Forms.Panel();
             this.pnlResults = new System.Windows.Forms.Panel();
+            this.pnlCards = new System.Windows.Forms.Panel();
             this.lblResultsTitle = new System.Windows.Forms.Label();
             this.lblSortBy = new System.Windows.Forms.Label();
             this.cmbSortBy = new System.Windows.Forms.ComboBox();
@@ -31,7 +32,6 @@
             this.lblClass = new System.Windows.Forms.Label();
             this.cmbClass = new System.Windows.Forms.ComboBox();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.pnlCards = new System.Windows.Forms.Panel();
             this.pnlMain.SuspendLayout();
             this.pnlResults.SuspendLayout();
             this.pnlSearchBar.SuspendLayout();
@@ -62,6 +62,13 @@
             this.pnlResults.Padding = new System.Windows.Forms.Padding(20, 10, 20, 10);
             this.pnlResults.Size = new System.Drawing.Size(1262, 465);
             this.pnlResults.TabIndex = 0;
+            // 
+            // pnlCards
+            // 
+            this.pnlCards.Location = new System.Drawing.Point(50, 65);
+            this.pnlCards.Name = "pnlCards";
+            this.pnlCards.Size = new System.Drawing.Size(1155, 377);
+            this.pnlCards.TabIndex = 3;
             // 
             // lblResultsTitle
             // 
@@ -289,13 +296,6 @@
             this.btnSearch.UseVisualStyleBackColor = false;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // pnlCards
-            // 
-            this.pnlCards.Location = new System.Drawing.Point(50, 65);
-            this.pnlCards.Name = "pnlCards";
-            this.pnlCards.Size = new System.Drawing.Size(1155, 377);
-            this.pnlCards.TabIndex = 3;
-            // 
             // RAFlights
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -320,7 +320,6 @@
         private System.Windows.Forms.Label lblResultsTitle, lblSortBy;
         private System.Windows.Forms.TextBox txtFrom, txtTo;
         private System.Windows.Forms.DateTimePicker dtpDepart;
-        private System.Windows.Forms.NumericUpDown nudPassengers;
         private System.Windows.Forms.ComboBox cmbClass, cmbSortBy;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.DataGridViewTextBoxColumn colAirline;
@@ -335,5 +334,6 @@
         private System.Windows.Forms.DataGridViewButtonColumn colBook;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel pnlCards;
+        public System.Windows.Forms.NumericUpDown nudPassengers;
     }
 }

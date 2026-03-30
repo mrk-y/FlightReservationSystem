@@ -12,6 +12,9 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
 {
     public partial class RAFlights : UserControl
     {
+        // ── Updated event — carries card + passenger count ────────
+        public event Action<RAFlightCards, int> OnFlightSelected;
+
         public RAFlights()
         {
             InitializeComponent();
@@ -19,36 +22,91 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
 
         private void RAFlights_Load(object sender, EventArgs e)
         {
+            cmbClass.SelectedIndex = 0;
+            cmbSortBy.SelectedIndex = 0;
+            dtpDepart.MinDate = DateTime.Today;
+            dtpDepart.Value = DateTime.Today;
+            cmbSortBy.SelectedIndexChanged += (s, ev) => SortCards();
+            LoadFlights();
+        }
+
+        private void LoadFlights()
+        {
             pnlCards.AutoScroll = true;
+            pnlCards.Controls.Clear();
 
-            string[] flights = { "Flight 1", "Flight 2", "Flight 3", "Flight 4" };
+            string seatClass = cmbClass.SelectedItem?.ToString() ?? "Economy";
+            var cards = RAFlightCards.LoadFromDB(seatClass);
 
-            foreach (var flight in flights)
+            if (!string.IsNullOrWhiteSpace(txtFrom.Text))
             {
-                // Wrapper panel to add spacing between cards
+                string from = txtFrom.Text.Trim().ToLower();
+                cards = cards.Where(c =>
+                    c.OriginIATA.ToLower().Contains(from) ||
+                    c.OriginCity.ToLower().Contains(from) ||
+                    c.OriginAirport.ToLower().Contains(from)
+                ).ToList();
+            }
+
+            if (!string.IsNullOrWhiteSpace(txtTo.Text))
+            {
+                string to = txtTo.Text.Trim().ToLower();
+                cards = cards.Where(c =>
+                    c.DestinationIATA.ToLower().Contains(to) ||
+                    c.DestinationCity.ToLower().Contains(to) ||
+                    c.DestinationAirport.ToLower().Contains(to)
+                ).ToList();
+            }
+
+            cards = cards.Where(c =>
+                c.Departure.Date == dtpDepart.Value.Date
+            ).ToList();
+
+            lblResultsTitle.Text = cards.Count > 0
+                ? $"Available Flights ({cards.Count} found)"
+                : "No flights found for your search.";
+
+            if (cards.Count == 0) return;
+
+            cards = SortList(cards, seatClass);
+            cards = cards.AsEnumerable().Reverse().ToList();
+
+            foreach (var card in cards)
+            {
                 Panel wrapper = new Panel();
                 wrapper.Dock = DockStyle.Top;
-                wrapper.Height = 155;  // card height (145) + 10px gap
-                wrapper.Padding = new Padding(0, 0, 0, 10); // 10px bottom gap
+                wrapper.Height = 155;
+                wrapper.Padding = new Padding(0, 0, 0, 10);
                 wrapper.BackColor = Color.Transparent;
 
-                RAFlightCards card = new RAFlightCards();
                 card.Dock = DockStyle.Fill;
+
+                // ── Grab passenger count from nudPassengers ────────
+                card.OnSelect += (s, e) =>
+                {
+                    int passengerCount = (int)nudPassengers.Value;
+                    OnFlightSelected?.Invoke(card, passengerCount);
+                };
 
                 wrapper.Controls.Add(card);
                 pnlCards.Controls.Add(wrapper);
             }
-
-            // Fix reverse order when using DockStyle.Top
-            var wrappers = pnlCards.Controls.Cast<Control>().Reverse().ToList();
-            pnlCards.Controls.Clear();
-            foreach (var w in wrappers)
-                pnlCards.Controls.Add(w);
         }
 
-        private void btnSearch_Click(object sender, EventArgs e)
+        private List<RAFlightCards> SortList(List<RAFlightCards> cards, string seatClass)
         {
-            MessageBox.Show("Searching flight details...");
+            switch (cmbSortBy.SelectedItem?.ToString())
+            {
+                case "Cheapest": return cards.OrderBy(c => c.GetFare(seatClass)).ToList();
+                case "Fastest": return cards.OrderBy(c => c.DurationMin).ToList();
+                case "Arrival": return cards.OrderBy(c => c.Arrival).ToList();
+                case "Departure":
+                default: return cards.OrderBy(c => c.Departure).ToList();
+            }
         }
+
+        private void SortCards() => LoadFlights();
+
+        private void btnSearch_Click(object sender, EventArgs e) => LoadFlights();
     }
 }
