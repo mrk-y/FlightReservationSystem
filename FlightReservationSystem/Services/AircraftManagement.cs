@@ -162,10 +162,8 @@ namespace FlightReservationSystem.Services
                         string seatAssignments = JsonSerializer.Serialize(seatAssignCollection);
 
                         cmd.Parameters.AddWithValue("@SeatAssignments", seatAssignments);
-
                         cmd.ExecuteNonQuery();
                         MessageBoxHelper.ShowSuccessMessage("Aircraft successfully added.");
-                        ErrorManager.DefaultValueFields();
                     }
                 }
                 catch (Exception ex)

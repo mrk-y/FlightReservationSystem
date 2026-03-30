@@ -615,6 +615,8 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             int durationMin = _minFlightMinutes;
 
             FlightManagement.AddFlight(aircraft, departure, arrival, origin, destination, terminal, gate, distanceKM, durationMin);
+
+            MainForm.Init(new AssignRoute());
         }
     }
 }
