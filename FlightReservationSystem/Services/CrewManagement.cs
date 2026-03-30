@@ -230,8 +230,6 @@ namespace FlightReservationSystem.Services
             }
 
             MessageBoxHelper.ShowSuccessMessage("Crews assigned successfully.");
-            ErrorManager.DefaultValueFields();
-            DataSeeder.PopulateAircraftStat1();
             assignCrews.ApplyCrewCMBData();
         }
     }

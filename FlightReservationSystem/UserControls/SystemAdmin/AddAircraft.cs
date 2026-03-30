@@ -359,6 +359,7 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
 
             if (!AreAddAircraftFieldsValid(aircraft, model, airline, airport)) return;
             AircraftManagement.AddAircraft(aircraft, model, airline, airport, baseName);
+            MainForm.Init(new AddAircraft());
         }
     }
 }

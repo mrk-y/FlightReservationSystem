@@ -220,6 +220,8 @@ namespace FlightReservationSystem.Helpers
 
         public static void PopulateTerminals()
         {
+            TerminalManager.ClearTerminalCollection();
+            
             using (SqlConnection con = DatabaseConnection.Get())
             {
                 try

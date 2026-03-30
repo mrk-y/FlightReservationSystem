@@ -703,6 +703,7 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             if (result == DialogResult.No) return;
 
             CrewManagement.AssignCrewsToAircraft(this);
+            MainForm.Init(new AssignCrews());
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
