@@ -44,6 +44,9 @@
     <Reference Include="Azure.Identity, Version=1.17.1.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
       <HintPath>..\packages\Azure.Identity.1.17.1\lib\netstandard2.0\Azure.Identity.dll</HintPath>
     </Reference>
+    <Reference Include="GeoCoordinate.NetCore, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GeoCoordinate.NetCore.1.0.0.1\lib\netstandard1.6\GeoCoordinate.NetCore.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
@@ -250,6 +253,7 @@
     <Compile Include="Services\AccountSession.cs" />
     <Compile Include="Services\AircraftManagement.cs" />
     <Compile Include="Services\CrewManagement.cs" />
+    <Compile Include="Services\FlightManagement.cs" />
     <Compile Include="UserControls\AircraftModelsUI\Airbus_A321_200.cs">
       <SubType>UserControl</SubType>
     </Compile>

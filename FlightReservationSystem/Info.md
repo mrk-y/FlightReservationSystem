@@ -35,9 +35,9 @@ Aircraft Statuses:
 	* 1 = Just added in db
 	* 2 = Crews added
 	* 3 = Route assigned
-	* 5 = Scheduled
-	* 6 = Boarding
-	* 7 = In Flight
-	* 8 = Landed
-	* 9 = Delayed
-	* 10 = Cancelled
+	* 4 = Scheduled
+	* 5 = Boarding
+	* 6 = In Flight
+	* 7 = Landed
+	* 8 = Delayed
+	* 9 = Cancelled

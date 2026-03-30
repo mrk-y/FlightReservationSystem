@@ -40,6 +40,8 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
                 {
                     ErrorManager.ClearErrorCollection();
                     ErrorManager.ClearErrorUICollection();
+                    AircraftManager.ClearCrewCollection();
+                    AircraftManager.ClearAircraftCollection();
 
                     MainForm.Init(new AddAircraft());
                 }
@@ -49,6 +51,8 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
 
             ErrorManager.ClearErrorCollection();
             ErrorManager.ClearErrorUICollection();
+            AircraftManager.ClearCrewCollection();
+            AircraftManager.ClearAircraftCollection();
 
             MainForm.Init(new AddAircraft());
 
@@ -63,6 +67,8 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
                 {
                     ErrorManager.ClearErrorCollection();
                     ErrorManager.ClearErrorUICollection();
+                    AircraftManager.ClearCrewCollection();
+                    AircraftManager.ClearAircraftCollection();
 
                     MainForm.Init(new AssignCrews());
                 }
@@ -72,6 +78,8 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
 
             ErrorManager.ClearErrorCollection();
             ErrorManager.ClearErrorUICollection();
+            AircraftManager.ClearCrewCollection();
+            AircraftManager.ClearAircraftCollection();
 
             MainForm.Init(new AssignCrews());
         }
@@ -85,6 +93,8 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
                 {
                     ErrorManager.ClearErrorCollection();
                     ErrorManager.ClearErrorUICollection();
+                    AircraftManager.ClearCrewCollection();
+                    AircraftManager.ClearAircraftCollection();
 
                     MainForm.Init(new AssignRoute());
                 }
@@ -94,6 +104,8 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
 
             ErrorManager.ClearErrorCollection();
             ErrorManager.ClearErrorUICollection();
+            AircraftManager.ClearCrewCollection();
+            AircraftManager.ClearAircraftCollection();
 
             MainForm.Init(new AssignRoute());
         }

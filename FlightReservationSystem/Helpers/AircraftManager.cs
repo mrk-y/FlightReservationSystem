@@ -135,6 +135,11 @@ namespace FlightReservationSystem.Helpers
             AircraftCollection.Add(aircraftRecord);
         }
 
+        public static void AddAircraftStat2(AircraftRecord aircraftRecord)
+        {
+            AddAircraftStat1(aircraftRecord);
+        }
+
         public static void AddCrew(CrewRecord crewRecord)
         {
             if (!CrewRecord.ID_Try(crewRecord.ID) || !CrewRecord.LastName_Try(crewRecord.LastName) ||

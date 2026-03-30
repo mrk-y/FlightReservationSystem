@@ -440,7 +440,7 @@
             this.picSeatMapPreview.Location = new System.Drawing.Point(0, 187);
             this.picSeatMapPreview.Margin = new System.Windows.Forms.Padding(0, 0, 0, 32);
             this.picSeatMapPreview.Name = "picSeatMapPreview";
-            this.picSeatMapPreview.Size = new System.Drawing.Size(600, 200);
+            this.picSeatMapPreview.Size = new System.Drawing.Size(900, 280);
             this.picSeatMapPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picSeatMapPreview.TabIndex = 4;
             this.picSeatMapPreview.TabStop = false;
@@ -471,7 +471,7 @@
             this.btnAddAircraft.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddAircraft.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddAircraft.ForeColor = System.Drawing.Color.White;
-            this.btnAddAircraft.Location = new System.Drawing.Point(0, 419);
+            this.btnAddAircraft.Location = new System.Drawing.Point(0, 499);
             this.btnAddAircraft.Margin = new System.Windows.Forms.Padding(0);
             this.btnAddAircraft.Name = "btnAddAircraft";
             this.btnAddAircraft.Padding = new System.Windows.Forms.Padding(8, 2, 8, 2);

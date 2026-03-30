@@ -59,8 +59,8 @@
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.lblPilotsCount = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.lblFlightAttendantsFilled = new System.Windows.Forms.Label();
+            this.lblPilotFilled = new System.Windows.Forms.Label();
             this.lblFlightAttendantsCount = new System.Windows.Forms.Label();
             this.dgvFlightAttendantsVal = new System.Windows.Forms.DataGridView();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -69,9 +69,9 @@
             this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblPilotsCount = new System.Windows.Forms.Label();
             this.lblFlightAttendants = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.btnSave = new System.Windows.Forms.Button();
+            this.btnAssignCrews = new System.Windows.Forms.Button();
             this.btnRemove = new System.Windows.Forms.Button();
             this.lblCrew = new System.Windows.Forms.Label();
             this.cmbCrewVal = new System.Windows.Forms.ComboBox();
@@ -119,13 +119,13 @@
             this.errorProvider10 = new System.Windows.Forms.ErrorProvider(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTip3 = new System.Windows.Forms.ToolTip(this.components);
             this.pnl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picAirlineImg)).BeginInit();
             this.pnl3.SuspendLayout();
             this.pnl4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPilotsVal)).BeginInit();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFlightAttendantsVal)).BeginInit();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -263,6 +263,7 @@
             this.lblAirportVal.Name = "lblAirportVal";
             this.lblAirportVal.Size = new System.Drawing.Size(300, 17);
             this.lblAirportVal.TabIndex = 12;
+            this.lblAirportVal.MouseHover += new System.EventHandler(this.lblAirportVal_MouseHover);
             // 
             // lblAirlinesVal
             // 
@@ -444,15 +445,15 @@
             this.Column6});
             this.dgvPilotsVal.GridColor = System.Drawing.Color.Black;
             this.dgvPilotsVal.Location = new System.Drawing.Point(12, 37);
-            this.dgvPilotsVal.Margin = new System.Windows.Forms.Padding(0);
+            this.dgvPilotsVal.Margin = new System.Windows.Forms.Padding(0, 0, 0, 16);
             this.dgvPilotsVal.Name = "dgvPilotsVal";
             this.dgvPilotsVal.ReadOnly = true;
-            this.dgvPilotsVal.Size = new System.Drawing.Size(520, 60);
+            this.dgvPilotsVal.Size = new System.Drawing.Size(520, 80);
             this.dgvPilotsVal.TabIndex = 4;
             // 
             // Column1
             // 
-            this.Column1.HeaderText = "CrewID";
+            this.Column1.HeaderText = "ID";
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
             // 
@@ -492,51 +493,53 @@
             this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.lblFlightAttendantsFilled);
+            this.panel1.Controls.Add(this.lblPilotFilled);
+            this.panel1.Controls.Add(this.lblFlightAttendantsCount);
+            this.panel1.Controls.Add(this.dgvFlightAttendantsVal);
             this.panel1.Controls.Add(this.lblPilotsCount);
             this.panel1.Controls.Add(this.dgvPilotsVal);
+            this.panel1.Controls.Add(this.lblFlightAttendants);
             this.panel1.Controls.Add(this.lblPilots);
             this.panel1.Location = new System.Drawing.Point(0, 175);
             this.panel1.Margin = new System.Windows.Forms.Padding(0, 0, 16, 16);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(12);
-            this.panel1.Size = new System.Drawing.Size(546, 111);
+            this.panel1.Size = new System.Drawing.Size(546, 290);
             this.panel1.TabIndex = 3;
             // 
-            // lblPilotsCount
+            // lblFlightAttendantsFilled
             // 
-            this.lblPilotsCount.AutoSize = true;
-            this.lblPilotsCount.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.lblPilotsCount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
-            this.lblPilotsCount.Location = new System.Drawing.Point(55, 12);
-            this.lblPilotsCount.Margin = new System.Windows.Forms.Padding(0, 0, 0, 8);
-            this.lblPilotsCount.Name = "lblPilotsCount";
-            this.lblPilotsCount.Size = new System.Drawing.Size(25, 17);
-            this.lblPilotsCount.TabIndex = 13;
-            this.lblPilotsCount.Text = "(0)";
+            this.lblFlightAttendantsFilled.AutoSize = true;
+            this.lblFlightAttendantsFilled.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFlightAttendantsFilled.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(80)))));
+            this.lblFlightAttendantsFilled.Location = new System.Drawing.Point(496, 133);
+            this.lblFlightAttendantsFilled.Margin = new System.Windows.Forms.Padding(0);
+            this.lblFlightAttendantsFilled.Name = "lblFlightAttendantsFilled";
+            this.lblFlightAttendantsFilled.Size = new System.Drawing.Size(36, 15);
+            this.lblFlightAttendantsFilled.TabIndex = 19;
+            this.lblFlightAttendantsFilled.Text = "Filled";
+            this.lblFlightAttendantsFilled.Visible = false;
             // 
-            // panel2
+            // lblPilotFilled
             // 
-            this.panel2.AutoSize = true;
-            this.panel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panel2.BackColor = System.Drawing.Color.White;
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.lblFlightAttendantsCount);
-            this.panel2.Controls.Add(this.dgvFlightAttendantsVal);
-            this.panel2.Controls.Add(this.lblFlightAttendants);
-            this.panel2.Controls.Add(this.label3);
-            this.panel2.Location = new System.Drawing.Point(0, 302);
-            this.panel2.Margin = new System.Windows.Forms.Padding(0, 0, 16, 32);
-            this.panel2.Name = "panel2";
-            this.panel2.Padding = new System.Windows.Forms.Padding(12);
-            this.panel2.Size = new System.Drawing.Size(546, 171);
-            this.panel2.TabIndex = 13;
+            this.lblPilotFilled.AutoSize = true;
+            this.lblPilotFilled.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPilotFilled.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(80)))));
+            this.lblPilotFilled.Location = new System.Drawing.Point(496, 14);
+            this.lblPilotFilled.Margin = new System.Windows.Forms.Padding(0);
+            this.lblPilotFilled.Name = "lblPilotFilled";
+            this.lblPilotFilled.Size = new System.Drawing.Size(36, 15);
+            this.lblPilotFilled.TabIndex = 18;
+            this.lblPilotFilled.Text = "Filled";
+            this.lblPilotFilled.Visible = false;
             // 
             // lblFlightAttendantsCount
             // 
             this.lblFlightAttendantsCount.AutoSize = true;
             this.lblFlightAttendantsCount.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
             this.lblFlightAttendantsCount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
-            this.lblFlightAttendantsCount.Location = new System.Drawing.Point(128, 12);
+            this.lblFlightAttendantsCount.Location = new System.Drawing.Point(128, 131);
             this.lblFlightAttendantsCount.Margin = new System.Windows.Forms.Padding(0, 0, 0, 8);
             this.lblFlightAttendantsCount.Name = "lblFlightAttendantsCount";
             this.lblFlightAttendantsCount.Size = new System.Drawing.Size(25, 17);
@@ -557,7 +560,7 @@
             this.Column11,
             this.Column12});
             this.dgvFlightAttendantsVal.GridColor = System.Drawing.Color.Black;
-            this.dgvFlightAttendantsVal.Location = new System.Drawing.Point(12, 37);
+            this.dgvFlightAttendantsVal.Location = new System.Drawing.Point(12, 156);
             this.dgvFlightAttendantsVal.Margin = new System.Windows.Forms.Padding(0);
             this.dgvFlightAttendantsVal.Name = "dgvFlightAttendantsVal";
             this.dgvFlightAttendantsVal.ReadOnly = true;
@@ -566,7 +569,7 @@
             // 
             // Column7
             // 
-            this.Column7.HeaderText = "CrewID";
+            this.Column7.HeaderText = "ID";
             this.Column7.Name = "Column7";
             this.Column7.ReadOnly = true;
             // 
@@ -600,49 +603,49 @@
             this.Column12.Name = "Column12";
             this.Column12.ReadOnly = true;
             // 
+            // lblPilotsCount
+            // 
+            this.lblPilotsCount.AutoSize = true;
+            this.lblPilotsCount.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            this.lblPilotsCount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
+            this.lblPilotsCount.Location = new System.Drawing.Point(55, 12);
+            this.lblPilotsCount.Margin = new System.Windows.Forms.Padding(0, 0, 0, 8);
+            this.lblPilotsCount.Name = "lblPilotsCount";
+            this.lblPilotsCount.Size = new System.Drawing.Size(25, 17);
+            this.lblPilotsCount.TabIndex = 13;
+            this.lblPilotsCount.Text = "(0)";
+            // 
             // lblFlightAttendants
             // 
             this.lblFlightAttendants.AutoSize = true;
             this.lblFlightAttendants.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
             this.lblFlightAttendants.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
-            this.lblFlightAttendants.Location = new System.Drawing.Point(12, 12);
+            this.lblFlightAttendants.Location = new System.Drawing.Point(12, 131);
             this.lblFlightAttendants.Margin = new System.Windows.Forms.Padding(0, 0, 0, 8);
             this.lblFlightAttendants.Name = "lblFlightAttendants";
             this.lblFlightAttendants.Size = new System.Drawing.Size(116, 17);
             this.lblFlightAttendants.TabIndex = 12;
             this.lblFlightAttendants.Text = "Flight Attendants";
             // 
-            // label3
+            // btnAssignCrews
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
-            this.label3.Location = new System.Drawing.Point(12, 12);
-            this.label3.Margin = new System.Windows.Forms.Padding(0, 0, 24, 8);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(43, 17);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "Pilots";
-            // 
-            // btnSave
-            // 
-            this.btnSave.AutoSize = true;
-            this.btnSave.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
-            this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSave.FlatAppearance.BorderSize = 0;
-            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSave.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.ForeColor = System.Drawing.Color.White;
-            this.btnSave.Location = new System.Drawing.Point(0, 505);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(0, 0, 16, 0);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Padding = new System.Windows.Forms.Padding(8, 2, 8, 2);
-            this.btnSave.Size = new System.Drawing.Size(60, 29);
-            this.btnSave.TabIndex = 14;
-            this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = false;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.btnAssignCrews.AutoSize = true;
+            this.btnAssignCrews.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnAssignCrews.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
+            this.btnAssignCrews.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAssignCrews.FlatAppearance.BorderSize = 0;
+            this.btnAssignCrews.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAssignCrews.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAssignCrews.ForeColor = System.Drawing.Color.White;
+            this.btnAssignCrews.Location = new System.Drawing.Point(0, 481);
+            this.btnAssignCrews.Margin = new System.Windows.Forms.Padding(0, 0, 16, 0);
+            this.btnAssignCrews.Name = "btnAssignCrews";
+            this.btnAssignCrews.Padding = new System.Windows.Forms.Padding(8, 2, 8, 2);
+            this.btnAssignCrews.Size = new System.Drawing.Size(105, 29);
+            this.btnAssignCrews.TabIndex = 14;
+            this.btnAssignCrews.Text = "Assign Crews";
+            this.btnAssignCrews.UseVisualStyleBackColor = false;
+            this.btnAssignCrews.Click += new System.EventHandler(this.btnAssignCrews_Click);
             // 
             // btnRemove
             // 
@@ -654,7 +657,7 @@
             this.btnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRemove.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRemove.ForeColor = System.Drawing.Color.White;
-            this.btnRemove.Location = new System.Drawing.Point(76, 505);
+            this.btnRemove.Location = new System.Drawing.Point(121, 481);
             this.btnRemove.Margin = new System.Windows.Forms.Padding(0);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Padding = new System.Windows.Forms.Padding(8, 2, 8, 2);
@@ -662,6 +665,7 @@
             this.btnRemove.TabIndex = 15;
             this.btnRemove.Text = "Remove";
             this.btnRemove.UseVisualStyleBackColor = false;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
             // lblCrew
             // 
@@ -709,10 +713,10 @@
             this.btnAddCrewSel.TabIndex = 16;
             this.btnAddCrewSel.Text = "Add";
             this.btnAddCrewSel.UseVisualStyleBackColor = false;
+            this.btnAddCrewSel.Click += new System.EventHandler(this.btnAddCrewSel_Click);
             // 
             // panel3
             // 
-            this.panel3.AutoSize = true;
             this.panel3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.panel3.BackColor = System.Drawing.Color.White;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -1182,8 +1186,7 @@
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.btnRemove);
-            this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.btnAssignCrews);
             this.Controls.Add(this.pnl4);
             this.Controls.Add(this.pnl2);
             this.Controls.Add(this.panel1);
@@ -1200,8 +1203,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvPilotsVal)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFlightAttendantsVal)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
@@ -1243,13 +1244,11 @@
         private System.Windows.Forms.Label lblPilots;
         private System.Windows.Forms.DataGridView dgvPilotsVal;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.DataGridView dgvFlightAttendantsVal;
         private System.Windows.Forms.Label lblFlightAttendants;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblPilotsCount;
         private System.Windows.Forms.Label lblFlightAttendantsCount;
-        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnAssignCrews;
         private System.Windows.Forms.Button btnRemove;
         private System.Windows.Forms.Label lblAirportVal;
         private System.Windows.Forms.Label lblSeparator4;
@@ -1300,6 +1299,9 @@
         private System.Windows.Forms.ErrorProvider errorProvider10;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ToolTip toolTip2;
+        private System.Windows.Forms.Label lblCrewID;
+        private System.Windows.Forms.Label lblSeparator10;
+        private System.Windows.Forms.Label lblCrewIDVal;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
@@ -1312,8 +1314,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
-        private System.Windows.Forms.Label lblCrewID;
-        private System.Windows.Forms.Label lblSeparator10;
-        private System.Windows.Forms.Label lblCrewIDVal;
+        private System.Windows.Forms.Label lblFlightAttendantsFilled;
+        private System.Windows.Forms.Label lblPilotFilled;
+        private System.Windows.Forms.ToolTip toolTip3;
     }
 }
