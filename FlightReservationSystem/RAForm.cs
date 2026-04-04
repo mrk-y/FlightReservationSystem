@@ -1,6 +1,7 @@
 ﻿using FlightReservationSystem.UserControls;
 using FlightReservationSystem.UserControls.Reservation_Agent;
 using FlightReservationSystem.UserControls.AircraftModelsUI;
+using FlightReservationSystem.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -37,6 +38,22 @@ namespace FlightReservationSystem
             pnlNavigation.Controls.Add(_navigation);
 
             ShowFlights();
+        }
+
+        private void RAForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                DialogResult result = MessageBoxHelper.ShowQuestionMessage(
+                    "Are you sure you want to exit?\nAny incomplete progress you made will be lost.");
+
+                if (result == DialogResult.No)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+                Application.Exit();
+            }
         }
 
         // ── Navigation handler ────────────────────────────────────

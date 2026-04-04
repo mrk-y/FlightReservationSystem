@@ -64,6 +64,7 @@
             this.Controls.Add(this.pnlHeader);
             this.Name = "RAForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RAForm_FormClosing);
             this.Text = "Reservation Agent";
             this.Load += new System.EventHandler(this.RAForm_Load);
             this.ResumeLayout(false);
