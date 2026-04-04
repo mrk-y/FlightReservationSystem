@@ -27,6 +27,7 @@ namespace FlightReservationSystem
         {
             InitializeComponent();
             InitData();
+            Console.WriteLine(UserManager.HashPassword("123456789"));
         }
 
         private void InitData()

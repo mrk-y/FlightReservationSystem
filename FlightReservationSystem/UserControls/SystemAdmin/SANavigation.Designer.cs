@@ -109,7 +109,7 @@
             this.Controls.Add(this.btnAssignRoute);
             this.Controls.Add(this.btnAddAircraft);
             this.Name = "SANavigation";
-            this.Size = new System.Drawing.Size(1264, 33);
+            this.Size = new System.Drawing.Size(1281, 33);
             this.ResumeLayout(false);
             this.PerformLayout();
 

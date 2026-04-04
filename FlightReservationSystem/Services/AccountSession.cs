@@ -115,14 +115,14 @@ namespace FlightReservationSystem.Services
         {
             int userTypeID = UserManager.GetUser.TypeID;
 
-            if (userTypeID == 1)
-            {
+            // if (userTypeID == 1)
+            // {
                 DataSeeder.PopulateAircraftModels();
                 DataSeeder.PopulateAirlines();
                 DataSeeder.PopulateAirports();
                 DataSeeder.PopulateSeatTypes();
                 DataSeeder.PopulateTerminals();
-            }
+            // }
         }
 
         private static void LoginAccount() // TODO: Complete the RA part
@@ -146,7 +146,9 @@ namespace FlightReservationSystem.Services
             }
             else if (userTypeID == 2)
             {
-
+                RAForm raForm = new RAForm();
+                raForm.Show();
+                LoginForm.HideForm();
             }
         }
         // << End of LoginAccount

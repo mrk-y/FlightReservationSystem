@@ -167,12 +167,14 @@
             // 
             this.txtFrom.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(55)))), ((int)(((byte)(120)))));
             this.txtFrom.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtFrom.Enabled = false;
             this.txtFrom.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtFrom.ForeColor = System.Drawing.Color.White;
             this.txtFrom.Location = new System.Drawing.Point(110, 32);
             this.txtFrom.Name = "txtFrom";
             this.txtFrom.Size = new System.Drawing.Size(150, 16);
             this.txtFrom.TabIndex = 2;
+            this.txtFrom.Text = "MNL";
             // 
             // lblTo
             // 
@@ -192,6 +194,7 @@
             this.txtTo.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtTo.ForeColor = System.Drawing.Color.White;
             this.txtTo.Location = new System.Drawing.Point(274, 32);
+            this.txtTo.MaxLength = 50;
             this.txtTo.Name = "txtTo";
             this.txtTo.Size = new System.Drawing.Size(150, 16);
             this.txtTo.TabIndex = 4;
