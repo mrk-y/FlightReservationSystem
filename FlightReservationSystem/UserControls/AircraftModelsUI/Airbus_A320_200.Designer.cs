@@ -589,7 +589,7 @@
             // 
             // button5
             // 
-            this.button5.BackColor = System.Drawing.Color.LightGray;
+            this.button5.BackColor = System.Drawing.Color.White;
             this.button5.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button5.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button5.FlatAppearance.BorderSize = 2;
@@ -605,7 +605,7 @@
             // 
             // button6
             // 
-            this.button6.BackColor = System.Drawing.Color.LightGray;
+            this.button6.BackColor = System.Drawing.Color.White;
             this.button6.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button6.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button6.FlatAppearance.BorderSize = 2;
@@ -714,7 +714,7 @@
             // 
             // button41
             // 
-            this.button41.BackColor = System.Drawing.Color.LightGray;
+            this.button41.BackColor = System.Drawing.Color.White;
             this.button41.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button41.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button41.FlatAppearance.BorderSize = 2;
@@ -730,7 +730,7 @@
             // 
             // button42
             // 
-            this.button42.BackColor = System.Drawing.Color.LightGray;
+            this.button42.BackColor = System.Drawing.Color.White;
             this.button42.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button42.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button42.FlatAppearance.BorderSize = 2;
@@ -897,7 +897,7 @@
             // 
             // button25
             // 
-            this.button25.BackColor = System.Drawing.Color.LightGray;
+            this.button25.BackColor = System.Drawing.Color.White;
             this.button25.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button25.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button25.FlatAppearance.BorderSize = 2;
@@ -913,7 +913,7 @@
             // 
             // button26
             // 
-            this.button26.BackColor = System.Drawing.Color.LightGray;
+            this.button26.BackColor = System.Drawing.Color.White;
             this.button26.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button26.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button26.FlatAppearance.BorderSize = 2;
@@ -1631,7 +1631,7 @@
             // 
             // button196
             // 
-            this.button196.BackColor = System.Drawing.Color.LightGray;
+            this.button196.BackColor = System.Drawing.Color.White;
             this.button196.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button196.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button196.FlatAppearance.BorderSize = 2;
@@ -1647,7 +1647,7 @@
             // 
             // button197
             // 
-            this.button197.BackColor = System.Drawing.Color.LightGray;
+            this.button197.BackColor = System.Drawing.Color.White;
             this.button197.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button197.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button197.FlatAppearance.BorderSize = 2;
@@ -1663,7 +1663,7 @@
             // 
             // button198
             // 
-            this.button198.BackColor = System.Drawing.Color.LightGray;
+            this.button198.BackColor = System.Drawing.Color.White;
             this.button198.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button198.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button198.FlatAppearance.BorderSize = 2;
@@ -1679,7 +1679,7 @@
             // 
             // button199
             // 
-            this.button199.BackColor = System.Drawing.Color.LightGray;
+            this.button199.BackColor = System.Drawing.Color.White;
             this.button199.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button199.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button199.FlatAppearance.BorderSize = 2;
@@ -1695,7 +1695,7 @@
             // 
             // button200
             // 
-            this.button200.BackColor = System.Drawing.Color.LightGray;
+            this.button200.BackColor = System.Drawing.Color.White;
             this.button200.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button200.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button200.FlatAppearance.BorderSize = 2;
@@ -1711,7 +1711,7 @@
             // 
             // button201
             // 
-            this.button201.BackColor = System.Drawing.Color.LightGray;
+            this.button201.BackColor = System.Drawing.Color.White;
             this.button201.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button201.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button201.FlatAppearance.BorderSize = 2;
@@ -1727,7 +1727,7 @@
             // 
             // button202
             // 
-            this.button202.BackColor = System.Drawing.Color.LightGray;
+            this.button202.BackColor = System.Drawing.Color.White;
             this.button202.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button202.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button202.FlatAppearance.BorderSize = 2;
@@ -1743,7 +1743,7 @@
             // 
             // button203
             // 
-            this.button203.BackColor = System.Drawing.Color.LightGray;
+            this.button203.BackColor = System.Drawing.Color.White;
             this.button203.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button203.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button203.FlatAppearance.BorderSize = 2;
@@ -1759,7 +1759,7 @@
             // 
             // button204
             // 
-            this.button204.BackColor = System.Drawing.Color.LightGray;
+            this.button204.BackColor = System.Drawing.Color.White;
             this.button204.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button204.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button204.FlatAppearance.BorderSize = 2;
@@ -1775,7 +1775,7 @@
             // 
             // button181
             // 
-            this.button181.BackColor = System.Drawing.Color.LightGray;
+            this.button181.BackColor = System.Drawing.Color.White;
             this.button181.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button181.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button181.FlatAppearance.BorderSize = 2;
@@ -1791,7 +1791,7 @@
             // 
             // button182
             // 
-            this.button182.BackColor = System.Drawing.Color.LightGray;
+            this.button182.BackColor = System.Drawing.Color.White;
             this.button182.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button182.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button182.FlatAppearance.BorderSize = 2;
@@ -1807,7 +1807,7 @@
             // 
             // button183
             // 
-            this.button183.BackColor = System.Drawing.Color.LightGray;
+            this.button183.BackColor = System.Drawing.Color.White;
             this.button183.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button183.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button183.FlatAppearance.BorderSize = 2;
@@ -1823,7 +1823,7 @@
             // 
             // button184
             // 
-            this.button184.BackColor = System.Drawing.Color.LightGray;
+            this.button184.BackColor = System.Drawing.Color.White;
             this.button184.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button184.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button184.FlatAppearance.BorderSize = 2;
@@ -1839,7 +1839,7 @@
             // 
             // button185
             // 
-            this.button185.BackColor = System.Drawing.Color.LightGray;
+            this.button185.BackColor = System.Drawing.Color.White;
             this.button185.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button185.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button185.FlatAppearance.BorderSize = 2;
@@ -1855,7 +1855,7 @@
             // 
             // button186
             // 
-            this.button186.BackColor = System.Drawing.Color.LightGray;
+            this.button186.BackColor = System.Drawing.Color.White;
             this.button186.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button186.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button186.FlatAppearance.BorderSize = 2;
@@ -1871,7 +1871,7 @@
             // 
             // button187
             // 
-            this.button187.BackColor = System.Drawing.Color.LightGray;
+            this.button187.BackColor = System.Drawing.Color.White;
             this.button187.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button187.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button187.FlatAppearance.BorderSize = 2;
@@ -1887,7 +1887,7 @@
             // 
             // button188
             // 
-            this.button188.BackColor = System.Drawing.Color.LightGray;
+            this.button188.BackColor = System.Drawing.Color.White;
             this.button188.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button188.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button188.FlatAppearance.BorderSize = 2;
@@ -1903,7 +1903,7 @@
             // 
             // button189
             // 
-            this.button189.BackColor = System.Drawing.Color.LightGray;
+            this.button189.BackColor = System.Drawing.Color.White;
             this.button189.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button189.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button189.FlatAppearance.BorderSize = 2;
@@ -2207,7 +2207,7 @@
             // 
             // button145
             // 
-            this.button145.BackColor = System.Drawing.Color.LightGray;
+            this.button145.BackColor = System.Drawing.Color.White;
             this.button145.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button145.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button145.FlatAppearance.BorderSize = 2;
@@ -2255,7 +2255,7 @@
             // 
             // button148
             // 
-            this.button148.BackColor = System.Drawing.Color.LightGray;
+            this.button148.BackColor = System.Drawing.Color.White;
             this.button148.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button148.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button148.FlatAppearance.BorderSize = 2;
@@ -2303,7 +2303,7 @@
             // 
             // button104
             // 
-            this.button104.BackColor = System.Drawing.Color.LightGray;
+            this.button104.BackColor = System.Drawing.Color.White;
             this.button104.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button104.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button104.FlatAppearance.BorderSize = 2;
@@ -2335,7 +2335,7 @@
             // 
             // button106
             // 
-            this.button106.BackColor = System.Drawing.Color.LightGray;
+            this.button106.BackColor = System.Drawing.Color.White;
             this.button106.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button106.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button106.FlatAppearance.BorderSize = 2;
@@ -2351,7 +2351,7 @@
             // 
             // button107
             // 
-            this.button107.BackColor = System.Drawing.Color.LightGray;
+            this.button107.BackColor = System.Drawing.Color.White;
             this.button107.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button107.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button107.FlatAppearance.BorderSize = 2;
@@ -2495,7 +2495,7 @@
             // 
             // button119
             // 
-            this.button119.BackColor = System.Drawing.Color.LightGray;
+            this.button119.BackColor = System.Drawing.Color.White;
             this.button119.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button119.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button119.FlatAppearance.BorderSize = 2;
@@ -2527,7 +2527,7 @@
             // 
             // button121
             // 
-            this.button121.BackColor = System.Drawing.Color.LightGray;
+            this.button121.BackColor = System.Drawing.Color.White;
             this.button121.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button121.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button121.FlatAppearance.BorderSize = 2;
@@ -2543,7 +2543,7 @@
             // 
             // button122
             // 
-            this.button122.BackColor = System.Drawing.Color.LightGray;
+            this.button122.BackColor = System.Drawing.Color.White;
             this.button122.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button122.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button122.FlatAppearance.BorderSize = 2;
@@ -2687,7 +2687,7 @@
             // 
             // button73
             // 
-            this.button73.BackColor = System.Drawing.Color.LightGray;
+            this.button73.BackColor = System.Drawing.Color.White;
             this.button73.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button73.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button73.FlatAppearance.BorderSize = 2;
@@ -2703,7 +2703,7 @@
             // 
             // button74
             // 
-            this.button74.BackColor = System.Drawing.Color.LightGray;
+            this.button74.BackColor = System.Drawing.Color.White;
             this.button74.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button74.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button74.FlatAppearance.BorderSize = 2;
@@ -2735,7 +2735,7 @@
             // 
             // button76
             // 
-            this.button76.BackColor = System.Drawing.Color.LightGray;
+            this.button76.BackColor = System.Drawing.Color.White;
             this.button76.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button76.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button76.FlatAppearance.BorderSize = 2;
@@ -2751,7 +2751,7 @@
             // 
             // button77
             // 
-            this.button77.BackColor = System.Drawing.Color.LightGray;
+            this.button77.BackColor = System.Drawing.Color.White;
             this.button77.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button77.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button77.FlatAppearance.BorderSize = 2;
@@ -2927,7 +2927,7 @@
             // 
             // button88
             // 
-            this.button88.BackColor = System.Drawing.Color.LightGray;
+            this.button88.BackColor = System.Drawing.Color.White;
             this.button88.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button88.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button88.FlatAppearance.BorderSize = 2;
@@ -2943,7 +2943,7 @@
             // 
             // button89
             // 
-            this.button89.BackColor = System.Drawing.Color.LightGray;
+            this.button89.BackColor = System.Drawing.Color.White;
             this.button89.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button89.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button89.FlatAppearance.BorderSize = 2;
@@ -2975,7 +2975,7 @@
             // 
             // button91
             // 
-            this.button91.BackColor = System.Drawing.Color.LightGray;
+            this.button91.BackColor = System.Drawing.Color.White;
             this.button91.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button91.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button91.FlatAppearance.BorderSize = 2;
@@ -2991,7 +2991,7 @@
             // 
             // button92
             // 
-            this.button92.BackColor = System.Drawing.Color.LightGray;
+            this.button92.BackColor = System.Drawing.Color.White;
             this.button92.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button92.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button92.FlatAppearance.BorderSize = 2;
@@ -3199,7 +3199,7 @@
             // 
             // button45
             // 
-            this.button45.BackColor = System.Drawing.Color.LightGray;
+            this.button45.BackColor = System.Drawing.Color.White;
             this.button45.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button45.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button45.FlatAppearance.BorderSize = 2;
@@ -3215,7 +3215,7 @@
             // 
             // button46
             // 
-            this.button46.BackColor = System.Drawing.Color.LightGray;
+            this.button46.BackColor = System.Drawing.Color.White;
             this.button46.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button46.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button46.FlatAppearance.BorderSize = 2;
@@ -3231,7 +3231,7 @@
             // 
             // button47
             // 
-            this.button47.BackColor = System.Drawing.Color.LightGray;
+            this.button47.BackColor = System.Drawing.Color.White;
             this.button47.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button47.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button47.FlatAppearance.BorderSize = 2;
@@ -3446,7 +3446,7 @@
             // 
             // button58
             // 
-            this.button58.BackColor = System.Drawing.Color.LightGray;
+            this.button58.BackColor = System.Drawing.Color.White;
             this.button58.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button58.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button58.FlatAppearance.BorderSize = 2;
@@ -3462,7 +3462,7 @@
             // 
             // button59
             // 
-            this.button59.BackColor = System.Drawing.Color.LightGray;
+            this.button59.BackColor = System.Drawing.Color.White;
             this.button59.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button59.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button59.FlatAppearance.BorderSize = 2;
@@ -3478,7 +3478,7 @@
             // 
             // button60
             // 
-            this.button60.BackColor = System.Drawing.Color.LightGray;
+            this.button60.BackColor = System.Drawing.Color.White;
             this.button60.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button60.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button60.FlatAppearance.BorderSize = 2;
@@ -3494,7 +3494,7 @@
             // 
             // button61
             // 
-            this.button61.BackColor = System.Drawing.Color.LightGray;
+            this.button61.BackColor = System.Drawing.Color.White;
             this.button61.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button61.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button61.FlatAppearance.BorderSize = 2;
@@ -3510,7 +3510,7 @@
             // 
             // button62
             // 
-            this.button62.BackColor = System.Drawing.Color.LightGray;
+            this.button62.BackColor = System.Drawing.Color.White;
             this.button62.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button62.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
             this.button62.FlatAppearance.BorderSize = 2;

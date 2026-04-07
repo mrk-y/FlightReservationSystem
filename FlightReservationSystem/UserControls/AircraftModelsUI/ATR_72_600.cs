@@ -23,7 +23,6 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
         private void InitUI()
         {
             ShowLegendColors();
-            ShowTags();
         }
 
         private void ShowLegendColors()
@@ -44,27 +43,27 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
             btnWheelPass.FlatAppearance.BorderColor = AircraftManager.GetSeatTypeUICollection[4].BorderColor;
         }
 
-        private void ShowTags()
-        {
-            int mainCont = this.Controls.Count;
+        //private void ShowTags()
+        //{
+        //    int mainCont = this.Controls.Count;
 
-            for (int i = 0; i < mainCont; i++)
-            {
-                if (this.Controls[i] is Panel pnl)
-                {
-                    int pnlCont = pnl.Controls.Count;
+        //    for (int i = 0; i < mainCont; i++)
+        //    {
+        //        if (this.Controls[i] is Panel pnl)
+        //        {
+        //            int pnlCont = pnl.Controls.Count;
 
-                    for (int j = 0; j < pnlCont; j++)
-                    {
-                        if (pnl.Controls[j] is Button btn)
-                        {
-                            string tags = btn.Tag as string;
-                            btn.Font = new Font("Segoe UI", 6);
-                            btn.Text = tags;
-                        }
-                    }
-                }
-            }
-        }
+        //            for (int j = 0; j < pnlCont; j++)
+        //            {
+        //                if (pnl.Controls[j] is Button btn)
+        //                {
+        //                    string tags = btn.Tag as string;
+        //                    btn.Font = new Font("Segoe UI", 6);
+        //                    btn.Text = tags;
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
     }
 }
