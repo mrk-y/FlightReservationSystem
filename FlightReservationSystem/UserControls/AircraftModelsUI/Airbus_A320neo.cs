@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace FlightReservationSystem.UserControls.AircraftModelsUI
 {
-    public partial class Airbus_A321neo : UserControl
+    public partial class Airbus_A320neo : UserControl
     {
-        public Airbus_A321neo()
+        public Airbus_A320neo()
         {
             InitializeComponent();
             InitUI();

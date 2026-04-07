@@ -29,6 +29,16 @@ namespace FlightReservationSystem.Data.Reference.AircraftModel
             },
             new AircraftModelUIRecord
             {
+                ID = 4,
+                UI = new Airbus_A320neo()
+            },
+            new AircraftModelUIRecord
+            {
+                ID = 5,
+                UI = new Airbus_A319_100()
+            },
+            new AircraftModelUIRecord
+            {
                 ID = 10,
                 UI = new ATR_72_600()
             }

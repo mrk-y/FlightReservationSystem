@@ -39,7 +39,7 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
             btnUnaccomMinor.BackColor = AircraftManager.GetSeatTypeUICollection[3].BackColor;
             btnUnaccomMinor.FlatAppearance.BorderColor = AircraftManager.GetSeatTypeUICollection[3].BorderColor;
 
-            btnWheelPass.BackColor = AircraftManager.GetSeatTypeUICollection[4].BackColor;
+            btnWheelPass.BackColor = AircraftManager.GetSeatTypeUICollection[0].BackColor;
             btnWheelPass.FlatAppearance.BorderColor = AircraftManager.GetSeatTypeUICollection[4].BorderColor;
         }
 
