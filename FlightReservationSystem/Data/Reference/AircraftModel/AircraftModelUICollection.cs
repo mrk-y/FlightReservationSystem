@@ -14,6 +14,11 @@ namespace FlightReservationSystem.Data.Reference.AircraftModel
         {
             new AircraftModelUIRecord
             {
+                ID = 1,
+                UI = new Airbus_A321_200()
+            },
+            new AircraftModelUIRecord
+            {
                 ID = 10,
                 UI = new ATR_72_600()
             }
