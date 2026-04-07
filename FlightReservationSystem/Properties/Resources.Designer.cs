@@ -73,6 +73,16 @@ namespace FlightReservationSystem.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Back {
+            get {
+                object obj = ResourceManager.GetObject("Back", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap EyeClosed {
             get {
                 object obj = ResourceManager.GetObject("EyeClosed", resourceCulture);
@@ -86,6 +96,16 @@ namespace FlightReservationSystem.Properties {
         internal static System.Drawing.Bitmap EyeOpen {
             get {
                 object obj = ResourceManager.GetObject("EyeOpen", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Head {
+            get {
+                object obj = ResourceManager.GetObject("Head", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -166,6 +186,26 @@ namespace FlightReservationSystem.Properties {
         internal static System.Drawing.Bitmap SWF {
             get {
                 object obj = ResourceManager.GetObject("SWF", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap WingBottom {
+            get {
+                object obj = ResourceManager.GetObject("WingBottom", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap WingTop {
+            get {
+                object obj = ResourceManager.GetObject("WingTop", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

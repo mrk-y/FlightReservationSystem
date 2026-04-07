@@ -688,6 +688,7 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
 
             if (!AreManualAddFieldsValid(lastName, firstName, birthdate)) return;
             CrewManagement.AddCrew(id, lastName, firstName, middleName, birthdate, gender, type, this);
+            dtpBirthdateVal.Value = DateTime.Today;
         }
 
         private void btnAssignCrews_Click(object sender, EventArgs e)

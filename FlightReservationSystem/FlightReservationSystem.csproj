@@ -254,6 +254,18 @@
     <Compile Include="Services\AircraftManagement.cs" />
     <Compile Include="Services\CrewManagement.cs" />
     <Compile Include="Services\FlightManagement.cs" />
+    <Compile Include="UserControls\AircraftModelsUI\Airbus_A320_200.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\AircraftModelsUI\Airbus_A320_200.Designer.cs">
+      <DependentUpon>Airbus_A320_200.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AircraftModelsUI\Airbus_A321neo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\AircraftModelsUI\Airbus_A321neo.Designer.cs">
+      <DependentUpon>Airbus_A321neo.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\AircraftModelsUI\Airbus_A321_200.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -351,6 +363,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UserControls\AircraftModelsUI\Airbus_A320_200.resx">
+      <DependentUpon>Airbus_A320_200.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\AircraftModelsUI\Airbus_A321neo.resx">
+      <DependentUpon>Airbus_A321neo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\AircraftModelsUI\Airbus_A321_200.resx">
       <DependentUpon>Airbus_A321_200.cs</DependentUpon>
     </EmbeddedResource>
