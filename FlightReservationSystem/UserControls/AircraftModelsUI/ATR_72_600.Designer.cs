@@ -161,7 +161,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(527, 82);
+            this.label6.Location = new System.Drawing.Point(510, 82);
             this.label6.Margin = new System.Windows.Forms.Padding(0, 0, 0, 8);
             this.label6.MinimumSize = new System.Drawing.Size(0, 40);
             this.label6.Name = "label6";
