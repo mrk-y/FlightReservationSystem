@@ -50,6 +50,12 @@
             this.pnlTotalDivider = new System.Windows.Forms.Panel();
             this.lblTotalLabel = new System.Windows.Forms.Label();
             this.lblTotalValue = new System.Windows.Forms.Label();
+            // ── NEW ───────────────────────────────────────────────
+            this.lblEconomyCount = new System.Windows.Forms.Label();
+            this.lblComfortCount = new System.Windows.Forms.Label();
+            this.lblBusinessCount = new System.Windows.Forms.Label();
+            this.lblSeatSummary = new System.Windows.Forms.Label();
+            // ─────────────────────────────────────────────────────
             this.pnlMain.SuspendLayout();
             this.pnlPayment.SuspendLayout();
             this.pnlCashOption.SuspendLayout();
@@ -58,7 +64,7 @@
             // 
             // pnlMain
             // 
-            this.pnlMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(250)))));
+            this.pnlMain.BackColor = System.Drawing.Color.FromArgb(245, 245, 250);
             this.pnlMain.Controls.Add(this.pnlPayment);
             this.pnlMain.Controls.Add(this.pnlSummary);
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -89,7 +95,7 @@
             // 
             this.lblPaymentTitle.AutoSize = true;
             this.lblPaymentTitle.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
-            this.lblPaymentTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(50)))));
+            this.lblPaymentTitle.ForeColor = System.Drawing.Color.FromArgb(20, 20, 50);
             this.lblPaymentTitle.Location = new System.Drawing.Point(20, 18);
             this.lblPaymentTitle.Name = "lblPaymentTitle";
             this.lblPaymentTitle.Size = new System.Drawing.Size(136, 21);
@@ -109,7 +115,7 @@
             // 
             // pnlCashOption
             // 
-            this.pnlCashOption.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(250)))), ((int)(((byte)(245)))));
+            this.pnlCashOption.BackColor = System.Drawing.Color.FromArgb(245, 250, 245);
             this.pnlCashOption.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlCashOption.Controls.Add(this.lblCashIcon);
             this.pnlCashOption.Controls.Add(this.lblCashTitle);
@@ -136,7 +142,7 @@
             // 
             this.lblCashTitle.AutoSize = true;
             this.lblCashTitle.Font = new System.Drawing.Font("Segoe UI Semibold", 13F, System.Drawing.FontStyle.Bold);
-            this.lblCashTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(50)))));
+            this.lblCashTitle.ForeColor = System.Drawing.Color.FromArgb(20, 20, 50);
             this.lblCashTitle.Location = new System.Drawing.Point(96, 26);
             this.lblCashTitle.Name = "lblCashTitle";
             this.lblCashTitle.Size = new System.Drawing.Size(150, 25);
@@ -158,19 +164,18 @@
             // 
             this.lblCashInstruction.AutoSize = true;
             this.lblCashInstruction.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.lblCashInstruction.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(50)))));
+            this.lblCashInstruction.ForeColor = System.Drawing.Color.FromArgb(20, 20, 50);
             this.lblCashInstruction.Location = new System.Drawing.Point(20, 100);
             this.lblCashInstruction.Name = "lblCashInstruction";
             this.lblCashInstruction.Size = new System.Drawing.Size(263, 30);
             this.lblCashInstruction.TabIndex = 3;
-            this.lblCashInstruction.Text = "A reference number will be generated below.\r\nPresent this to the counter agent up" +
-    "on payment.";
+            this.lblCashInstruction.Text = "A reference number will be generated below.\r\nPresent this to the counter agent upon payment.";
             // 
             // lblRefLabel
             // 
             this.lblRefLabel.AutoSize = true;
             this.lblRefLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 9F);
-            this.lblRefLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(50)))));
+            this.lblRefLabel.ForeColor = System.Drawing.Color.FromArgb(20, 20, 50);
             this.lblRefLabel.Location = new System.Drawing.Point(20, 148);
             this.lblRefLabel.Name = "lblRefLabel";
             this.lblRefLabel.Size = new System.Drawing.Size(106, 15);
@@ -179,10 +184,10 @@
             // 
             // txtRefNumber
             // 
-            this.txtRefNumber.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.txtRefNumber.BackColor = System.Drawing.Color.FromArgb(240, 240, 240);
             this.txtRefNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtRefNumber.Font = new System.Drawing.Font("Segoe UI Semibold", 11F);
-            this.txtRefNumber.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(80)))), ((int)(((byte)(0)))));
+            this.txtRefNumber.ForeColor = System.Drawing.Color.FromArgb(220, 80, 0);
             this.txtRefNumber.Location = new System.Drawing.Point(20, 166);
             this.txtRefNumber.Name = "txtRefNumber";
             this.txtRefNumber.ReadOnly = true;
@@ -204,7 +209,7 @@
             // 
             this.lblAmountValue.AutoSize = true;
             this.lblAmountValue.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Bold);
-            this.lblAmountValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(80)))), ((int)(((byte)(0)))));
+            this.lblAmountValue.ForeColor = System.Drawing.Color.FromArgb(220, 80, 0);
             this.lblAmountValue.Location = new System.Drawing.Point(18, 326);
             this.lblAmountValue.Name = "lblAmountValue";
             this.lblAmountValue.Size = new System.Drawing.Size(155, 32);
@@ -214,7 +219,7 @@
             // chkConfirm
             // 
             this.chkConfirm.Font = new System.Drawing.Font("Segoe UI", 8.5F);
-            this.chkConfirm.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(50)))));
+            this.chkConfirm.ForeColor = System.Drawing.Color.FromArgb(20, 20, 50);
             this.chkConfirm.Location = new System.Drawing.Point(20, 378);
             this.chkConfirm.Name = "chkConfirm";
             this.chkConfirm.Size = new System.Drawing.Size(620, 36);
@@ -225,10 +230,10 @@
             // 
             this.btnBack.BackColor = System.Drawing.Color.White;
             this.btnBack.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnBack.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(80)))), ((int)(((byte)(0)))));
+            this.btnBack.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(220, 80, 0);
             this.btnBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBack.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.btnBack.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(80)))), ((int)(((byte)(0)))));
+            this.btnBack.ForeColor = System.Drawing.Color.FromArgb(220, 80, 0);
             this.btnBack.Location = new System.Drawing.Point(20, 450);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(120, 40);
@@ -239,7 +244,7 @@
             // 
             // btnConfirmPayment
             // 
-            this.btnConfirmPayment.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(80)))), ((int)(((byte)(0)))));
+            this.btnConfirmPayment.BackColor = System.Drawing.Color.FromArgb(220, 80, 0);
             this.btnConfirmPayment.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnConfirmPayment.FlatAppearance.BorderSize = 0;
             this.btnConfirmPayment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -278,6 +283,12 @@
             this.pnlSummary.Controls.Add(this.pnlTotalDivider);
             this.pnlSummary.Controls.Add(this.lblTotalLabel);
             this.pnlSummary.Controls.Add(this.lblTotalValue);
+            // ── NEW ───────────────────────────────────────────────
+            this.pnlSummary.Controls.Add(this.lblEconomyCount);
+            this.pnlSummary.Controls.Add(this.lblComfortCount);
+            this.pnlSummary.Controls.Add(this.lblBusinessCount);
+            this.pnlSummary.Controls.Add(this.lblSeatSummary);
+            // ─────────────────────────────────────────────────────
             this.pnlSummary.Location = new System.Drawing.Point(24, 20);
             this.pnlSummary.Name = "pnlSummary";
             this.pnlSummary.Size = new System.Drawing.Size(460, 504);
@@ -287,7 +298,7 @@
             // 
             this.lblSummaryTitle.AutoSize = true;
             this.lblSummaryTitle.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
-            this.lblSummaryTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(50)))));
+            this.lblSummaryTitle.ForeColor = System.Drawing.Color.FromArgb(20, 20, 50);
             this.lblSummaryTitle.Location = new System.Drawing.Point(20, 18);
             this.lblSummaryTitle.Name = "lblSummaryTitle";
             this.lblSummaryTitle.Size = new System.Drawing.Size(126, 21);
@@ -309,7 +320,7 @@
             // 
             this.lblFlightValue.AutoSize = true;
             this.lblFlightValue.Font = new System.Drawing.Font("Segoe UI Semibold", 9F);
-            this.lblFlightValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(50)))));
+            this.lblFlightValue.ForeColor = System.Drawing.Color.FromArgb(20, 20, 50);
             this.lblFlightValue.Location = new System.Drawing.Point(280, 58);
             this.lblFlightValue.Name = "lblFlightValue";
             this.lblFlightValue.Size = new System.Drawing.Size(72, 15);
@@ -331,7 +342,7 @@
             // 
             this.lblRouteValue.AutoSize = true;
             this.lblRouteValue.Font = new System.Drawing.Font("Segoe UI Semibold", 9F);
-            this.lblRouteValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(50)))));
+            this.lblRouteValue.ForeColor = System.Drawing.Color.FromArgb(20, 20, 50);
             this.lblRouteValue.Location = new System.Drawing.Point(280, 82);
             this.lblRouteValue.Name = "lblRouteValue";
             this.lblRouteValue.Size = new System.Drawing.Size(118, 15);
@@ -353,7 +364,7 @@
             // 
             this.lblDateValue.AutoSize = true;
             this.lblDateValue.Font = new System.Drawing.Font("Segoe UI Semibold", 9F);
-            this.lblDateValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(50)))));
+            this.lblDateValue.ForeColor = System.Drawing.Color.FromArgb(20, 20, 50);
             this.lblDateValue.Location = new System.Drawing.Point(280, 106);
             this.lblDateValue.Name = "lblDateValue";
             this.lblDateValue.Size = new System.Drawing.Size(79, 15);
@@ -375,7 +386,7 @@
             // 
             this.lblPassengersValue.AutoSize = true;
             this.lblPassengersValue.Font = new System.Drawing.Font("Segoe UI Semibold", 9F);
-            this.lblPassengersValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(50)))));
+            this.lblPassengersValue.ForeColor = System.Drawing.Color.FromArgb(20, 20, 50);
             this.lblPassengersValue.Location = new System.Drawing.Point(280, 130);
             this.lblPassengersValue.Name = "lblPassengersValue";
             this.lblPassengersValue.Size = new System.Drawing.Size(121, 15);
@@ -397,7 +408,7 @@
             // 
             this.lblClassValue.AutoSize = true;
             this.lblClassValue.Font = new System.Drawing.Font("Segoe UI Semibold", 9F);
-            this.lblClassValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(50)))));
+            this.lblClassValue.ForeColor = System.Drawing.Color.FromArgb(20, 20, 50);
             this.lblClassValue.Location = new System.Drawing.Point(280, 154);
             this.lblClassValue.Name = "lblClassValue";
             this.lblClassValue.Size = new System.Drawing.Size(129, 15);
@@ -406,7 +417,7 @@
             // 
             // pnlDivider
             // 
-            this.pnlDivider.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(235)))));
+            this.pnlDivider.BackColor = System.Drawing.Color.FromArgb(230, 230, 235);
             this.pnlDivider.Location = new System.Drawing.Point(20, 182);
             this.pnlDivider.Name = "pnlDivider";
             this.pnlDivider.Size = new System.Drawing.Size(418, 1);
@@ -427,7 +438,7 @@
             // 
             this.lblBaseFareValue.AutoSize = true;
             this.lblBaseFareValue.Font = new System.Drawing.Font("Segoe UI Semibold", 9F);
-            this.lblBaseFareValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(50)))));
+            this.lblBaseFareValue.ForeColor = System.Drawing.Color.FromArgb(20, 20, 50);
             this.lblBaseFareValue.Location = new System.Drawing.Point(280, 198);
             this.lblBaseFareValue.Name = "lblBaseFareValue";
             this.lblBaseFareValue.Size = new System.Drawing.Size(79, 15);
@@ -449,7 +460,7 @@
             // 
             this.lblTaxValue.AutoSize = true;
             this.lblTaxValue.Font = new System.Drawing.Font("Segoe UI Semibold", 9F);
-            this.lblTaxValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(50)))));
+            this.lblTaxValue.ForeColor = System.Drawing.Color.FromArgb(20, 20, 50);
             this.lblTaxValue.Location = new System.Drawing.Point(280, 222);
             this.lblTaxValue.Name = "lblTaxValue";
             this.lblTaxValue.Size = new System.Drawing.Size(69, 15);
@@ -471,7 +482,7 @@
             // 
             this.lblFeesValue.AutoSize = true;
             this.lblFeesValue.Font = new System.Drawing.Font("Segoe UI Semibold", 9F);
-            this.lblFeesValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(50)))));
+            this.lblFeesValue.ForeColor = System.Drawing.Color.FromArgb(20, 20, 50);
             this.lblFeesValue.Location = new System.Drawing.Point(280, 246);
             this.lblFeesValue.Name = "lblFeesValue";
             this.lblFeesValue.Size = new System.Drawing.Size(64, 15);
@@ -480,7 +491,7 @@
             // 
             // pnlTotalDivider
             // 
-            this.pnlTotalDivider.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(235)))));
+            this.pnlTotalDivider.BackColor = System.Drawing.Color.FromArgb(230, 230, 235);
             this.pnlTotalDivider.Location = new System.Drawing.Point(20, 274);
             this.pnlTotalDivider.Name = "pnlTotalDivider";
             this.pnlTotalDivider.Size = new System.Drawing.Size(418, 1);
@@ -490,7 +501,7 @@
             // 
             this.lblTotalLabel.AutoSize = true;
             this.lblTotalLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
-            this.lblTotalLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(50)))));
+            this.lblTotalLabel.ForeColor = System.Drawing.Color.FromArgb(20, 20, 50);
             this.lblTotalLabel.Location = new System.Drawing.Point(20, 288);
             this.lblTotalLabel.Name = "lblTotalLabel";
             this.lblTotalLabel.Size = new System.Drawing.Size(133, 20);
@@ -501,18 +512,62 @@
             // 
             this.lblTotalValue.AutoSize = true;
             this.lblTotalValue.Font = new System.Drawing.Font("Segoe UI Semibold", 13F, System.Drawing.FontStyle.Bold);
-            this.lblTotalValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(80)))), ((int)(((byte)(0)))));
+            this.lblTotalValue.ForeColor = System.Drawing.Color.FromArgb(220, 80, 0);
             this.lblTotalValue.Location = new System.Drawing.Point(240, 286);
             this.lblTotalValue.Name = "lblTotalValue";
             this.lblTotalValue.Size = new System.Drawing.Size(117, 25);
             this.lblTotalValue.TabIndex = 20;
             this.lblTotalValue.Text = "PHP 1,430.00";
             // 
+            // lblEconomyCount  ── NEW
+            // 
+            this.lblEconomyCount.AutoSize = true;
+            this.lblEconomyCount.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblEconomyCount.ForeColor = System.Drawing.Color.FromArgb(20, 20, 50);
+            this.lblEconomyCount.Location = new System.Drawing.Point(20, 326);
+            this.lblEconomyCount.Name = "lblEconomyCount";
+            this.lblEconomyCount.Size = new System.Drawing.Size(100, 15);
+            this.lblEconomyCount.TabIndex = 21;
+            this.lblEconomyCount.Text = "Economy:  0 pax";
+            // 
+            // lblComfortCount  ── NEW
+            // 
+            this.lblComfortCount.AutoSize = true;
+            this.lblComfortCount.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblComfortCount.ForeColor = System.Drawing.Color.FromArgb(20, 20, 50);
+            this.lblComfortCount.Location = new System.Drawing.Point(20, 346);
+            this.lblComfortCount.Name = "lblComfortCount";
+            this.lblComfortCount.Size = new System.Drawing.Size(100, 15);
+            this.lblComfortCount.TabIndex = 22;
+            this.lblComfortCount.Text = "Comfort:  0 pax";
+            // 
+            // lblBusinessCount  ── NEW
+            // 
+            this.lblBusinessCount.AutoSize = true;
+            this.lblBusinessCount.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblBusinessCount.ForeColor = System.Drawing.Color.FromArgb(20, 20, 50);
+            this.lblBusinessCount.Location = new System.Drawing.Point(20, 366);
+            this.lblBusinessCount.Name = "lblBusinessCount";
+            this.lblBusinessCount.Size = new System.Drawing.Size(100, 15);
+            this.lblBusinessCount.TabIndex = 23;
+            this.lblBusinessCount.Text = "Business: 0 pax";
+            // 
+            // lblSeatSummary  ── NEW
+            // 
+            this.lblSeatSummary.AutoSize = false;
+            this.lblSeatSummary.Font = new System.Drawing.Font("Segoe UI", 8.5F);
+            this.lblSeatSummary.ForeColor = System.Drawing.Color.FromArgb(20, 20, 50);
+            this.lblSeatSummary.Location = new System.Drawing.Point(20, 396);
+            this.lblSeatSummary.Name = "lblSeatSummary";
+            this.lblSeatSummary.Size = new System.Drawing.Size(418, 90);
+            this.lblSeatSummary.TabIndex = 24;
+            this.lblSeatSummary.Text = "";
+            // 
             // RAPayment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(250)))));
+            this.BackColor = System.Drawing.Color.FromArgb(245, 245, 250);
             this.Controls.Add(this.pnlMain);
             this.Name = "RAPayment";
             this.Size = new System.Drawing.Size(1200, 544);
@@ -525,9 +580,9 @@
             this.pnlSummary.ResumeLayout(false);
             this.pnlSummary.PerformLayout();
             this.ResumeLayout(false);
-
         }
 
+        // ── Existing fields ───────────────────────────────────────
         private System.Windows.Forms.Panel pnlMain;
         private System.Windows.Forms.Panel pnlSummary;
         private System.Windows.Forms.Label lblSummaryTitle;
@@ -551,5 +606,10 @@
         private System.Windows.Forms.CheckBox chkConfirm;
         private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.Button btnConfirmPayment;
+        // ── NEW fields ────────────────────────────────────────────
+        private System.Windows.Forms.Label lblEconomyCount;
+        private System.Windows.Forms.Label lblComfortCount;
+        private System.Windows.Forms.Label lblBusinessCount;
+        private System.Windows.Forms.Label lblSeatSummary;
     }
 }

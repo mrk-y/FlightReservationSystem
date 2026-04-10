@@ -290,12 +290,15 @@
     <Compile Include="UserControls\AircraftModelsUI\ATR_72_600.Designer.cs">
       <DependentUpon>ATR_72_600.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\AircraftModelsUI\ISeatMap.cs" />
+    <Compile Include="UserControls\AircraftModelsUI\Passengerseatinfo.cs" />
     <Compile Include="UserControls\Header.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserControls\Header.Designer.cs">
       <DependentUpon>Header.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Reservation_Agent\Bookingrepository.cs" />
     <Compile Include="UserControls\Reservation_Agent\RAFlightCards.cs">
       <SubType>UserControl</SubType>
     </Compile>
