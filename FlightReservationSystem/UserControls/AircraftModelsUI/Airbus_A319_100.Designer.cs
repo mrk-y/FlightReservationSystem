@@ -62,30 +62,30 @@
             this.label21 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button41 = new System.Windows.Forms.Button();
             this.button42 = new System.Windows.Forms.Button();
             this.button38 = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
-            this.button36 = new System.Windows.Forms.Button();
             this.button37 = new System.Windows.Forms.Button();
             this.button33 = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
-            this.button31 = new System.Windows.Forms.Button();
             this.button32 = new System.Windows.Forms.Button();
             this.button28 = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
-            this.button25 = new System.Windows.Forms.Button();
             this.button26 = new System.Windows.Forms.Button();
             this.button27 = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
-            this.button20 = new System.Windows.Forms.Button();
             this.button21 = new System.Windows.Forms.Button();
             this.button22 = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
-            this.button11 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
+            this.button41 = new System.Windows.Forms.Button();
+            this.button36 = new System.Windows.Forms.Button();
+            this.button31 = new System.Windows.Forms.Button();
+            this.button25 = new System.Windows.Forms.Button();
+            this.button20 = new System.Windows.Forms.Button();
+            this.button11 = new System.Windows.Forms.Button();
             this.label23 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -421,7 +421,7 @@
             // picWingTop
             // 
             this.picWingTop.Image = global::FlightReservationSystem.Properties.Resources.WingTop;
-            this.picWingTop.Location = new System.Drawing.Point(785, 130);
+            this.picWingTop.Location = new System.Drawing.Point(704, 130);
             this.picWingTop.Margin = new System.Windows.Forms.Padding(0);
             this.picWingTop.Name = "picWingTop";
             this.picWingTop.Size = new System.Drawing.Size(600, 120);
@@ -432,7 +432,7 @@
             // picWingBottom
             // 
             this.picWingBottom.Image = global::FlightReservationSystem.Properties.Resources.WingBottom;
-            this.picWingBottom.Location = new System.Drawing.Point(785, 590);
+            this.picWingBottom.Location = new System.Drawing.Point(704, 590);
             this.picWingBottom.Margin = new System.Windows.Forms.Padding(0);
             this.picWingBottom.Name = "picWingBottom";
             this.picWingBottom.Size = new System.Drawing.Size(600, 120);
@@ -710,22 +710,6 @@
             this.panel1.Size = new System.Drawing.Size(112, 304);
             this.panel1.TabIndex = 235;
             // 
-            // button41
-            // 
-            this.button41.BackColor = System.Drawing.Color.DarkRed;
-            this.button41.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button41.FlatAppearance.BorderColor = System.Drawing.Color.DarkRed;
-            this.button41.FlatAppearance.BorderSize = 2;
-            this.button41.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button41.Location = new System.Drawing.Point(32, 168);
-            this.button41.Margin = new System.Windows.Forms.Padding(0, 0, 8, 8);
-            this.button41.MinimumSize = new System.Drawing.Size(28, 28);
-            this.button41.Name = "button41";
-            this.button41.Size = new System.Drawing.Size(28, 28);
-            this.button41.TabIndex = 55;
-            this.button41.Tag = "C5";
-            this.button41.UseVisualStyleBackColor = false;
-            // 
             // button42
             // 
             this.button42.BackColor = System.Drawing.Color.LightGray;
@@ -770,22 +754,6 @@
             this.label13.TabIndex = 52;
             this.label13.Text = "C";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // button36
-            // 
-            this.button36.BackColor = System.Drawing.Color.DarkRed;
-            this.button36.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button36.FlatAppearance.BorderColor = System.Drawing.Color.DarkRed;
-            this.button36.FlatAppearance.BorderSize = 2;
-            this.button36.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button36.Location = new System.Drawing.Point(32, 204);
-            this.button36.Margin = new System.Windows.Forms.Padding(0, 0, 8, 8);
-            this.button36.MinimumSize = new System.Drawing.Size(28, 28);
-            this.button36.Name = "button36";
-            this.button36.Size = new System.Drawing.Size(28, 28);
-            this.button36.TabIndex = 49;
-            this.button36.Tag = "B5";
-            this.button36.UseVisualStyleBackColor = false;
             // 
             // button37
             // 
@@ -832,22 +800,6 @@
             this.label12.Text = "B";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // button31
-            // 
-            this.button31.BackColor = System.Drawing.Color.DarkRed;
-            this.button31.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button31.FlatAppearance.BorderColor = System.Drawing.Color.DarkRed;
-            this.button31.FlatAppearance.BorderSize = 2;
-            this.button31.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button31.Location = new System.Drawing.Point(32, 240);
-            this.button31.Margin = new System.Windows.Forms.Padding(0, 0, 8, 8);
-            this.button31.MinimumSize = new System.Drawing.Size(28, 28);
-            this.button31.Name = "button31";
-            this.button31.Size = new System.Drawing.Size(28, 28);
-            this.button31.TabIndex = 43;
-            this.button31.Tag = "A5";
-            this.button31.UseVisualStyleBackColor = false;
-            // 
             // button32
             // 
             this.button32.BackColor = System.Drawing.Color.LightGray;
@@ -892,22 +844,6 @@
             this.label11.TabIndex = 40;
             this.label11.Text = "A";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // button25
-            // 
-            this.button25.BackColor = System.Drawing.Color.DarkRed;
-            this.button25.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button25.FlatAppearance.BorderColor = System.Drawing.Color.DarkRed;
-            this.button25.FlatAppearance.BorderSize = 2;
-            this.button25.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button25.Location = new System.Drawing.Point(32, 96);
-            this.button25.Margin = new System.Windows.Forms.Padding(0, 0, 8, 8);
-            this.button25.MinimumSize = new System.Drawing.Size(28, 28);
-            this.button25.Name = "button25";
-            this.button25.Size = new System.Drawing.Size(28, 28);
-            this.button25.TabIndex = 37;
-            this.button25.Tag = "H5";
-            this.button25.UseVisualStyleBackColor = false;
             // 
             // button26
             // 
@@ -954,22 +890,6 @@
             this.label10.Text = "H";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // button20
-            // 
-            this.button20.BackColor = System.Drawing.Color.DarkRed;
-            this.button20.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button20.FlatAppearance.BorderColor = System.Drawing.Color.DarkRed;
-            this.button20.FlatAppearance.BorderSize = 2;
-            this.button20.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button20.Location = new System.Drawing.Point(32, 60);
-            this.button20.Margin = new System.Windows.Forms.Padding(0, 0, 8, 8);
-            this.button20.MinimumSize = new System.Drawing.Size(28, 28);
-            this.button20.Name = "button20";
-            this.button20.Size = new System.Drawing.Size(28, 28);
-            this.button20.TabIndex = 31;
-            this.button20.Tag = "J5";
-            this.button20.UseVisualStyleBackColor = false;
-            // 
             // button21
             // 
             this.button21.BackColor = System.Drawing.Color.LightGray;
@@ -1015,22 +935,6 @@
             this.label9.Text = "J";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // button11
-            // 
-            this.button11.BackColor = System.Drawing.Color.DarkRed;
-            this.button11.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button11.FlatAppearance.BorderColor = System.Drawing.Color.DarkRed;
-            this.button11.FlatAppearance.BorderSize = 2;
-            this.button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button11.Location = new System.Drawing.Point(32, 24);
-            this.button11.Margin = new System.Windows.Forms.Padding(0, 0, 8, 8);
-            this.button11.MinimumSize = new System.Drawing.Size(28, 28);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(28, 28);
-            this.button11.TabIndex = 25;
-            this.button11.Tag = "K5";
-            this.button11.UseVisualStyleBackColor = false;
-            // 
             // button8
             // 
             this.button8.BackColor = System.Drawing.Color.LightGray;
@@ -1075,6 +979,102 @@
             this.label7.TabIndex = 23;
             this.label7.Text = "K";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // button41
+            // 
+            this.button41.BackColor = System.Drawing.Color.DarkRed;
+            this.button41.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button41.FlatAppearance.BorderColor = System.Drawing.Color.DarkRed;
+            this.button41.FlatAppearance.BorderSize = 2;
+            this.button41.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button41.Location = new System.Drawing.Point(32, 168);
+            this.button41.Margin = new System.Windows.Forms.Padding(0, 0, 8, 8);
+            this.button41.MinimumSize = new System.Drawing.Size(28, 28);
+            this.button41.Name = "button41";
+            this.button41.Size = new System.Drawing.Size(28, 28);
+            this.button41.TabIndex = 55;
+            this.button41.Tag = "C5";
+            this.button41.UseVisualStyleBackColor = false;
+            // 
+            // button36
+            // 
+            this.button36.BackColor = System.Drawing.Color.DarkRed;
+            this.button36.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button36.FlatAppearance.BorderColor = System.Drawing.Color.DarkRed;
+            this.button36.FlatAppearance.BorderSize = 2;
+            this.button36.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button36.Location = new System.Drawing.Point(32, 204);
+            this.button36.Margin = new System.Windows.Forms.Padding(0, 0, 8, 8);
+            this.button36.MinimumSize = new System.Drawing.Size(28, 28);
+            this.button36.Name = "button36";
+            this.button36.Size = new System.Drawing.Size(28, 28);
+            this.button36.TabIndex = 49;
+            this.button36.Tag = "B5";
+            this.button36.UseVisualStyleBackColor = false;
+            // 
+            // button31
+            // 
+            this.button31.BackColor = System.Drawing.Color.DarkRed;
+            this.button31.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button31.FlatAppearance.BorderColor = System.Drawing.Color.DarkRed;
+            this.button31.FlatAppearance.BorderSize = 2;
+            this.button31.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button31.Location = new System.Drawing.Point(32, 240);
+            this.button31.Margin = new System.Windows.Forms.Padding(0, 0, 8, 8);
+            this.button31.MinimumSize = new System.Drawing.Size(28, 28);
+            this.button31.Name = "button31";
+            this.button31.Size = new System.Drawing.Size(28, 28);
+            this.button31.TabIndex = 43;
+            this.button31.Tag = "A5";
+            this.button31.UseVisualStyleBackColor = false;
+            // 
+            // button25
+            // 
+            this.button25.BackColor = System.Drawing.Color.DarkRed;
+            this.button25.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button25.FlatAppearance.BorderColor = System.Drawing.Color.DarkRed;
+            this.button25.FlatAppearance.BorderSize = 2;
+            this.button25.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button25.Location = new System.Drawing.Point(32, 96);
+            this.button25.Margin = new System.Windows.Forms.Padding(0, 0, 8, 8);
+            this.button25.MinimumSize = new System.Drawing.Size(28, 28);
+            this.button25.Name = "button25";
+            this.button25.Size = new System.Drawing.Size(28, 28);
+            this.button25.TabIndex = 37;
+            this.button25.Tag = "H5";
+            this.button25.UseVisualStyleBackColor = false;
+            // 
+            // button20
+            // 
+            this.button20.BackColor = System.Drawing.Color.DarkRed;
+            this.button20.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button20.FlatAppearance.BorderColor = System.Drawing.Color.DarkRed;
+            this.button20.FlatAppearance.BorderSize = 2;
+            this.button20.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button20.Location = new System.Drawing.Point(32, 60);
+            this.button20.Margin = new System.Windows.Forms.Padding(0, 0, 8, 8);
+            this.button20.MinimumSize = new System.Drawing.Size(28, 28);
+            this.button20.Name = "button20";
+            this.button20.Size = new System.Drawing.Size(28, 28);
+            this.button20.TabIndex = 31;
+            this.button20.Tag = "J5";
+            this.button20.UseVisualStyleBackColor = false;
+            // 
+            // button11
+            // 
+            this.button11.BackColor = System.Drawing.Color.DarkRed;
+            this.button11.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button11.FlatAppearance.BorderColor = System.Drawing.Color.DarkRed;
+            this.button11.FlatAppearance.BorderSize = 2;
+            this.button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button11.Location = new System.Drawing.Point(32, 24);
+            this.button11.Margin = new System.Windows.Forms.Padding(0, 0, 8, 8);
+            this.button11.MinimumSize = new System.Drawing.Size(28, 28);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(28, 28);
+            this.button11.TabIndex = 25;
+            this.button11.Tag = "K5";
+            this.button11.UseVisualStyleBackColor = false;
             // 
             // label23
             // 

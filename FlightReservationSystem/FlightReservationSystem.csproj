@@ -290,6 +290,30 @@
     <Compile Include="UserControls\AircraftModelsUI\ATR_72_600.Designer.cs">
       <DependentUpon>ATR_72_600.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\AircraftModelsUI\Boeing_737_700.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\AircraftModelsUI\Boeing_737_700.Designer.cs">
+      <DependentUpon>Boeing_737_700.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AircraftModelsUI\Boeing_737_800.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\AircraftModelsUI\Boeing_737_800.Designer.cs">
+      <DependentUpon>Boeing_737_800.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AircraftModelsUI\Boeing_737_900ER.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\AircraftModelsUI\Boeing_737_900ER.Designer.cs">
+      <DependentUpon>Boeing_737_900ER.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AircraftModelsUI\DHC_8_400.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\AircraftModelsUI\DHC_8_400.Designer.cs">
+      <DependentUpon>DHC_8_400.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\AircraftModelsUI\ISeatMap.cs" />
     <Compile Include="UserControls\AircraftModelsUI\Passengerseatinfo.cs" />
     <Compile Include="UserControls\Header.cs">
@@ -395,6 +419,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\AircraftModelsUI\ATR_72_600.resx">
       <DependentUpon>ATR_72_600.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\AircraftModelsUI\Boeing_737_700.resx">
+      <DependentUpon>Boeing_737_700.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\AircraftModelsUI\Boeing_737_800.resx">
+      <DependentUpon>Boeing_737_800.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\AircraftModelsUI\Boeing_737_900ER.resx">
+      <DependentUpon>Boeing_737_900ER.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\AircraftModelsUI\DHC_8_400.resx">
+      <DependentUpon>DHC_8_400.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\Header.resx">
       <DependentUpon>Header.cs</DependentUpon>

@@ -39,6 +39,26 @@ namespace FlightReservationSystem.Data.Reference.AircraftModel
             },
             new AircraftModelUIRecord
             {
+                ID = 6,
+                UI = new DHC_8_400()
+            },
+            new AircraftModelUIRecord
+            {
+                ID = 7,
+                UI = new Boeing_737_700()
+            },
+            new AircraftModelUIRecord
+            {
+                ID = 8,
+                UI = new Boeing_737_800()
+            },
+            new AircraftModelUIRecord
+            {
+                ID = 9,
+                UI = new Boeing_737_900ER()
+            },
+            new AircraftModelUIRecord
+            {
                 ID = 10,
                 UI = new ATR_72_600()
             }
