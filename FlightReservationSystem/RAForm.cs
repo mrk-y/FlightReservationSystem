@@ -200,21 +200,36 @@ namespace FlightReservationSystem
             if (n.Contains("atr") && n.Contains("72"))
                 return new ATR_72_600();
 
-            if(n.Contains("a319"))
+            if (n.Contains("a319"))
                 return new Airbus_A319_100();
 
-            if (n.Contains("a320"))
-                return new Airbus_A320_200();
-
-            if (n.Contains("a320neo"))
-                return new Airbus_A320neo();
+            // ⚠ Check neo BEFORE the plain variant so "a320neo" doesn't match "a320"
+            if (n.Contains("a321neo"))
+                return new Airbus_A321neo();
 
             if (n.Contains("a321"))
                 return new Airbus_A321_200();
 
-            if (n.Contains("a321neo"))
-                return new Airbus_A321neo();
+            if (n.Contains("a320neo"))
+                return new Airbus_A320neo();
 
+            if (n.Contains("a320"))
+                return new Airbus_A320_200();
+
+            if (n.Contains("737") && n.Contains("900er"))
+                return new Boeing_737_900ER();   // ⚠ was wrongly returning 737_700
+
+            if (n.Contains("737") && n.Contains("900"))
+                return new Boeing_737_900ER();
+
+            if (n.Contains("737") && n.Contains("800"))
+                return new Boeing_737_800();
+
+            if (n.Contains("737") && n.Contains("700"))
+                return new Boeing_737_700();
+
+            if (n.Contains("dhc") && n.Contains("8"))
+                return new DHC_8_400();
 
             return null;
         }
