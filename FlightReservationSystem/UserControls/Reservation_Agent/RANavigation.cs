@@ -104,5 +104,11 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
         private static void Warn(string message)
             => MessageBox.Show(message, "Step Incomplete",
                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+        private void btnChangeSeats_Click(object sender, EventArgs e)
+        {
+            SetActiveButton(btnChangeSeats);
+            OnNavigate?.Invoke("ChangeSeat");
+        }
     }
 }

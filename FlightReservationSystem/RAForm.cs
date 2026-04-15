@@ -5,6 +5,7 @@ using FlightReservationSystem.UserControls.Reservation_Agent;
 using FlightReservationSystem.UserControls.AircraftModelsUI;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -18,6 +19,9 @@ namespace FlightReservationSystem
 
         private List<RAPassengerDetails> _passengerForms = new List<RAPassengerDetails>();
         private Dictionary<int, string> _seatAssignments = new Dictionary<int, string>();
+
+        // ── Status auto-update timer ──────────────────────────────────────────
+        private Timer _statusTimer;
 
         public RAForm()
         {
@@ -35,12 +39,73 @@ namespace FlightReservationSystem
             _navigation.OnNavigate += HandleNavigation;
             pnlNavigation.Controls.Add(_navigation);
 
+            StartStatusTimer();
             ShowFlights();
         }
 
-        // ── Navigation ────────────────────────────────────────────────────────
-        // Guards now live in RANavigation itself; RAForm only reacts to valid
-        // navigation events that already passed the guard.
+        // ═════════════════════════════════════════════════════════════════════
+        // Aircraft status auto-promotion (runs every 30 s)
+        // ═════════════════════════════════════════════════════════════════════
+        private void StartStatusTimer()
+        {
+            _statusTimer = new Timer();
+            _statusTimer.Interval = 30_000;
+            _statusTimer.Tick += StatusTimer_Tick;
+            _statusTimer.Start();
+
+            PromoteAircraftStatuses();
+        }
+
+        private void StatusTimer_Tick(object sender, EventArgs e)
+        {
+            PromoteAircraftStatuses();
+            RefreshFlightCardBadges();
+        }
+
+        private void PromoteAircraftStatuses()
+        {
+            const string sql = @"
+                UPDATE a
+                SET    a.Status =
+                    CASE
+                        WHEN a.Status = 4 AND GETDATE() >= DATEADD(HOUR, -1, f.Departure)
+                            THEN 5
+                        WHEN a.Status = 5 AND GETDATE() >= f.Departure
+                            THEN 6
+                        WHEN a.Status = 6 AND GETDATE() >= f.Arrival
+                            THEN 7
+                        ELSE a.Status
+                    END
+                FROM   Aircrafts a
+                INNER JOIN Flights f ON f.Aircraft = a.AircraftID
+                WHERE  f.IsActive = 1
+                  AND  a.Status IN (4, 5, 6)";
+
+            try
+            {
+                using (var conn = DatabaseConnection.Get())
+                using (var cmd = new SqlCommand(sql, conn))
+                {
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch
+            {
+                // Silent
+            }
+        }
+
+        private void RefreshFlightCardBadges()
+        {
+            foreach (Control c in pnlFuncs.Controls)
+            {
+                if (!(c is RAFlights flights)) continue;
+                flights.RefreshStatuses();
+                break;
+            }
+        }
+
         private void HandleNavigation(string page)
         {
             switch (page)
@@ -49,14 +114,17 @@ namespace FlightReservationSystem
                 case "Passenger": ShowPassengers(); break;
                 case "Seats": ShowSeats(); break;
                 case "Payment": ShowPayment(); break;
+                case "ChangeSeat": ShowChangeSeat(); break;
             }
         }
 
-        // ── Panel reset ───────────────────────────────────────────────────────
         private void ResetPanel()
         {
             pnlFuncs.AutoScroll = false;
             pnlFuncs.Controls.Clear();
+            pnlFuncs.Controls.Add(pnlDetails); // restore it
+            pnlDetails.Controls.Clear();
+            pnlDetails.Visible = false;
             pnlFuncs.Refresh();
         }
 
@@ -65,7 +133,6 @@ namespace FlightReservationSystem
         {
             ResetPanel();
 
-            // Reset all step flags when going back to flight selection
             _navigation.FlightSelected = false;
             _navigation.PassengersFilled = false;
             _navigation.SeatsAssigned = false;
@@ -73,13 +140,21 @@ namespace FlightReservationSystem
             RAFlights flights = new RAFlights();
             flights.Dock = DockStyle.Fill;
 
+            // ── Flight selected → go to passengers ────────────────
             flights.OnFlightSelected += (card, passengerCount) =>
             {
+                if (!card.IsSelectable)
+                {
+                    MessageBox.Show(
+                        $"This flight is no longer available for booking.\n\nStatus: {card.AircraftStatus}",
+                        "Flight Unavailable", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 _selectedFlight = card;
                 _passengerCount = passengerCount;
                 _seatAssignments = new Dictionary<int, string>();
 
-                // ✔ Step 1 complete
                 _navigation.FlightSelected = true;
                 _navigation.PassengersFilled = false;
                 _navigation.SeatsAssigned = false;
@@ -88,7 +163,32 @@ namespace FlightReservationSystem
                 ShowPassengers();
             };
 
+            // ── View detail button → show RAFlightDetails ─────────
+            flights.OnViewFlightDetail += (flightID) =>
+            {
+                ShowFlightDetails(flightID);
+            };
+
             pnlFuncs.Controls.Add(flights);
+        }
+
+        // ── Show Flight Details ───────────────────────────────────────────────
+        private void ShowFlightDetails(int flightID)
+        {
+            pnlDetails.Controls.Clear();  // clear the right panel
+
+            RAFlightDetails details = new RAFlightDetails();
+            details.Dock = DockStyle.Fill;
+
+            details.OnClose += (s, e) =>
+            {
+                pnlDetails.Controls.Clear();
+                pnlDetails.Visible = false; // or hide pnlDetails
+            };
+
+            pnlDetails.Controls.Add(details);
+            pnlDetails.Visible = true;
+            details.LoadFlight(flightID);
         }
 
         // ── Show Passengers ───────────────────────────────────────────────────
@@ -98,7 +198,6 @@ namespace FlightReservationSystem
             pnlFuncs.AutoScroll = true;
             _passengerForms.Clear();
 
-            // Navigating back to passengers resets the later steps
             _navigation.PassengersFilled = false;
             _navigation.SeatsAssigned = false;
 
@@ -109,20 +208,16 @@ namespace FlightReservationSystem
                 form.Dock = DockStyle.Top;
                 _passengerForms.Add(form);
 
-                // Only Passenger 1's Proceed button advances the workflow.
-                // It validates ALL passenger forms before allowing through.
                 if (i == 1)
                 {
                     form.OnProceed += (s, ev) =>
                     {
-                        // Validate every passenger form, not just #1
                         bool allValid = _passengerForms
                             .OrderBy(p => p.PassengerNumber)
                             .All(p => p.ValidatePassenger());
 
-                        if (!allValid) return;   // ValidatePassenger shows its own error
+                        if (!allValid) return;
 
-                        // ✔ Step 2 complete
                         _navigation.PassengersFilled = true;
                         _navigation.SeatsAssigned = false;
 
@@ -139,8 +234,6 @@ namespace FlightReservationSystem
         private void ShowSeats()
         {
             ResetPanel();
-
-            // Navigating back to seats resets the payment step
             _navigation.SeatsAssigned = false;
 
             UserControl seatMap = ResolveAircraftUI(_selectedFlight.Model);
@@ -151,7 +244,6 @@ namespace FlightReservationSystem
                     $"No seat map available for aircraft: '{_selectedFlight.Model}'\n\nProceeding to payment.",
                     "Seat Map Unavailable", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // No seat map = treat as all seated
                 _navigation.SeatsAssigned = true;
                 _navigation.SetActiveButton(_navigation.btnPayment);
                 ShowPayment();
@@ -167,34 +259,36 @@ namespace FlightReservationSystem
 
             if (seatMap is ISeatMap iSeatMap)
             {
-                // Pre-colour any already-booked seats for this specific flight
                 var saved = BookingRepository.LoadSavedPassengers(_selectedFlight.FlightID);
                 if (saved.Count > 0)
                     iSeatMap.LoadSavedPassengers(saved);
 
-                // Enter interactive selection; _seatAssignments fills as agent clicks
                 var ordered = _passengerForms.OrderBy(p => p.PassengerNumber).ToList();
                 _seatAssignments = iSeatMap.LoadPassengers(ordered);
 
-                // ── Watch for all passengers being seated ─────────────────────
-                // The seat map calls back into this lambda each time a seat is
-                // assigned. When the count matches we unlock the Payment button.
                 iSeatMap.OnSeatAssigned += () =>
                 {
                     if (_seatAssignments.Count >= _passengerCount)
-                    {
-                        // ✔ Step 3 complete
                         _navigation.SeatsAssigned = true;
-                    }
                 };
             }
+        }
+
+        // ── Show Change Seat ──────────────────────────────────────────────────
+        private void ShowChangeSeat()
+        {
+            ResetPanel();
+            pnlFuncs.AutoScroll = true;
+            var changeSeat = new RAChangeSeat();
+            changeSeat.Dock = DockStyle.Fill;
+            changeSeat.MinimumSize = new System.Drawing.Size(1262, 585);
+            pnlFuncs.Controls.Add(changeSeat);
         }
 
         // ── Aircraft UI resolver ──────────────────────────────────────────────
         private UserControl ResolveAircraftUI(string model)
         {
             if (string.IsNullOrWhiteSpace(model)) return null;
-
             string n = model.ToLower().Replace(" ", "").Replace("-", "");
 
             if (n.Contains("atr") && n.Contains("72"))
@@ -215,6 +309,17 @@ namespace FlightReservationSystem
             if (n.Contains("a321neo"))
                 return new Airbus_A321neo();
 
+            if (n.Contains("atr") && n.Contains("72")) return new ATR_72_600();
+            if (n.Contains("a319")) return new Airbus_A319_100();
+            if (n.Contains("a321neo")) return new Airbus_A321neo();
+            if (n.Contains("a321")) return new Airbus_A321_200();
+            if (n.Contains("a320neo")) return new Airbus_A320neo();
+            if (n.Contains("a320")) return new Airbus_A320_200();
+            if (n.Contains("737") && n.Contains("900er")) return new Boeing_737_900ER();
+            if (n.Contains("737") && n.Contains("900")) return new Boeing_737_900ER();
+            if (n.Contains("737") && n.Contains("800")) return new Boeing_737_800();
+            if (n.Contains("737") && n.Contains("700")) return new Boeing_737_700();
+            if (n.Contains("dhc") && n.Contains("8")) return new DHC_8_400();
 
             return null;
         }
@@ -260,7 +365,6 @@ namespace FlightReservationSystem
 
             payment.OnConfirmed += (s, ev) =>
             {
-                // Full reset after a completed booking
                 _selectedFlight = null;
                 _seatAssignments = new Dictionary<int, string>();
                 _passengerForms.Clear();
@@ -276,11 +380,16 @@ namespace FlightReservationSystem
             pnlFuncs.Controls.Add(payment);
         }
 
+        // ── Form closing ──────────────────────────────────────────────────────
         private void RAForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            _statusTimer?.Stop();
+            _statusTimer?.Dispose();
+
             if (e.CloseReason == CloseReason.UserClosing)
             {
-                DialogResult result = MessageBoxHelper.ShowQuestionMessage("Are you sure you want to exit?\nAny incomplete progress you made will be lost.");
+                DialogResult result = MessageBoxHelper.ShowQuestionMessage(
+                    "Are you sure you want to exit?\nAny incomplete progress you made will be lost.");
 
                 if (result == DialogResult.No)
                 {

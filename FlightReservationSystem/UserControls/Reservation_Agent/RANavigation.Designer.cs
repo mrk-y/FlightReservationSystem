@@ -31,6 +31,7 @@
             this.btnAddPassenger = new System.Windows.Forms.Button();
             this.btnAddPassengerSeat = new System.Windows.Forms.Button();
             this.btnPayment = new System.Windows.Forms.Button();
+            this.btnChangeSeats = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnViewFlights
@@ -70,10 +71,10 @@
             this.btnAddPassenger.Margin = new System.Windows.Forms.Padding(0, 0, 8, 0);
             this.btnAddPassenger.Name = "btnAddPassenger";
             this.btnAddPassenger.Padding = new System.Windows.Forms.Padding(4);
-            this.btnAddPassenger.Size = new System.Drawing.Size(170, 33);
+            this.btnAddPassenger.Size = new System.Drawing.Size(78, 33);
             this.btnAddPassenger.TabIndex = 1;
             this.btnAddPassenger.Tag = "";
-            this.btnAddPassenger.Text = "Placeholder For Verification";
+            this.btnAddPassenger.Text = "Passenger";
             this.btnAddPassenger.UseVisualStyleBackColor = false;
             this.btnAddPassenger.Click += new System.EventHandler(this.btnAddPassenger_Click);
             // 
@@ -88,7 +89,7 @@
             this.btnAddPassengerSeat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddPassengerSeat.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddPassengerSeat.ForeColor = System.Drawing.Color.White;
-            this.btnAddPassengerSeat.Location = new System.Drawing.Point(246, 0);
+            this.btnAddPassengerSeat.Location = new System.Drawing.Point(154, 0);
             this.btnAddPassengerSeat.Margin = new System.Windows.Forms.Padding(0, 0, 8, 0);
             this.btnAddPassengerSeat.Name = "btnAddPassengerSeat";
             this.btnAddPassengerSeat.Padding = new System.Windows.Forms.Padding(4);
@@ -110,7 +111,7 @@
             this.btnPayment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPayment.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPayment.ForeColor = System.Drawing.Color.White;
-            this.btnPayment.Location = new System.Drawing.Point(307, 0);
+            this.btnPayment.Location = new System.Drawing.Point(215, 0);
             this.btnPayment.Margin = new System.Windows.Forms.Padding(0, 0, 8, 0);
             this.btnPayment.Name = "btnPayment";
             this.btnPayment.Padding = new System.Windows.Forms.Padding(4);
@@ -121,18 +122,41 @@
             this.btnPayment.UseVisualStyleBackColor = false;
             this.btnPayment.Click += new System.EventHandler(this.btnPayment_Click);
             // 
+            // btnChangeSeats
+            // 
+            this.btnChangeSeats.AutoSize = true;
+            this.btnChangeSeats.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnChangeSeats.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
+            this.btnChangeSeats.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnChangeSeats.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
+            this.btnChangeSeats.FlatAppearance.BorderSize = 0;
+            this.btnChangeSeats.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnChangeSeats.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnChangeSeats.ForeColor = System.Drawing.Color.White;
+            this.btnChangeSeats.Location = new System.Drawing.Point(1071, 0);
+            this.btnChangeSeats.Margin = new System.Windows.Forms.Padding(0, 0, 8, 0);
+            this.btnChangeSeats.Name = "btnChangeSeats";
+            this.btnChangeSeats.Padding = new System.Windows.Forms.Padding(4);
+            this.btnChangeSeats.Size = new System.Drawing.Size(91, 33);
+            this.btnChangeSeats.TabIndex = 4;
+            this.btnChangeSeats.Tag = "";
+            this.btnChangeSeats.Text = "Change Seat";
+            this.btnChangeSeats.UseVisualStyleBackColor = false;
+            this.btnChangeSeats.Click += new System.EventHandler(this.btnChangeSeats_Click);
+            // 
             // RANavigation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.btnChangeSeats);
             this.Controls.Add(this.btnPayment);
             this.Controls.Add(this.btnAddPassengerSeat);
             this.Controls.Add(this.btnAddPassenger);
             this.Controls.Add(this.btnViewFlights);
             this.Name = "RANavigation";
-            this.Size = new System.Drawing.Size(1264, 33);
+            this.Size = new System.Drawing.Size(1170, 33);
             this.Load += new System.EventHandler(this.RANavigation_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -144,5 +168,6 @@
         public System.Windows.Forms.Button btnAddPassenger;
         public System.Windows.Forms.Button btnAddPassengerSeat;
         public System.Windows.Forms.Button btnPayment;
+        public System.Windows.Forms.Button btnChangeSeats;
     }
 }

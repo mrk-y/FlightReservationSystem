@@ -31,6 +31,8 @@
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.pnlNavigation = new System.Windows.Forms.Panel();
             this.pnlFuncs = new System.Windows.Forms.Panel();
+            this.pnlDetails = new System.Windows.Forms.Panel();
+            this.pnlFuncs.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlHeader
@@ -49,10 +51,18 @@
             // 
             // pnlFuncs
             // 
+            this.pnlFuncs.Controls.Add(this.pnlDetails);
             this.pnlFuncs.Location = new System.Drawing.Point(1, 95);
             this.pnlFuncs.Name = "pnlFuncs";
             this.pnlFuncs.Size = new System.Drawing.Size(1262, 585);
             this.pnlFuncs.TabIndex = 2;
+            // 
+            // pnlDetails
+            // 
+            this.pnlDetails.Location = new System.Drawing.Point(330, 50);
+            this.pnlDetails.Name = "pnlDetails";
+            this.pnlDetails.Size = new System.Drawing.Size(600, 483);
+            this.pnlDetails.TabIndex = 0;
             // 
             // RAForm
             // 
@@ -67,6 +77,7 @@
             this.Text = "Reservation Agent";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RAForm_FormClosing);
             this.Load += new System.EventHandler(this.RAForm_Load);
+            this.pnlFuncs.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -76,5 +87,6 @@
         private System.Windows.Forms.Panel pnlHeader;
         private System.Windows.Forms.Panel pnlNavigation;
         private System.Windows.Forms.Panel pnlFuncs;
+        private System.Windows.Forms.Panel pnlDetails;
     }
 }

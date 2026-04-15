@@ -323,11 +323,23 @@
       <DependentUpon>Header.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Reservation_Agent\Bookingrepository.cs" />
+    <Compile Include="UserControls\Reservation_Agent\RAChangeSeat.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Reservation_Agent\RAChangeSeat.Designer.cs">
+      <DependentUpon>RAChangeSeat.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Reservation_Agent\RAFlightCards.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserControls\Reservation_Agent\RAFlightCards.Designer.cs">
       <DependentUpon>RAFlightCards.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Reservation_Agent\RAFlightDetails.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Reservation_Agent\RAFlightDetails.Designer.cs">
+      <DependentUpon>RAFlightDetails.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Reservation_Agent\RAFlights.cs">
       <SubType>UserControl</SubType>
@@ -435,8 +447,14 @@
     <EmbeddedResource Include="UserControls\Header.resx">
       <DependentUpon>Header.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Reservation_Agent\RAChangeSeat.resx">
+      <DependentUpon>RAChangeSeat.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\Reservation_Agent\RAFlightCards.resx">
       <DependentUpon>RAFlightCards.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Reservation_Agent\RAFlightDetails.resx">
+      <DependentUpon>RAFlightDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\Reservation_Agent\RAFlights.resx">
       <DependentUpon>RAFlights.cs</DependentUpon>

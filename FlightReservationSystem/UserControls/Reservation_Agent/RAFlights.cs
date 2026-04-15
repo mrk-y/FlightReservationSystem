@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlightReservationSystem.Helpers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,6 +15,7 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
     {
         // ── Updated event — carries card + passenger count ────────
         public event Action<RAFlightCards, int> OnFlightSelected;
+        public event Action<int> OnViewFlightDetail;
 
         public RAFlights()
         {
@@ -81,15 +83,74 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
 
                 card.Dock = DockStyle.Fill;
 
-                // ── Grab passenger count from nudPassengers ────────
+                // ── Passenger count ───────────────────────────────
                 card.OnSelect += (s, e) =>
                 {
                     int passengerCount = (int)nudPassengers.Value;
                     OnFlightSelected?.Invoke(card, passengerCount);
                 };
 
+                // ── View detail → bubble up the FlightID ──────────
+                card.OnViewDetail += (s, e) =>
+                {
+                    OnViewFlightDetail?.Invoke(card.FlightID);
+                };
+
                 wrapper.Controls.Add(card);
                 pnlCards.Controls.Add(wrapper);
+            }
+        }
+
+        public void RefreshStatuses()
+        {
+            var visibleCards = pnlCards.Controls
+                .OfType<Panel>()
+                .SelectMany(w => w.Controls.OfType<RAFlightCards>())
+                .ToList();
+
+            if (visibleCards.Count == 0) return;
+
+            string ids = string.Join(",", visibleCards.Select(c => c.FlightID));
+
+            const string sql = @"
+                SELECT f.FlightID, a.Status AS AircraftStatus
+                FROM   Flights  f
+                INNER JOIN Aircrafts a ON a.AircraftID = f.Aircraft
+                WHERE  f.FlightID IN ({0})";
+
+            try
+            {
+                using (var conn = DatabaseConnection.Get())
+                using (var cmd = new System.Data.SqlClient.SqlCommand(
+                                       string.Format(sql, ids), conn))
+                {
+                    conn.Open();
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        var statusMap = new Dictionary<int, int>();
+                        while (rdr.Read())
+                        {
+                            int fid = (int)rdr["FlightID"];
+                            int status = rdr["AircraftStatus"] == DBNull.Value
+                                             ? RAFlightCards.STATUS_SCHEDULED
+                                             : Convert.ToInt32(rdr["AircraftStatus"]);
+                            statusMap[fid] = status;
+                        }
+
+                        foreach (var card in visibleCards)
+                        {
+                            if (statusMap.TryGetValue(card.FlightID, out int newStatus)
+                                && card.AircraftStatus != newStatus)
+                            {
+                                card.AircraftStatus = newStatus;
+                            }
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                // Silent — same policy as PromoteAircraftStatuses in RAForm
             }
         }
 

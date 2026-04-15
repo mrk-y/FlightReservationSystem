@@ -6,7 +6,14 @@
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null)) components.Dispose();
+            if (disposing)
+            {
+                _flashTimer?.Stop();
+                _flashTimer?.Dispose();
+                _flashTimer = null;
+
+                if (components != null) components.Dispose();
+            }
             base.Dispose(disposing);
         }
 
@@ -14,6 +21,7 @@
         {
             this.pnlCard = new System.Windows.Forms.Panel();
             this.pnlRight = new System.Windows.Forms.Panel();
+            this.lblStatus = new System.Windows.Forms.Label();
             this.lblPrice = new System.Windows.Forms.Label();
             this.btnSelect = new System.Windows.Forms.Button();
             this.btnViewDetail = new System.Windows.Forms.Button();
@@ -42,7 +50,7 @@
             this.pnlCard.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlCard.Location = new System.Drawing.Point(0, 0);
             this.pnlCard.Name = "pnlCard";
-            this.pnlCard.Size = new System.Drawing.Size(1262, 145);
+            this.pnlCard.Size = new System.Drawing.Size(1262, 160);
             this.pnlCard.TabIndex = 0;
             // 
             // pnlRight
@@ -55,8 +63,21 @@
             this.pnlRight.Location = new System.Drawing.Point(1082, 0);
             this.pnlRight.Name = "pnlRight";
             this.pnlRight.Padding = new System.Windows.Forms.Padding(12, 12, 16, 12);
-            this.pnlRight.Size = new System.Drawing.Size(180, 145);
+            this.pnlRight.Size = new System.Drawing.Size(180, 160);
             this.pnlRight.TabIndex = 0;
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.BackColor = System.Drawing.Color.White;
+            this.lblStatus.Font = new System.Drawing.Font("Segoe UI", 7.5F, System.Drawing.FontStyle.Bold);
+            this.lblStatus.ForeColor = System.Drawing.Color.White;
+            this.lblStatus.Location = new System.Drawing.Point(6, 79);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Padding = new System.Windows.Forms.Padding(6, 2, 6, 2);
+            this.lblStatus.Size = new System.Drawing.Size(148, 22);
+            this.lblStatus.TabIndex = 4;
+            this.lblStatus.Text = "SCHEDULED";
+            this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblPrice
             // 
@@ -77,7 +98,7 @@
             this.btnSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSelect.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
             this.btnSelect.ForeColor = System.Drawing.Color.White;
-            this.btnSelect.Location = new System.Drawing.Point(10, 58);
+            this.btnSelect.Location = new System.Drawing.Point(10, 44);
             this.btnSelect.Name = "btnSelect";
             this.btnSelect.Size = new System.Drawing.Size(148, 38);
             this.btnSelect.TabIndex = 2;
@@ -93,7 +114,7 @@
             this.btnViewDetail.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnViewDetail.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.btnViewDetail.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(50)))));
-            this.btnViewDetail.Location = new System.Drawing.Point(10, 102);
+            this.btnViewDetail.Location = new System.Drawing.Point(10, 88);
             this.btnViewDetail.Name = "btnViewDetail";
             this.btnViewDetail.Size = new System.Drawing.Size(148, 32);
             this.btnViewDetail.TabIndex = 3;
@@ -114,7 +135,7 @@
             this.pnlMiddle.Location = new System.Drawing.Point(160, 0);
             this.pnlMiddle.Name = "pnlMiddle";
             this.pnlMiddle.Padding = new System.Windows.Forms.Padding(16, 12, 16, 12);
-            this.pnlMiddle.Size = new System.Drawing.Size(1102, 145);
+            this.pnlMiddle.Size = new System.Drawing.Size(1102, 160);
             this.pnlMiddle.TabIndex = 1;
             // 
             // lblDepTime
@@ -153,7 +174,6 @@
             // lblArrTime
             // 
             this.lblArrTime.AutoSize = true;
-            this.lblArrTime.Cursor = System.Windows.Forms.Cursors.Default;
             this.lblArrTime.Font = new System.Drawing.Font("Segoe UI Semibold", 13F, System.Drawing.FontStyle.Bold);
             this.lblArrTime.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(50)))));
             this.lblArrTime.Location = new System.Drawing.Point(310, 14);
@@ -189,13 +209,14 @@
             // pnlLeft
             // 
             this.pnlLeft.BackColor = System.Drawing.Color.White;
+            this.pnlLeft.Controls.Add(this.lblStatus);
             this.pnlLeft.Controls.Add(this.lblStops);
             this.pnlLeft.Controls.Add(this.lblDuration);
             this.pnlLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlLeft.Location = new System.Drawing.Point(0, 0);
             this.pnlLeft.Name = "pnlLeft";
             this.pnlLeft.Padding = new System.Windows.Forms.Padding(16, 16, 8, 16);
-            this.pnlLeft.Size = new System.Drawing.Size(160, 145);
+            this.pnlLeft.Size = new System.Drawing.Size(160, 160);
             this.pnlLeft.TabIndex = 2;
             // 
             // lblStops
@@ -227,7 +248,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.pnlCard);
             this.Name = "RAFlightCards";
-            this.Size = new System.Drawing.Size(1262, 145);
+            this.Size = new System.Drawing.Size(1262, 160);
             this.Load += new System.EventHandler(this.RAFlightCards_Load);
             this.pnlCard.ResumeLayout(false);
             this.pnlRight.ResumeLayout(false);
@@ -247,7 +268,8 @@
         private System.Windows.Forms.Label lblArrTime, lblArrCode;
         private System.Windows.Forms.Label lblDate;
         private System.Windows.Forms.Label lblPrice;
+        private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Button btnSelect;
-        private System.Windows.Forms.Button btnViewDetail; // NEW
+        private System.Windows.Forms.Button btnViewDetail;
     }
 }
