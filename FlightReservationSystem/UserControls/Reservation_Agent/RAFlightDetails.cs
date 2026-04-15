@@ -142,10 +142,18 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
         private void FetchCrew(SqlConnection conn)
         {
             const string sql = @"
-                SELECT c.Name, c.Role
-                FROM   Crew c
-                WHERE  c.FlightID = @fid
-                ORDER  BY c.Role, c.Name";
+        SELECT
+            c.FirstName,
+            c.MiddleName,
+            c.LastName,
+            ct.Type             AS CrewTypeLabel
+        FROM   Flights f
+        INNER JOIN Aircrafts a  ON a.AircraftID  = f.Aircraft
+        CROSS APPLY OPENJSON(a.AssignedCrews) WITH (CrewID INT '$') AS ac
+        INNER JOIN Crews      c  ON c.CrewID      = ac.CrewID
+        INNER JOIN CrewTypes  ct ON ct.CrewTypeID  = c.CrewType
+        WHERE  f.FlightID = @fid
+        ORDER  BY ct.Type, c.LastName, c.FirstName";
 
             var pilots = new List<string>();
             var attendants = new List<string>();
@@ -159,21 +167,28 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
                     {
                         while (rdr.Read())
                         {
-                            string name = rdr["Name"].ToString();
-                            string role = rdr["Role"].ToString();
+                            string firstName = rdr["FirstName"].ToString();
+                            string middleName = rdr["MiddleName"].ToString();
+                            string lastName = rdr["LastName"].ToString();
+                            string crewType = rdr["CrewTypeLabel"].ToString();
 
-                            if (role.IndexOf("Pilot", StringComparison.OrdinalIgnoreCase) >= 0)
-                                pilots.Add($"{role}: {name}");
+                            string fullName = string.IsNullOrWhiteSpace(middleName)
+                                ? $"{firstName} {lastName}"
+                                : $"{firstName} {middleName[0]}. {lastName}";
+
+                            if (crewType.IndexOf("Pilot", StringComparison.OrdinalIgnoreCase) >= 0)
+                                pilots.Add($"{crewType}: {fullName}");
                             else
-                                attendants.Add(name);
+                                attendants.Add(fullName);
                         }
                     }
                 }
             }
-            catch
+            catch (Exception)
             {
-                // Crew table may not exist in all deployments; fail silently
                 pilots.Add("No crew data available.");
+                // Uncomment to debug:
+                // MessageBox.Show(ex.Message);
             }
 
             PopulateCrewList(flpPilots, pilots, "No pilots assigned.");
