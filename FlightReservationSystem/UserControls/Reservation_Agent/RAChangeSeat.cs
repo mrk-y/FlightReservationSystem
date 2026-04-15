@@ -276,18 +276,6 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
 
             this.Controls.Add(_pnlSearchBar);
         }
-
-        // ── Scrollable body (replaces BuildMainBody) ───────────────
-        //
-        //  this (UserControl, Dock=Fill)
-        //   └─ _pnlScrollOuter  (Dock=Fill, AutoScroll=true)
-        //       └─ _pnlBody     (Dock=Fill, MinimumSize enforces min width)
-        //           ├─ _pnlLeft   (Dock=Left,  300 px)
-        //           ├─ divL       (Dock=Left,    1 px)
-        //           ├─ _pnlRight  (Dock=Right, 280 px)
-        //           ├─ divR       (Dock=Right,   1 px)
-        //           └─ _pnlCenter (Dock=Fill, AutoScroll=true)
-        //
         private void BuildScrollBody()
         {
             // ── outer wrapper — provides the horizontal scroll bar ──
@@ -342,7 +330,7 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
                 Dock = DockStyle.Fill,
                 BackColor = PanelLight,
                 AutoScroll = true,
-                Padding = new Padding(20, 14, 20, 14)
+                Padding = new Padding(20, 110, 20, 14)
             };
             BuildCenterArea(_pnlCenter);
 
@@ -472,19 +460,31 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
             _lstFlights.SelectedIndexChanged += LstFlights_SelectedIndexChanged;
             _lstFlightsPanel.Controls.Add(_lstFlights);
 
+            // ── NEW: scrollable wrapper for the seat map ──────────────────
+            var pnlMapScroll = new Panel
+            {
+                Dock = DockStyle.Fill,
+                AutoScroll = true,          // both H and V scroll bars appear as needed
+                BackColor = PanelLight
+            };
+
             _pnlMapHost = new Panel
             {
-                Dock = DockStyle.Top,
-                Height = 0,
+                Dock = DockStyle.None,      // NOT Top — let it keep its natural size
+                Location = new Point(0, 0),
                 BackColor = PanelLight,
                 AutoSize = false
             };
 
-            host.Controls.Add(_pnlMapHost);
-            host.Controls.Add(_lstFlightsPanel);
-            host.Controls.Add(_lblNewSeatChosen);
-            host.Controls.Add(_lblMapHint);
-            host.Controls.Add(pnlTitleRow);
+            pnlMapScroll.Controls.Add(_pnlMapHost);
+            // ─────────────────────────────────────────────────────────────
+
+            // Add controls bottom-up (Fill last)
+            host.Controls.Add(pnlMapScroll);        // Fill
+            host.Controls.Add(_lstFlightsPanel);    // Top
+            host.Controls.Add(_lblNewSeatChosen);   // Top
+            host.Controls.Add(_lblMapHint);         // Top
+            host.Controls.Add(pnlTitleRow);         // Top
         }
 
         // ── Flight dropdown ────────────────────────────────────────
@@ -817,27 +817,14 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
 
             _pnlMapHost.Controls.Add(map);
 
-            // Centre the map horizontally; ensure the host panel is tall enough
-            EventHandler centre = (s, ev) =>
-            {
-                map.Location = new Point(
-                    Math.Max(0, (_pnlMapHost.Width - map.Width) / 2), 0);
-            };
-            _pnlMapHost.Resize += centre;
-            map.SizeChanged += centre;
-
             this.BeginInvoke((Action)(() =>
             {
-                // Make the map host at least as wide as the map so the center
-                // panel's horizontal scroll bar appears when needed.
                 int mapW = map.PreferredSize.Width;
                 int mapH = map.PreferredSize.Height;
 
-                _pnlMapHost.MinimumSize = new Size(mapW + 40, 0);
-                _pnlMapHost.Height = mapH + 20;
-
-                map.Location = new Point(
-                    Math.Max(0, (_pnlMapHost.Width - mapW) / 2), 0);
+                // Size the host to exactly the map — the scroll panel handles overflow
+                _pnlMapHost.Size = new Size(mapW + 20, mapH + 20);
+                map.Location = new Point(10, 10);   // small padding inside the host
             }));
         }
 
@@ -997,8 +984,7 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
         private void ClearMapHost()
         {
             _pnlMapHost.Controls.Clear();
-            _pnlMapHost.MinimumSize = Size.Empty;
-            _pnlMapHost.Height = 0;
+            _pnlMapHost.Size = Size.Empty;
         }
 
         // ═══════════════════════════════════════════════════════════
