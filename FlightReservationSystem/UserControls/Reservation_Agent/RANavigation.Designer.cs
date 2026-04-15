@@ -32,6 +32,7 @@
             this.btnAddPassengerSeat = new System.Windows.Forms.Button();
             this.btnPayment = new System.Windows.Forms.Button();
             this.btnChangeSeats = new System.Windows.Forms.Button();
+            this.btnLogout = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnViewFlights
@@ -133,8 +134,8 @@
             this.btnChangeSeats.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnChangeSeats.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnChangeSeats.ForeColor = System.Drawing.Color.White;
-            this.btnChangeSeats.Location = new System.Drawing.Point(1071, 0);
-            this.btnChangeSeats.Margin = new System.Windows.Forms.Padding(0, 0, 8, 0);
+            this.btnChangeSeats.Location = new System.Drawing.Point(1078, 0);
+            this.btnChangeSeats.Margin = new System.Windows.Forms.Padding(8, 0, 24, 0);
             this.btnChangeSeats.Name = "btnChangeSeats";
             this.btnChangeSeats.Padding = new System.Windows.Forms.Padding(4);
             this.btnChangeSeats.Size = new System.Drawing.Size(91, 33);
@@ -144,19 +145,42 @@
             this.btnChangeSeats.UseVisualStyleBackColor = false;
             this.btnChangeSeats.Click += new System.EventHandler(this.btnChangeSeats_Click);
             // 
+            // btnLogout
+            // 
+            this.btnLogout.AutoSize = true;
+            this.btnLogout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnLogout.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
+            this.btnLogout.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLogout.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
+            this.btnLogout.FlatAppearance.BorderSize = 0;
+            this.btnLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLogout.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLogout.ForeColor = System.Drawing.Color.White;
+            this.btnLogout.Location = new System.Drawing.Point(1201, 0);
+            this.btnLogout.Margin = new System.Windows.Forms.Padding(8, 0, 0, 0);
+            this.btnLogout.Name = "btnLogout";
+            this.btnLogout.Padding = new System.Windows.Forms.Padding(4);
+            this.btnLogout.Size = new System.Drawing.Size(63, 33);
+            this.btnLogout.TabIndex = 5;
+            this.btnLogout.Tag = "";
+            this.btnLogout.Text = "Logout";
+            this.btnLogout.UseVisualStyleBackColor = false;
+            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
+            // 
             // RANavigation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.btnLogout);
             this.Controls.Add(this.btnChangeSeats);
             this.Controls.Add(this.btnPayment);
             this.Controls.Add(this.btnAddPassengerSeat);
             this.Controls.Add(this.btnAddPassenger);
             this.Controls.Add(this.btnViewFlights);
             this.Name = "RANavigation";
-            this.Size = new System.Drawing.Size(1170, 33);
+            this.Size = new System.Drawing.Size(1264, 33);
             this.Load += new System.EventHandler(this.RANavigation_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -169,5 +193,6 @@
         public System.Windows.Forms.Button btnAddPassengerSeat;
         public System.Windows.Forms.Button btnPayment;
         public System.Windows.Forms.Button btnChangeSeats;
+        private System.Windows.Forms.Button btnLogout;
     }
 }

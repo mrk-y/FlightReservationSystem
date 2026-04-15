@@ -1,4 +1,5 @@
 ﻿using FlightReservationSystem.Helpers;
+using FlightReservationSystem.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -108,6 +109,58 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             AircraftManager.ClearAircraftCollection();
 
             MainForm.Init(new AssignRoute());
+        }
+
+        private void btnStatistics_Click(object sender, EventArgs e)
+        {
+            if (ErrorManager.HasUncompleteProgress())
+            {
+                DialogResult result = MessageBoxHelper.ShowQuestionMessage("There is incomplete progress. Do you wish to proceed?");
+                if (result == DialogResult.Yes)
+                {
+                    ErrorManager.ClearErrorCollection();
+                    ErrorManager.ClearErrorUICollection();
+                    AircraftManager.ClearCrewCollection();
+                    AircraftManager.ClearAircraftCollection();
+
+                    MainForm.Init(new Statistics());
+                }
+
+                return;
+            }
+
+            ErrorManager.ClearErrorCollection();
+            ErrorManager.ClearErrorUICollection();
+            AircraftManager.ClearCrewCollection();
+            AircraftManager.ClearAircraftCollection();
+
+            MainForm.Init(new Statistics());
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            if (ErrorManager.HasUncompleteProgress())
+            {
+                DialogResult result = MessageBoxHelper.ShowQuestionMessage("There is incomplete progress. Do you wish to proceed?");
+                if (result == DialogResult.Yes)
+                {
+                    ErrorManager.ClearErrorCollection();
+                    ErrorManager.ClearErrorUICollection();
+                    AircraftManager.ClearCrewCollection();
+                    AircraftManager.ClearAircraftCollection();
+
+                    AccountSession.LogoutSAAccount();
+                }
+
+                return;
+            }
+
+            ErrorManager.ClearErrorCollection();
+            ErrorManager.ClearErrorUICollection();
+            AircraftManager.ClearCrewCollection();
+            AircraftManager.ClearAircraftCollection();
+
+            AccountSession.LogoutSAAccount();
         }
     }
 }

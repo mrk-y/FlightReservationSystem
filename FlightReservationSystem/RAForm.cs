@@ -1,8 +1,9 @@
 ﻿using FlightReservationSystem.Data;
-using FlightReservationSystem.UserControls;
+using FlightReservationSystem.Debugging;
 using FlightReservationSystem.Helpers;
-using FlightReservationSystem.UserControls.Reservation_Agent;
+using FlightReservationSystem.UserControls;
 using FlightReservationSystem.UserControls.AircraftModelsUI;
+using FlightReservationSystem.UserControls.Reservation_Agent;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -13,6 +14,8 @@ namespace FlightReservationSystem
 {
     public partial class RAForm : Form
     {
+        private static RAForm Current { get; set; } = null;
+
         private RANavigation _navigation;
         private RAFlightCards _selectedFlight;
         private int _passengerCount = 1;
@@ -22,10 +25,20 @@ namespace FlightReservationSystem
 
         // ── Status auto-update timer ──────────────────────────────────────────
         private Timer _statusTimer;
+        private static bool IsLoggingOut = false;
 
         public RAForm()
         {
             InitializeComponent();
+
+            Current = this;
+
+            if (Current == null)
+            {
+                DebugLogger.LogWithStackTrace("Current is null. Data initialization aborted.");
+                return;
+            }
+
         }
 
         private void RAForm_Load(object sender, EventArgs e)
@@ -380,6 +393,12 @@ namespace FlightReservationSystem
             pnlFuncs.Controls.Add(payment);
         }
 
+        public static void CloseForm()
+        {
+            IsLoggingOut = true;
+            Current.Close();
+        }
+
         // ── Form closing ──────────────────────────────────────────────────────
         private void RAForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -396,6 +415,8 @@ namespace FlightReservationSystem
                     e.Cancel = true;
                     return;
                 }
+
+                if (IsLoggingOut) return;
 
                 Application.Exit();
             }
