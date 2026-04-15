@@ -66,6 +66,7 @@
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "Header";
             this.Size = new System.Drawing.Size(1264, 50);
+            this.Load += new System.EventHandler(this.Header_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -47,6 +47,12 @@
     <Reference Include="GeoCoordinate.NetCore, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\GeoCoordinate.NetCore.1.0.0.1\lib\netstandard1.6\GeoCoordinate.NetCore.dll</HintPath>
     </Reference>
+    <Reference Include="HarfBuzzSharp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\HarfBuzzSharp.8.3.1.1\lib\net462\HarfBuzzSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveChartsCore, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc92a3e13d40c573, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveChartsCore.2.0.0\lib\net462\LiveChartsCore.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
@@ -95,6 +101,33 @@
     <Reference Include="Microsoft.IdentityModel.Tokens, Version=7.7.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.IdentityModel.Tokens.7.7.1\lib\net472\Microsoft.IdentityModel.Tokens.dll</HintPath>
     </Reference>
+    <Reference Include="OpenTK, Version=3.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenTK.3.1.0\lib\net20\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK.GLControl, Version=3.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenTK.GLControl.3.1.0\lib\net20\OpenTK.GLControl.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot, Version=2.2.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
+      <HintPath>..\packages\OxyPlot.Core.2.2.0\lib\net462\OxyPlot.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot.WindowsForms, Version=2.2.0.0, Culture=neutral, PublicKeyToken=245eacd6b5d2d338, processorArchitecture=MSIL">
+      <HintPath>..\packages\OxyPlot.WindowsForms.2.2.0\lib\net462\OxyPlot.WindowsForms.dll</HintPath>
+    </Reference>
+    <Reference Include="ScottPlot, Version=5.1.58.0, Culture=neutral, PublicKeyToken=86698dc10387c39e, processorArchitecture=MSIL">
+      <HintPath>..\packages\ScottPlot.5.1.58\lib\net462\ScottPlot.dll</HintPath>
+    </Reference>
+    <Reference Include="SkiaSharp, Version=3.119.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\SkiaSharp.3.119.0\lib\net462\SkiaSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="SkiaSharp.HarfBuzz, Version=3.119.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\SkiaSharp.HarfBuzz.3.119.0\lib\net462\SkiaSharp.HarfBuzz.dll</HintPath>
+    </Reference>
+    <Reference Include="SkiaSharp.Views.Desktop.Common, Version=3.119.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\SkiaSharp.Views.Desktop.Common.3.119.0\lib\net462\SkiaSharp.Views.Desktop.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="SkiaSharp.Views.WindowsForms, Version=3.119.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\SkiaSharp.Views.WindowsForms.3.119.0\lib\net462\SkiaSharp.Views.WindowsForms.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.6.1\lib\net462\System.Buffers.dll</HintPath>
@@ -115,6 +148,9 @@
     </Reference>
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=8.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.8.0.1\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing.Common, Version=4.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Drawing.Common.4.7.3\lib\net461\System.Drawing.Common.dll</HintPath>
     </Reference>
     <Reference Include="System.Formats.Asn1, Version=8.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Formats.Asn1.8.0.1\lib\net462\System.Formats.Asn1.dll</HintPath>
@@ -166,9 +202,6 @@
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.6.0\lib\net462\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -214,6 +247,14 @@
     <Compile Include="Data\Runtime\User\Session.cs" />
     <Compile Include="Data\Runtime\User\User.cs" />
     <Compile Include="Debugging\DebugLogger.cs" />
+    <Compile Include="RAForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RAForm.Designer.cs">
+      <DependentUpon>RAForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\ResourceGetter.cs" />
+    <Compile Include="Helpers\ToImageConverter.cs" />
     <Compile Include="Helpers\AircraftManager.cs" />
     <Compile Include="Helpers\AirlineManager.cs" />
     <Compile Include="Helpers\AirportManager.cs" />
@@ -306,11 +347,56 @@
     <Compile Include="UserControls\AircraftModelsUI\DHC_8_400.Designer.cs">
       <DependentUpon>DHC_8_400.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\AircraftModelsUI\ISeatMap.cs" />
+    <Compile Include="UserControls\AircraftModelsUI\Passengerseatinfo.cs" />
     <Compile Include="UserControls\Header.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserControls\Header.Designer.cs">
       <DependentUpon>Header.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Reservation_Agent\Bookingrepository.cs" />
+    <Compile Include="UserControls\Reservation_Agent\RAChangeSeat.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Reservation_Agent\RAChangeSeat.Designer.cs">
+      <DependentUpon>RAChangeSeat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Reservation_Agent\RAFlightCards.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Reservation_Agent\RAFlightCards.Designer.cs">
+      <DependentUpon>RAFlightCards.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Reservation_Agent\RAFlightDetails.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Reservation_Agent\RAFlightDetails.Designer.cs">
+      <DependentUpon>RAFlightDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Reservation_Agent\RAFlights.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Reservation_Agent\RAFlights.Designer.cs">
+      <DependentUpon>RAFlights.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Reservation_Agent\RANavigation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Reservation_Agent\RANavigation.Designer.cs">
+      <DependentUpon>RANavigation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Reservation_Agent\RAPassengerDetails.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Reservation_Agent\RAPassengerDetails.Designer.cs">
+      <DependentUpon>RAPassengerDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Reservation_Agent\RAPayment.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Reservation_Agent\RAPayment.Designer.cs">
+      <DependentUpon>RAPayment.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\SystemAdmin\AddAircraft.cs">
       <SubType>UserControl</SubType>
@@ -342,6 +428,15 @@
     <Compile Include="UserControls\SystemAdmin\SASeatMapCostum.Designer.cs">
       <DependentUpon>SASeatMapCostum.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\SystemAdmin\Statistics.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\SystemAdmin\Statistics.Designer.cs">
+      <DependentUpon>Statistics.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="RAForm.resx">
+      <DependentUpon>RAForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -391,6 +486,27 @@
     <EmbeddedResource Include="UserControls\Header.resx">
       <DependentUpon>Header.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Reservation_Agent\RAChangeSeat.resx">
+      <DependentUpon>RAChangeSeat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Reservation_Agent\RAFlightCards.resx">
+      <DependentUpon>RAFlightCards.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Reservation_Agent\RAFlightDetails.resx">
+      <DependentUpon>RAFlightDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Reservation_Agent\RAFlights.resx">
+      <DependentUpon>RAFlights.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Reservation_Agent\RANavigation.resx">
+      <DependentUpon>RANavigation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Reservation_Agent\RAPassengerDetails.resx">
+      <DependentUpon>RAPassengerDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Reservation_Agent\RAPayment.resx">
+      <DependentUpon>RAPayment.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\SystemAdmin\AddAircraft.resx">
       <DependentUpon>AddAircraft.cs</DependentUpon>
     </EmbeddedResource>
@@ -406,10 +522,14 @@
     <EmbeddedResource Include="UserControls\SystemAdmin\SASeatMapCostum.resx">
       <DependentUpon>SASeatMapCostum.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\SystemAdmin\Statistics.resx">
+      <DependentUpon>Statistics.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="CodingGuidelines.md" />
     <None Include="float.md" />
     <None Include="float2.md" />
     <None Include="Info.md" />
+    <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -432,5 +552,15 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Data.SqlClient.SNI.6.0.2\build\net462\Microsoft.Data.SqlClient.SNI.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Data.SqlClient.SNI.6.0.2\build\net462\Microsoft.Data.SqlClient.SNI.targets'))" />
+    <Error Condition="!Exists('..\packages\SkiaSharp.NativeAssets.macOS.3.119.2\build\net462\SkiaSharp.NativeAssets.macOS.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SkiaSharp.NativeAssets.macOS.3.119.2\build\net462\SkiaSharp.NativeAssets.macOS.targets'))" />
+    <Error Condition="!Exists('..\packages\SkiaSharp.NativeAssets.Win32.3.119.2\build\net462\SkiaSharp.NativeAssets.Win32.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SkiaSharp.NativeAssets.Win32.3.119.2\build\net462\SkiaSharp.NativeAssets.Win32.targets'))" />
+    <Error Condition="!Exists('..\packages\SkiaSharp.NativeAssets.Linux.NoDependencies.3.119.0\build\net462\SkiaSharp.NativeAssets.Linux.NoDependencies.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SkiaSharp.NativeAssets.Linux.NoDependencies.3.119.0\build\net462\SkiaSharp.NativeAssets.Linux.NoDependencies.targets'))" />
+    <Error Condition="!Exists('..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.NETFramework.ReferenceAssemblies.net472.1.0.2\build\Microsoft.NETFramework.ReferenceAssemblies.net472.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.NETFramework.ReferenceAssemblies.net472.1.0.2\build\Microsoft.NETFramework.ReferenceAssemblies.net472.targets'))" />
   </Target>
+  <Import Project="..\packages\SkiaSharp.NativeAssets.macOS.3.119.2\build\net462\SkiaSharp.NativeAssets.macOS.targets" Condition="Exists('..\packages\SkiaSharp.NativeAssets.macOS.3.119.2\build\net462\SkiaSharp.NativeAssets.macOS.targets')" />
+  <Import Project="..\packages\SkiaSharp.NativeAssets.Win32.3.119.2\build\net462\SkiaSharp.NativeAssets.Win32.targets" Condition="Exists('..\packages\SkiaSharp.NativeAssets.Win32.3.119.2\build\net462\SkiaSharp.NativeAssets.Win32.targets')" />
+  <Import Project="..\packages\SkiaSharp.NativeAssets.Linux.NoDependencies.3.119.0\build\net462\SkiaSharp.NativeAssets.Linux.NoDependencies.targets" Condition="Exists('..\packages\SkiaSharp.NativeAssets.Linux.NoDependencies.3.119.0\build\net462\SkiaSharp.NativeAssets.Linux.NoDependencies.targets')" />
+  <Import Project="..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets" Condition="Exists('..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets')" />
+  <Import Project="..\packages\Microsoft.NETFramework.ReferenceAssemblies.net472.1.0.2\build\Microsoft.NETFramework.ReferenceAssemblies.net472.targets" Condition="Exists('..\packages\Microsoft.NETFramework.ReferenceAssemblies.net472.1.0.2\build\Microsoft.NETFramework.ReferenceAssemblies.net472.targets')" />
 </Project>

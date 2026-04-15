@@ -23,6 +23,7 @@ namespace FlightReservationSystem
 
         public static UserControl _navigation = null;
         public static UserControl _content = null;
+        private static bool IsLoggingOut = false;
 
         public MainForm()
         {
@@ -80,6 +81,12 @@ namespace FlightReservationSystem
             lblUsernameVal.Text = $"{userName} ({userID})";
         }
 
+        public static void CloseForm()
+        {
+            IsLoggingOut = true;
+            Current.Close();
+        }
+
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Application exit verification
@@ -93,8 +100,15 @@ namespace FlightReservationSystem
                     return;
                 }
 
+                if (IsLoggingOut) return;
+
                 Application.Exit();
             }
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
