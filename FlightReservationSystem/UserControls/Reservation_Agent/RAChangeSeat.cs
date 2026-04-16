@@ -54,9 +54,9 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
         private Button _btnSearch;
         private Button _btnClear;
 
-        // Outer horizontal-scroll wrapper + fixed-width inner body
+        // Outer horizontal-scroll wrapper + manually-sized inner body
         private Panel _pnlScrollOuter;   // Dock=Fill, AutoScroll=true
-        private Panel _pnlBody;          // fixed MinimumSize, holds Left/Center/Right
+        private Panel _pnlBody;          // Dock=None, sized manually
 
         private Panel _pnlLeft;
         private Panel _pnlCenter;
@@ -94,7 +94,6 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
             this.Dock = DockStyle.Fill;
             this.BackColor = PanelLight;
             this.Font = new Font("Segoe UI", 9f);
-            // No MinimumSize here — the inner _pnlBody enforces it
             BuildUI();
             LoadAllPassengers();
         }
@@ -108,7 +107,7 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
             BuildStatusBanner();   // Top  (height 0 initially)
             BuildActionBar();      // Bottom
             BuildSearchBar();      // Top
-            BuildScrollBody();     // Fill  ← replaces old BuildMainBody
+            BuildScrollBody();     // Fill
         }
 
         // ── Status banner ──────────────────────────────────────────
@@ -276,9 +275,11 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
 
             this.Controls.Add(_pnlSearchBar);
         }
+
+        // ── Scroll body ────────────────────────────────────────────
         private void BuildScrollBody()
         {
-            // ── outer wrapper — provides the horizontal scroll bar ──
+            // ── Outer wrapper: provides BOTH horizontal and vertical scroll ──
             _pnlScrollOuter = new Panel
             {
                 Dock = DockStyle.Fill,
@@ -286,23 +287,20 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
                 BackColor = PanelLight
             };
 
-            // ── inner body — never shrinks below 1100 px wide ──
+            // ── Inner body: Dock=None so MinimumSize is respected ──
+            //    We size it manually to max(1100, clientWidth) × clientHeight
             _pnlBody = new Panel
             {
-                Dock = DockStyle.Fill,
-                MinimumSize = new Size(1100, 0),
+                Dock = DockStyle.None,
+                Location = new Point(0, 0),
                 BackColor = PanelLight
             };
 
-            // Keep _pnlBody at least as wide as the scroll-outer panel
-            // so it fills available space when there's room.
-            _pnlScrollOuter.Resize += (s, e) =>
-            {
-                if (_pnlScrollOuter.ClientSize.Width > _pnlBody.MinimumSize.Width)
-                    _pnlBody.Width = _pnlScrollOuter.ClientSize.Width;
-            };
+            // Keep _pnlBody sized correctly whenever the outer panel resizes
+            _pnlScrollOuter.Resize += (s, e) => SizeBodyPanel();
+            _pnlScrollOuter.HandleCreated += (s, e) => SizeBodyPanel();
 
-            // Build the three columns inside _pnlBody
+            // ── Three columns ──────────────────────────────────────
             _pnlRight = new Panel
             {
                 Dock = DockStyle.Right,
@@ -318,7 +316,6 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
                 Width = 300,
                 BackColor = CardWhite,
                 Padding = new Padding(0, 90, 0, 0)
-
             };
             BuildPassengerList(_pnlLeft);
 
@@ -329,12 +326,12 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
             {
                 Dock = DockStyle.Fill,
                 BackColor = PanelLight,
-                AutoScroll = true,
+                AutoScroll = false,                 // ← no nested scroll; outer handles it
                 Padding = new Padding(20, 110, 20, 14)
             };
             BuildCenterArea(_pnlCenter);
 
-            // CRITICAL: Fill must be added last for DockStyle to work
+            // CRITICAL: Fill must be added last
             _pnlBody.Controls.Add(_pnlCenter);
             _pnlBody.Controls.Add(divR);
             _pnlBody.Controls.Add(_pnlRight);
@@ -343,6 +340,15 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
 
             _pnlScrollOuter.Controls.Add(_pnlBody);
             this.Controls.Add(_pnlScrollOuter);
+        }
+
+        // Size _pnlBody so it fills the visible area but never shrinks below 1100 wide
+        private void SizeBodyPanel()
+        {
+            if (_pnlScrollOuter == null || _pnlBody == null) return;
+            int w = Math.Max(1100, _pnlScrollOuter.ClientSize.Width);
+            int h = Math.Max(1, _pnlScrollOuter.ClientSize.Height);
+            _pnlBody.Size = new Size(w, h);
         }
 
         // ── Passenger list (left panel) ────────────────────────────
@@ -425,7 +431,7 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
                 Text = "",
                 Font = new Font("Segoe UI", 9f, FontStyle.Bold),
                 ForeColor = AccentGreen,
-                AutoSize = true,
+                AutoSize = false,
                 Visible = false,
                 Dock = DockStyle.Top,
                 Height = 22,
@@ -460,24 +466,23 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
             _lstFlights.SelectedIndexChanged += LstFlights_SelectedIndexChanged;
             _lstFlightsPanel.Controls.Add(_lstFlights);
 
-            // ── NEW: scrollable wrapper for the seat map ──────────────────
-            var pnlMapScroll = new Panel
-            {
-                Dock = DockStyle.Fill,
-                AutoScroll = true,          // both H and V scroll bars appear as needed
-                BackColor = PanelLight
-            };
-
+            // ── Map host: sized explicitly after the map loads ──
             _pnlMapHost = new Panel
             {
-                Dock = DockStyle.None,      // NOT Top — let it keep its natural size
+                Dock = DockStyle.None,
                 Location = new Point(0, 0),
                 BackColor = PanelLight,
                 AutoSize = false
             };
 
+            // Scrollable wrapper that shows the full seat map
+            var pnlMapScroll = new Panel
+            {
+                Dock = DockStyle.Fill,
+                AutoScroll = true,               // ← vertical scroll for tall maps
+                BackColor = PanelLight
+            };
             pnlMapScroll.Controls.Add(_pnlMapHost);
-            // ─────────────────────────────────────────────────────────────
 
             // Add controls bottom-up (Fill last)
             host.Controls.Add(pnlMapScroll);        // Fill
@@ -542,9 +547,15 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
             _lblInfoAircraft = InfoLabel("", 9f, FontStyle.Regular, TextDark, new Point(0, 106));
             _lblInfoCurrentSeat = InfoLabel("", 11f, FontStyle.Bold, NavyDark, new Point(0, 126));
             _lblInfoClass = InfoLabel("", 9f, FontStyle.Regular, TextDark, new Point(0, 150));
-            _lblInfoSpecial = InfoLabel("", 8.5f, FontStyle.Regular, Color.FromArgb(180, 80, 20), new Point(0, 170));
+            _lblInfoSpecial = InfoLabel("", 8.5f, FontStyle.Regular,
+                Color.FromArgb(180, 80, 20), new Point(0, 170));
 
-            var sep = new Panel { BackColor = BorderGray, Size = new Size(240, 1), Location = new Point(0, 192) };
+            var sep = new Panel
+            {
+                BackColor = BorderGray,
+                Size = new Size(240, 1),
+                Location = new Point(0, 192)
+            };
 
             host.Controls.AddRange(new Control[]
             {
@@ -641,8 +652,12 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
                 ReferenceNo = Str("ReferenceNo"),
                 BookingID = Int("BookingID"),
                 FlightID = Int("FlightID"),
-                Departure = r["Departure"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(r["Departure"]),
-                Arrival = r["Arrival"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(r["Arrival"]),
+                Departure = r["Departure"] == DBNull.Value
+                                        ? DateTime.MinValue
+                                        : Convert.ToDateTime(r["Departure"]),
+                Arrival = r["Arrival"] == DBNull.Value
+                                        ? DateTime.MinValue
+                                        : Convert.ToDateTime(r["Arrival"]),
                 Gate = Str("Gate"),
                 OriginIATA = Str("OriginIATA"),
                 DestIATA = Str("DestIATA"),
@@ -757,12 +772,20 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
                                 FlightID = Convert.ToInt32(rdr["FlightID"]),
                                 Route = rdr["Route"].ToString(),
                                 CityRoute = rdr["CityRoute"].ToString(),
-                                Departure = rdr["Departure"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(rdr["Departure"]),
-                                Arrival = rdr["Arrival"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(rdr["Arrival"]),
+                                Departure = rdr["Departure"] == DBNull.Value
+                                                    ? DateTime.MinValue
+                                                    : Convert.ToDateTime(rdr["Departure"]),
+                                Arrival = rdr["Arrival"] == DBNull.Value
+                                                    ? DateTime.MinValue
+                                                    : Convert.ToDateTime(rdr["Arrival"]),
                                 Gate = rdr["Gate"].ToString(),
                                 AircraftName = rdr["AircraftName"].ToString(),
-                                AircraftModel = rdr["AircraftModel"] == DBNull.Value ? "Unknown" : rdr["AircraftModel"].ToString(),
-                                AircraftStatus = rdr["AircraftStatus"] == DBNull.Value ? 4 : Convert.ToInt32(rdr["AircraftStatus"])
+                                AircraftModel = rdr["AircraftModel"] == DBNull.Value
+                                                    ? "Unknown"
+                                                    : rdr["AircraftModel"].ToString(),
+                                AircraftStatus = rdr["AircraftStatus"] == DBNull.Value
+                                                    ? 4
+                                                    : Convert.ToInt32(rdr["AircraftStatus"])
                             });
                         }
                     }
@@ -811,20 +834,34 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
                 WireSeatButtonsRecursive(map, map, flight);
             }
 
+            // ── Key fix: do NOT use AutoSize or Dock on the map ──
             map.Dock = DockStyle.None;
-            map.AutoSize = true;
-            map.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            map.AutoSize = false;
+            map.Location = new Point(10, 10);
 
             _pnlMapHost.Controls.Add(map);
 
+            // Force the map to lay itself out at its designed size,
+            // then size the host to wrap it exactly.
             this.BeginInvoke((Action)(() =>
             {
-                int mapW = map.PreferredSize.Width;
-                int mapH = map.PreferredSize.Height;
+                map.PerformLayout();
+                map.Update();
 
-                // Size the host to exactly the map — the scroll panel handles overflow
+                // Use the map's actual rendered Width/Height.
+                // Fall back to PreferredSize only if the control hasn't
+                // been shown yet (Width/Height still 0).
+                int mapW = map.Width > 10 ? map.Width : map.PreferredSize.Width;
+                int mapH = map.Height > 10 ? map.Height : map.PreferredSize.Height;
+
+                // Give the host enough room: seat map + 20 px margin on each side
                 _pnlMapHost.Size = new Size(mapW + 20, mapH + 20);
-                map.Location = new Point(10, 10);   // small padding inside the host
+                _pnlMapHost.MinimumSize = _pnlMapHost.Size;
+
+                // Also widen _pnlBody if the map is wider than 1100 px
+                int required = _pnlLeft.Width + _pnlRight.Width + mapW + 60;
+                if (required > _pnlBody.Width)
+                    _pnlBody.Width = required;
             }));
         }
 
@@ -894,7 +931,8 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
             btn.FlatAppearance.BorderSize = 2;
 
             _pendingNewSeat = seatLabel;
-            _lblNewSeatChosen.Text = $"✔  New seat selected:  {seatLabel}  ({seatClass})  on {flight.AircraftName}";
+            _lblNewSeatChosen.Text =
+                $"✔  New seat selected:  {seatLabel}  ({seatClass})  on {flight.AircraftName}";
             _lblNewSeatChosen.Visible = true;
 
             UpdateConfirmButton();
@@ -969,6 +1007,8 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
             _lblNewSeatChosen.Visible = false;
             _lblActionHint.Text = "Search a passenger, then pick a new seat on the map.";
 
+            // Reset body width to the default minimum
+            SizeBodyPanel();
             UpdateConfirmButton();
         }
 
@@ -984,6 +1024,7 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
         private void ClearMapHost()
         {
             _pnlMapHost.Controls.Clear();
+            _pnlMapHost.MinimumSize = Size.Empty;
             _pnlMapHost.Size = Size.Empty;
         }
 
@@ -998,7 +1039,7 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
             _lblInfoAircraft.Text = $"{p.AircraftName}  |  Gate {p.Gate}";
             _lblInfoCurrentSeat.Text = $"Seat:  {p.SeatLabel}";
             _lblInfoClass.Text = p.Departure == DateTime.MinValue
-                                       ? "" : $"{p.Departure:ddd MMM d  h:mm tt}";
+                                           ? "" : $"{p.Departure:ddd MMM d  h:mm tt}";
             _lblInfoSpecial.Text = BuildSpecialText(p);
 
             switch (p.SeatClass)
@@ -1171,7 +1212,7 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
         }
 
         // ═══════════════════════════════════════════════════════════
-        // AIRCRAFT RESOLVER
+        // AIRCRAFT UI RESOLVER
         // ═══════════════════════════════════════════════════════════
         private static UserControl ResolveAircraftUI(string model)
         {
@@ -1194,7 +1235,7 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
         }
 
         // ═══════════════════════════════════════════════════════════
-        // UI HELPERS
+        // HELPERS
         // ═══════════════════════════════════════════════════════════
         private TextBox MakeSearchBox(Point loc, int width, string placeholder)
         {
@@ -1240,9 +1281,9 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
         {
             var parts = new[]
             {
-                peanut ? "Peanut Allergy"     : null,
-                wchr   ? "Wheelchair"          : null,
-                umnr   ? "Unaccompanied Minor" : null
+                peanut ? "Peanut Allergy"      : null,
+                wchr   ? "Wheelchair"           : null,
+                umnr   ? "Unaccompanied Minor"  : null
             }.Where(f => f != null).ToArray();
             return parts.Length > 0 ? string.Join(", ", parts) : "None";
         }
@@ -1256,7 +1297,7 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
     }
 
     // ═══════════════════════════════════════════════════════════════
-    // DTOs
+    // DATA CLASSES
     // ═══════════════════════════════════════════════════════════════
     internal class PassengerSearchResult
     {

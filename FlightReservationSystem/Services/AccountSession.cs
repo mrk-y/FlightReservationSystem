@@ -146,6 +146,7 @@ namespace FlightReservationSystem.Services
             {
                 RAForm rAForm = new RAForm();
                 rAForm.Show();
+                LoginForm.HideForm();
             }
         }
         // << End of LoginAccount

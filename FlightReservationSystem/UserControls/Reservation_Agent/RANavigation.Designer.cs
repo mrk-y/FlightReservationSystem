@@ -134,7 +134,7 @@
             this.btnChangeSeats.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnChangeSeats.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnChangeSeats.ForeColor = System.Drawing.Color.White;
-            this.btnChangeSeats.Location = new System.Drawing.Point(1078, 0);
+            this.btnChangeSeats.Location = new System.Drawing.Point(1091, 0);
             this.btnChangeSeats.Margin = new System.Windows.Forms.Padding(8, 0, 24, 0);
             this.btnChangeSeats.Name = "btnChangeSeats";
             this.btnChangeSeats.Padding = new System.Windows.Forms.Padding(4);
@@ -156,7 +156,7 @@
             this.btnLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogout.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLogout.ForeColor = System.Drawing.Color.White;
-            this.btnLogout.Location = new System.Drawing.Point(1201, 0);
+            this.btnLogout.Location = new System.Drawing.Point(1191, 0);
             this.btnLogout.Margin = new System.Windows.Forms.Padding(8, 0, 0, 0);
             this.btnLogout.Name = "btnLogout";
             this.btnLogout.Padding = new System.Windows.Forms.Padding(4);
