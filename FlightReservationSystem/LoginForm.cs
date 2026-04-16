@@ -23,11 +23,16 @@ namespace FlightReservationSystem
         public static Label _lblUserID => Current.lblUserID; 
         public static Label _lblPassword => Current.lblPassword;
 
+        private static ErrorProvider _errorProvider1 => Current.errorProvider1;
+        private static TextBox _tbUserIDVal => Current.tbUserIDVal;
+        private static ErrorProvider _errorProvider2 => Current.errorProvider2;
+        private static TextBox _tbPasswordVal => Current.tbPasswordVal;
+
+
         public LoginForm()
         {
             InitializeComponent();
             InitData();
-            Console.WriteLine(UserManager.HashPassword("123456789"));
         }
 
         private void InitData()
@@ -46,10 +51,10 @@ namespace FlightReservationSystem
             PopulateErrorUI();
         }
 
-        private void PopulateErrorUI()
+        public static void PopulateErrorUI()
         {
-            ErrorManager.AddErrorUI(new ErrorUIRecord { Provider = errorProvider1, Target = lblUserID, Field = tbUserIDVal, DefaultValue = string.Empty });
-            ErrorManager.AddErrorUI(new ErrorUIRecord { Provider = errorProvider2, Target = lblPassword, Field = tbPasswordVal, DefaultValue = string.Empty });
+            ErrorManager.AddErrorUI(new ErrorUIRecord { Provider = _errorProvider1, Target = _lblUserID, Field = _tbUserIDVal, DefaultValue = string.Empty });
+            ErrorManager.AddErrorUI(new ErrorUIRecord { Provider = _errorProvider2, Target = _lblPassword, Field = _tbPasswordVal, DefaultValue = string.Empty });
         }
 
         private bool AreLoginFieldsValid(string userID, string password)
@@ -73,6 +78,11 @@ namespace FlightReservationSystem
         public static void HideForm()
         {
             Current.Hide();   
+        }
+
+        public static void ShowForm()
+        {
+            Current.Show();
         }
 
         private void Login_FormClosing(object sender, FormClosingEventArgs e)

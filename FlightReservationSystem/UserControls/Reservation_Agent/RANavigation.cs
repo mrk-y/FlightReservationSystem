@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FlightReservationSystem.Helpers;
+using FlightReservationSystem.Services;
+using System;
 using System.Windows.Forms;
 
 namespace FlightReservationSystem.UserControls.Reservation_Agent
@@ -109,6 +111,22 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
         {
             SetActiveButton(btnChangeSeats);
             OnNavigate?.Invoke("ChangeSeat");
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBoxHelper.ShowQuestionMessage("There is incomplete progress. Do you wish to proceed?");
+            if (result == DialogResult.Yes)
+            {
+                ErrorManager.ClearErrorCollection();
+                ErrorManager.ClearErrorUICollection();
+                AircraftManager.ClearCrewCollection();
+                AircraftManager.ClearAircraftCollection();
+
+                AccountSession.LogoutRAAccount();
+            }
+
+            return;
         }
     }
 }

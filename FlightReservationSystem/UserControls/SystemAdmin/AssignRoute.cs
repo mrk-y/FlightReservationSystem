@@ -40,7 +40,7 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             lblFlightIDVal.Text = TerminalManager.NewFlightID();
             lblFlightIDValCopy.Text = lblFlightIDVal.Text;
             dtpDepartureVal.Value = DateTime.Now.AddDays(1);
-            dtpArrivalVal.Value = DateTime.Now.AddDays(1);
+            dtpArrivalVal.Value = DateTime.Now.AddDays(1).AddMinutes(_minFlightMinutes);
         }
 
         private void InitUI()
@@ -54,8 +54,6 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             ErrorManager.AddErrorUI(new ErrorUIRecord { Provider = errorProvider1, Target = lblAircraft, Field = cmbAircraftVal, DefaultValue = 0 });
             ErrorManager.AddErrorUI(new ErrorUIRecord { Provider = errorProvider2, Target = lblTerminal, Field = cmbTerminalVal, DefaultValue = 0 });
             ErrorManager.AddErrorUI(new ErrorUIRecord { Provider = errorProvider3, Target = lblGate, Field = cmbGateVal, DefaultValue = 0 });
-            ErrorManager.AddErrorUI(new ErrorUIRecord { Provider = errorProvider4, Target = lblDeparture, Field = dtpDepartureVal, DefaultValue = DateTime.Now.AddDays(1) });
-            ErrorManager.AddErrorUI(new ErrorUIRecord { Provider = errorProvider5, Target = lblArrival, Field = dtpArrivalVal, DefaultValue = DateTime.Now.AddDays(1) });
             ErrorManager.AddErrorUI(new ErrorUIRecord { Provider = errorProvider6, Target = lblOrigin, Field = cmbOriginVal, DefaultValue = 0 });
             ErrorManager.AddErrorUI(new ErrorUIRecord { Provider = errorProvider7, Target = lblDestination, Field = cmbDestinationVal, DefaultValue = 0 });
         }
@@ -443,6 +441,7 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             totalMinutes += 60;
             int roundedMinutes = ((totalMinutes + 4) / 5) * 5;
             _minFlightMinutes = roundedMinutes;
+            dtpArrivalVal.Value = DateTime.Now.AddDays(1).AddMinutes(_minFlightMinutes);
             int hours = roundedMinutes / 60;
             int minutes = roundedMinutes % 60;
 

@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -113,20 +114,17 @@ namespace FlightReservationSystem.Services
 
         public static void PopulateReferencesForUser()
         {
-            int userTypeID = UserManager.GetUser.TypeID;
-
-            // if (userTypeID == 1)
-            // {
-                DataSeeder.PopulateAircraftModels();
-                DataSeeder.PopulateAirlines();
-                DataSeeder.PopulateAirports();
-                DataSeeder.PopulateSeatTypes();
-                DataSeeder.PopulateTerminals();
-            // }
+            DataSeeder.PopulateAircraftModels();
+            DataSeeder.PopulateAirlines();
+            DataSeeder.PopulateAirports();
+            DataSeeder.PopulateSeatTypes();
+            DataSeeder.PopulateTerminals();
         }
 
-        private static void LoginAccount() // TODO: Complete the RA part
+        private static void LoginAccount() 
         {
+            ErrorManager.ClearProviders();
+            ErrorManager.ClearFields();
             ErrorManager.ClearErrorCollection();
             ErrorManager.ClearErrorUICollection();
 
@@ -146,12 +144,30 @@ namespace FlightReservationSystem.Services
             }
             else if (userTypeID == 2)
             {
-                RAForm raForm = new RAForm();
-                raForm.Show();
-                LoginForm.HideForm();
+                RAForm rAForm = new RAForm();
+                rAForm.Show();
             }
         }
         // << End of LoginAccount
 
+        // >> Start of LogoutAccount
+        public static void LogoutSAAccount()
+        {
+            Session._user = null;
+
+            MainForm.CloseForm();
+            LoginForm.ShowForm();
+            LoginForm.PopulateErrorUI();
+        }
+
+        public static void LogoutRAAccount()
+        {
+            Session._user = null;
+
+            RAForm.CloseForm();
+            LoginForm.ShowForm();
+            LoginForm.PopulateErrorUI();
+        }
+        // << End of LogoutAccount
     }
 }
