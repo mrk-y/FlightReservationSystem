@@ -228,10 +228,12 @@
             this.txtAge.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtAge.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txtAge.Location = new System.Drawing.Point(196, 133);
+            this.txtAge.MaxLength = 3;
             this.txtAge.Name = "txtAge";
             this.txtAge.ReadOnly = true;
             this.txtAge.Size = new System.Drawing.Size(60, 25);
             this.txtAge.TabIndex = 11;
+            this.txtAge.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAge_KeyPress);
             // 
             // lblGender
             // 
@@ -276,6 +278,7 @@
             this.txtNationality.Name = "txtNationality";
             this.txtNationality.Size = new System.Drawing.Size(180, 25);
             this.txtNationality.TabIndex = 15;
+            this.txtNationality.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNationality_KeyPress);
             // 
             // lblIDType
             // 
@@ -326,6 +329,7 @@
             this.txtIDNumber.Name = "txtIDNumber";
             this.txtIDNumber.Size = new System.Drawing.Size(200, 25);
             this.txtIDNumber.TabIndex = 19;
+            this.txtIDNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtIDNumber_KeyPress);
             // 
             // lblPassportNumber
             // 
@@ -346,6 +350,7 @@
             this.txtPassportNumber.Name = "txtPassportNumber";
             this.txtPassportNumber.Size = new System.Drawing.Size(180, 25);
             this.txtPassportNumber.TabIndex = 21;
+            this.txtPassportNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPassportNumber_KeyPress);
             // 
             // lblPassportExpiry
             // 
@@ -403,6 +408,7 @@
             this.txtPhone.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtPhone.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txtPhone.Location = new System.Drawing.Point(258, 249);
+            this.txtPhone.MaxLength = 11;
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.Size = new System.Drawing.Size(180, 25);
             this.txtPhone.TabIndex = 27;

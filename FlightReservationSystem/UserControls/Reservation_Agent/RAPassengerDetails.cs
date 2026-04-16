@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 using FlightReservationSystem.Helpers;
 
 namespace FlightReservationSystem.UserControls.Reservation_Agent
@@ -205,6 +206,8 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
 
         public bool ValidatePassenger()
         {
+
+
             if (string.IsNullOrWhiteSpace(FirstName) || string.IsNullOrWhiteSpace(LastName) ||
                 string.IsNullOrWhiteSpace(Nationality) || string.IsNullOrWhiteSpace(IDNumber) ||
                 string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Phone))
@@ -221,6 +224,9 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
 
             if (Age < 2)
                 return ValidationError("Infant passengers (under 2) must be booked via special process.");
+
+            if (!Regex.IsMatch(Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+                return ValidationError("Please enter a valid email address (e.g., name@example.com).");
 
             if (chkUnaccompaniedMinor.Checked)
             {
@@ -256,6 +262,41 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
         private void chkUnaccompaniedMinor_CheckedChanged(object sender, EventArgs e)
         {
             // Empty method satisfies the Designer wire-up
+        }
+
+        private void txtAge_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true; 
+            }
+        }
+
+        private void txtNationality_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) &&
+                !char.IsLetter(e.KeyChar) &&
+                e.KeyChar != ' ')
+            {
+                e.Handled = true; 
+            }
+        }
+
+        private void txtIDNumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true; 
+            }
+        }
+
+        private void txtPassportNumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) &&
+                !char.IsLetterOrDigit(e.KeyChar))
+            {
+                e.Handled = true; 
+            }
         }
     }
 }
