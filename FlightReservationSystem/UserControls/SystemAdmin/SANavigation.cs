@@ -29,6 +29,7 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             btnAddAircraft.Tag = "AddAircraft";
             btnAssignCrews.Tag = "AssignCrews";
             btnAssignRoute.Tag = "AssignRoute";
+            btnAccounts.Tag = "Accounts";
         }
 
         private void btnAddAircraft_Click(object sender, EventArgs e)
@@ -108,6 +109,32 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             AircraftManager.ClearAircraftCollection();
 
             MainForm.Init(new AssignRoute());
+        }
+
+        private void btnAccounts_Click(object sender, EventArgs e)
+        {
+            if (ErrorManager.HasUncompleteProgress())
+            {
+                DialogResult result = MessageBoxHelper.ShowQuestionMessage("There is incomplete progress. Do you wish to proceed?");
+                if (result == DialogResult.Yes)
+                {
+                    ErrorManager.ClearErrorCollection();
+                    ErrorManager.ClearErrorUICollection();
+                    AircraftManager.ClearCrewCollection();
+                    AircraftManager.ClearAircraftCollection();
+
+                    MainForm.Init(new Accounts());
+                }
+
+                return;
+            }
+
+            ErrorManager.ClearErrorCollection();
+            ErrorManager.ClearErrorUICollection();
+            AircraftManager.ClearCrewCollection();
+            AircraftManager.ClearAircraftCollection();
+
+            MainForm.Init(new Accounts());
         }
     }
 }
