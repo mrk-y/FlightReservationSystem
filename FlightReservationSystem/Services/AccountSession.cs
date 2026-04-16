@@ -38,6 +38,7 @@ namespace FlightReservationSystem.Services
             string prefix = userID.Substring(0, 2);
             string uCode = userID.Substring(3, 4);
 
+
             using (SqlConnection con = DatabaseConnection.Get())
             {
                 try
@@ -139,6 +140,10 @@ namespace FlightReservationSystem.Services
                 SANavigation saNavigation = new SANavigation();
 
                 MainForm.Init(addAircraft, saNavigation);
+
+                // Ensure logout button in main form header is visible
+                MainForm.SetLogoutVisible(true);
+
                 mainForm.Show();
                 LoginForm.HideForm();
             }

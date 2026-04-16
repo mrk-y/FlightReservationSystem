@@ -146,6 +146,8 @@ namespace FlightReservationSystem
 
             if (!AreLoginFieldsValid(userID, password)) return;
             AccountSession.AuthenticateLogin(userID, password);
+
+            // Logout visibility is handled by MainForm when the main form is shown
         }
     }
 }

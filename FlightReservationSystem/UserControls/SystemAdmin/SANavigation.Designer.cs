@@ -31,6 +31,7 @@
             this.btnAddAircraft = new System.Windows.Forms.Button();
             this.btnAssignRoute = new System.Windows.Forms.Button();
             this.btnAssignCrews = new System.Windows.Forms.Button();
+            this.btnAccounts = new System.Windows.Forms.Button();
             this.btnLogout = new System.Windows.Forms.Button();
             this.btnStatistics = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -47,10 +48,10 @@
             this.btnAddAircraft.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddAircraft.ForeColor = System.Drawing.Color.White;
             this.btnAddAircraft.Location = new System.Drawing.Point(0, 0);
-            this.btnAddAircraft.Margin = new System.Windows.Forms.Padding(0, 0, 8, 0);
+            this.btnAddAircraft.Margin = new System.Windows.Forms.Padding(0, 0, 11, 0);
             this.btnAddAircraft.Name = "btnAddAircraft";
-            this.btnAddAircraft.Padding = new System.Windows.Forms.Padding(4);
-            this.btnAddAircraft.Size = new System.Drawing.Size(89, 33);
+            this.btnAddAircraft.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.btnAddAircraft.Size = new System.Drawing.Size(112, 40);
             this.btnAddAircraft.TabIndex = 0;
             this.btnAddAircraft.Tag = "";
             this.btnAddAircraft.Text = "Add Aircraft";
@@ -68,11 +69,11 @@
             this.btnAssignRoute.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAssignRoute.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAssignRoute.ForeColor = System.Drawing.Color.White;
-            this.btnAssignRoute.Location = new System.Drawing.Point(199, 0);
-            this.btnAssignRoute.Margin = new System.Windows.Forms.Padding(0, 0, 8, 0);
+            this.btnAssignRoute.Location = new System.Drawing.Point(265, 0);
+            this.btnAssignRoute.Margin = new System.Windows.Forms.Padding(0, 0, 11, 0);
             this.btnAssignRoute.Name = "btnAssignRoute";
-            this.btnAssignRoute.Padding = new System.Windows.Forms.Padding(4);
-            this.btnAssignRoute.Size = new System.Drawing.Size(94, 33);
+            this.btnAssignRoute.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.btnAssignRoute.Size = new System.Drawing.Size(117, 40);
             this.btnAssignRoute.TabIndex = 1;
             this.btnAssignRoute.Tag = "";
             this.btnAssignRoute.Text = "Assign Route";
@@ -90,16 +91,38 @@
             this.btnAssignCrews.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAssignCrews.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAssignCrews.ForeColor = System.Drawing.Color.White;
-            this.btnAssignCrews.Location = new System.Drawing.Point(97, 0);
-            this.btnAssignCrews.Margin = new System.Windows.Forms.Padding(0, 0, 8, 0);
+            this.btnAssignCrews.Location = new System.Drawing.Point(129, 0);
+            this.btnAssignCrews.Margin = new System.Windows.Forms.Padding(0, 0, 11, 0);
             this.btnAssignCrews.Name = "btnAssignCrews";
-            this.btnAssignCrews.Padding = new System.Windows.Forms.Padding(4);
-            this.btnAssignCrews.Size = new System.Drawing.Size(94, 33);
+            this.btnAssignCrews.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.btnAssignCrews.Size = new System.Drawing.Size(117, 40);
             this.btnAssignCrews.TabIndex = 2;
             this.btnAssignCrews.Tag = "";
             this.btnAssignCrews.Text = "Assign Crews";
             this.btnAssignCrews.UseVisualStyleBackColor = false;
             this.btnAssignCrews.Click += new System.EventHandler(this.btnAssignCrews_Click);
+            // 
+            // btnAccounts
+            // 
+            this.btnAccounts.AutoSize = true;
+            this.btnAccounts.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnAccounts.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
+            this.btnAccounts.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAccounts.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
+            this.btnAccounts.FlatAppearance.BorderSize = 0;
+            this.btnAccounts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAccounts.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAccounts.ForeColor = System.Drawing.Color.White;
+            this.btnAccounts.Location = new System.Drawing.Point(400, 0);
+            this.btnAccounts.Margin = new System.Windows.Forms.Padding(0, 0, 11, 0);
+            this.btnAccounts.Name = "btnAccounts";
+            this.btnAccounts.Padding = new System.Windows.Forms.Padding(5);
+            this.btnAccounts.Size = new System.Drawing.Size(91, 40);
+            this.btnAccounts.TabIndex = 3;
+            this.btnAccounts.Tag = "";
+            this.btnAccounts.Text = "Accounts";
+            this.btnAccounts.UseVisualStyleBackColor = false;
+            this.btnAccounts.Click += new System.EventHandler(this.btnAccounts_Click);
             // 
             // btnLogout
             // 
@@ -147,19 +170,21 @@
             // 
             // SANavigation
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.btnAccounts);
             this.Controls.Add(this.btnStatistics);
             this.Controls.Add(this.btnLogout);
             this.Controls.Add(this.btnAssignCrews);
             this.Controls.Add(this.btnAssignRoute);
             this.Controls.Add(this.btnAddAircraft);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "SANavigation";
-            this.Size = new System.Drawing.Size(1264, 33);
+            this.Size = new System.Drawing.Size(1685, 47);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -170,6 +195,7 @@
         private System.Windows.Forms.Button btnAddAircraft;
         private System.Windows.Forms.Button btnAssignRoute;
         private System.Windows.Forms.Button btnAssignCrews;
+        private System.Windows.Forms.Button btnAccounts;
         private System.Windows.Forms.Button btnLogout;
         private System.Windows.Forms.Button btnStatistics;
     }

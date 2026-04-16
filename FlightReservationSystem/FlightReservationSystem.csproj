@@ -355,6 +355,12 @@
     <Compile Include="UserControls\Header.Designer.cs">
       <DependentUpon>Header.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\SystemAdmin\Accounts.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\SystemAdmin\Accounts.Designer.cs">
+      <DependentUpon>Accounts.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Reservation_Agent\Bookingrepository.cs" />
     <Compile Include="UserControls\Reservation_Agent\RAChangeSeat.cs">
       <SubType>UserControl</SubType>
@@ -485,6 +491,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\Header.resx">
       <DependentUpon>Header.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\SystemAdmin\Accounts.resx">
+      <DependentUpon>Accounts.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\Reservation_Agent\RAChangeSeat.resx">
       <DependentUpon>RAChangeSeat.cs</DependentUpon>
