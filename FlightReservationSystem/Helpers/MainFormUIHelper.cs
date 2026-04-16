@@ -3,6 +3,7 @@ using FlightReservationSystem.Debugging;
 using FlightReservationSystem.UserControls.SystemAdmin;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,8 +51,8 @@ namespace FlightReservationSystem.Helpers
                 {
                     if (tag == content.Name)
                     {
-                        btn.BackColor = ThemeColors.Secondary;
-                        btn.ForeColor = ThemeColors.Primary;
+                        btn.BackColor = Color.DarkOrange;
+                        btn.ForeColor = Color.White;
                     }
                     else
                     {

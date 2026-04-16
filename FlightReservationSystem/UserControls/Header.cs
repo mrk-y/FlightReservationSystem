@@ -19,32 +19,6 @@ namespace FlightReservationSystem.UserControls
             InitializeComponent();
         }
 
-        public bool LogoutVisible
-        {
-            get => pboLogout.Visible;
-            set => pboLogout.Visible = value;
-        }
-
-        private void pboLogout_Click(object sender, EventArgs e)
-        {
-
-            DialogResult result = MessageBoxHelper.ShowQuestionMessage("Are you sure you would like to log out?");
-
-            if (result == DialogResult.Yes)
-            {
-                // Show login form
-                LoginForm login = new LoginForm();
-                login.Show();
-
-                // Hide the parent form that contains this control (e.g., MainForm)
-                Form parent = this.FindForm();
-                if (parent != null)
-                {
-                    parent.Hide();
-                }
-            }
-        }
-
         private void Header_Load(object sender, EventArgs e)
         {
 

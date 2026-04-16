@@ -31,18 +31,6 @@ namespace FlightReservationSystem
             InitData();
         }
 
-        public static void SetLogoutVisible(bool visible)
-        {
-            if (Current == null) return;
-            try
-            {
-                Current.header1.LogoutVisible = visible;
-            }
-            catch
-            {
-                // ignore if header not available
-            }
-        }
 
         public static void Init(UserControl content, UserControl navigation = null)
         {

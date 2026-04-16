@@ -122,12 +122,12 @@ namespace FlightReservationSystem
             {
                 if (visible)
                 {
-                    tbPasswordVal.PasswordChar = '*';
+                    tbPasswordVal.UseSystemPasswordChar = true;
                     picVisibility.Image = Properties.Resources.EyeOpen;
                 }
                 else
                 {
-                    tbPasswordVal.PasswordChar = '\0';
+                    tbPasswordVal.UseSystemPasswordChar = false;
                     picVisibility.Image = Properties.Resources.EyeClosed;
                 }
 

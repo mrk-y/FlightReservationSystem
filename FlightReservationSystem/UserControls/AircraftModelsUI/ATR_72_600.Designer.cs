@@ -571,9 +571,9 @@
             // 
             // btnPassWNuatAller
             // 
-            this.btnPassWNuatAller.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.btnPassWNuatAller.BackColor = System.Drawing.Color.GreenYellow;
             this.btnPassWNuatAller.Enabled = false;
-            this.btnPassWNuatAller.FlatAppearance.BorderColor = System.Drawing.Color.DeepSkyBlue;
+            this.btnPassWNuatAller.FlatAppearance.BorderColor = System.Drawing.Color.GreenYellow;
             this.btnPassWNuatAller.FlatAppearance.BorderSize = 2;
             this.btnPassWNuatAller.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPassWNuatAller.Location = new System.Drawing.Point(316, 12);
@@ -586,9 +586,9 @@
             // 
             // btnUnaccomMinor
             // 
-            this.btnUnaccomMinor.BackColor = System.Drawing.Color.GreenYellow;
+            this.btnUnaccomMinor.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.btnUnaccomMinor.Enabled = false;
-            this.btnUnaccomMinor.FlatAppearance.BorderColor = System.Drawing.Color.GreenYellow;
+            this.btnUnaccomMinor.FlatAppearance.BorderColor = System.Drawing.Color.DeepSkyBlue;
             this.btnUnaccomMinor.FlatAppearance.BorderSize = 2;
             this.btnUnaccomMinor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUnaccomMinor.Location = new System.Drawing.Point(509, 12);

@@ -27,6 +27,11 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
         {
             InitializeComponent();
             this.Load += Accounts_Load;
+
+            tbPasswordVal.Tag = false;
+            tbOldPasswordVal.Tag = false;
+            tbConfirmPasswordVal.Tag = false;
+            tbNewPasswordVal.Tag = false;
         }
 
         private void BtnDeleteUser_Click(object sender, EventArgs e)
@@ -604,6 +609,13 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             // disable edit panel whenever selection changes
             try { panel3.Enabled = false;
                 tbEditNameVal.Clear();
+                panel5.Enabled = false;
+                tbOldPasswordVal.Clear();
+                tbNewPasswordVal.Clear();
+                tbConfirmPasswordVal.Clear();
+                tbNameVal.Clear();
+                tbPasswordVal.Clear();
+                cmbTypeVal.SelectedIndex = 0;
             } catch { }
             // clear any previous edit errors
             try { editNameErrorProvider.SetError(tbEditNameVal, string.Empty); } catch { }
@@ -746,15 +758,100 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             }
         }
 
+        private void btnChangePassword_Click_1(object sender, EventArgs e)
+        {
+            panel5.Enabled = true;
+        }
+
         private void Accounts_ParentChanged(object sender, EventArgs e)
         {
             // Change navigation UI based on content
             MainFormUIHelper.UpdateNavigationState(this);
         }
 
-        private void btnChangePassword_Click_1(object sender, EventArgs e)
+        private void pboPasswordPeek_Click(object sender, EventArgs e)
         {
-            panel5.Enabled = true;
+            // Toggle password visibility
+            if (tbPasswordVal.Tag is bool visible)
+            {
+                if (visible)
+                {
+                    tbPasswordVal.UseSystemPasswordChar = true;
+                    pboPasswordPeek.Image = Properties.Resources.EyeOpen;
+                }
+                else
+                {
+                    tbPasswordVal.UseSystemPasswordChar = false;
+                    pboPasswordPeek.Image = Properties.Resources.EyeClosed;
+                }
+
+                tbPasswordVal.Tag = !visible;
+            }
+        }
+
+        private void pboOldPeek_Click(object sender, EventArgs e)
+        {
+            // Toggle password visibility
+            if (tbOldPasswordVal.Tag is bool visible)
+            {
+                if (visible)
+                {
+                    tbOldPasswordVal.UseSystemPasswordChar = true;
+                    pboOldPeek.Image = Properties.Resources.EyeOpen;
+                }
+                else
+                {
+                    tbOldPasswordVal.UseSystemPasswordChar = false;
+                    pboOldPeek.Image = Properties.Resources.EyeClosed;
+                }
+
+                tbOldPasswordVal.Tag = !visible;
+            }
+        }
+
+        private void pboNewPeek_Click(object sender, EventArgs e)
+        {
+            // Toggle password visibility
+            if (tbNewPasswordVal.Tag is bool visible)
+            {
+                if (visible)
+                {
+                    tbNewPasswordVal.UseSystemPasswordChar = true;
+                    pboNewPeek.Image = Properties.Resources.EyeOpen;
+                }
+                else
+                {
+                    tbNewPasswordVal.UseSystemPasswordChar = false;
+                    pboNewPeek.Image = Properties.Resources.EyeClosed;
+                }
+
+                tbNewPasswordVal.Tag = !visible;
+            }
+        }
+
+        private void pboConfirmPeek_Click(object sender, EventArgs e)
+        {
+            // Toggle password visibility
+            if (tbConfirmPasswordVal.Tag is bool visible)
+            {
+                if (visible)
+                {
+                    tbConfirmPasswordVal.UseSystemPasswordChar = true;
+                    pboConfirmPeek.Image = Properties.Resources.EyeOpen;
+                }
+                else
+                {
+                    tbConfirmPasswordVal.UseSystemPasswordChar = false;
+                    pboConfirmPeek.Image = Properties.Resources.EyeClosed;
+                }
+
+                tbConfirmPasswordVal.Tag = !visible;
+            }
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

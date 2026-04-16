@@ -124,9 +124,9 @@
             this.tbPasswordVal.Margin = new System.Windows.Forms.Padding(0, 8, 0, 0);
             this.tbPasswordVal.MaxLength = 20;
             this.tbPasswordVal.Name = "tbPasswordVal";
-            this.tbPasswordVal.PasswordChar = '*';
             this.tbPasswordVal.Size = new System.Drawing.Size(240, 27);
             this.tbPasswordVal.TabIndex = 2;
+            this.tbPasswordVal.UseSystemPasswordChar = true;
             this.tbPasswordVal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbPassword_KeyPress);
             // 
             // lblUserID
@@ -196,7 +196,7 @@
             this.pnlHeader.Size = new System.Drawing.Size(1264, 50);
             this.pnlHeader.TabIndex = 2;
             // 
-            // Login
+            // LoginForm
             // 
             this.AcceptButton = this.btnLogin;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -205,7 +205,7 @@
             this.ClientSize = new System.Drawing.Size(1264, 681);
             this.Controls.Add(this.header1);
             this.Controls.Add(this.pnlLogin);
-            this.Name = "Login";
+            this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Login_FormClosing);

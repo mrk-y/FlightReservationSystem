@@ -141,9 +141,6 @@ namespace FlightReservationSystem.Services
 
                 MainForm.Init(addAircraft, saNavigation);
 
-                // Ensure logout button in main form header is visible
-                MainForm.SetLogoutVisible(true);
-
                 mainForm.Show();
                 LoginForm.HideForm();
             }
