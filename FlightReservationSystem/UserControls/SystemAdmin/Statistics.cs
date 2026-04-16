@@ -194,5 +194,11 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
                 }
             }
         }
+
+        private void Statistics_ParentChanged(object sender, EventArgs e)
+        {
+            // Change navigation UI based on content
+            MainFormUIHelper.UpdateNavigationState(this);
+        }
     }
 }

@@ -30,6 +30,8 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             btnAddAircraft.Tag = "AddAircraft";
             btnAssignCrews.Tag = "AssignCrews";
             btnAssignRoute.Tag = "AssignRoute";
+            btnStatistics.Tag = "Statistics";
+            btnLogout.Tag = "Logout";
         }
 
         private void btnAddAircraft_Click(object sender, EventArgs e)
@@ -139,28 +141,18 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
 
         private void btnLogout_Click(object sender, EventArgs e)
         {
-            if (ErrorManager.HasUncompleteProgress())
+            DialogResult result = MessageBoxHelper.ShowQuestionMessage("There is incomplete progress. Do you wish to proceed?");
+            if (result == DialogResult.Yes)
             {
-                DialogResult result = MessageBoxHelper.ShowQuestionMessage("There is incomplete progress. Do you wish to proceed?");
-                if (result == DialogResult.Yes)
-                {
-                    ErrorManager.ClearErrorCollection();
-                    ErrorManager.ClearErrorUICollection();
-                    AircraftManager.ClearCrewCollection();
-                    AircraftManager.ClearAircraftCollection();
+                ErrorManager.ClearErrorCollection();
+                ErrorManager.ClearErrorUICollection();
+                AircraftManager.ClearCrewCollection();
+                AircraftManager.ClearAircraftCollection();
 
-                    AccountSession.LogoutSAAccount();
-                }
-
-                return;
+                AccountSession.LogoutSAAccount();
             }
 
-            ErrorManager.ClearErrorCollection();
-            ErrorManager.ClearErrorUICollection();
-            AircraftManager.ClearCrewCollection();
-            AircraftManager.ClearAircraftCollection();
-
-            AccountSession.LogoutSAAccount();
+            return;
         }
     }
 }
