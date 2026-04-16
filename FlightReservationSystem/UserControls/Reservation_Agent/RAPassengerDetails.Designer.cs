@@ -406,6 +406,7 @@
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.Size = new System.Drawing.Size(180, 25);
             this.txtPhone.TabIndex = 27;
+            this.txtPhone.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.FilterNumeric);
             // 
             // lblSeatClass
             // 

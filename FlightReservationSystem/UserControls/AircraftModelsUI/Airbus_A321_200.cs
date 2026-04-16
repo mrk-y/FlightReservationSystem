@@ -52,6 +52,9 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
             btnWheelPass.FlatAppearance.BorderColor = WheelchairBorder;
         }
 
+        // ═════════════════════════════════════════════════════════════════════
+        // ISeatMap
+        // ═════════════════════════════════════════════════════════════════════
 
         public Dictionary<int, string> LoadPassengers(List<RAPassengerDetails> passengers)
         {
@@ -75,6 +78,10 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
             StampAllPanels();
             ApplySavedPassengersToMap();
         }
+
+        // ═════════════════════════════════════════════════════════════════════
+        // Saved passengers
+        // ═════════════════════════════════════════════════════════════════════
 
         private void ApplySavedPassengersToMap()
         {
@@ -103,6 +110,9 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
             }
         }
 
+        // ═════════════════════════════════════════════════════════════════════
+        // Status bar
+        // ═════════════════════════════════════════════════════════════════════
 
         private void BuildStatusBar()
         {
@@ -136,7 +146,7 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
             var p = _queue[_queueIndex];
             _statusLabel.Text =
                 $"Selecting seat for  Passenger {p.PassengerNumber}: " +
-                $"{p.LastName}, {p.FirstName}  ·  {SeatHint(p)}";
+                $"{p.LastName}, {p.FirstName}  ·  {p.SeatClass}  ·  {SeatHint(p)}";
         }
 
         private static string SeatHint(RAPassengerDetails p)
@@ -146,6 +156,10 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
             if (p.IsUnaccompaniedMinor) return "UMNR — click a DeepSkyBlue seat";
             return "REG — click any standard seat";
         }
+
+        // ═════════════════════════════════════════════════════════════════════
+        // Wiring
+        // ═════════════════════════════════════════════════════════════════════
 
         private void WireAllCabinButtons()
         {
@@ -161,11 +175,15 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
             }
         }
 
+        // ═════════════════════════════════════════════════════════════════════
+        // Seat click
+        // ═════════════════════════════════════════════════════════════════════
+
         private void Seat_Click(object sender, EventArgs e)
         {
             if (!(sender is Button btn)) return;
 
-            // Occupied by DB passenger → popup only
+            // ── Already occupied by a saved (DB) passenger → info popup ───────
             if (btn.Tag is SavedPassengerInfo sp)
             {
                 ShowPopup(
@@ -176,7 +194,7 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
                 return;
             }
 
-            // Occupied by a new passenger → popup only
+            // ── Already occupied by a new passenger → info popup ──────────────
             if (btn.Tag is RAPassengerDetails rp)
             {
                 ShowPopup(
@@ -188,19 +206,24 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
                 return;
             }
 
-            // Free seat → validate and assign
+            // ── No passenger in queue ─────────────────────────────────────────
             if (_queue == null || _queueIndex >= _queue.Count) return;
 
             RAPassengerDetails current = _queue[_queueIndex];
             string seatLabel = btn.Tag?.ToString() ?? btn.Text;
             SeatKind kind = DetectSeatKind(btn);
 
-            if (kind == SeatKind.Exit)
+            // ── Enforce seat CLASS (Economy / Comfort / Business) ─────────────
+            string clickedClass = ResolveSeatClassFromButton(btn);
+            if (!string.Equals(clickedClass, current.SeatClass, StringComparison.OrdinalIgnoreCase))
             {
-                Warn("This is an emergency exit row seat and cannot be assigned to any passenger.");
+                Warn($"Passenger {current.PassengerNumber} has a {current.SeatClass} ticket.\n\n" +
+                     $"The selected seat belongs to the {clickedClass} cabin.\n\n" +
+                     $"Please click a seat inside the {current.SeatClass} section.");
                 return;
             }
 
+            // ── Enforce special-request rules ─────────────────────────────────
             if (!ValidateSeat(current, kind, out string reason))
             {
                 Warn(reason);
@@ -221,10 +244,48 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
             _assignments[current.PassengerNumber] = seatLabel;
             _queueIndex++;
             UpdateStatus();
-
-            // ── Notify RAForm that a seat was just assigned ───────────────────
             OnSeatAssigned?.Invoke();
         }
+
+        // ═════════════════════════════════════════════════════════════════════
+        // Resolve which cabin class a button belongs to
+        // ═════════════════════════════════════════════════════════════════════
+
+        private string ResolveSeatClassFromButton(Button btn)
+        {
+            Control parent = btn.Parent;
+            while (parent != null && !(parent is Panel))
+                parent = parent.Parent;
+
+            if (parent == null) return "Economy";
+
+            var panel = (Panel)parent;
+
+            switch (panel.Name)
+            {
+                case "panel2": return "Business";
+                case "panel1": return "Comfort";
+                case "panel3": return "Economy";
+            }
+
+            var panels = this.Controls
+                .OfType<Panel>()
+                .Where(p => p.Controls.OfType<Button>().Any())
+                .OrderBy(p => p.Controls.OfType<Button>().Count())
+                .ToList();
+
+            int idx = panels.IndexOf(panel);
+            switch (idx)
+            {
+                case 0: return "Business";
+                case 1: return "Comfort";
+                default: return "Economy";
+            }
+        }
+
+        // ═════════════════════════════════════════════════════════════════════
+        // Seat kind detection
+        // ═════════════════════════════════════════════════════════════════════
 
         private enum SeatKind { Regular, Exit, Wheelchair, PeanutAllergy, UMNR }
 
@@ -246,13 +307,27 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
             && Math.Abs(a.B - b.B) < 12;
 
         // ═════════════════════════════════════════════════════════════════════
-        // Validation
+        // Special-request validation
         // ═════════════════════════════════════════════════════════════════════
 
         private static bool ValidateSeat(RAPassengerDetails p, SeatKind kind, out string reason)
         {
             reason = "";
 
+            // ── Exit row: only regular passengers allowed ──────────────────────
+            if (kind == SeatKind.Exit)
+            {
+                if (p.NeedsWheelchair)
+                { reason = "Wheelchair passengers cannot be seated in an emergency exit row."; return false; }
+                if (p.HasPeanutAllergy)
+                { reason = "Passengers with peanut allergies cannot be seated in an emergency exit row."; return false; }
+                if (p.IsUnaccompaniedMinor)
+                { reason = "Unaccompanied minors cannot be seated in an emergency exit row."; return false; }
+
+                return true; // Regular passenger — allowed
+            }
+
+            // ── Special-needs passengers must use their designated seats ────────
             if (p.NeedsWheelchair)
             {
                 if (kind != SeatKind.Wheelchair)
@@ -272,6 +347,7 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
                 return true;
             }
 
+            // ── Regular passengers cannot use special-designated seats ──────────
             if (kind == SeatKind.Wheelchair)
             { reason = "This aisle seat is reserved for wheelchair passengers only."; return false; }
             if (kind == SeatKind.PeanutAllergy)
@@ -290,6 +366,11 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
         {
             switch (kind)
             {
+                case SeatKind.Exit:
+                    btn.BackColor = Color.FromArgb(198, 239, 206);
+                    btn.FlatAppearance.BorderColor = Color.FromArgb(70, 170, 90);
+                    btn.FlatAppearance.BorderSize = 2;
+                    break;
                 case SeatKind.Wheelchair:
                     btn.BackColor = Color.FromArgb(180, 215, 255);
                     btn.FlatAppearance.BorderColor = WheelchairBorder;
@@ -418,6 +499,10 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
                 }
             }
         }
+
+        // ═════════════════════════════════════════════════════════════════════
+        // Helpers
+        // ═════════════════════════════════════════════════════════════════════
 
         private static string TypeCode(RAPassengerDetails p)
         {

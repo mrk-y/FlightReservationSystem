@@ -54,9 +54,8 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
         private Button _btnSearch;
         private Button _btnClear;
 
-        // Outer horizontal-scroll wrapper + manually-sized inner body
-        private Panel _pnlScrollOuter;   // Dock=Fill, AutoScroll=true
-        private Panel _pnlBody;          // Dock=None, sized manually
+        private Panel _pnlScrollOuter;
+        private Panel _pnlBody;
 
         private Panel _pnlLeft;
         private Panel _pnlCenter;
@@ -103,11 +102,10 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
         // ═══════════════════════════════════════════════════════════
         private void BuildUI()
         {
-            // Dock order: Bottom first, then Top, then Fill
-            BuildStatusBanner();   // Top  (height 0 initially)
-            BuildActionBar();      // Bottom
-            BuildSearchBar();      // Top
-            BuildScrollBody();     // Fill
+            BuildStatusBanner();
+            BuildActionBar();
+            BuildSearchBar();
+            BuildScrollBody();
         }
 
         // ── Status banner ──────────────────────────────────────────
@@ -279,7 +277,6 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
         // ── Scroll body ────────────────────────────────────────────
         private void BuildScrollBody()
         {
-            // ── Outer wrapper: provides BOTH horizontal and vertical scroll ──
             _pnlScrollOuter = new Panel
             {
                 Dock = DockStyle.Fill,
@@ -287,8 +284,6 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
                 BackColor = PanelLight
             };
 
-            // ── Inner body: Dock=None so MinimumSize is respected ──
-            //    We size it manually to max(1100, clientWidth) × clientHeight
             _pnlBody = new Panel
             {
                 Dock = DockStyle.None,
@@ -296,11 +291,9 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
                 BackColor = PanelLight
             };
 
-            // Keep _pnlBody sized correctly whenever the outer panel resizes
             _pnlScrollOuter.Resize += (s, e) => SizeBodyPanel();
             _pnlScrollOuter.HandleCreated += (s, e) => SizeBodyPanel();
 
-            // ── Three columns ──────────────────────────────────────
             _pnlRight = new Panel
             {
                 Dock = DockStyle.Right,
@@ -326,12 +319,11 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
             {
                 Dock = DockStyle.Fill,
                 BackColor = PanelLight,
-                AutoScroll = false,                 // ← no nested scroll; outer handles it
-                Padding = new Padding(20, 110, 20, 14)
+                AutoScroll = false,
+                Padding = new Padding(20, 110, 20, 70)
             };
             BuildCenterArea(_pnlCenter);
 
-            // CRITICAL: Fill must be added last
             _pnlBody.Controls.Add(_pnlCenter);
             _pnlBody.Controls.Add(divR);
             _pnlBody.Controls.Add(_pnlRight);
@@ -342,7 +334,6 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
             this.Controls.Add(_pnlScrollOuter);
         }
 
-        // Size _pnlBody so it fills the visible area but never shrinks below 1100 wide
         private void SizeBodyPanel()
         {
             if (_pnlScrollOuter == null || _pnlBody == null) return;
@@ -466,30 +457,29 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
             _lstFlights.SelectedIndexChanged += LstFlights_SelectedIndexChanged;
             _lstFlightsPanel.Controls.Add(_lstFlights);
 
-            // ── Map host: sized explicitly after the map loads ──
             _pnlMapHost = new Panel
             {
                 Dock = DockStyle.None,
                 Location = new Point(0, 0),
                 BackColor = PanelLight,
-                AutoSize = false
+                AutoSize = false,
+                
             };
 
-            // Scrollable wrapper that shows the full seat map
             var pnlMapScroll = new Panel
             {
                 Dock = DockStyle.Fill,
-                AutoScroll = true,               // ← vertical scroll for tall maps
-                BackColor = PanelLight
+                AutoScroll = true,
+                BackColor = PanelLight,
+                Padding = new Padding(0, 0, 0, 0)
             };
             pnlMapScroll.Controls.Add(_pnlMapHost);
 
-            // Add controls bottom-up (Fill last)
-            host.Controls.Add(pnlMapScroll);        // Fill
-            host.Controls.Add(_lstFlightsPanel);    // Top
-            host.Controls.Add(_lblNewSeatChosen);   // Top
-            host.Controls.Add(_lblMapHint);         // Top
-            host.Controls.Add(pnlTitleRow);         // Top
+            host.Controls.Add(pnlMapScroll);
+            host.Controls.Add(_lstFlightsPanel);
+            host.Controls.Add(_lblNewSeatChosen);
+            host.Controls.Add(_lblMapHint);
+            host.Controls.Add(pnlTitleRow);
         }
 
         // ── Flight dropdown ────────────────────────────────────────
@@ -834,37 +824,30 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
                 WireSeatButtonsRecursive(map, map, flight);
             }
 
-            // ── Key fix: do NOT use AutoSize or Dock on the map ──
             map.Dock = DockStyle.None;
             map.AutoSize = false;
             map.Location = new Point(10, 10);
 
             _pnlMapHost.Controls.Add(map);
 
-            // Force the map to lay itself out at its designed size,
-            // then size the host to wrap it exactly.
             this.BeginInvoke((Action)(() =>
             {
                 map.PerformLayout();
                 map.Update();
 
-                // Use the map's actual rendered Width/Height.
-                // Fall back to PreferredSize only if the control hasn't
-                // been shown yet (Width/Height still 0).
                 int mapW = map.Width > 10 ? map.Width : map.PreferredSize.Width;
                 int mapH = map.Height > 10 ? map.Height : map.PreferredSize.Height;
 
-                // Give the host enough room: seat map + 20 px margin on each side
                 _pnlMapHost.Size = new Size(mapW + 20, mapH + 20);
                 _pnlMapHost.MinimumSize = _pnlMapHost.Size;
 
-                // Also widen _pnlBody if the map is wider than 1100 px
                 int required = _pnlLeft.Width + _pnlRight.Width + mapW + 60;
                 if (required > _pnlBody.Width)
                     _pnlBody.Width = required;
             }));
         }
 
+        // ── FIX 1: Always recurse into every child, not just non-Button ones ──
         private void WireSeatButtonsRecursive(Control parent,
             UserControl map, FlightSearchResult flight)
         {
@@ -875,7 +858,8 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
                     Button cap = btn;
                     cap.Click += (s, e) => SeatMap_SeatClicked(cap, map, flight);
                 }
-                else WireSeatButtonsRecursive(c, map, flight);
+                // Always recurse — buttons may be nested inside sub-panels
+                WireSeatButtonsRecursive(c, map, flight);
             }
         }
 
@@ -1007,7 +991,6 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
             _lblNewSeatChosen.Visible = false;
             _lblActionHint.Text = "Search a passenger, then pick a new seat on the map.";
 
-            // Reset body width to the default minimum
             SizeBodyPanel();
             UpdateConfirmButton();
         }
@@ -1176,32 +1159,58 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
         }
 
         // ═══════════════════════════════════════════════════════════
-        // SEAT CLASS DETECTION
+        // FIX 2: SEAT CLASS DETECTION — walk up parent chain first,
+        //        then fall back to recursive descendant-button count
         // ═══════════════════════════════════════════════════════════
         private static string DetectSeatClass(Button btn, UserControl map)
         {
-            foreach (Control c in map.Controls)
+            // Walk up the button's own parent chain looking for a named cabin panel
+            Control current = btn.Parent;
+            while (current != null && current != map)
             {
-                if (!(c is Panel panel)) continue;
-                if (!ContainsDescendant(panel, btn)) continue;
-
-                switch (panel.Name)
+                if (current is Panel p)
                 {
-                    case "panel2": return "Business";
-                    case "panel1": return "Comfort";
-                    case "panel3": return "Economy";
+                    switch (p.Name)
+                    {
+                        case "panel2": return "Business";
+                        case "panel1": return "Comfort";
+                        case "panel3": return "Economy";
+                    }
                 }
-
-                var ranked = map.Controls.OfType<Panel>()
-                    .Where(p => p.Controls.OfType<Button>().Any())
-                    .OrderBy(p => p.Controls.OfType<Button>().Count())
-                    .ToList();
-                int idx = ranked.IndexOf(panel);
-                if (idx == 0) return "Business";
-                if (idx == 1) return "Comfort";
-                return "Economy";
+                current = current.Parent;
             }
+
+            // Fallback: top-level panels ordered by total descendant button count
+            // (fewest buttons = smallest cabin = Business, then Comfort, then Economy)
+            var cabinPanels = map.Controls
+                .OfType<Panel>()
+                .Where(p => CountDescendantButtons(p) > 0)
+                .OrderBy(p => CountDescendantButtons(p))
+                .ToList();
+
+            for (int i = 0; i < cabinPanels.Count; i++)
+            {
+                if (ContainsDescendant(cabinPanels[i], btn))
+                {
+                    if (i == 0) return "Business";
+                    if (i == 1) return "Comfort";
+                    return "Economy";
+                }
+            }
+
             return "Economy";
+        }
+
+        // Counts ALL buttons anywhere inside a control tree
+        private static int CountDescendantButtons(Control parent)
+        {
+            int count = 0;
+            foreach (Control c in parent.Controls)
+            {
+                if (c is Button) count++;
+                else count += CountDescendantButtons(c);
+            }
+            return count;
         }
 
         private static bool ContainsDescendant(Control parent, Control target)
@@ -1281,9 +1290,9 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
         {
             var parts = new[]
             {
-                peanut ? "Peanut Allergy"      : null,
-                wchr   ? "Wheelchair"           : null,
-                umnr   ? "Unaccompanied Minor"  : null
+                peanut ? "Peanut Allergy"     : null,
+                wchr   ? "Wheelchair"          : null,
+                umnr   ? "Unaccompanied Minor" : null
             }.Where(f => f != null).ToArray();
             return parts.Length > 0 ? string.Join(", ", parts) : "None";
         }

@@ -28,6 +28,7 @@
             this.chkConfirm = new System.Windows.Forms.CheckBox();
             this.btnBack = new System.Windows.Forms.Button();
             this.btnConfirmPayment = new System.Windows.Forms.Button();
+            this.btnPrintReceipt = new System.Windows.Forms.Button();
             this.pnlSummary = new System.Windows.Forms.Panel();
             this.lblSummaryTitle = new System.Windows.Forms.Label();
             this.lblFlightLabel = new System.Windows.Forms.Label();
@@ -50,12 +51,10 @@
             this.pnlTotalDivider = new System.Windows.Forms.Panel();
             this.lblTotalLabel = new System.Windows.Forms.Label();
             this.lblTotalValue = new System.Windows.Forms.Label();
-            // ── NEW ───────────────────────────────────────────────
             this.lblEconomyCount = new System.Windows.Forms.Label();
             this.lblComfortCount = new System.Windows.Forms.Label();
             this.lblBusinessCount = new System.Windows.Forms.Label();
             this.lblSeatSummary = new System.Windows.Forms.Label();
-            // ─────────────────────────────────────────────────────
             this.pnlMain.SuspendLayout();
             this.pnlPayment.SuspendLayout();
             this.pnlCashOption.SuspendLayout();
@@ -85,6 +84,7 @@
             this.pnlPayment.Controls.Add(this.lblAmountValue);
             this.pnlPayment.Controls.Add(this.chkConfirm);
             this.pnlPayment.Controls.Add(this.btnBack);
+            this.pnlPayment.Controls.Add(this.btnPrintReceipt);
             this.pnlPayment.Controls.Add(this.btnConfirmPayment);
             this.pnlPayment.Location = new System.Drawing.Point(504, 20);
             this.pnlPayment.Name = "pnlPayment";
@@ -241,6 +241,22 @@
             this.btnBack.Text = "< Back";
             this.btnBack.UseVisualStyleBackColor = false;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            //
+            // btnPrintReceipt  ── NEW
+            //
+            this.btnPrintReceipt.BackColor = System.Drawing.Color.White;
+            this.btnPrintReceipt.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPrintReceipt.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(20, 20, 50);
+            this.btnPrintReceipt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPrintReceipt.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.btnPrintReceipt.ForeColor = System.Drawing.Color.FromArgb(20, 20, 50);
+            this.btnPrintReceipt.Location = new System.Drawing.Point(156, 450);
+            this.btnPrintReceipt.Name = "btnPrintReceipt";
+            this.btnPrintReceipt.Size = new System.Drawing.Size(150, 40);
+            this.btnPrintReceipt.TabIndex = 8;
+            this.btnPrintReceipt.Text = "🖨  Print Receipt";
+            this.btnPrintReceipt.UseVisualStyleBackColor = false;
+            this.btnPrintReceipt.Click += new System.EventHandler(this.btnPrintReceipt_Click);
             // 
             // btnConfirmPayment
             // 
@@ -283,12 +299,10 @@
             this.pnlSummary.Controls.Add(this.pnlTotalDivider);
             this.pnlSummary.Controls.Add(this.lblTotalLabel);
             this.pnlSummary.Controls.Add(this.lblTotalValue);
-            // ── NEW ───────────────────────────────────────────────
             this.pnlSummary.Controls.Add(this.lblEconomyCount);
             this.pnlSummary.Controls.Add(this.lblComfortCount);
             this.pnlSummary.Controls.Add(this.lblBusinessCount);
             this.pnlSummary.Controls.Add(this.lblSeatSummary);
-            // ─────────────────────────────────────────────────────
             this.pnlSummary.Location = new System.Drawing.Point(24, 20);
             this.pnlSummary.Name = "pnlSummary";
             this.pnlSummary.Size = new System.Drawing.Size(460, 504);
@@ -519,7 +533,7 @@
             this.lblTotalValue.TabIndex = 20;
             this.lblTotalValue.Text = "PHP 1,430.00";
             // 
-            // lblEconomyCount  ── NEW
+            // lblEconomyCount
             // 
             this.lblEconomyCount.AutoSize = true;
             this.lblEconomyCount.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -530,7 +544,7 @@
             this.lblEconomyCount.TabIndex = 21;
             this.lblEconomyCount.Text = "Economy:  0 pax";
             // 
-            // lblComfortCount  ── NEW
+            // lblComfortCount
             // 
             this.lblComfortCount.AutoSize = true;
             this.lblComfortCount.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -541,7 +555,7 @@
             this.lblComfortCount.TabIndex = 22;
             this.lblComfortCount.Text = "Comfort:  0 pax";
             // 
-            // lblBusinessCount  ── NEW
+            // lblBusinessCount
             // 
             this.lblBusinessCount.AutoSize = true;
             this.lblBusinessCount.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -552,7 +566,7 @@
             this.lblBusinessCount.TabIndex = 23;
             this.lblBusinessCount.Text = "Business: 0 pax";
             // 
-            // lblSeatSummary  ── NEW
+            // lblSeatSummary
             // 
             this.lblSeatSummary.AutoSize = false;
             this.lblSeatSummary.Font = new System.Drawing.Font("Segoe UI", 8.5F);
@@ -582,7 +596,7 @@
             this.ResumeLayout(false);
         }
 
-        // ── Existing fields ───────────────────────────────────────
+        // ── Fields ────────────────────────────────────────────────
         private System.Windows.Forms.Panel pnlMain;
         private System.Windows.Forms.Panel pnlSummary;
         private System.Windows.Forms.Label lblSummaryTitle;
@@ -606,7 +620,7 @@
         private System.Windows.Forms.CheckBox chkConfirm;
         private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.Button btnConfirmPayment;
-        // ── NEW fields ────────────────────────────────────────────
+        private System.Windows.Forms.Button btnPrintReceipt;
         private System.Windows.Forms.Label lblEconomyCount;
         private System.Windows.Forms.Label lblComfortCount;
         private System.Windows.Forms.Label lblBusinessCount;

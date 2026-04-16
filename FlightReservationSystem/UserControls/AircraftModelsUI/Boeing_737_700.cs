@@ -52,6 +52,10 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
             btnWheelPass.FlatAppearance.BorderColor = WheelchairBorder;
         }
 
+        // ═══════════════════════════════════════════════════════════════════
+        // ISeatMap
+        // ═══════════════════════════════════════════════════════════════════
+
         public Dictionary<int, string> LoadPassengers(List<RAPassengerDetails> passengers)
         {
             StampAllPanels();
@@ -74,6 +78,10 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
             StampAllPanels();
             ApplySavedPassengersToMap();
         }
+
+        // ═══════════════════════════════════════════════════════════════════
+        // Saved passengers
+        // ═══════════════════════════════════════════════════════════════════
 
         private void ApplySavedPassengersToMap()
         {
@@ -101,6 +109,10 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
                 seat.Click += Seat_Click;
             }
         }
+
+        // ═══════════════════════════════════════════════════════════════════
+        // Status bar
+        // ═══════════════════════════════════════════════════════════════════
 
         private void BuildStatusBar()
         {
@@ -134,7 +146,7 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
             var p = _queue[_queueIndex];
             _statusLabel.Text =
                 $"Selecting seat for  Passenger {p.PassengerNumber}: " +
-                $"{p.LastName}, {p.FirstName}  ·  {SeatHint(p)}";
+                $"{p.LastName}, {p.FirstName}  ·  {p.SeatClass}  ·  {SeatHint(p)}";
         }
 
         private static string SeatHint(RAPassengerDetails p)
@@ -144,6 +156,10 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
             if (p.IsUnaccompaniedMinor) return "UMNR — click a DeepSkyBlue seat";
             return "REG — click any standard seat";
         }
+
+        // ═══════════════════════════════════════════════════════════════════
+        // Wiring
+        // ═══════════════════════════════════════════════════════════════════
 
         private void WireAllCabinButtons()
         {
@@ -158,6 +174,10 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
                 }
             }
         }
+
+        // ═══════════════════════════════════════════════════════════════════
+        // Seat click
+        // ═══════════════════════════════════════════════════════════════════
 
         private void Seat_Click(object sender, EventArgs e)
         {
@@ -190,9 +210,12 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
             string seatLabel = btn.Tag?.ToString() ?? btn.Text;
             SeatKind kind = DetectSeatKind(btn);
 
-            if (kind == SeatKind.Exit)
+            string clickedClass = ResolveSeatClassFromButton(btn);
+            if (!string.Equals(clickedClass, current.SeatClass, StringComparison.OrdinalIgnoreCase))
             {
-                Warn("This is an emergency exit row seat and cannot be assigned to any passenger.");
+                Warn($"Passenger {current.PassengerNumber} has a {current.SeatClass} ticket.\n\n" +
+                     $"The selected seat belongs to the {clickedClass} cabin.\n\n" +
+                     $"Please click a seat inside the {current.SeatClass} section.");
                 return;
             }
 
@@ -215,9 +238,47 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
             _assignments[current.PassengerNumber] = seatLabel;
             _queueIndex++;
             UpdateStatus();
-
             OnSeatAssigned?.Invoke();
         }
+
+        // ═══════════════════════════════════════════════════════════════════
+        // Cabin class resolver
+        // ═══════════════════════════════════════════════════════════════════
+
+        private string ResolveSeatClassFromButton(Button btn)
+        {
+            Control parent = btn.Parent;
+            while (parent != null && !(parent is Panel))
+                parent = parent.Parent;
+
+            if (parent == null) return "Economy";
+            var panel = (Panel)parent;
+
+            switch (panel.Name)
+            {
+                case "panel2": return "Business";
+                case "panel1": return "Comfort";
+                case "panel3": return "Economy";
+            }
+
+            var panels = this.Controls
+                .OfType<Panel>()
+                .Where(p => p.Controls.OfType<Button>().Any())
+                .OrderBy(p => p.Controls.OfType<Button>().Count())
+                .ToList();
+
+            int idx = panels.IndexOf(panel);
+            switch (idx)
+            {
+                case 0: return "Business";
+                case 1: return "Comfort";
+                default: return "Economy";
+            }
+        }
+
+        // ═══════════════════════════════════════════════════════════════════
+        // Seat kind
+        // ═══════════════════════════════════════════════════════════════════
 
         private enum SeatKind { Regular, Exit, Wheelchair, PeanutAllergy, UMNR }
 
@@ -238,9 +299,24 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
             && Math.Abs(a.G - b.G) < 12
             && Math.Abs(a.B - b.B) < 12;
 
+        // ═══════════════════════════════════════════════════════════════════
+        // Validation
+        // ═══════════════════════════════════════════════════════════════════
+
         private static bool ValidateSeat(RAPassengerDetails p, SeatKind kind, out string reason)
         {
             reason = "";
+
+            if (kind == SeatKind.Exit)
+            {
+                if (p.NeedsWheelchair)
+                { reason = "Wheelchair passengers cannot be seated in an emergency exit row."; return false; }
+                if (p.HasPeanutAllergy)
+                { reason = "Passengers with peanut allergies cannot be seated in an emergency exit row."; return false; }
+                if (p.IsUnaccompaniedMinor)
+                { reason = "Unaccompanied minors cannot be seated in an emergency exit row."; return false; }
+                return true;
+            }
 
             if (p.NeedsWheelchair)
             {
@@ -271,10 +347,19 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
             return true;
         }
 
+        // ═══════════════════════════════════════════════════════════════════
+        // Styling
+        // ═══════════════════════════════════════════════════════════════════
+
         private static void ApplyAssignedStyle(Button btn, SeatKind kind)
         {
             switch (kind)
             {
+                case SeatKind.Exit:
+                    btn.BackColor = Color.FromArgb(198, 239, 206);
+                    btn.FlatAppearance.BorderColor = Color.FromArgb(70, 170, 90);
+                    btn.FlatAppearance.BorderSize = 2;
+                    break;
                 case SeatKind.Wheelchair:
                     btn.BackColor = Color.FromArgb(180, 215, 255);
                     btn.FlatAppearance.BorderColor = WheelchairBorder;
@@ -326,6 +411,10 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
             }
         }
 
+        // ═══════════════════════════════════════════════════════════════════
+        // Cabin panel resolver
+        // ═══════════════════════════════════════════════════════════════════
+
         private Panel ResolveCabinPanel(string seatClass)
         {
             foreach (Control c in this.Controls)
@@ -353,6 +442,10 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
                 default: return panels[2];
             }
         }
+
+        // ═══════════════════════════════════════════════════════════════════
+        // Seat label stamping
+        // ═══════════════════════════════════════════════════════════════════
 
         private void StampAllPanels()
         {
@@ -395,6 +488,10 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
                 }
             }
         }
+
+        // ═══════════════════════════════════════════════════════════════════
+        // Helpers
+        // ═══════════════════════════════════════════════════════════════════
 
         private static string TypeCode(RAPassengerDetails p)
         {

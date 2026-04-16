@@ -239,6 +239,9 @@ namespace FlightReservationSystem
                     };
                 }
 
+                // ── Load seat classes for this passenger based on selected flight ──
+                form.LoadSeatClasses(_selectedFlight.FlightID);
+
                 pnlFuncs.Controls.Add(form);
             }
         }
@@ -299,40 +302,25 @@ namespace FlightReservationSystem
         }
 
         // ── Aircraft UI resolver ──────────────────────────────────────────────
+        // FIX: ordered most-specific → least-specific to prevent e.g. "a320neo"
+        //      matching the "a320" branch before reaching "a320neo".
+        //      Duplicate dead-code block also removed.
         private UserControl ResolveAircraftUI(string model)
         {
             if (string.IsNullOrWhiteSpace(model)) return null;
             string n = model.ToLower().Replace(" ", "").Replace("-", "");
 
-            if (n.Contains("atr") && n.Contains("72"))
-                return new ATR_72_600();
-
-            if(n.Contains("a319"))
-                return new Airbus_A319_100();
-
-            if (n.Contains("a320"))
-                return new Airbus_A320_200();
-
-            if (n.Contains("a320neo"))
-                return new Airbus_A320neo();
-
-            if (n.Contains("a321"))
-                return new Airbus_A321_200();
-
-            if (n.Contains("a321neo"))
-                return new Airbus_A321neo();
-
             if (n.Contains("atr") && n.Contains("72")) return new ATR_72_600();
-            if (n.Contains("a319")) return new Airbus_A319_100();
-            if (n.Contains("a321neo")) return new Airbus_A321neo();
-            if (n.Contains("a321")) return new Airbus_A321_200();
-            if (n.Contains("a320neo")) return new Airbus_A320neo();
-            if (n.Contains("a320")) return new Airbus_A320_200();
             if (n.Contains("737") && n.Contains("900er")) return new Boeing_737_900ER();
             if (n.Contains("737") && n.Contains("900")) return new Boeing_737_900ER();
             if (n.Contains("737") && n.Contains("800")) return new Boeing_737_800();
             if (n.Contains("737") && n.Contains("700")) return new Boeing_737_700();
             if (n.Contains("dhc") && n.Contains("8")) return new DHC_8_400();
+            if (n.Contains("a319")) return new Airbus_A319_100();
+            if (n.Contains("a321neo")) return new Airbus_A321neo();   // before a321
+            if (n.Contains("a321")) return new Airbus_A321_200();
+            if (n.Contains("a320neo")) return new Airbus_A320neo();   // before a320
+            if (n.Contains("a320")) return new Airbus_A320_200();
 
             return null;
         }
