@@ -37,6 +37,7 @@
             this.tbPasswordVal = new System.Windows.Forms.TextBox();
             this.lblPassword = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnDeleteUser = new System.Windows.Forms.Button();
             this.btnChangePassword = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.lblSeparator9 = new System.Windows.Forms.Label();
@@ -63,7 +64,6 @@
             this.lblOldPassword = new System.Windows.Forms.Label();
             this.tbNewPasswordVal = new System.Windows.Forms.TextBox();
             this.lblNewPassword = new System.Windows.Forms.Label();
-            this.btnDeleteUser = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -145,7 +145,7 @@
             this.tbNameVal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tbNameVal.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbNameVal.ForeColor = System.Drawing.Color.Black;
-            this.tbNameVal.Location = new System.Drawing.Point(16, 41);
+            this.tbNameVal.Location = new System.Drawing.Point(16, 40);
             this.tbNameVal.Margin = new System.Windows.Forms.Padding(0, 0, 43, 20);
             this.tbNameVal.MaxLength = 50;
             this.tbNameVal.Name = "tbNameVal";
@@ -157,7 +157,7 @@
             this.lblName.AutoSize = true;
             this.lblName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(80)))));
-            this.lblName.Location = new System.Drawing.Point(12, 17);
+            this.lblName.Location = new System.Drawing.Point(12, 16);
             this.lblName.Margin = new System.Windows.Forms.Padding(0, 0, 43, 5);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(62, 20);
@@ -170,7 +170,7 @@
             this.tbPasswordVal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tbPasswordVal.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbPasswordVal.ForeColor = System.Drawing.Color.Black;
-            this.tbPasswordVal.Location = new System.Drawing.Point(16, 115);
+            this.tbPasswordVal.Location = new System.Drawing.Point(16, 114);
             this.tbPasswordVal.Margin = new System.Windows.Forms.Padding(0, 0, 43, 20);
             this.tbPasswordVal.MaxLength = 50;
             this.tbPasswordVal.Name = "tbPasswordVal";
@@ -182,7 +182,7 @@
             this.lblPassword.AutoSize = true;
             this.lblPassword.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(80)))));
-            this.lblPassword.Location = new System.Drawing.Point(14, 91);
+            this.lblPassword.Location = new System.Drawing.Point(14, 90);
             this.lblPassword.Margin = new System.Windows.Forms.Padding(0, 0, 43, 5);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(87, 20);
@@ -206,6 +206,25 @@
             this.panel1.Padding = new System.Windows.Forms.Padding(16, 15, 16, 15);
             this.panel1.Size = new System.Drawing.Size(725, 189);
             this.panel1.TabIndex = 17;
+            // 
+            // btnDeleteUser
+            // 
+            this.btnDeleteUser.AutoSize = true;
+            this.btnDeleteUser.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnDeleteUser.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
+            this.btnDeleteUser.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnDeleteUser.FlatAppearance.BorderSize = 0;
+            this.btnDeleteUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDeleteUser.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeleteUser.ForeColor = System.Drawing.Color.White;
+            this.btnDeleteUser.Location = new System.Drawing.Point(106, 140);
+            this.btnDeleteUser.Margin = new System.Windows.Forms.Padding(0);
+            this.btnDeleteUser.Name = "btnDeleteUser";
+            this.btnDeleteUser.Padding = new System.Windows.Forms.Padding(11, 2, 11, 2);
+            this.btnDeleteUser.Size = new System.Drawing.Size(148, 34);
+            this.btnDeleteUser.TabIndex = 18;
+            this.btnDeleteUser.Text = "Delete Account";
+            this.btnDeleteUser.UseVisualStyleBackColor = false;
             // 
             // btnChangePassword
             // 
@@ -494,6 +513,7 @@
             this.tbConfirmPasswordVal.Name = "tbConfirmPasswordVal";
             this.tbConfirmPasswordVal.Size = new System.Drawing.Size(319, 29);
             this.tbConfirmPasswordVal.TabIndex = 27;
+            this.tbConfirmPasswordVal.UseSystemPasswordChar = true;
             // 
             // lblConfirmPassword
             // 
@@ -538,6 +558,7 @@
             this.tbOldPasswordVal.Name = "tbOldPasswordVal";
             this.tbOldPasswordVal.Size = new System.Drawing.Size(319, 29);
             this.tbOldPasswordVal.TabIndex = 21;
+            this.tbOldPasswordVal.UseSystemPasswordChar = true;
             // 
             // lblOldPassword
             // 
@@ -563,6 +584,7 @@
             this.tbNewPasswordVal.Name = "tbNewPasswordVal";
             this.tbNewPasswordVal.Size = new System.Drawing.Size(319, 29);
             this.tbNewPasswordVal.TabIndex = 17;
+            this.tbNewPasswordVal.UseSystemPasswordChar = true;
             // 
             // lblNewPassword
             // 
@@ -575,25 +597,6 @@
             this.lblNewPassword.Size = new System.Drawing.Size(123, 20);
             this.lblNewPassword.TabIndex = 3;
             this.lblNewPassword.Text = "New Password *";
-            // 
-            // btnDeleteUser
-            // 
-            this.btnDeleteUser.AutoSize = true;
-            this.btnDeleteUser.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnDeleteUser.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
-            this.btnDeleteUser.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnDeleteUser.FlatAppearance.BorderSize = 0;
-            this.btnDeleteUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDeleteUser.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeleteUser.ForeColor = System.Drawing.Color.White;
-            this.btnDeleteUser.Location = new System.Drawing.Point(106, 140);
-            this.btnDeleteUser.Margin = new System.Windows.Forms.Padding(0);
-            this.btnDeleteUser.Name = "btnDeleteUser";
-            this.btnDeleteUser.Padding = new System.Windows.Forms.Padding(11, 2, 11, 2);
-            this.btnDeleteUser.Size = new System.Drawing.Size(148, 34);
-            this.btnDeleteUser.TabIndex = 18;
-            this.btnDeleteUser.Text = "Delete Account";
-            this.btnDeleteUser.UseVisualStyleBackColor = false;
             // 
             // Accounts
             // 
