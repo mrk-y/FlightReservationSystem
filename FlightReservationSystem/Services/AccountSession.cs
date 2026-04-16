@@ -37,6 +37,7 @@ namespace FlightReservationSystem.Services
             string prefix = userID.Substring(0, 2);
             string uCode = userID.Substring(3, 4);
 
+
             using (SqlConnection con = DatabaseConnection.Get())
             {
                 try
