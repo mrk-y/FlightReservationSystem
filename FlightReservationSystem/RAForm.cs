@@ -126,9 +126,21 @@ namespace FlightReservationSystem
                 case "Flights": ShowFlights(); break;
                 case "Passenger": ShowPassengers(); break;
                 case "Seats": ShowSeats(); break;
+                case "SeatPreview": ShowSeatPreview(); break;
                 case "Payment": ShowPayment(); break;
                 case "ChangeSeat": ShowChangeSeat(); break;
             }
+        }
+
+        // ── Show Seat Preview ─────────────────────────────────────────────────
+        private void ShowSeatPreview()
+        {
+            ResetPanel();
+            pnlFuncs.AutoScroll = true;
+
+            RASeatPreview preview = new RASeatPreview();
+            preview.Dock = DockStyle.Fill;
+            pnlFuncs.Controls.Add(preview);
         }
 
         private void ResetPanel()

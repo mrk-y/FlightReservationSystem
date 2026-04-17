@@ -567,7 +567,7 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
 
             const string sql = @"
                 SELECT
-                    bp.PassengerID, bp.PassengerNo,
+                bp.PassengerID, bp.PassengerNo,
                     bp.FirstName, bp.LastName,
                     bp.SeatClass, bp.SeatLabel,
                     bp.HasPeanutAllergy, bp.NeedsWheelchair, bp.IsUnaccompaniedMinor,

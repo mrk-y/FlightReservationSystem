@@ -355,6 +355,12 @@
     <Compile Include="UserControls\Header.Designer.cs">
       <DependentUpon>Header.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Reservation_Agent\RASeatPreview.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Reservation_Agent\RASeatPreview.Designer.cs">
+      <DependentUpon>RASeatPreview.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\SystemAdmin\Accounts.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -491,6 +497,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\Header.resx">
       <DependentUpon>Header.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Reservation_Agent\RASeatPreview.resx">
+      <DependentUpon>RASeatPreview.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\SystemAdmin\Accounts.resx">
       <DependentUpon>Accounts.cs</DependentUpon>
