@@ -45,6 +45,9 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
         private Color _pendingSeatBtnOriginalColor;
         private Color _pendingSeatBtnOriginalBorderColor;
 
+        // Tracks which flight the current seat map belongs to
+        private FlightSearchResult _currentMapFlight = null;
+
         // ═══════════════════════════════════════════════════════════
         // UI fields
         // ═══════════════════════════════════════════════════════════
@@ -463,7 +466,6 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
                 Location = new Point(0, 0),
                 BackColor = PanelLight,
                 AutoSize = false,
-                
             };
 
             var pnlMapScroll = new Panel
@@ -803,6 +805,7 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
         {
             ClearMapHost();
             _pendingNewSeat = null;
+            _currentMapFlight = flight;        // ← track current flight
             ClearPendingSeatHighlight();
             _lblNewSeatChosen.Visible = false;
             UpdateConfirmButton();
@@ -847,7 +850,6 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
             }));
         }
 
-        // ── FIX 1: Always recurse into every child, not just non-Button ones ──
         private void WireSeatButtonsRecursive(Control parent,
             UserControl map, FlightSearchResult flight)
         {
@@ -867,11 +869,25 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
             UserControl map, FlightSearchResult flight)
         {
             if (btn == null || _selected == null) return;
+
+            // ── Block seats already tagged as occupied ─────────────
             if (btn.Tag is SavedPassengerInfo || btn.Tag is RAPassengerDetails) return;
 
             string seatLabel = btn.Tag?.ToString() ?? btn.Text;
             if (string.IsNullOrEmpty(seatLabel)) return;
 
+            // ── Block seats occupied in the database ───────────────
+            if (IsSeatOccupied(flight.FlightID, seatLabel, _selected.BookingPassengerID))
+            {
+                MessageBox.Show(
+                    $"Seat  {seatLabel}  is already occupied by another passenger.\n\n" +
+                    $"Please select a different seat.",
+                    "Seat Unavailable",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // ── Block seat class mismatch ──────────────────────────
             string seatClass = DetectSeatClass(btn, map);
 
             if (!string.Equals(_selected.SeatClass, seatClass,
@@ -923,6 +939,48 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
         }
 
         // ═══════════════════════════════════════════════════════════
+        // OCCUPIED SEAT CHECK
+        // ═══════════════════════════════════════════════════════════
+
+        /// <summary>
+        /// Returns true if <paramref name="seatLabel"/> is already assigned to
+        /// any passenger on <paramref name="flightID"/> other than the passenger
+        /// currently being moved (<paramref name="excludePassengerID"/>).
+        /// Fails safe: returns true (occupied) if the database cannot be reached.
+        /// </summary>
+        private bool IsSeatOccupied(int flightID, string seatLabel, int excludePassengerID)
+        {
+            const string sql = @"
+                SELECT COUNT(1)
+                FROM   BookingPassengers bp
+                INNER JOIN Bookings b ON b.BookingID = bp.BookingID
+                WHERE  b.FlightID     = @flightID
+                  AND  bp.SeatLabel   = @seatLabel
+                  AND  bp.PassengerID <> @excludeID
+                  AND  b.IsActive     = 1";
+
+            try
+            {
+                using (var conn = DatabaseConnection.Get())
+                using (var cmd = new SqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@flightID", flightID);
+                    cmd.Parameters.AddWithValue("@seatLabel", seatLabel);
+                    cmd.Parameters.AddWithValue("@excludeID", excludePassengerID);
+                    conn.Open();
+                    return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Could not verify seat availability:\n{ex.Message}",
+                    "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return true; // Fail safe — treat as occupied if DB check fails
+            }
+        }
+
+        // ═══════════════════════════════════════════════════════════
         // CONFIRM / CLEAR
         // ═══════════════════════════════════════════════════════════
         private void BtnConfirm_Click(object sender, EventArgs e)
@@ -931,6 +989,24 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
 
             string oldSeat = _selected.SeatLabel;
             string newSeat = _pendingNewSeat;
+
+            // ── Re-check occupancy at confirm time (race-condition guard) ──
+            int targetFlightID = _currentMapFlight?.FlightID ?? _selected.FlightID;
+            if (IsSeatOccupied(targetFlightID, newSeat, _selected.BookingPassengerID))
+            {
+                MessageBox.Show(
+                    $"Seat  {newSeat}  was just taken by another agent.\n\n" +
+                    $"Please select a different seat.",
+                    "Seat No Longer Available",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                // Reset pending selection so the agent must pick again
+                ClearPendingSeatHighlight();
+                _pendingNewSeat = null;
+                _lblNewSeatChosen.Visible = false;
+                UpdateConfirmButton();
+                return;
+            }
 
             if (MessageBox.Show(
                 $"Apply seat change?\n\n" +
@@ -975,6 +1051,7 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
         {
             _selected = null;
             _pendingNewSeat = null;
+            _currentMapFlight = null;
             ClearPendingSeatHighlight();
 
             _lstPassengers.ClearSelected();
@@ -1159,8 +1236,7 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
         }
 
         // ═══════════════════════════════════════════════════════════
-        // FIX 2: SEAT CLASS DETECTION — walk up parent chain first,
-        //        then fall back to recursive descendant-button count
+        // SEAT CLASS DETECTION
         // ═══════════════════════════════════════════════════════════
         private static string DetectSeatClass(Button btn, UserControl map)
         {
@@ -1172,6 +1248,11 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
                 {
                     switch (p.Name)
                     {
+                        case "pnlBusiness": return "Business";
+                        case "pnlComfort": return "Comfort";
+                        case "pnlEconomy": return "Economy";
+
+                        // Fallback for older aircraft UCs using generic names
                         case "panel2": return "Business";
                         case "panel1": return "Comfort";
                         case "panel3": return "Economy";
@@ -1181,7 +1262,6 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
             }
 
             // Fallback: top-level panels ordered by total descendant button count
-            // (fewest buttons = smallest cabin = Business, then Comfort, then Economy)
             var cabinPanels = map.Controls
                 .OfType<Panel>()
                 .Where(p => CountDescendantButtons(p) > 0)
@@ -1201,7 +1281,6 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
             return "Economy";
         }
 
-        // Counts ALL buttons anywhere inside a control tree
         private static int CountDescendantButtons(Control parent)
         {
             int count = 0;
@@ -1290,9 +1369,9 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
         {
             var parts = new[]
             {
-                peanut ? "Peanut Allergy"     : null,
-                wchr   ? "Wheelchair"          : null,
-                umnr   ? "Unaccompanied Minor" : null
+                peanut ? "Peanut Allergy"      : null,
+                wchr   ? "Wheelchair"           : null,
+                umnr   ? "Unaccompanied Minor"  : null
             }.Where(f => f != null).ToArray();
             return parts.Length > 0 ? string.Join(", ", parts) : "None";
         }

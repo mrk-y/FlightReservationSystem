@@ -128,5 +128,11 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
 
             return;
         }
+
+        private void btnPreviewSeats_Click(object sender, EventArgs e)
+        {
+            SetActiveButton(btnPreviewSeats);
+            OnNavigate?.Invoke("PreviewSeats");
+        }
     }
 }

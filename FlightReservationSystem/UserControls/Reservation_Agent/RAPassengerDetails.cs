@@ -250,7 +250,12 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
 
         private void FilterAlpha(object sender, KeyPressEventArgs e)
         {
-
+            if (!char.IsControl(e.KeyChar) &&
+                !char.IsLetter(e.KeyChar) &&
+                e.KeyChar != ' ')
+            {
+                e.Handled = true;
+            }
         }
 
         private void btnProceed_Click(object sender, EventArgs e)

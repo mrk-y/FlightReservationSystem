@@ -149,6 +149,7 @@
             this.txtFirstName.Name = "txtFirstName";
             this.txtFirstName.Size = new System.Drawing.Size(230, 25);
             this.txtFirstName.TabIndex = 3;
+            this.txtFirstName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.FilterAlpha);
             // 
             // lblLastName
             // 
@@ -169,6 +170,7 @@
             this.txtLastName.Name = "txtLastName";
             this.txtLastName.Size = new System.Drawing.Size(230, 25);
             this.txtLastName.TabIndex = 5;
+            this.txtLastName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.FilterAlpha);
             // 
             // lblMiddleName
             // 
@@ -189,6 +191,7 @@
             this.txtMiddleName.Name = "txtMiddleName";
             this.txtMiddleName.Size = new System.Drawing.Size(200, 25);
             this.txtMiddleName.TabIndex = 7;
+            this.txtMiddleName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.FilterAlpha);
             // 
             // lblBirthdate
             // 

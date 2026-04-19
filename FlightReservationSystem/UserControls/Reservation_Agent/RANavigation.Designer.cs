@@ -33,6 +33,7 @@
             this.btnPayment = new System.Windows.Forms.Button();
             this.btnChangeSeats = new System.Windows.Forms.Button();
             this.btnLogout = new System.Windows.Forms.Button();
+            this.btnPreviewSeats = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnViewFlights
@@ -167,12 +168,35 @@
             this.btnLogout.UseVisualStyleBackColor = false;
             this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
             // 
+            // btnPreviewSeats
+            // 
+            this.btnPreviewSeats.AutoSize = true;
+            this.btnPreviewSeats.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnPreviewSeats.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
+            this.btnPreviewSeats.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPreviewSeats.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
+            this.btnPreviewSeats.FlatAppearance.BorderSize = 0;
+            this.btnPreviewSeats.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPreviewSeats.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPreviewSeats.ForeColor = System.Drawing.Color.White;
+            this.btnPreviewSeats.Location = new System.Drawing.Point(990, 0);
+            this.btnPreviewSeats.Margin = new System.Windows.Forms.Padding(8, 0, 24, 0);
+            this.btnPreviewSeats.Name = "btnPreviewSeats";
+            this.btnPreviewSeats.Padding = new System.Windows.Forms.Padding(4);
+            this.btnPreviewSeats.Size = new System.Drawing.Size(92, 33);
+            this.btnPreviewSeats.TabIndex = 6;
+            this.btnPreviewSeats.Tag = "";
+            this.btnPreviewSeats.Text = "Preview Seat";
+            this.btnPreviewSeats.UseVisualStyleBackColor = false;
+            this.btnPreviewSeats.Click += new System.EventHandler(this.btnPreviewSeats_Click);
+            // 
             // RANavigation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.btnPreviewSeats);
             this.Controls.Add(this.btnLogout);
             this.Controls.Add(this.btnChangeSeats);
             this.Controls.Add(this.btnPayment);
@@ -194,5 +218,6 @@
         public System.Windows.Forms.Button btnPayment;
         public System.Windows.Forms.Button btnChangeSeats;
         private System.Windows.Forms.Button btnLogout;
+        public System.Windows.Forms.Button btnPreviewSeats;
     }
 }

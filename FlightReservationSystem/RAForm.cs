@@ -125,6 +125,7 @@ namespace FlightReservationSystem
             {
                 case "Flights": ShowFlights(); break;
                 case "Passenger": ShowPassengers(); break;
+                case "PreviewSeats": ShowPreviewSeats(); break;
                 case "Seats": ShowSeats(); break;
                 case "Payment": ShowPayment(); break;
                 case "ChangeSeat": ShowChangeSeat(); break;
@@ -288,6 +289,15 @@ namespace FlightReservationSystem
                         _navigation.SeatsAssigned = true;
                 };
             }
+        }
+
+        private void ShowPreviewSeats()
+        {
+            ResetPanel();
+            var preview = new RAPreviewSeats();
+            preview.Dock = DockStyle.Fill;
+            preview.MinimumSize = new System.Drawing.Size(1100, 585);
+            pnlFuncs.Controls.Add(preview);
         }
 
         // ── Show Change Seat ──────────────────────────────────────────────────
