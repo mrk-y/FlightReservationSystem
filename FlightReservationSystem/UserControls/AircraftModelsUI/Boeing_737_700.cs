@@ -17,6 +17,13 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
         private static readonly Color UMNRBack = Color.DeepSkyBlue;
         private static readonly Color UMNRBorder = Color.DeepSkyBlue;
 
+        // ── Combination seats ────────────────────────────────────────────
+        // DarkOrange border + DeepSkyBlue ForeColor  → WCHR + UMNR
+        //   Accepts: wchr-only, umnr-only, or wchr+umnr together
+        // DarkOrange border + GreenYellow BackColor  → WCHR + Peanut
+        //   Accepts: wchr-only, pnut-only, or wchr+pnut together
+        // ────────────────────────────────────────────────────────────────
+
         private readonly ToolTip _tip = new ToolTip();
 
         public event Action OnSeatAssigned;
@@ -151,9 +158,16 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
 
         private static string SeatHint(RAPassengerDetails p)
         {
-            if (p.NeedsWheelchair) return "WCHR — click an orange-bordered aisle seat";
-            if (p.HasPeanutAllergy) return "NUT — click a GreenYellow seat";
-            if (p.IsUnaccompaniedMinor) return "UMNR — click a DeepSkyBlue seat";
+            bool wchr = p.NeedsWheelchair;
+            bool pnut = p.HasPeanutAllergy;
+            bool umnr = p.IsUnaccompaniedMinor;
+
+            if (wchr && pnut) return "WCHR+NUT  — click an orange-bordered / GreenYellow seat";
+            if (wchr && umnr) return "WCHR+UMNR — click an orange-bordered / DeepSkyBlue seat";
+            if (wchr) return "WCHR — click an orange-bordered aisle seat";
+            if (pnut) return "NUT  — click a GreenYellow seat";
+            if (umnr) return "UMNR — click a DeepSkyBlue seat";
+
             return "REG — click any standard seat";
         }
 
@@ -183,6 +197,7 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
         {
             if (!(sender is Button btn)) return;
 
+            // ── Info popup for already-assigned seats ───────────────────
             if (btn.Tag is SavedPassengerInfo sp)
             {
                 ShowPopup(
@@ -210,6 +225,7 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
             string seatLabel = btn.Tag?.ToString() ?? btn.Text;
             SeatKind kind = DetectSeatKind(btn);
 
+            // ── Class check ─────────────────────────────────────────────
             string clickedClass = ResolveSeatClassFromButton(btn);
             if (!string.Equals(clickedClass, current.SeatClass, StringComparison.OrdinalIgnoreCase))
             {
@@ -219,12 +235,14 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
                 return;
             }
 
+            // ── Seat-rule validation ─────────────────────────────────────
             if (!ValidateSeat(current, kind, out string reason))
             {
                 Warn(reason);
                 return;
             }
 
+            // ── Assign ───────────────────────────────────────────────────
             ApplyAssignedStyle(btn, kind);
             btn.Tag = current;
             btn.Cursor = Cursors.Hand;
@@ -244,6 +262,8 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
         // ═══════════════════════════════════════════════════════════════════
         // Cabin class resolver
         // ═══════════════════════════════════════════════════════════════════
+        // Boeing 737-700: Business (panel2), Comfort (panel1), Economy (panel3)
+        // ═══════════════════════════════════════════════════════════════════
 
         private string ResolveSeatClassFromButton(Button btn)
         {
@@ -256,31 +276,71 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
 
             switch (panel.Name)
             {
+                case "pnlBusiness":
                 case "panel2": return "Business";
+                case "pnlComfort":
                 case "panel1": return "Comfort";
+                case "pnlEconomy":
                 case "panel3": return "Economy";
             }
 
-            var panels = this.Controls
+            // Last-resort: order by button count (fewest = Business, mid = Comfort, most = Economy)
+            var cabinPanels = this.Controls
                 .OfType<Panel>()
                 .Where(p => p.Controls.OfType<Button>().Any())
                 .OrderBy(p => p.Controls.OfType<Button>().Count())
                 .ToList();
 
-            int idx = panels.IndexOf(panel);
-            switch (idx)
+            int idx = cabinPanels.IndexOf(panel);
+            if (idx == 0) return "Business";
+            if (idx == 1) return "Comfort";
+            return "Economy";
+        }
+
+        // ═══════════════════════════════════════════════════════════════════
+        // Cabin panel resolver (for saved-passenger re-apply)
+        // ═══════════════════════════════════════════════════════════════════
+
+        private Panel ResolveCabinPanel(string seatClass)
+        {
+            foreach (Control c in this.Controls)
             {
-                case 0: return "Business";
-                case 1: return "Comfort";
-                default: return "Economy";
+                if (!(c is Panel p)) continue;
+                switch (seatClass)
+                {
+                    case "Business" when p.Name == "pnlBusiness" || p.Name == "panel2": return p;
+                    case "Comfort" when p.Name == "pnlComfort" || p.Name == "panel1": return p;
+                    case "Economy" when p.Name == "pnlEconomy" || p.Name == "panel3": return p;
+                }
             }
+
+            // Fallback by button count
+            var cabinPanels = this.Controls
+                .OfType<Panel>()
+                .Where(p => p.Controls.OfType<Button>().Any())
+                .OrderBy(p => p.Controls.OfType<Button>().Count())
+                .ToList();
+
+            if (cabinPanels.Count == 0) return null;
+            if (seatClass == "Business") return cabinPanels.First();
+            if (seatClass == "Comfort" && cabinPanels.Count > 1) return cabinPanels[1];
+            return cabinPanels.Last();
         }
 
         // ═══════════════════════════════════════════════════════════════════
         // Seat kind
         // ═══════════════════════════════════════════════════════════════════
 
-        private enum SeatKind { Regular, Exit, Wheelchair, PeanutAllergy, UMNR }
+        private enum SeatKind
+        {
+            Regular,
+            Exit,
+            Wheelchair,
+            PeanutAllergy,
+            UMNR,
+            WheelchairUMNR,
+            WheelchairPeanut
+        }
 
         private static SeatKind DetectSeatKind(Button btn)
         {
@@ -288,9 +348,18 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
             Color border = btn.FlatAppearance.BorderColor;
 
             if (Near(back, ExitBackColor)) return SeatKind.Exit;
-            if (Near(back, PeanutBack) || Near(border, PeanutBorder)) return SeatKind.PeanutAllergy;
-            if (Near(back, UMNRBack) || Near(border, UMNRBorder)) return SeatKind.UMNR;
-            if (Near(border, WheelchairBorder)) return SeatKind.Wheelchair;
+
+            bool hasOrangeBorder = Near(border, WheelchairBorder);
+            bool hasBlueBack = Near(back, UMNRBack);
+            bool hasGreenBack = Near(back, PeanutBack);
+
+            if (hasOrangeBorder && hasBlueBack) return SeatKind.WheelchairUMNR;
+            if (hasOrangeBorder && hasGreenBack) return SeatKind.WheelchairPeanut;
+            if (hasOrangeBorder) return SeatKind.Wheelchair;
+
+            if (hasGreenBack || Near(border, PeanutBorder)) return SeatKind.PeanutAllergy;
+            if (hasBlueBack || Near(border, UMNRBorder)) return SeatKind.UMNR;
+
             return SeatKind.Regular;
         }
 
@@ -306,44 +375,78 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
         private static bool ValidateSeat(RAPassengerDetails p, SeatKind kind, out string reason)
         {
             reason = "";
+            bool wchr = p.NeedsWheelchair;
+            bool pnut = p.HasPeanutAllergy;
+            bool umnr = p.IsUnaccompaniedMinor;
 
             if (kind == SeatKind.Exit)
             {
-                if (p.NeedsWheelchair)
-                { reason = "Wheelchair passengers cannot be seated in an emergency exit row."; return false; }
-                if (p.HasPeanutAllergy)
-                { reason = "Passengers with peanut allergies cannot be seated in an emergency exit row."; return false; }
-                if (p.IsUnaccompaniedMinor)
-                { reason = "Unaccompanied minors cannot be seated in an emergency exit row."; return false; }
+                if (wchr) { reason = "Wheelchair passengers cannot be seated in an emergency exit row."; return false; }
+                if (pnut) { reason = "Passengers with peanut allergies cannot be seated in an emergency exit row."; return false; }
+                if (umnr) { reason = "Unaccompanied minors cannot be seated in an emergency exit row."; return false; }
                 return true;
             }
 
-            if (p.NeedsWheelchair)
+            if (kind == SeatKind.WheelchairUMNR)
             {
-                if (kind != SeatKind.Wheelchair)
-                { reason = "Wheelchair passengers must use an orange-bordered aisle seat."; return false; }
+                if (!wchr && !umnr)
+                {
+                    reason = pnut
+                        ? "Passengers with peanut allergies must use a GreenYellow-designated seat."
+                        : "This seat is reserved for wheelchair passengers, unaccompanied minors, or both.";
+                    return false;
+                }
+                if (pnut && !umnr)
+                {
+                    reason = "This passenger has a peanut allergy. Please use an orange-bordered / GreenYellow combination seat instead.";
+                    return false;
+                }
                 return true;
             }
-            if (p.HasPeanutAllergy)
+
+            if (kind == SeatKind.WheelchairPeanut)
             {
-                if (kind != SeatKind.PeanutAllergy)
-                { reason = "Passengers with peanut allergies must use a GreenYellow-designated seat."; return false; }
-                return true;
-            }
-            if (p.IsUnaccompaniedMinor)
-            {
-                if (kind != SeatKind.UMNR)
-                { reason = "Unaccompanied minors must use a DeepSkyBlue-designated seat."; return false; }
+                if (!wchr && !pnut)
+                {
+                    reason = umnr
+                        ? "Unaccompanied minors must use a DeepSkyBlue-designated seat."
+                        : "This seat is reserved for wheelchair passengers, passengers with peanut allergies, or both.";
+                    return false;
+                }
+                if (umnr && !pnut)
+                {
+                    reason = "This passenger is an unaccompanied minor. Please use an orange-bordered / DeepSkyBlue combination seat instead.";
+                    return false;
+                }
                 return true;
             }
 
             if (kind == SeatKind.Wheelchair)
-            { reason = "This aisle seat is reserved for wheelchair passengers only."; return false; }
-            if (kind == SeatKind.PeanutAllergy)
-            { reason = "This seat is reserved for passengers with peanut allergies only."; return false; }
-            if (kind == SeatKind.UMNR)
-            { reason = "This seat is reserved for unaccompanied minors only."; return false; }
+            {
+                if (!wchr) { reason = "This aisle seat is reserved for wheelchair passengers only."; return false; }
+                if (pnut) { reason = "This passenger also has a peanut allergy. Please use an orange-bordered / GreenYellow combination seat."; return false; }
+                if (umnr) { reason = "This passenger is also an unaccompanied minor. Please use an orange-bordered / DeepSkyBlue combination seat."; return false; }
+                return true;
+            }
 
+            if (kind == SeatKind.PeanutAllergy)
+            {
+                if (!pnut) { reason = "This seat is reserved for passengers with peanut allergies only."; return false; }
+                if (wchr) { reason = "This passenger also needs a wheelchair aisle seat. Please use an orange-bordered / GreenYellow combination seat."; return false; }
+                return true;
+            }
+
+            if (kind == SeatKind.UMNR)
+            {
+                if (!umnr) { reason = "This seat is reserved for unaccompanied minors only."; return false; }
+                if (wchr) { reason = "This passenger also needs a wheelchair aisle seat. Please use an orange-bordered / DeepSkyBlue combination seat."; return false; }
+                return true;
+            }
+
+            // Regular
+            if (wchr) { reason = "Wheelchair passengers must use an orange-bordered aisle seat."; return false; }
+            if (pnut) { reason = "Passengers with peanut allergies must use a GreenYellow-designated seat."; return false; }
+            if (umnr) { reason = "Unaccompanied minors must use a DeepSkyBlue-designated seat."; return false; }
             return true;
         }
 
@@ -375,6 +478,17 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
                     btn.FlatAppearance.BorderColor = Color.DarkBlue;
                     btn.FlatAppearance.BorderSize = 3;
                     break;
+                case SeatKind.WheelchairUMNR:
+                    btn.BackColor = Color.FromArgb(180, 215, 255);
+                    btn.ForeColor = Color.DeepSkyBlue;
+                    btn.FlatAppearance.BorderColor = WheelchairBorder;
+                    btn.FlatAppearance.BorderSize = 3;
+                    break;
+                case SeatKind.WheelchairPeanut:
+                    btn.BackColor = PeanutBack;
+                    btn.FlatAppearance.BorderColor = WheelchairBorder;
+                    btn.FlatAppearance.BorderSize = 3;
+                    break;
                 default:
                     btn.BackColor = Color.FromArgb(198, 239, 206);
                     btn.FlatAppearance.BorderColor = Color.FromArgb(70, 170, 90);
@@ -385,19 +499,36 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
 
         private static void ApplySavedStyle(Button btn, SavedPassengerInfo p)
         {
-            if (p.NeedsWheelchair)
+            bool wchr = p.NeedsWheelchair;
+            bool pnut = p.HasPeanutAllergy;
+            bool umnr = p.IsUnaccompaniedMinor;
+
+            if (wchr && umnr)
+            {
+                btn.BackColor = Color.FromArgb(180, 215, 255);
+                btn.ForeColor = Color.DeepSkyBlue;
+                btn.FlatAppearance.BorderColor = WheelchairBorder;
+                btn.FlatAppearance.BorderSize = 3;
+            }
+            else if (wchr && pnut)
+            {
+                btn.BackColor = PeanutBack;
+                btn.FlatAppearance.BorderColor = WheelchairBorder;
+                btn.FlatAppearance.BorderSize = 3;
+            }
+            else if (wchr)
             {
                 btn.BackColor = Color.FromArgb(180, 215, 255);
                 btn.FlatAppearance.BorderColor = WheelchairBorder;
                 btn.FlatAppearance.BorderSize = 3;
             }
-            else if (p.HasPeanutAllergy)
+            else if (pnut)
             {
                 btn.BackColor = PeanutBack;
                 btn.FlatAppearance.BorderColor = Color.DarkGreen;
                 btn.FlatAppearance.BorderSize = 3;
             }
-            else if (p.IsUnaccompaniedMinor)
+            else if (umnr)
             {
                 btn.BackColor = UMNRBack;
                 btn.FlatAppearance.BorderColor = Color.DarkBlue;
@@ -408,38 +539,6 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
                 btn.BackColor = Color.FromArgb(198, 239, 206);
                 btn.FlatAppearance.BorderColor = Color.FromArgb(70, 170, 90);
                 btn.FlatAppearance.BorderSize = 2;
-            }
-        }
-
-        // ═══════════════════════════════════════════════════════════════════
-        // Cabin panel resolver
-        // ═══════════════════════════════════════════════════════════════════
-
-        private Panel ResolveCabinPanel(string seatClass)
-        {
-            foreach (Control c in this.Controls)
-            {
-                if (!(c is Panel p)) continue;
-                switch (seatClass)
-                {
-                    case "Business": if (p.Name == "panel2") return p; break;
-                    case "Comfort": if (p.Name == "panel1") return p; break;
-                    default: if (p.Name == "panel3") return p; break;
-                }
-            }
-
-            var panels = this.Controls
-                .OfType<Panel>()
-                .Where(p => p.Controls.OfType<Button>().Any())
-                .OrderBy(p => p.Controls.OfType<Button>().Count())
-                .ToList();
-
-            if (panels.Count < 3) return null;
-            switch (seatClass)
-            {
-                case "Business": return panels[0];
-                case "Comfort": return panels[1];
-                default: return panels[2];
             }
         }
 
@@ -495,6 +594,8 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
 
         private static string TypeCode(RAPassengerDetails p)
         {
+            if (p.NeedsWheelchair && p.HasPeanutAllergy) return "WCHR+NUT";
+            if (p.NeedsWheelchair && p.IsUnaccompaniedMinor) return "WCHR+UMNR";
             if (p.NeedsWheelchair) return "WCHR";
             if (p.HasPeanutAllergy) return "NUT";
             if (p.IsUnaccompaniedMinor) return "UMNR";
@@ -503,6 +604,8 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
 
         private static string TypeCode(SavedPassengerInfo p)
         {
+            if (p.NeedsWheelchair && p.HasPeanutAllergy) return "WCHR+NUT";
+            if (p.NeedsWheelchair && p.IsUnaccompaniedMinor) return "WCHR+UMNR";
             if (p.NeedsWheelchair) return "WCHR";
             if (p.HasPeanutAllergy) return "NUT";
             if (p.IsUnaccompaniedMinor) return "UMNR";
@@ -513,9 +616,9 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
         {
             var parts = new[]
             {
-                peanut ? "Peanut Allergy"     : null,
-                wchr   ? "Wheelchair"          : null,
-                umnr   ? "Unaccompanied Minor" : null
+                peanut ? "Peanut Allergy"      : null,
+                wchr   ? "Wheelchair"           : null,
+                umnr   ? "Unaccompanied Minor"  : null
             }.Where(f => f != null).ToArray();
             return parts.Length > 0 ? string.Join(", ", parts) : "None";
         }

@@ -23,6 +23,7 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
         public decimal BaseFare { get; set; }
         public decimal Tax { get; set; }
         public decimal ServiceFee { get; set; }
+        public DateTime CreatedAt { get; private set; }
 
         // ── Needed for DB save (set by RAForm) ────────────────────
         public int FlightID { get; set; }
@@ -46,6 +47,8 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
             lblDateValue.Text = FlightDate;
             lblPassengersValue.Text = Passengers;
             lblClassValue.Text = FlightClass;
+            CreatedAt = DateTime.Now;
+            txtRefNumber.Text = GenerateReference();
 
             // ── Class breakdown ───────────────────────────────────
             int economy = PassengerForms.Count(p => p.SeatClass == "Economy");
@@ -119,6 +122,7 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
             MessageBox.Show(
                 $"Booking confirmed!\n\n" +
                 $"Reference No: {txtRefNumber.Text}\n\n" +
+                $"Booked At:    {CreatedAt:MMM d, yyyy  h:mm tt}\n\n" +
                 $"Passengers:\n" +
                 $"  Economy:  {economy}\n" +
                 $"  Comfort:  {comfort}\n" +

@@ -280,6 +280,7 @@ namespace FlightReservationSystem.UserControls.AircraftModelsUI
             // ── Primary lookup by designer panel name ────────────────────
             switch (panel.Name)
             {
+                case "pnlBusiness": return "Business";
                 case "pnlComfort": return "Comfort";
                 case "pnlEconomy": return "Economy";
 
