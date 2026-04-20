@@ -659,7 +659,6 @@
             this.panel11.Name = "panel11";
             this.panel11.Size = new System.Drawing.Size(922, 228);
             this.panel11.TabIndex = 22;
-            this.panel11.Paint += new System.Windows.Forms.PaintEventHandler(this.panel11_Paint);
             // 
             // flowLayoutPanel1
             // 
@@ -696,7 +695,6 @@
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "Statistics";
             this.Size = new System.Drawing.Size(1200, 544);
-            this.Load += new System.EventHandler(this.Statistics_Load);
             this.ParentChanged += new System.EventHandler(this.Statistics_ParentChanged);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
