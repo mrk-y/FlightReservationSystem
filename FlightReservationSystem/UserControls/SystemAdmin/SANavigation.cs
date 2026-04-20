@@ -31,8 +31,8 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             btnAssignCrews.Tag = "AssignCrews";
             btnAssignRoute.Tag = "AssignRoute";
             btnStatistics.Tag = "Statistics";
-            btnLogout.Tag = "Logout";
             btnAccounts.Tag = "Accounts";
+            btnLogout.Tag = "Logout";
         }
 
         private void btnAddAircraft_Click(object sender, EventArgs e)

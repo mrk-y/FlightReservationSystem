@@ -55,8 +55,8 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             DataSeeder.PopulateCrewStat1();
             ApplyAircraftCMBData();
             ApplyCrewCMBData();
-            ApplyGenderData();
-            ApplyTypeData();
+            ApplyGenderCMBData();
+            ApplyTypeCMBData();
             lblPilotsCount.Text = $"{2}";
             lblCrewIDVal.Text = $"{AircraftManager.NewCrewID()}";
         }
@@ -119,6 +119,50 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             cmbAircraftVal.AutoCompleteCustomSource.AddRange(sourceList.ToArray());
         }
 
+        private void UpdateFilledStat()
+        {
+            if (dgvPilotsVal.Rows.Count == 2) lblPilotFilled.Visible = true;
+            else lblPilotFilled.Visible = false;
+
+            var aircraftCollection = AircraftManager.GetAircraftCollection;
+
+            if (aircraftCollection.Count == 0)
+            {
+                DebugLogger.LogWithStackTrace("aircraftCollection is empty. Updating aborted.");
+                return;
+            }
+
+            var aircraftModelCollection = AircraftManager.GetAircraftModelCollection;
+
+            if (aircraftModelCollection.Count == 0)
+            {
+                DebugLogger.LogWithStackTrace("aircraftModelCollection is empty. Checking aborted.");
+                return;
+            }
+
+            int selectedAircraftValue = cmbAircraftVal.SelectedValue is int aircraftVal ? aircraftVal : 0;
+
+            for (int i = 0; i < aircraftCollection.Count; i++)
+            {
+                var aircraftRecord = aircraftCollection[i];
+
+                if (aircraftRecord.ID == selectedAircraftValue)
+                {
+                    for (int j = 0; j < aircraftModelCollection.Count; j++)
+                    {
+                        var aircraftModelRecord = aircraftModelCollection[j];
+
+                        if (aircraftRecord.ModelID == aircraftModelRecord.ID && dgvFlightAttendantsVal.Rows.Count == aircraftModelRecord.FlightAttenantsCount)
+                        {
+                            lblFlightAttendantsFilled.Visible = true;
+                            return;
+                        }
+                        else lblFlightAttendantsFilled.Visible = false;
+                    }
+                }
+            }
+        }
+
         public void ApplyCrewCMBData()
         {
             UpdateFilledStat();
@@ -135,52 +179,34 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
                 return;
             }
 
+            var assignedIDs = new HashSet<int>();
+
+            for (int i = 0; i < dgvPilotsVal.Rows.Count; i++)
+            {
+                assignedIDs.Add(Convert.ToInt32(dgvPilotsVal.Rows[i].Cells[0].Value));
+            }
+
+            for (int i = 0; i < dgvFlightAttendantsVal.Rows.Count; i++)
+            {
+                assignedIDs.Add(Convert.ToInt32(dgvFlightAttendantsVal.Rows[i].Cells[0].Value));
+            }
+
             var itemList = new List<CMBItemWTag>();
             var sourceList = new List<string>();
+            var seenIDs = new HashSet<int>();
             for (int i = 0; i < crewCollection.Count; i++)
             {
                 var crewRecord = crewCollection[i];
-                bool valid = true;
 
-                if (crewRecord.Status == 1)
-                {
-                    if (dgvPilotsVal.Rows.Count != 0)
-                    {
-                        for (int j = 0; j < dgvPilotsVal.Rows.Count; j++)
-                        {
-                            int crewID = Convert.ToInt32(dgvPilotsVal.Rows[j].Cells[0].Value);
+                if (crewRecord.Status != 1) continue;
+                if (assignedIDs.Contains(crewRecord.ID)) continue;
+                if (!seenIDs.Add(crewRecord.ID)) continue;
 
-                            if (crewID == crewRecord.ID)
-                            {
-                                valid = false;
-                                break;
-                            }
-                        }
-                    }
+                string display = $"{crewRecord.ID:0000} - {crewRecord.LastName}, {crewRecord.FirstName} {crewRecord.MiddleName}";
+                int id = crewRecord.ID;
 
-                    if (dgvFlightAttendantsVal.Rows.Count != 0)
-                    {
-                        for (int j = 0; j < dgvFlightAttendantsVal.Rows.Count; j++)
-                        {
-                            int crewID = Convert.ToInt32(dgvFlightAttendantsVal.Rows[j].Cells[0].Value);
-
-                            if (crewID == crewRecord.ID)
-                            {
-                                valid = false;
-                                break;
-                            }
-                        }
-                    }
-
-                    if (valid)
-                    {
-                        string display = $"{crewRecord.ID:0000} - {crewRecord.LastName}, {crewRecord.FirstName} {crewRecord.MiddleName}";
-                        int id = crewRecord.ID;
-
-                        itemList.Add(new CMBItemWTag { Display = display, Value = id });
-                        sourceList.Add(display);
-                    }
-                }
+                itemList.Add(new CMBItemWTag { Display = display, Value = id });
+                sourceList.Add(display);
             }
 
             cmbCrewVal.DisplayMember = "Display";
@@ -188,9 +214,18 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             cmbCrewVal.DataSource = itemList;
             cmbCrewVal.AutoCompleteCustomSource.Clear();
             cmbCrewVal.AutoCompleteCustomSource.AddRange(sourceList.ToArray());
+
+            if (itemList.Count == 0)
+            {
+                lblCrewNameVal.Text = string.Empty;
+                lblCrewBirthdateVal.Text = string.Empty;
+                lblCrewGenderVal.Text = string.Empty;
+                lblCrewTypeVal.Text = string.Empty;
+                cmbCrewVal.Text = string.Empty;
+            }
         }
 
-        private void ApplyGenderData()
+        private void ApplyGenderCMBData()
         {
             List<string> genders = new List<string>();
             genders.Add("M");
@@ -202,7 +237,7 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             cmbGenderVal.AutoCompleteCustomSource.AddRange(genders.ToArray());
         }
 
-        public void ApplyTypeData()
+        public void ApplyTypeCMBData()
         {
             var crewTypeCollection = AircraftManager.GetCrewTypeCollection;
 
@@ -305,50 +340,6 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             }
 
             return false;
-        }
-
-        private void UpdateFilledStat()
-        {
-            if (dgvPilotsVal.Rows.Count == 2) lblPilotFilled.Visible = true;
-            else lblPilotFilled.Visible = false;
-
-            var aircraftCollection = AircraftManager.GetAircraftCollection;
-
-            if (aircraftCollection.Count == 0)
-            {
-                DebugLogger.LogWithStackTrace("aircraftCollection is empty. Updating aborted.");
-                return;
-            }
-
-            var aircraftModelCollection = AircraftManager.GetAircraftModelCollection;
-
-            if (aircraftModelCollection.Count == 0)
-            {
-                DebugLogger.LogWithStackTrace("aircraftModelCollection is empty. Checking aborted.");
-                return;
-            }
-
-            int selectedAircraftValue = cmbAircraftVal.SelectedValue is int aircraftVal ? aircraftVal : 0;
-
-            for (int i = 0; i < aircraftCollection.Count; i++)
-            {
-                var aircraftRecord = aircraftCollection[i];
-
-                if (aircraftRecord.ID == selectedAircraftValue)
-                {
-                    for (int j = 0; j < aircraftModelCollection.Count; j++)
-                    {
-                        var aircraftModelRecord = aircraftModelCollection[j];
-
-                        if (aircraftRecord.ModelID == aircraftModelRecord.ID && dgvFlightAttendantsVal.Rows.Count == aircraftModelRecord.FlightAttenantsCount)
-                        {
-                            lblFlightAttendantsFilled.Visible = true;
-                            return;
-                        }
-                        else lblFlightAttendantsFilled.Visible = false;
-                    }
-                }
-            }
         }
 
         private bool IsAssignmentFinished()
@@ -546,8 +537,37 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             for (int i = 0; i < crewCollection.Count; i++)
             {
                 var crewRecord = crewCollection[i];
+                bool valid = true;
 
-                if (crewRecord.ID == selectedCrewValue)
+                if (dgvPilotsVal.Rows.Count != 0)
+                {
+                    for (int j = 0; j < dgvPilotsVal.Rows.Count; j++)
+                    {
+                        int crewID = Convert.ToInt32(dgvPilotsVal.Rows[j].Cells[0].Value);
+
+                        if (crewID == crewRecord.ID)
+                        {
+                            valid = false;
+                            break;
+                        }
+                    }
+                }
+
+                if (dgvFlightAttendantsVal.Rows.Count != 0)
+                {
+                    for (int j = 0; j < dgvFlightAttendantsVal.Rows.Count; j++)
+                    {
+                        int crewID = Convert.ToInt32(dgvFlightAttendantsVal.Rows[j].Cells[0].Value);
+
+                        if (crewID == crewRecord.ID)
+                        {
+                            valid = false;
+                            break;
+                        }
+                    }
+                }
+
+                if (valid && crewRecord.ID == selectedCrewValue)
                 {
                     lblCrewNameVal.Text = $"{crewRecord.LastName}, {crewRecord.FirstName} {crewRecord.MiddleName}";
                     lblCrewBirthdateVal.Text = crewRecord.Birthdate.Date.ToString("yyyy-MM-dd");

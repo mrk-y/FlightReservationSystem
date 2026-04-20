@@ -171,7 +171,13 @@
   <data name="WingBottom" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\WingBottom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="WingBottom_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WingBottom_.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="WingTop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\WingTop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WingTop_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WingTop_.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

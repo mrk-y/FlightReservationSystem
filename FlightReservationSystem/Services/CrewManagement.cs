@@ -65,6 +65,18 @@ namespace FlightReservationSystem.Services
                         else assignCrews._dgvFlightAttendantsVal.Rows.Add($"{crewRecord.ID:0000}", crewRecord.LastName, crewRecord.FirstName, crewRecord.MiddleName, crewRecord.Birthdate.Date.ToString("yyyy-MM-dd"), crewRecord.Gender);
                     }
 
+                    AircraftManager.AddCrew(new CrewRecord
+                    {
+                        ID = crewRecord.ID,
+                        LastName = crewRecord.LastName,
+                        FirstName = crewRecord.FirstName,
+                        MiddleName = crewRecord.MiddleName,
+                        Birthdate = crewRecord.Birthdate,
+                        Gender = crewRecord.Gender,
+                        CrewTypeID = crewRecord.CrewTypeID,
+                        Status = 1
+                    });
+
                     assignCrews.ApplyCrewCMBData();
                     return;
                 }
