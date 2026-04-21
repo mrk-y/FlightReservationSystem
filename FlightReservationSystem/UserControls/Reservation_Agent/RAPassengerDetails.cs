@@ -4,7 +4,6 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using System.Text.RegularExpressions;
 using FlightReservationSystem.Helpers;
 
 namespace FlightReservationSystem.UserControls.Reservation_Agent
@@ -58,7 +57,7 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
         public string FirstName => txtFirstName.Text.Trim();
         public string LastName => txtLastName.Text.Trim();
         public string MiddleName => txtMiddleName.Text.Trim();
-        public string Nationality => txtNationality.Text.Trim();
+        public string Nationality => cmbNationality.SelectedItem?.ToString() ?? "";
         public string IDType => cmbIDType.SelectedItem?.ToString() ?? "";
         public string IDNumber => txtIDNumber.Text.Trim();
         public string PassportNo => txtPassportNumber.Text.Trim();
@@ -71,7 +70,7 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
         public bool IsUnaccompaniedMinor => chkUnaccompaniedMinor.Checked;
         public string GuardianName => txtGuardianName.Text.Trim();
         public string GuardianPhone => txtGuardianPhone.Text.Trim();
-        public string GuardianRelation => txtGuardianRelation.Text.Trim();
+        public string GuardianRelation => cmbGuardianRelation.SelectedItem?.ToString() ?? "";
 
         public RAPassengerDetails()
         {
@@ -82,6 +81,8 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
         {
             cmbGender.SelectedIndex = 0;
             cmbIDType.SelectedIndex = 0;
+            cmbNationality.SelectedIndex = 0;
+
             dtpBirthdate.MaxDate = DateTime.Today;
             dtpBirthdate.Value = DateTime.Today.AddYears(-18);
             ComputeAge();
@@ -165,7 +166,8 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
                 ((CheckBox)sender).Checked = false;
                 _suppressCheckEvent = false;
 
-                MessageBox.Show("Maximum of two special requests allowed.", "Selection Limit", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Maximum of two special requests allowed.", "Selection Limit",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -197,7 +199,10 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
         {
             lblGuardianName.Visible = txtGuardianName.Visible = show;
             lblGuardianPhone.Visible = txtGuardianPhone.Visible = show;
-            lblGuardianRelation.Visible = txtGuardianRelation.Visible = show;
+            lblGuardianRelation.Visible = cmbGuardianRelation.Visible = show;
+
+            if (show && cmbGuardianRelation.SelectedIndex < 0)
+                cmbGuardianRelation.SelectedIndex = 0;
 
             pnlSpecial.Height = show ? 175 : 100;
             btnProceed.Top = pnlSpecial.Bottom + 12;
@@ -206,8 +211,6 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
 
         public bool ValidatePassenger()
         {
-
-
             if (string.IsNullOrWhiteSpace(FirstName) || string.IsNullOrWhiteSpace(LastName) ||
                 string.IsNullOrWhiteSpace(Nationality) || string.IsNullOrWhiteSpace(IDNumber) ||
                 string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Phone))
@@ -225,12 +228,11 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
             if (Age < 2)
                 return ValidationError("Infant passengers (under 2) must be booked via special process.");
 
-            if (!Regex.IsMatch(Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
-                return ValidationError("Please enter a valid email address (e.g., name@example.com).");
-
             if (chkUnaccompaniedMinor.Checked)
             {
-                if (string.IsNullOrWhiteSpace(GuardianName) || string.IsNullOrWhiteSpace(GuardianPhone) || string.IsNullOrWhiteSpace(GuardianRelation))
+                if (string.IsNullOrWhiteSpace(GuardianName) ||
+                    string.IsNullOrWhiteSpace(GuardianPhone) ||
+                    string.IsNullOrWhiteSpace(GuardianRelation))
                     return ValidationError("Guardian details are required for minors.");
             }
 
@@ -239,23 +241,21 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
 
         private bool ValidationError(string message)
         {
-            MessageBox.Show($"Passenger {PassengerNumber}: {message}", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            MessageBox.Show($"Passenger {PassengerNumber}: {message}", "Validation Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
             return false;
         }
 
         private void FilterNumeric(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '+') e.Handled = true;
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '+')
+                e.Handled = true;
         }
 
         private void FilterAlpha(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) &&
-                !char.IsLetter(e.KeyChar) &&
-                e.KeyChar != ' ')
-            {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && e.KeyChar != ' ')
                 e.Handled = true;
-            }
         }
 
         private void btnProceed_Click(object sender, EventArgs e)
@@ -272,36 +272,19 @@ namespace FlightReservationSystem.UserControls.Reservation_Agent
         private void txtAge_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true; 
-            }
-        }
-
-        private void txtNationality_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) &&
-                !char.IsLetter(e.KeyChar) &&
-                e.KeyChar != ' ')
-            {
-                e.Handled = true; 
-            }
+                e.Handled = true;
         }
 
         private void txtIDNumber_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true; 
-            }
+                e.Handled = true;
         }
 
         private void txtPassportNumber_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) &&
-                !char.IsLetterOrDigit(e.KeyChar))
-            {
-                e.Handled = true; 
-            }
+            if (!char.IsControl(e.KeyChar) && !char.IsLetterOrDigit(e.KeyChar))
+                e.Handled = true;
         }
     }
 }

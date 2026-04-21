@@ -28,7 +28,7 @@
             this.lblGender = new System.Windows.Forms.Label();
             this.cmbGender = new System.Windows.Forms.ComboBox();
             this.lblNationality = new System.Windows.Forms.Label();
-            this.txtNationality = new System.Windows.Forms.TextBox();
+            this.cmbNationality = new System.Windows.Forms.ComboBox();
             this.lblIDType = new System.Windows.Forms.Label();
             this.cmbIDType = new System.Windows.Forms.ComboBox();
             this.lblIDNumber = new System.Windows.Forms.Label();
@@ -58,7 +58,7 @@
             this.lblGuardianPhone = new System.Windows.Forms.Label();
             this.txtGuardianPhone = new System.Windows.Forms.TextBox();
             this.lblGuardianRelation = new System.Windows.Forms.Label();
-            this.txtGuardianRelation = new System.Windows.Forms.TextBox();
+            this.cmbGuardianRelation = new System.Windows.Forms.ComboBox();
             this.btnProceed = new System.Windows.Forms.Button();
             this.pnlMain.SuspendLayout();
             this.pnlSpecial.SuspendLayout();
@@ -83,7 +83,7 @@
             this.pnlMain.Controls.Add(this.lblGender);
             this.pnlMain.Controls.Add(this.cmbGender);
             this.pnlMain.Controls.Add(this.lblNationality);
-            this.pnlMain.Controls.Add(this.txtNationality);
+            this.pnlMain.Controls.Add(this.cmbNationality);
             this.pnlMain.Controls.Add(this.lblIDType);
             this.pnlMain.Controls.Add(this.cmbIDType);
             this.pnlMain.Controls.Add(this.lblIDNumber);
@@ -273,15 +273,208 @@
             this.lblNationality.TabIndex = 14;
             this.lblNationality.Text = "Nationality *";
             // 
-            // txtNationality
+            // cmbNationality
             // 
-            this.txtNationality.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtNationality.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtNationality.Location = new System.Drawing.Point(442, 133);
-            this.txtNationality.Name = "txtNationality";
-            this.txtNationality.Size = new System.Drawing.Size(180, 25);
-            this.txtNationality.TabIndex = 15;
-            this.txtNationality.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNationality_KeyPress);
+            this.cmbNationality.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbNationality.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cmbNationality.Items.AddRange(new object[] {
+            "Afghan",
+            "Albanian",
+            "Algerian",
+            "Andorran",
+            "Angolan",
+            "Antiguan / Barbudan",
+            "Argentine",
+            "Armenian",
+            "Australian",
+            "Austrian",
+            "Azerbaijani",
+            "Bahamian",
+            "Bahraini",
+            "Bangladeshi",
+            "Barbadian",
+            "Belarusian",
+            "Belgian",
+            "Belizean",
+            "Beninese",
+            "Bhutanese",
+            "Bolivian",
+            "Bosnian / Herzegovinian",
+            "Botswanan",
+            "Brazilian",
+            "British",
+            "Bruneian",
+            "Bulgarian",
+            "Burkinabé",
+            "Burmese",
+            "Burundian",
+            "Cabo Verdean",
+            "Cambodian",
+            "Cameroonian",
+            "Canadian",
+            "Central African",
+            "Chadian",
+            "Chilean",
+            "Chinese",
+            "Colombian",
+            "Comorian",
+            "Congolese (Republic)",
+            "Congolese (DRC)",
+            "Costa Rican",
+            "Croatian",
+            "Cuban",
+            "Cypriot",
+            "Czech",
+            "Danish",
+            "Djiboutian",
+            "Dominican (Dominica)",
+            "Dominican (Dominican Republic)",
+            "Dutch",
+            "Ecuadorian",
+            "Egyptian",
+            "Emirati",
+            "Equatorial Guinean",
+            "Eritrean",
+            "Estonian",
+            "Eswatini",
+            "Ethiopian",
+            "Fijian",
+            "Filipino",
+            "Finnish",
+            "French",
+            "Gabonese",
+            "Gambian",
+            "Georgian",
+            "German",
+            "Ghanaian",
+            "Greek",
+            "Grenadian",
+            "Guatemalan",
+            "Guinean",
+            "Guinea-Bissauan",
+            "Guyanese",
+            "Haitian",
+            "Honduran",
+            "Hungarian",
+            "Icelandic",
+            "Indian",
+            "Indonesian",
+            "Iranian",
+            "Iraqi",
+            "Irish",
+            "Israeli",
+            "Italian",
+            "Ivorian",
+            "Jamaican",
+            "Japanese",
+            "Jordanian",
+            "Kazakh",
+            "Kenyan",
+            "Kiribati",
+            "Kuwaiti",
+            "Kyrgyz",
+            "Lao",
+            "Latvian",
+            "Lebanese",
+            "Lesotho",
+            "Liberian",
+            "Libyan",
+            "Liechtensteiner",
+            "Lithuanian",
+            "Luxembourgish",
+            "Malagasy",
+            "Malawian",
+            "Malaysian",
+            "Maldivian",
+            "Malian",
+            "Maltese",
+            "Marshallese",
+            "Mauritanian",
+            "Mauritian",
+            "Mexican",
+            "Micronesian",
+            "Moldovan",
+            "Monégasque",
+            "Mongolian",
+            "Montenegrin",
+            "Moroccan",
+            "Mozambican",
+            "Namibian",
+            "Nauruan",
+            "Nepali",
+            "New Zealander",
+            "Nicaraguan",
+            "Nigerien",
+            "Nigerian",
+            "North Korean",
+            "North Macedonian",
+            "Norwegian",
+            "Omani",
+            "Pakistani",
+            "Palauan",
+            "Panamanian",
+            "Papua New Guinean",
+            "Paraguayan",
+            "Peruvian",
+            "Filipino (Philippine)",
+            "Polish",
+            "Portuguese",
+            "Qatari",
+            "Romanian",
+            "Russian",
+            "Rwandan",
+            "Saint Kitts and Nevis",
+            "Saint Lucian",
+            "Saint Vincentian",
+            "Samoan",
+            "San Marinese",
+            "Sao Tomean",
+            "Saudi Arabian",
+            "Senegalese",
+            "Serbian",
+            "Seychellois",
+            "Sierra Leonean",
+            "Singaporean",
+            "Slovak",
+            "Slovenian",
+            "Solomon Islander",
+            "Somali",
+            "South African",
+            "South Korean",
+            "South Sudanese",
+            "Spanish",
+            "Sri Lankan",
+            "Sudanese",
+            "Surinamese",
+            "Swedish",
+            "Swiss",
+            "Syrian",
+            "Taiwanese",
+            "Tajik",
+            "Tanzanian",
+            "Thai",
+            "Timorese",
+            "Togolese",
+            "Tongan",
+            "Trinidadian / Tobagonian",
+            "Tunisian",
+            "Turkish",
+            "Turkmen",
+            "Ugandan",
+            "Ukrainian",
+            "Uruguayan",
+            "Uzbek",
+            "Vanuatuan",
+            "Vatican",
+            "Venezuelan",
+            "Vietnamese",
+            "Yemeni",
+            "Zambian",
+            "Zimbabwean"});
+            this.cmbNationality.Location = new System.Drawing.Point(442, 133);
+            this.cmbNationality.Name = "cmbNationality";
+            this.cmbNationality.Size = new System.Drawing.Size(180, 25);
+            this.cmbNationality.TabIndex = 15;
             // 
             // lblIDType
             // 
@@ -467,7 +660,7 @@
             this.pnlSpecial.Controls.Add(this.lblGuardianPhone);
             this.pnlSpecial.Controls.Add(this.txtGuardianPhone);
             this.pnlSpecial.Controls.Add(this.lblGuardianRelation);
-            this.pnlSpecial.Controls.Add(this.txtGuardianRelation);
+            this.pnlSpecial.Controls.Add(this.cmbGuardianRelation);
             this.pnlSpecial.Location = new System.Drawing.Point(24, 300);
             this.pnlSpecial.Name = "pnlSpecial";
             this.pnlSpecial.Size = new System.Drawing.Size(1150, 100);
@@ -618,15 +811,22 @@
             this.lblGuardianRelation.Text = "Relation *";
             this.lblGuardianRelation.Visible = false;
             // 
-            // txtGuardianRelation
+            // cmbGuardianRelation
             // 
-            this.txtGuardianRelation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtGuardianRelation.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtGuardianRelation.Location = new System.Drawing.Point(422, 127);
-            this.txtGuardianRelation.Name = "txtGuardianRelation";
-            this.txtGuardianRelation.Size = new System.Drawing.Size(160, 25);
-            this.txtGuardianRelation.TabIndex = 12;
-            this.txtGuardianRelation.Visible = false;
+            this.cmbGuardianRelation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbGuardianRelation.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cmbGuardianRelation.Items.AddRange(new object[] {
+            "Parent",
+            "Grandparent",
+            "Sibling",
+            "Aunt / Uncle",
+            "Legal Guardian",
+            "Other Relative"});
+            this.cmbGuardianRelation.Location = new System.Drawing.Point(422, 127);
+            this.cmbGuardianRelation.Name = "cmbGuardianRelation";
+            this.cmbGuardianRelation.Size = new System.Drawing.Size(160, 25);
+            this.cmbGuardianRelation.TabIndex = 12;
+            this.cmbGuardianRelation.Visible = false;
             // 
             // btnProceed
             // 
@@ -658,7 +858,6 @@
             this.pnlSpecial.ResumeLayout(false);
             this.pnlSpecial.PerformLayout();
             this.ResumeLayout(false);
-
         }
 
         private System.Windows.Forms.Panel pnlMain;
@@ -671,7 +870,7 @@
         private System.Windows.Forms.Label lblGender;
         private System.Windows.Forms.ComboBox cmbGender;
         private System.Windows.Forms.Label lblNationality;
-        private System.Windows.Forms.TextBox txtNationality;
+        private System.Windows.Forms.ComboBox cmbNationality;
         private System.Windows.Forms.Label lblIDType;
         private System.Windows.Forms.ComboBox cmbIDType;
         private System.Windows.Forms.Label lblIDNumber;
@@ -693,7 +892,8 @@
         private System.Windows.Forms.CheckBox chkUnaccompaniedMinor;
         private System.Windows.Forms.Label lblUnaccompaniedDesc;
         private System.Windows.Forms.Label lblGuardianName, lblGuardianPhone, lblGuardianRelation;
-        private System.Windows.Forms.TextBox txtGuardianName, txtGuardianPhone, txtGuardianRelation;
+        private System.Windows.Forms.TextBox txtGuardianName, txtGuardianPhone;
+        private System.Windows.Forms.ComboBox cmbGuardianRelation;
         private System.Windows.Forms.Button btnProceed;
     }
 }
