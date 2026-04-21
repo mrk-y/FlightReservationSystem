@@ -28,6 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea56 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend56 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series56 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea57 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend57 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series57 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea58 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend58 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series58 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea59 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend59 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series59 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea60 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend60 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series60 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.label1 = new System.Windows.Forms.Label();
             this.rbViewDaily = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -67,8 +82,33 @@
             this.label13 = new System.Windows.Forms.Label();
             this.panel10 = new System.Windows.Forms.Panel();
             this.panel11 = new System.Windows.Forms.Panel();
+            this.chSeatClass = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chRevenue = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.pnlRevenue = new System.Windows.Forms.Panel();
+            this.panel13 = new System.Windows.Forms.Panel();
+            this.btnPrintReport = new System.Windows.Forms.Button();
+            this.pnlPrint = new System.Windows.Forms.Panel();
+            this.panel17 = new System.Windows.Forms.Panel();
+            this.rbPeriodAnnually = new System.Windows.Forms.RadioButton();
+            this.rbPeriodMonthly = new System.Windows.Forms.RadioButton();
+            this.rbPeriodDaily = new System.Windows.Forms.RadioButton();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.lblResult = new System.Windows.Forms.Label();
+            this.btnPrint = new System.Windows.Forms.Button();
+            this.label14 = new System.Windows.Forms.Label();
+            this.panel15 = new System.Windows.Forms.Panel();
+            this.cbFlights = new System.Windows.Forms.RadioButton();
+            this.cbPassengers = new System.Windows.Forms.RadioButton();
+            this.cbBookings = new System.Windows.Forms.RadioButton();
+            this.cbRevenue = new System.Windows.Forms.RadioButton();
+            this.label12 = new System.Windows.Forms.Label();
+            this.btnClose = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.chRoutes = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chPassengers = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chBookings = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -80,7 +120,17 @@
             this.panel9.SuspendLayout();
             this.panel10.SuspendLayout();
             this.panel11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chSeatClass)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chRevenue)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
+            this.panel13.SuspendLayout();
+            this.pnlPrint.SuspendLayout();
+            this.panel17.SuspendLayout();
+            this.panel15.SuspendLayout();
+            this.panel12.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chRoutes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chPassengers)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chBookings)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -89,7 +139,7 @@
             this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(80)))));
             this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Margin = new System.Windows.Forms.Padding(0, 0, 12, 24);
+            this.label1.Margin = new System.Windows.Forms.Padding(0, 0, 12, 0);
             this.label1.MinimumSize = new System.Drawing.Size(0, 27);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(54, 27);
@@ -118,6 +168,7 @@
             this.rbViewDaily.Text = "Daily";
             this.rbViewDaily.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbViewDaily.UseVisualStyleBackColor = false;
+            this.rbViewDaily.CheckedChanged += new System.EventHandler(this.rbViewDaily_CheckedChanged);
             // 
             // panel1
             // 
@@ -127,7 +178,7 @@
             this.panel1.Controls.Add(this.rbViewMonthly);
             this.panel1.Controls.Add(this.rbViewDaily);
             this.panel1.Location = new System.Drawing.Point(66, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(0, 0, 0, 24);
+            this.panel1.Margin = new System.Windows.Forms.Padding(0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(239, 27);
             this.panel1.TabIndex = 8;
@@ -153,6 +204,7 @@
             this.rbViewAnnually.Text = "Annually";
             this.rbViewAnnually.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbViewAnnually.UseVisualStyleBackColor = false;
+            this.rbViewAnnually.CheckedChanged += new System.EventHandler(this.rbViewAnnually_CheckedChanged);
             // 
             // rbViewMonthly
             // 
@@ -175,6 +227,7 @@
             this.rbViewMonthly.Text = "Monthly";
             this.rbViewMonthly.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbViewMonthly.UseVisualStyleBackColor = false;
+            this.rbViewMonthly.CheckedChanged += new System.EventHandler(this.rbViewMonthly_CheckedChanged);
             // 
             // panel2
             // 
@@ -642,7 +695,7 @@
             this.panel10.Controls.Add(this.panel7);
             this.panel10.Controls.Add(this.panel5);
             this.panel10.Controls.Add(this.panel6);
-            this.panel10.Location = new System.Drawing.Point(0, 0);
+            this.panel10.Location = new System.Drawing.Point(0, 55);
             this.panel10.Margin = new System.Windows.Forms.Padding(0, 0, 0, 16);
             this.panel10.Name = "panel10";
             this.panel10.Size = new System.Drawing.Size(1160, 99);
@@ -650,38 +703,472 @@
             // 
             // panel11
             // 
+            this.panel11.AutoSize = true;
             this.panel11.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panel11.Controls.Add(this.pnlRevenue);
+            this.panel11.Controls.Add(this.chSeatClass);
+            this.panel11.Controls.Add(this.chRevenue);
             this.panel11.Controls.Add(this.panel8);
             this.panel11.Controls.Add(this.panel9);
-            this.panel11.Location = new System.Drawing.Point(0, 115);
+            this.panel11.Location = new System.Drawing.Point(0, 492);
             this.panel11.Margin = new System.Windows.Forms.Padding(0, 0, 0, 16);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(922, 228);
+            this.panel11.Size = new System.Drawing.Size(1015, 300);
             this.panel11.TabIndex = 22;
+            // 
+            // chSeatClass
+            // 
+            chartArea56.Name = "ChartArea1";
+            this.chSeatClass.ChartAreas.Add(chartArea56);
+            legend56.Name = "Legend1";
+            this.chSeatClass.Legends.Add(legend56);
+            this.chSeatClass.Location = new System.Drawing.Point(665, 0);
+            this.chSeatClass.Margin = new System.Windows.Forms.Padding(0);
+            this.chSeatClass.Name = "chSeatClass";
+            series56.ChartArea = "ChartArea1";
+            series56.Legend = "Legend1";
+            series56.Name = "Series1";
+            this.chSeatClass.Series.Add(series56);
+            this.chSeatClass.Size = new System.Drawing.Size(350, 300);
+            this.chSeatClass.TabIndex = 21;
+            this.chSeatClass.Text = "chart1";
+            // 
+            // chRevenue
+            // 
+            chartArea57.Name = "ChartArea1";
+            this.chRevenue.ChartAreas.Add(chartArea57);
+            legend57.Name = "Legend1";
+            this.chRevenue.Legends.Add(legend57);
+            this.chRevenue.Location = new System.Drawing.Point(199, 0);
+            this.chRevenue.Margin = new System.Windows.Forms.Padding(0, 0, 16, 0);
+            this.chRevenue.Name = "chRevenue";
+            series57.ChartArea = "ChartArea1";
+            series57.Legend = "Legend1";
+            series57.Name = "Series1";
+            this.chRevenue.Series.Add(series57);
+            this.chRevenue.Size = new System.Drawing.Size(450, 300);
+            this.chRevenue.TabIndex = 20;
+            this.chRevenue.Text = "chart1";
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.AutoSize = true;
+            this.flowLayoutPanel1.AutoScroll = true;
             this.flowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.flowLayoutPanel1.Controls.Add(this.panel13);
             this.flowLayoutPanel1.Controls.Add(this.panel10);
+            this.flowLayoutPanel1.Controls.Add(this.pnlPrint);
             this.flowLayoutPanel1.Controls.Add(this.panel11);
+            this.flowLayoutPanel1.Controls.Add(this.panel12);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 51);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1160, 359);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1200, 544);
             this.flowLayoutPanel1.TabIndex = 23;
+            this.flowLayoutPanel1.WrapContents = false;
             // 
-            // pnlRevenue
+            // panel13
             // 
-            this.pnlRevenue.AutoSize = true;
-            this.pnlRevenue.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.pnlRevenue.Location = new System.Drawing.Point(199, 9);
-            this.pnlRevenue.Margin = new System.Windows.Forms.Padding(0);
-            this.pnlRevenue.Name = "pnlRevenue";
-            this.pnlRevenue.Size = new System.Drawing.Size(0, 0);
-            this.pnlRevenue.TabIndex = 20;
+            this.panel13.AutoSize = true;
+            this.panel13.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel13.Controls.Add(this.btnPrintReport);
+            this.panel13.Controls.Add(this.label1);
+            this.panel13.Controls.Add(this.panel1);
+            this.panel13.Location = new System.Drawing.Point(0, 0);
+            this.panel13.Margin = new System.Windows.Forms.Padding(0, 0, 0, 24);
+            this.panel13.Name = "panel13";
+            this.panel13.Size = new System.Drawing.Size(1160, 31);
+            this.panel13.TabIndex = 24;
+            // 
+            // btnPrintReport
+            // 
+            this.btnPrintReport.AutoSize = true;
+            this.btnPrintReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnPrintReport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
+            this.btnPrintReport.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPrintReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPrintReport.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnPrintReport.ForeColor = System.Drawing.Color.White;
+            this.btnPrintReport.Image = global::FlightReservationSystem.Properties.Resources.Printer;
+            this.btnPrintReport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPrintReport.Location = new System.Drawing.Point(1041, 0);
+            this.btnPrintReport.Margin = new System.Windows.Forms.Padding(0);
+            this.btnPrintReport.Name = "btnPrintReport";
+            this.btnPrintReport.Padding = new System.Windows.Forms.Padding(8, 2, 8, 2);
+            this.btnPrintReport.Size = new System.Drawing.Size(119, 31);
+            this.btnPrintReport.TabIndex = 9;
+            this.btnPrintReport.Text = "Print report";
+            this.btnPrintReport.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPrintReport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnPrintReport.UseVisualStyleBackColor = false;
+            this.btnPrintReport.Click += new System.EventHandler(this.btnPrintReport_Click);
+            // 
+            // pnlPrint
+            // 
+            this.pnlPrint.AutoSize = true;
+            this.pnlPrint.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.pnlPrint.BackColor = System.Drawing.Color.White;
+            this.pnlPrint.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlPrint.Controls.Add(this.lblResult);
+            this.pnlPrint.Controls.Add(this.panel17);
+            this.pnlPrint.Controls.Add(this.btnCancel);
+            this.pnlPrint.Controls.Add(this.flowLayoutPanel2);
+            this.pnlPrint.Controls.Add(this.btnPrint);
+            this.pnlPrint.Controls.Add(this.label14);
+            this.pnlPrint.Controls.Add(this.panel15);
+            this.pnlPrint.Controls.Add(this.label12);
+            this.pnlPrint.Controls.Add(this.btnClose);
+            this.pnlPrint.Controls.Add(this.label10);
+            this.pnlPrint.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pnlPrint.Location = new System.Drawing.Point(0, 170);
+            this.pnlPrint.Margin = new System.Windows.Forms.Padding(0);
+            this.pnlPrint.Name = "pnlPrint";
+            this.pnlPrint.Padding = new System.Windows.Forms.Padding(12);
+            this.pnlPrint.Size = new System.Drawing.Size(591, 322);
+            this.pnlPrint.TabIndex = 25;
+            this.pnlPrint.Visible = false;
+            // 
+            // panel17
+            // 
+            this.panel17.AutoSize = true;
+            this.panel17.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel17.Controls.Add(this.rbPeriodAnnually);
+            this.panel17.Controls.Add(this.rbPeriodMonthly);
+            this.panel17.Controls.Add(this.rbPeriodDaily);
+            this.panel17.Location = new System.Drawing.Point(15, 218);
+            this.panel17.Margin = new System.Windows.Forms.Padding(0, 0, 8, 24);
+            this.panel17.Name = "panel17";
+            this.panel17.Size = new System.Drawing.Size(249, 27);
+            this.panel17.TabIndex = 0;
+            // 
+            // rbPeriodAnnually
+            // 
+            this.rbPeriodAnnually.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rbPeriodAnnually.AutoSize = true;
+            this.rbPeriodAnnually.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
+            this.rbPeriodAnnually.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbPeriodAnnually.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.rbPeriodAnnually.FlatAppearance.CheckedBackColor = System.Drawing.Color.Orange;
+            this.rbPeriodAnnually.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rbPeriodAnnually.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbPeriodAnnually.ForeColor = System.Drawing.Color.White;
+            this.rbPeriodAnnually.Location = new System.Drawing.Point(159, 0);
+            this.rbPeriodAnnually.Margin = new System.Windows.Forms.Padding(0, 0, 8, 0);
+            this.rbPeriodAnnually.Name = "rbPeriodAnnually";
+            this.rbPeriodAnnually.Padding = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.rbPeriodAnnually.Size = new System.Drawing.Size(82, 27);
+            this.rbPeriodAnnually.TabIndex = 12;
+            this.rbPeriodAnnually.TabStop = true;
+            this.rbPeriodAnnually.Text = "Annually";
+            this.rbPeriodAnnually.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbPeriodAnnually.UseVisualStyleBackColor = false;
+            // 
+            // rbPeriodMonthly
+            // 
+            this.rbPeriodMonthly.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rbPeriodMonthly.AutoSize = true;
+            this.rbPeriodMonthly.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
+            this.rbPeriodMonthly.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbPeriodMonthly.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.rbPeriodMonthly.FlatAppearance.CheckedBackColor = System.Drawing.Color.Orange;
+            this.rbPeriodMonthly.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rbPeriodMonthly.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbPeriodMonthly.ForeColor = System.Drawing.Color.White;
+            this.rbPeriodMonthly.Location = new System.Drawing.Point(70, 0);
+            this.rbPeriodMonthly.Margin = new System.Windows.Forms.Padding(0, 0, 8, 0);
+            this.rbPeriodMonthly.Name = "rbPeriodMonthly";
+            this.rbPeriodMonthly.Padding = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.rbPeriodMonthly.Size = new System.Drawing.Size(81, 27);
+            this.rbPeriodMonthly.TabIndex = 11;
+            this.rbPeriodMonthly.TabStop = true;
+            this.rbPeriodMonthly.Text = "Monthly";
+            this.rbPeriodMonthly.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbPeriodMonthly.UseVisualStyleBackColor = false;
+            // 
+            // rbPeriodDaily
+            // 
+            this.rbPeriodDaily.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rbPeriodDaily.AutoSize = true;
+            this.rbPeriodDaily.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
+            this.rbPeriodDaily.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbPeriodDaily.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.rbPeriodDaily.FlatAppearance.CheckedBackColor = System.Drawing.Color.Orange;
+            this.rbPeriodDaily.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rbPeriodDaily.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbPeriodDaily.ForeColor = System.Drawing.Color.White;
+            this.rbPeriodDaily.Location = new System.Drawing.Point(0, 0);
+            this.rbPeriodDaily.Margin = new System.Windows.Forms.Padding(0, 0, 8, 0);
+            this.rbPeriodDaily.Name = "rbPeriodDaily";
+            this.rbPeriodDaily.Padding = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.rbPeriodDaily.Size = new System.Drawing.Size(62, 27);
+            this.rbPeriodDaily.TabIndex = 10;
+            this.rbPeriodDaily.TabStop = true;
+            this.rbPeriodDaily.Text = "Daily";
+            this.rbPeriodDaily.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbPeriodDaily.UseVisualStyleBackColor = false;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.AutoSize = true;
+            this.btnCancel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
+            this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnCancel.ForeColor = System.Drawing.Color.White;
+            this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCancel.Location = new System.Drawing.Point(436, 269);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(0, 0, 8, 8);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Padding = new System.Windows.Forms.Padding(8, 2, 8, 2);
+            this.btnCancel.Size = new System.Drawing.Size(71, 31);
+            this.btnCancel.TabIndex = 18;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // flowLayoutPanel2
+            // 
+            this.flowLayoutPanel2.AutoSize = true;
+            this.flowLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(16, 256);
+            this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(0, 0, 0, 24);
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(0, 0);
+            this.flowLayoutPanel2.TabIndex = 17;
+            // 
+            // lblResult
+            // 
+            this.lblResult.AutoSize = true;
+            this.lblResult.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblResult.Location = new System.Drawing.Point(13, 287);
+            this.lblResult.Margin = new System.Windows.Forms.Padding(0);
+            this.lblResult.Name = "lblResult";
+            this.lblResult.Size = new System.Drawing.Size(39, 13);
+            this.lblResult.TabIndex = 23;
+            this.lblResult.Text = "[Data]";
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.AutoSize = true;
+            this.btnPrint.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnPrint.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
+            this.btnPrint.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPrint.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPrint.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnPrint.ForeColor = System.Drawing.Color.White;
+            this.btnPrint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPrint.Location = new System.Drawing.Point(515, 269);
+            this.btnPrint.Margin = new System.Windows.Forms.Padding(0, 0, 0, 8);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Padding = new System.Windows.Forms.Padding(8, 2, 8, 2);
+            this.btnPrint.Size = new System.Drawing.Size(62, 31);
+            this.btnPrint.TabIndex = 10;
+            this.btnPrint.Text = "Print";
+            this.btnPrint.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPrint.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnPrint.UseVisualStyleBackColor = false;
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(80)))));
+            this.label14.Location = new System.Drawing.Point(12, 191);
+            this.label14.Margin = new System.Windows.Forms.Padding(0);
+            this.label14.MinimumSize = new System.Drawing.Size(0, 27);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(43, 27);
+            this.label14.TabIndex = 15;
+            this.label14.Text = "Period";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel15
+            // 
+            this.panel15.AutoSize = true;
+            this.panel15.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel15.Controls.Add(this.cbFlights);
+            this.panel15.Controls.Add(this.cbPassengers);
+            this.panel15.Controls.Add(this.cbBookings);
+            this.panel15.Controls.Add(this.cbRevenue);
+            this.panel15.Location = new System.Drawing.Point(16, 83);
+            this.panel15.Margin = new System.Windows.Forms.Padding(0, 0, 0, 24);
+            this.panel15.Name = "panel15";
+            this.panel15.Size = new System.Drawing.Size(561, 84);
+            this.panel15.TabIndex = 14;
+            // 
+            // cbFlights
+            // 
+            this.cbFlights.AutoSize = true;
+            this.cbFlights.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cbFlights.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbFlights.Location = new System.Drawing.Point(0, 46);
+            this.cbFlights.Margin = new System.Windows.Forms.Padding(0, 0, 8, 0);
+            this.cbFlights.Name = "cbFlights";
+            this.cbFlights.Size = new System.Drawing.Size(163, 38);
+            this.cbFlights.TabIndex = 3;
+            this.cbFlights.TabStop = true;
+            this.cbFlights.Text = "Flights\r\nFlight activity & routes";
+            this.cbFlights.UseMnemonic = false;
+            this.cbFlights.UseVisualStyleBackColor = true;
+            // 
+            // cbPassengers
+            // 
+            this.cbPassengers.AutoSize = true;
+            this.cbPassengers.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cbPassengers.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbPassengers.Location = new System.Drawing.Point(382, 0);
+            this.cbPassengers.Margin = new System.Windows.Forms.Padding(0, 0, 8, 8);
+            this.cbPassengers.Name = "cbPassengers";
+            this.cbPassengers.Size = new System.Drawing.Size(171, 38);
+            this.cbPassengers.TabIndex = 2;
+            this.cbPassengers.TabStop = true;
+            this.cbPassengers.Text = "Passengers\r\nPax volume & seat class";
+            this.cbPassengers.UseMnemonic = false;
+            this.cbPassengers.UseVisualStyleBackColor = true;
+            // 
+            // cbBookings
+            // 
+            this.cbBookings.AutoSize = true;
+            this.cbBookings.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cbBookings.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbBookings.Location = new System.Drawing.Point(198, 0);
+            this.cbBookings.Margin = new System.Windows.Forms.Padding(0, 0, 8, 8);
+            this.cbBookings.Name = "cbBookings";
+            this.cbBookings.Size = new System.Drawing.Size(176, 38);
+            this.cbBookings.TabIndex = 1;
+            this.cbBookings.TabStop = true;
+            this.cbBookings.Text = "Bookings\r\nBooking counts & values";
+            this.cbBookings.UseMnemonic = false;
+            this.cbBookings.UseVisualStyleBackColor = true;
+            // 
+            // cbRevenue
+            // 
+            this.cbRevenue.AutoSize = true;
+            this.cbRevenue.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cbRevenue.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbRevenue.Location = new System.Drawing.Point(0, 0);
+            this.cbRevenue.Margin = new System.Windows.Forms.Padding(0, 0, 8, 8);
+            this.cbRevenue.Name = "cbRevenue";
+            this.cbRevenue.Size = new System.Drawing.Size(190, 38);
+            this.cbRevenue.TabIndex = 0;
+            this.cbRevenue.TabStop = true;
+            this.cbRevenue.Text = "Revenue\r\nRevenue & fare breakdown";
+            this.cbRevenue.UseMnemonic = false;
+            this.cbRevenue.UseVisualStyleBackColor = true;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(80)))));
+            this.label12.Location = new System.Drawing.Point(12, 56);
+            this.label12.Margin = new System.Windows.Forms.Padding(0);
+            this.label12.MinimumSize = new System.Drawing.Size(0, 27);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(75, 27);
+            this.label12.TabIndex = 13;
+            this.label12.Text = "Report Type";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnClose
+            // 
+            this.btnClose.AutoSize = true;
+            this.btnClose.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnClose.BackColor = System.Drawing.Color.White;
+            this.btnClose.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnClose.ForeColor = System.Drawing.Color.White;
+            this.btnClose.Image = global::FlightReservationSystem.Properties.Resources.Close;
+            this.btnClose.Location = new System.Drawing.Point(529, 12);
+            this.btnClose.Margin = new System.Windows.Forms.Padding(0, 0, 0, 24);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Padding = new System.Windows.Forms.Padding(8, 2, 8, 2);
+            this.btnClose.Size = new System.Drawing.Size(48, 36);
+            this.btnClose.TabIndex = 10;
+            this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
+            this.label10.Location = new System.Drawing.Point(12, 12);
+            this.label10.Margin = new System.Windows.Forms.Padding(0, 0, 0, 24);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(91, 20);
+            this.label10.TabIndex = 0;
+            this.label10.Text = "Print report";
+            // 
+            // panel12
+            // 
+            this.panel12.AutoSize = true;
+            this.panel12.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel12.Controls.Add(this.chRoutes);
+            this.panel12.Controls.Add(this.chPassengers);
+            this.panel12.Controls.Add(this.chBookings);
+            this.panel12.Location = new System.Drawing.Point(0, 808);
+            this.panel12.Margin = new System.Windows.Forms.Padding(0);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(1156, 250);
+            this.panel12.TabIndex = 24;
+            // 
+            // chRoutes
+            // 
+            chartArea58.Name = "ChartArea1";
+            this.chRoutes.ChartAreas.Add(chartArea58);
+            legend58.Name = "Legend1";
+            this.chRoutes.Legends.Add(legend58);
+            this.chRoutes.Location = new System.Drawing.Point(781, 0);
+            this.chRoutes.Margin = new System.Windows.Forms.Padding(0);
+            this.chRoutes.Name = "chRoutes";
+            series58.ChartArea = "ChartArea1";
+            series58.Legend = "Legend1";
+            series58.Name = "Series1";
+            this.chRoutes.Series.Add(series58);
+            this.chRoutes.Size = new System.Drawing.Size(375, 250);
+            this.chRoutes.TabIndex = 2;
+            this.chRoutes.Text = "chart1";
+            // 
+            // chPassengers
+            // 
+            chartArea59.Name = "ChartArea1";
+            this.chPassengers.ChartAreas.Add(chartArea59);
+            legend59.Name = "Legend1";
+            this.chPassengers.Legends.Add(legend59);
+            this.chPassengers.Location = new System.Drawing.Point(389, 0);
+            this.chPassengers.Margin = new System.Windows.Forms.Padding(0, 0, 16, 0);
+            this.chPassengers.Name = "chPassengers";
+            series59.ChartArea = "ChartArea1";
+            series59.Legend = "Legend1";
+            series59.Name = "Series1";
+            this.chPassengers.Series.Add(series59);
+            this.chPassengers.Size = new System.Drawing.Size(375, 250);
+            this.chPassengers.TabIndex = 1;
+            this.chPassengers.Text = "chart1";
+            // 
+            // chBookings
+            // 
+            chartArea60.Name = "ChartArea1";
+            this.chBookings.ChartAreas.Add(chartArea60);
+            legend60.Name = "Legend1";
+            this.chBookings.Legends.Add(legend60);
+            this.chBookings.Location = new System.Drawing.Point(0, 0);
+            this.chBookings.Margin = new System.Windows.Forms.Padding(0, 0, 16, 0);
+            this.chBookings.Name = "chBookings";
+            series60.ChartArea = "ChartArea1";
+            series60.Legend = "Legend1";
+            series60.Name = "Series1";
+            this.chBookings.Series.Add(series60);
+            this.chBookings.Size = new System.Drawing.Size(375, 250);
+            this.chBookings.TabIndex = 0;
+            this.chBookings.Text = "chart1";
             // 
             // Statistics
             // 
@@ -689,8 +1176,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(248)))), ((int)(((byte)(255)))));
             this.Controls.Add(this.flowLayoutPanel1);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "Statistics";
@@ -716,11 +1201,23 @@
             this.panel9.PerformLayout();
             this.panel10.ResumeLayout(false);
             this.panel11.ResumeLayout(false);
-            this.panel11.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chSeatClass)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chRevenue)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
+            this.panel13.ResumeLayout(false);
+            this.panel13.PerformLayout();
+            this.pnlPrint.ResumeLayout(false);
+            this.pnlPrint.PerformLayout();
+            this.panel17.ResumeLayout(false);
+            this.panel17.PerformLayout();
+            this.panel15.ResumeLayout(false);
+            this.panel15.PerformLayout();
+            this.panel12.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chRoutes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chPassengers)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chBookings)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -766,6 +1263,31 @@
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.Panel panel11;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.Panel pnlRevenue;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chRevenue;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chSeatClass;
+        private System.Windows.Forms.Panel panel12;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chBookings;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chPassengers;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chRoutes;
+        private System.Windows.Forms.Panel panel13;
+        private System.Windows.Forms.Button btnPrintReport;
+        private System.Windows.Forms.Panel pnlPrint;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Panel panel15;
+        private System.Windows.Forms.RadioButton cbRevenue;
+        private System.Windows.Forms.RadioButton cbBookings;
+        private System.Windows.Forms.RadioButton cbPassengers;
+        private System.Windows.Forms.RadioButton cbFlights;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Panel panel17;
+        private System.Windows.Forms.RadioButton rbPeriodDaily;
+        private System.Windows.Forms.RadioButton rbPeriodMonthly;
+        private System.Windows.Forms.RadioButton rbPeriodAnnually;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
+        private System.Windows.Forms.Label lblResult;
+        private System.Windows.Forms.Button btnPrint;
+        private System.Windows.Forms.Button btnCancel;
     }
 }

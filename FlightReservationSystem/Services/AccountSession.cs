@@ -113,13 +113,20 @@ namespace FlightReservationSystem.Services
             }
         }
 
-        public static void PopulateReferencesForUser()
+        private static void PopulateReferencesForUser()
         {
             DataSeeder.PopulateAircraftModels();
             DataSeeder.PopulateAirlines();
             DataSeeder.PopulateAirports();
             DataSeeder.PopulateSeatTypes();
             DataSeeder.PopulateTerminals();
+        }
+
+        private static void PopulateRuntimeForAdmin()
+        {
+            DataSeeder.PopulateBookings();
+            DataSeeder.PopulateBookingPassengers();
+            DataSeeder.PopulateFlights();
         }
 
         private static void LoginAccount() 
@@ -136,6 +143,8 @@ namespace FlightReservationSystem.Services
 
             if (userTypeID == 1)
             {
+                PopulateRuntimeForAdmin();
+
                 AddAircraft addAircraft = new AddAircraft();
                 SANavigation saNavigation = new SANavigation();
 
