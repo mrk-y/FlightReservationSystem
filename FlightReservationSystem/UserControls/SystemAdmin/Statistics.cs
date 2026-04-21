@@ -1141,7 +1141,6 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             var doc = new PrintDocument();
             doc.DocumentName = $"FRS Report - {reportType} ({periodLabel})";
 
-            // Page state for multi-page printing
             int currentRow = 0;
             bool headerDrawn = false;
 
@@ -1153,7 +1152,7 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
                 float y = e.MarginBounds.Top;
                 float pageBottom = e.MarginBounds.Bottom;
 
-                // ── Color palette (matches RAPayment) ────────────────
+                // ── Color palette ─────────────────────────────────────
                 Color navy = Color.FromArgb(20, 20, 50);
                 Color orange = Color.FromArgb(220, 80, 0);
                 Color gray = Color.FromArgb(120, 120, 130);
@@ -1167,24 +1166,63 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
                 var fontSmall = new Font("Segoe UI", 8f, FontStyle.Regular);
                 var fontColHeader = new Font("Segoe UI", 8.5f, FontStyle.Bold);
 
-                float rowH = 18f;
+                // ── Auto-calculate column widths based on content ─────
+                float[] colWidths = new float[dt.Columns.Count];
+                float minColWidth = 40f;
+                float cellPadding = 8f;
 
-                // ── Draw page header (first page only) ───────────────
+                for (int c = 0; c < dt.Columns.Count; c++)
+                {
+                    // Start with header width
+                    float maxW = g.MeasureString(dt.Columns[c].ColumnName, fontColHeader).Width + cellPadding * 2;
+
+                    // Check each row's cell width (sample up to 100 rows for performance)
+                    int sampleLimit = Math.Min(dt.Rows.Count, 100);
+                    for (int r = 0; r < sampleLimit; r++)
+                    {
+                        string cell = dt.Rows[r][c]?.ToString() ?? string.Empty;
+                        float cellW = g.MeasureString(cell, fontLabel).Width + cellPadding * 2;
+                        if (cellW > maxW) maxW = cellW;
+                    }
+
+                    colWidths[c] = Math.Max(maxW, minColWidth);
+                }
+
+                // Scale columns proportionally if total exceeds page width
+                float totalColWidth = colWidths.Sum();
+                if (totalColWidth > pageWidth)
+                {
+                    float scale = pageWidth / totalColWidth;
+                    for (int c = 0; c < colWidths.Length; c++)
+                        colWidths[c] = Math.Max(colWidths[c] * scale, minColWidth);
+                }
+
+                // ── Auto-calculate row height based on font + padding ─
+                float cellHeight = g.MeasureString("Ag", fontLabel).Height;
+                float rowPaddingTop = 4f;
+                float rowPaddingBottom = 4f;
+                float rowH = cellHeight + rowPaddingTop + rowPaddingBottom;
+
+                // ── Estimate how many rows fit per page ───────────────
+                float headerReserve = headerDrawn ? 0f : 160f; // approx header block height
+                float colHeaderH = rowH + 4f;
+                float footerReserve = 30f;
+                float usableHeight = pageBottom - y - headerReserve - colHeaderH - footerReserve;
+                int rowsPerPage = Math.Max(1, (int)(usableHeight / rowH));
+
+                // ── Draw page header (first page only) ────────────────
                 if (!headerDrawn)
                 {
-                    // Navy title bar
                     g.FillRectangle(new SolidBrush(navy), x, y, pageWidth, 56);
                     g.DrawString("✈  Flight Reservation System", fontTitle, Brushes.White, x + 12, y + 10);
                     y += 64;
 
-                    // Report subtitle + date
                     g.DrawString($"{reportType.ToUpper()} REPORT  —  {periodLabel.ToUpper()}", fontSectionHead, new SolidBrush(orange), x, y);
                     g.DrawString($"Printed: {DateTime.Now:ddd, MMM d, yyyy  h:mm tt}", fontSmall, new SolidBrush(gray), x + pageWidth - 220, y + 2);
                     y += 22;
                     DrawReportDivider(g, x, y, pageWidth, lightGray);
                     y += 10;
 
-                    // Printed-by box
                     RectangleF metaBox = new RectangleF(x, y, pageWidth, 32);
                     g.FillRectangle(new SolidBrush(Color.FromArgb(245, 245, 252)), metaBox);
                     g.DrawRectangle(new Pen(lightGray, 1), metaBox.X, metaBox.Y, metaBox.Width, metaBox.Height);
@@ -1195,44 +1233,40 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
                     headerDrawn = true;
                 }
 
-                // ── Column header row ─────────────────────────────────
-                float colWidth = pageWidth / dt.Columns.Count;
-
+                // ── Column header row ──────────────────────────────────
                 g.FillRectangle(new SolidBrush(navy), x, y, pageWidth, rowH + 4);
+                float colX = x;
                 for (int c = 0; c < dt.Columns.Count; c++)
                 {
-                    g.DrawString(
-                        dt.Columns[c].ColumnName,
-                        fontColHeader,
-                        Brushes.White,
-                        x + c * colWidth + 4,
-                        y + 3);
+                    var headerRect = new RectangleF(colX + cellPadding, y + rowPaddingTop, colWidths[c] - cellPadding, rowH);
+                    g.DrawString(dt.Columns[c].ColumnName, fontColHeader, Brushes.White, headerRect);
+                    colX += colWidths[c];
                 }
                 y += rowH + 4;
 
-                // ── Data rows ─────────────────────────────────────────
+                // ── Data rows ──────────────────────────────────────────
                 bool alternate = false;
                 while (currentRow < dt.Rows.Count)
                 {
-                    // Check if next row fits on the page
-                    if (y + rowH > pageBottom - 20)
+                    if (y + rowH > pageBottom - footerReserve)
                     {
                         e.HasMorePages = true;
                         goto Cleanup;
                     }
 
-                    // Alternating row background
                     if (alternate)
                         g.FillRectangle(new SolidBrush(Color.FromArgb(248, 248, 252)), x, y, pageWidth, rowH);
 
                     DataRow row = dt.Rows[currentRow];
+                    colX = x;
                     for (int c = 0; c < dt.Columns.Count; c++)
                     {
                         string cell = row[c]?.ToString() ?? string.Empty;
-                        g.DrawString(cell, fontLabel, new SolidBrush(navy), x + c * colWidth + 4, y + 2);
+                        var cellRect = new RectangleF(colX + cellPadding, y + rowPaddingTop, colWidths[c] - cellPadding, rowH);
+                        g.DrawString(cell, fontLabel, new SolidBrush(navy), cellRect);
+                        colX += colWidths[c];
                     }
 
-                    // Bottom divider per row
                     DrawReportDivider(g, x, y + rowH, pageWidth, lightGray);
 
                     y += rowH;
@@ -1240,15 +1274,13 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
                     alternate = !alternate;
                 }
 
-                // ── Footer (last page) ────────────────────────────────
+                // ── Footer (last page) ─────────────────────────────────
                 y += 10;
                 DrawReportDivider(g, x, y, pageWidth, lightGray);
                 y += 6;
                 g.DrawString(
                     $"Flight Reservation System  |  {reportType} Report  |  Total records: {dt.Rows.Count}",
-                    fontSmall,
-                    new SolidBrush(gray),
-                    x, y);
+                    fontSmall, new SolidBrush(gray), x, y);
 
                 e.HasMorePages = false;
 
