@@ -364,7 +364,7 @@
             // 
             // picWingTop
             // 
-            this.picWingTop.Image = global::FlightReservationSystem.Properties.Resources.WingTop;
+            this.picWingTop.Image = global::FlightReservationSystem.Properties.Resources.WingTop_;
             this.picWingTop.Location = new System.Drawing.Point(760, 130);
             this.picWingTop.Margin = new System.Windows.Forms.Padding(0);
             this.picWingTop.Name = "picWingTop";
@@ -375,7 +375,7 @@
             // 
             // picWingBottom
             // 
-            this.picWingBottom.Image = global::FlightReservationSystem.Properties.Resources.WingBottom;
+            this.picWingBottom.Image = global::FlightReservationSystem.Properties.Resources.WingBottom_;
             this.picWingBottom.Location = new System.Drawing.Point(760, 590);
             this.picWingBottom.Margin = new System.Windows.Forms.Padding(0);
             this.picWingBottom.Name = "picWingBottom";

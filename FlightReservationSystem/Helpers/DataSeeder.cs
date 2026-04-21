@@ -4,6 +4,9 @@ using FlightReservationSystem.Data.Reference.Airport;
 using FlightReservationSystem.Data.Reference.SeatType;
 using FlightReservationSystem.Data.Runtime.Aircraft;
 using FlightReservationSystem.Data.Runtime.Crew;
+using FlightReservationSystem.Data.Runtime.Booking;
+using FlightReservationSystem.Data.Runtime.BookingPassenger;
+using FlightReservationSystem.Data.Runtime.Flight;
 using FlightReservationSystem.Debugging;
 using System;
 using System.Collections.Generic;
@@ -15,6 +18,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using FlightReservationSystem.Data.Reference.ControlItem;
 using FlightReservationSystem.Data.Runtime.Gate;
+using OpenTK;
+using System.ComponentModel;
 
 namespace FlightReservationSystem.Helpers
 {
@@ -478,6 +483,201 @@ namespace FlightReservationSystem.Helpers
                                     Gender = db_c_Gender,
                                     CrewTypeID = db_c_CrewType,
                                     Status = db_c_Status
+                                });
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DebugLogger.LogWithStackTrace($"{ex.Message}. Populating aborted.");
+                    MessageBoxHelper.ShowDeveloperErrorMessage("An unexpected error occured while populating data.");
+                    return;
+                }
+            }
+        }
+
+        public static void PopulateBookings()
+        {
+            StatisticsManager.ClearBookingCollection();
+
+            using (SqlConnection con = DatabaseConnection.Get())
+            {
+                try
+                {
+                    con.Open();
+                    string sql = "SELECT b.BookingID AS b_BookingID, " +
+                        "b.FlightID AS b_FlightID, " +
+                        "b.TotalAmount AS b_TotalAmount, " +
+                        "b.BaseFare AS b_BaseFare, " +
+                        "b.Tax AS b_Tax, " +
+                        "b.ServiceFee AS b_ServiceFee, " +
+                        "b.CreatedAt AS b_AddedAt " +
+                        "FROM Bookings b " +
+                        "WHERE b.IsActive = 1 ";
+
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                int db_b_BookingID = reader.GetInt32(reader.GetOrdinal("b_BookingID"));
+                                int db_b_FlightID = reader.GetInt32(reader.GetOrdinal("b_FlightID"));
+                                decimal db_b_TotalAmount = reader.GetDecimal(reader.GetOrdinal("b_TotalAmount"));
+                                decimal db_b_BaseFare = reader.GetDecimal(reader.GetOrdinal("b_BaseFare"));
+                                decimal db_b_Tax = reader.GetDecimal(reader.GetOrdinal("b_Tax"));
+                                decimal db_b_ServiceFee = reader.GetDecimal(reader.GetOrdinal("b_ServiceFee"));
+                                DateTime db_b_AddedAt = reader.GetDateTime(reader.GetOrdinal("b_AddedAt"));
+
+                                StatisticsManager.AddBooking(new BookingRecord
+                                {
+                                    ID = db_b_BookingID,
+                                    FlightID = db_b_FlightID,
+                                    TotalAmount = db_b_TotalAmount,
+                                    BaseFare = db_b_BaseFare,
+                                    Tax = db_b_Tax,
+                                    ServiceFee = db_b_ServiceFee,
+                                    AddedAt = db_b_AddedAt,
+                                });
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DebugLogger.LogWithStackTrace($"{ex.Message}. Populating aborted.");
+                    MessageBoxHelper.ShowDeveloperErrorMessage("An unexpected error occured while populating data.");
+                    return;
+                }
+            }
+        }
+
+        public static void PopulateBookingPassengers()
+        {
+            StatisticsManager.ClearBookingPassengerCollection();
+
+            using (SqlConnection con = DatabaseConnection.Get())
+            {
+                try
+                {
+                    con.Open();
+                    string sql = "SELECT bp.PassengerID AS bp_PassengerID, " +
+                        "bp.BookingID AS bp_BookingID, " +
+                        "bp.LastName AS bp_LastName, " +
+                        "bp.FirstName AS bp_FirstName, " +
+                        "bp.MiddleName AS bp_MiddleName, " +
+                        "bp.Nationality AS bp_Nationality, " +
+                        "bp.Gender AS bp_Gender, " +
+                        "bp.Age AS bp_Age, " +
+                        "bp.SeatClass AS bp_SeatClass, " +
+                        "bp.SeatLabel AS bp_SeatLabel, " +
+                        "bp.CreatedAt AS bp_CreatedAt " +
+                        "FROM BookingPassengers bp ";
+
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                int db_bp_PassengerID = reader.GetInt32(reader.GetOrdinal("bp_PassengerID"));
+                                int db_bp_BookingID = reader.GetInt32(reader.GetOrdinal("bp_BookingID"));
+                                string db_name = $"{reader.GetString(reader.GetOrdinal("bp_LastName"))}, {reader.GetString(reader.GetOrdinal("bp_FirstName"))} {reader.GetString(reader.GetOrdinal("bp_MiddleName"))}";
+                                string db_bp_Nationality = reader.GetString(reader.GetOrdinal("bp_Nationality"));
+                                string db_bp_Gender = reader.GetString(reader.GetOrdinal("bp_Gender"));
+                                int db_bp_Age = reader.GetInt32(reader.GetOrdinal("bp_Age"));
+                                string db_bp_SeatClass = reader.GetString(reader.GetOrdinal("bp_SeatClass"));
+                                string db_bp_SeatLabel = reader.GetString(reader.GetOrdinal("bp_SeatLabel"));
+                                DateTime db_bp_CreatedAt = reader.GetDateTime(reader.GetOrdinal("bp_CreatedAt"));
+
+                                StatisticsManager.AddBookingPassenger(new BookingPassengerRecord
+                                {
+                                    ID = db_bp_PassengerID,
+                                    BookingID = db_bp_BookingID,
+                                    Name = db_name,
+                                    Nationality = db_bp_Nationality,
+                                    Gender = db_bp_Gender,
+                                    Age = db_bp_Age,
+                                    SeatClass = db_bp_SeatClass,
+                                    SeatLabel = db_bp_SeatLabel,
+                                    AddedAt = db_bp_CreatedAt,
+                                });
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DebugLogger.LogWithStackTrace($"{ex.Message}. Populating aborted.");
+                    MessageBoxHelper.ShowDeveloperErrorMessage("An unexpected error occured while populating data.");
+                    return;
+                }
+            }
+        }
+
+        public static void PopulateFlights()
+        {
+            StatisticsManager.ClearFlightCollection();
+
+            using (SqlConnection con = DatabaseConnection.Get())
+            {
+                try
+                {
+                    con.Open();
+                    string sql = "SELECT f.FlightID AS f_FlightID, " +
+                        "ac.Aircraft AS ac_Aircraft, " +
+                        "a.Airline AS a_Airline, " +
+                        "f.Departure AS f_Departure, " +
+                        "f.Arrival AS f_Arrival, " +
+                        "f.DistanceKM AS f_DistanceKM, " +
+                        "f.DurationMin AS f_DurationMin, " +
+                        "f.Origin AS f_Origin, " +
+                        "f.Destination AS f_Destination, " +
+                        "aco.Airport AS aco_Airport, " +
+                        "acd.Airport AS acd_Airport, " +
+                        "f.CreatedAt AS f_CreatedAt " +
+                        "FROM Flights f " +
+                        "JOIN Aircrafts ac ON f.Aircraft = ac.AircraftID " +
+                        "JOIN Airlines a ON ac.Airline = a.AirlineID " +
+                        "JOIN Airports ap ON ac.Airport = ap.AirportID " +
+                        "JOIN Airports aco ON f.Origin = aco.AirportID " +
+                        "JOIN Airports acd ON f.Destination = acd.AirportID " +
+                        "WHERE f.IsActive = 1 ";
+
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                int db_f_FlightID = reader.GetInt32(reader.GetOrdinal("f_FlightID"));
+                                string db_ac_Aircraft = reader.GetString(reader.GetOrdinal("ac_Aircraft"));
+                                string db_a_Airline = reader.GetString(reader.GetOrdinal("a_Airline"));
+                                DateTime db_f_Departure = reader.GetDateTime(reader.GetOrdinal("f_Departure"));
+                                DateTime db_f_Arrival = reader.GetDateTime(reader.GetOrdinal("f_Arrival"));
+                                int db_f_DistanceKM = reader.GetInt32(reader.GetOrdinal("f_DistanceKM"));
+                                int db_f_DurationMin = reader.GetInt32(reader.GetOrdinal("f_DurationMin"));
+                                int db_f_Origin = reader.GetInt32(reader.GetOrdinal("f_Origin"));
+                                int db_f_Destination = reader.GetInt32(reader.GetOrdinal("f_Destination"));
+                                string db_aco_Airport = reader.GetString(reader.GetOrdinal("aco_Airport"));
+                                string db_acd_Airport = reader.GetString(reader.GetOrdinal("acd_Airport"));
+                                DateTime db_f_CreatedAt = reader.GetDateTime(reader.GetOrdinal("f_CreatedAt"));
+
+                                StatisticsManager.AddFlight(new FlightRecord
+                                {
+                                    ID = db_f_FlightID,
+                                    Aircraft = db_ac_Aircraft,
+                                    Airline = db_a_Airline,
+                                    Departure = db_f_Departure,
+                                    Arrival = db_f_Arrival,
+                                    DistanceKM = db_f_DistanceKM,
+                                    DurationMin = db_f_DurationMin,
+                                    OriginID = db_f_Origin,
+                                    DestinationID = db_f_Destination,
+                                    Origin = db_aco_Airport,
+                                    Destination = db_acd_Airport,
+                                    AddedAt = db_f_CreatedAt,
                                 });
                             }
                         }

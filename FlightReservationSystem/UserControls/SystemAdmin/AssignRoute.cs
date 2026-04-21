@@ -51,11 +51,11 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
 
         private void PopulateErrorUI()
         {
-            ErrorManager.AddErrorUI(new ErrorUIRecord { Provider = errorProvider1, Target = lblAircraft, Field = cmbAircraftVal, DefaultValue = 0 });
-            ErrorManager.AddErrorUI(new ErrorUIRecord { Provider = errorProvider2, Target = lblTerminal, Field = cmbTerminalVal, DefaultValue = 0 });
-            ErrorManager.AddErrorUI(new ErrorUIRecord { Provider = errorProvider3, Target = lblGate, Field = cmbGateVal, DefaultValue = 0 });
-            ErrorManager.AddErrorUI(new ErrorUIRecord { Provider = errorProvider6, Target = lblOrigin, Field = cmbOriginVal, DefaultValue = 0 });
-            ErrorManager.AddErrorUI(new ErrorUIRecord { Provider = errorProvider7, Target = lblDestination, Field = cmbDestinationVal, DefaultValue = 0 });
+            ErrorManager.AddErrorUI(new ErrorUIRecord { Provider = errorProvider1, Target = lblAircraft, Field = cmbAircraftVal, DefaultValue = cmbAircraftVal.SelectedIndex });
+            ErrorManager.AddErrorUI(new ErrorUIRecord { Provider = errorProvider2, Target = lblTerminal, Field = cmbTerminalVal, DefaultValue = cmbTerminalVal.SelectedIndex });
+            ErrorManager.AddErrorUI(new ErrorUIRecord { Provider = errorProvider3, Target = lblGate, Field = cmbGateVal, DefaultValue = cmbGateVal.SelectedIndex });
+            ErrorManager.AddErrorUI(new ErrorUIRecord { Provider = errorProvider6, Target = lblOrigin, Field = cmbOriginVal, DefaultValue = cmbOriginVal.SelectedIndex });
+            ErrorManager.AddErrorUI(new ErrorUIRecord { Provider = errorProvider7, Target = lblDestination, Field = cmbDestinationVal, DefaultValue = cmbDestinationVal.SelectedIndex });
         }
 
         private void ShowProgress()
@@ -263,9 +263,9 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             if (cmbTerminalVal.SelectedIndex == -1) ErrorManager.AddError(new ErrorRecord { Message = "No terminal available.", AssociatedControls = { lblTerminal } });
             if (cmbGateVal.SelectedIndex == -1) ErrorManager.AddError(new ErrorRecord { Message = "No gate available.", AssociatedControls = { lblGate } });
 
-            DateTime tomorrow = DateTime.Today.AddDays(1);
+            //DateTime tomorrow = DateTime.Today.AddDays(1);
 
-            if (dtpDepartureVal.Value.Date != tomorrow) ErrorManager.AddError(new ErrorRecord { Message = "Departure must start the day tomorrow.", AssociatedControls = { lblDeparture } });
+            //if (dtpDepartureVal.Value.Date != tomorrow) ErrorManager.AddError(new ErrorRecord { Message = "Departure must start the day tomorrow.", AssociatedControls = { lblDeparture } });
 
             DateTime start = dtpDepartureVal.Value;
             DateTime end = dtpArrivalVal.Value;
