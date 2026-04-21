@@ -123,7 +123,7 @@ namespace FlightReservationSystem.Services
             {
                 con.Open();
 
-                for (int i = 0; i < terminalCollection.Count;i++)
+                for (int i = 0; i < terminalCollection.Count; i++)
                 {
                     var terminalRecord = terminalCollection[i];
                     var gatesJson = JsonSerializer.Serialize(terminalRecord.Gates);

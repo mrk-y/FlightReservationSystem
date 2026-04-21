@@ -38,7 +38,7 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
         public AssignCrews()
         {
             InitializeComponent();
-            InitData(); 
+            InitData();
             InitUI();
         }
         private void InitData()
@@ -100,7 +100,7 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             for (int i = 0; i < aircraftCollection.Count; i++)
             {
                 var aircraftRecord = aircraftCollection[i];
-             
+
                 if (aircraftRecord.Status == 1)
                 {
                     string display = $"RP-C{aircraftRecord.ID:0000} - {aircraftRecord.Name}";
@@ -108,7 +108,7 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
 
                     itemList.Add(new CMBItemWTag { Display = display, Value = id });
                     sourceList.Add(display);
-                } 
+                }
             }
 
             cmbAircraftVal.DisplayMember = "Display";
@@ -435,7 +435,7 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
                             picAirlineImg.Image = AirlineManager.AirlineToImage(airlineRecord.ICAO);
                             lblAirlinesVal.Text = $"{airlineRecord.Name}";
                             break;
-                        } 
+                        }
                     }
 
                     var airportCollection = AirportManager.GetAirportCollection;
@@ -517,8 +517,8 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
                 lbl.Font
             );
 
-            if (textSize.Width > lbl.ClientSize.Width) toolTip3.SetToolTip(lbl, lbl.Text); 
-            else toolTip3.SetToolTip(lbl, null); 
+            if (textSize.Width > lbl.ClientSize.Width) toolTip3.SetToolTip(lbl, lbl.Text);
+            else toolTip3.SetToolTip(lbl, null);
         }
 
         private void cmbCrewVal_SelectedIndexChanged(object sender, EventArgs e)
@@ -736,10 +736,10 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             if (!DoesSelectedRowsExist()) return;
 
             DialogResult result = MessageBoxHelper.ShowQuestionMessage("Are you sure you want to remove the selected rows?");
-            
-            if (result == DialogResult.No) return;  
 
-            CrewManagement.RemoveSelectedRows(this);   
+            if (result == DialogResult.No) return;
+
+            CrewManagement.RemoveSelectedRows(this);
         }
     }
 }

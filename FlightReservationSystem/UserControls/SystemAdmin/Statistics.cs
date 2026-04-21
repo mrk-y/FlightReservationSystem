@@ -5,6 +5,7 @@ using FlightReservationSystem.Data.Runtime.Flight;
 using FlightReservationSystem.Data.Runtime.User;
 using FlightReservationSystem.Debugging;
 using FlightReservationSystem.Helpers;
+using FlightReservationSystem.Data.Reference.ColorPallete;
 using LiveChartsCore;
 using System;
 using System.Collections.Generic;
@@ -32,6 +33,7 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             InitializeComponent();
             InitUI();
             InitData();
+            LoadSeatClassChartUI();
         }
 
         private void InitUI()
@@ -143,8 +145,8 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             if (series.Points.Count >= 3)
             {
                 series.Points[0].Color = Color.FromArgb(10, 40, 100);
-                series.Points[1].Color = Color.FromArgb(120, 120, 130);
-                series.Points[2].Color = Color.FromArgb(255, 165, 0);
+                series.Points[1].Color = Color.FromArgb(150, 150, 180);
+                series.Points[2].Color = Color.Orange;
             }
 
             chSeatClass.Series.Add(series);
@@ -1095,7 +1097,6 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
         }
         private void btnPrint_Click(object sender, EventArgs e)
         {
-            // Determine selected report type (supporting Revenue, Bookings, Passengers, Flights)
             string reportType;
             if (cbRevenue.Checked) reportType = "Revenue";
             else if (cbBookings.Checked) reportType = "Bookings";
@@ -1107,38 +1108,172 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
                 return;
             }
 
-            // Determine selected period: daily = every record, monthly = aggregate per month, annually = aggregate per year
             bool periodDaily = rbPeriodDaily.Checked;
             bool periodMonthly = rbPeriodMonthly.Checked;
             bool periodAnnually = rbPeriodAnnually.Checked;
+            string periodLabel = periodDaily ? "Daily" : periodMonthly ? "Monthly" : "Annually";
 
-            string periodLabel = periodDaily ? "Daily (every record)" : periodMonthly ? "Monthly (by month)" : "Annually (by year)";
-
-            // Build DataTable containing the data to render in the browser print preview
             DataTable dt = BuildReportDataTable(reportType, periodDaily, periodMonthly, periodAnnually);
 
             if (dt == null || dt.Rows.Count == 0)
             {
-                var emptyMsg = string.Format("No data available for {0} - {1}.", reportType, periodLabel);
-                MessageBox.Show(emptyMsg, "Print report", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                lblResult.Text = emptyMsg;
+                var msg = $"No data available for {reportType} - {periodLabel}.";
+                MessageBox.Show(msg, "Print report", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                lblResult.Text = msg;
                 return;
             }
 
             try
             {
-                // Open modern browser print dialog by generating a temporary HTML file and launching it.
-                ShowBrowserPrintPreview(dt, reportType, periodLabel);
-
-                lblResult.Text = "Opened browser print preview";
+                PrintStyledReport(dt, reportType, periodLabel);
+                lblResult.Text = "Opened print preview.";
                 HidePrintPanel();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to open browser print preview: " + ex.Message, "Print report", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Failed to open print preview: " + ex.Message, "Print report", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 lblResult.Text = "Error: " + ex.Message;
             }
         }
+
+        private void PrintStyledReport(DataTable dt, string reportType, string periodLabel)
+        {
+            var doc = new PrintDocument();
+            doc.DocumentName = $"FRS Report - {reportType} ({periodLabel})";
+
+            // Page state for multi-page printing
+            int currentRow = 0;
+            bool headerDrawn = false;
+
+            doc.PrintPage += (sender, e) =>
+            {
+                Graphics g = e.Graphics;
+                float pageWidth = e.MarginBounds.Width;
+                float x = e.MarginBounds.Left;
+                float y = e.MarginBounds.Top;
+                float pageBottom = e.MarginBounds.Bottom;
+
+                // ── Color palette (matches RAPayment) ────────────────
+                Color navy = Color.FromArgb(20, 20, 50);
+                Color orange = Color.FromArgb(220, 80, 0);
+                Color gray = Color.FromArgb(120, 120, 130);
+                Color lightGray = Color.FromArgb(230, 230, 235);
+
+                // ── Fonts ─────────────────────────────────────────────
+                var fontTitle = new Font("Segoe UI", 18f, FontStyle.Bold);
+                var fontSectionHead = new Font("Segoe UI", 10f, FontStyle.Bold);
+                var fontLabel = new Font("Segoe UI", 9f, FontStyle.Regular);
+                var fontValue = new Font("Segoe UI", 9f, FontStyle.Bold);
+                var fontSmall = new Font("Segoe UI", 8f, FontStyle.Regular);
+                var fontColHeader = new Font("Segoe UI", 8.5f, FontStyle.Bold);
+
+                float rowH = 18f;
+
+                // ── Draw page header (first page only) ───────────────
+                if (!headerDrawn)
+                {
+                    // Navy title bar
+                    g.FillRectangle(new SolidBrush(navy), x, y, pageWidth, 56);
+                    g.DrawString("✈  Flight Reservation System", fontTitle, Brushes.White, x + 12, y + 10);
+                    y += 64;
+
+                    // Report subtitle + date
+                    g.DrawString($"{reportType.ToUpper()} REPORT  —  {periodLabel.ToUpper()}", fontSectionHead, new SolidBrush(orange), x, y);
+                    g.DrawString($"Printed: {DateTime.Now:ddd, MMM d, yyyy  h:mm tt}", fontSmall, new SolidBrush(gray), x + pageWidth - 220, y + 2);
+                    y += 22;
+                    DrawReportDivider(g, x, y, pageWidth, lightGray);
+                    y += 10;
+
+                    // Printed-by box
+                    RectangleF metaBox = new RectangleF(x, y, pageWidth, 32);
+                    g.FillRectangle(new SolidBrush(Color.FromArgb(245, 245, 252)), metaBox);
+                    g.DrawRectangle(new Pen(lightGray, 1), metaBox.X, metaBox.Y, metaBox.Width, metaBox.Height);
+                    g.DrawString("Printed by:", fontLabel, new SolidBrush(gray), x + 8, y + 8);
+                    g.DrawString(Session._user?.Name ?? Environment.UserName, fontValue, new SolidBrush(navy), x + 75, y + 8);
+                    y += 42;
+
+                    headerDrawn = true;
+                }
+
+                // ── Column header row ─────────────────────────────────
+                float colWidth = pageWidth / dt.Columns.Count;
+
+                g.FillRectangle(new SolidBrush(navy), x, y, pageWidth, rowH + 4);
+                for (int c = 0; c < dt.Columns.Count; c++)
+                {
+                    g.DrawString(
+                        dt.Columns[c].ColumnName,
+                        fontColHeader,
+                        Brushes.White,
+                        x + c * colWidth + 4,
+                        y + 3);
+                }
+                y += rowH + 4;
+
+                // ── Data rows ─────────────────────────────────────────
+                bool alternate = false;
+                while (currentRow < dt.Rows.Count)
+                {
+                    // Check if next row fits on the page
+                    if (y + rowH > pageBottom - 20)
+                    {
+                        e.HasMorePages = true;
+                        goto Cleanup;
+                    }
+
+                    // Alternating row background
+                    if (alternate)
+                        g.FillRectangle(new SolidBrush(Color.FromArgb(248, 248, 252)), x, y, pageWidth, rowH);
+
+                    DataRow row = dt.Rows[currentRow];
+                    for (int c = 0; c < dt.Columns.Count; c++)
+                    {
+                        string cell = row[c]?.ToString() ?? string.Empty;
+                        g.DrawString(cell, fontLabel, new SolidBrush(navy), x + c * colWidth + 4, y + 2);
+                    }
+
+                    // Bottom divider per row
+                    DrawReportDivider(g, x, y + rowH, pageWidth, lightGray);
+
+                    y += rowH;
+                    currentRow++;
+                    alternate = !alternate;
+                }
+
+                // ── Footer (last page) ────────────────────────────────
+                y += 10;
+                DrawReportDivider(g, x, y, pageWidth, lightGray);
+                y += 6;
+                g.DrawString(
+                    $"Flight Reservation System  |  {reportType} Report  |  Total records: {dt.Rows.Count}",
+                    fontSmall,
+                    new SolidBrush(gray),
+                    x, y);
+
+                e.HasMorePages = false;
+
+            Cleanup:
+                fontTitle.Dispose();
+                fontSectionHead.Dispose();
+                fontLabel.Dispose();
+                fontValue.Dispose();
+                fontSmall.Dispose();
+                fontColHeader.Dispose();
+            };
+
+            using (var preview = new PrintPreviewDialog())
+            {
+                preview.Document = doc;
+                preview.Width = 1050;
+                preview.Height = 780;
+                preview.Text = $"Print Preview — {reportType} Report ({periodLabel})";
+                preview.ShowDialog();
+            }
+        }
+
+        // Shared divider helper (mirrors DrawDivider in RAPayment)
+        private void DrawReportDivider(Graphics g, float x, float y, float width, Color color)
+            => g.DrawLine(new Pen(color, 0.5f), x, y, x + width, y);
 
         private void ShowBrowserPrintPreview(DataTable dt, string reportType, string periodLabel)
         {
@@ -1603,6 +1738,8 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
         private void btnCancel_Click(object sender, EventArgs e)
         {
             HidePrintPanel();
+            cbRevenue.Checked = true;
+            rbPeriodDaily.Checked = true;
         }
     }
 }

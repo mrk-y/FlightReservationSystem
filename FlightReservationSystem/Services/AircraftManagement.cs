@@ -56,11 +56,11 @@ namespace FlightReservationSystem.Services
 
             UserControl modelUI = null;
 
-            for (int i = 0; i <  aircraftModelUICollection.Count; i++)
+            for (int i = 0; i < aircraftModelUICollection.Count; i++)
             {
                 var aircraftModelUIRecord = aircraftModelUICollection[i];
 
-                if (aircraftModelUIRecord.ID == model) 
+                if (aircraftModelUIRecord.ID == model)
                 {
                     modelUI = aircraftModelUIRecord.UI;
                     break;
@@ -77,7 +77,7 @@ namespace FlightReservationSystem.Services
                 return null;
             }
 
-            for (int i = 0; i <  modelUIControls.Count; i++)
+            for (int i = 0; i < modelUIControls.Count; i++)
             {
                 var modelUIControl = modelUIControls[i];
 
@@ -134,7 +134,7 @@ namespace FlightReservationSystem.Services
                 return null;
             }
 
-            return seatAssignCollection; 
+            return seatAssignCollection;
         }
 
         public static void AddAircraft(string aircraft, int model, int airline, int airport, string baseName)

@@ -19,7 +19,7 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
 {
     public partial class AssignRoute : UserControl
     {
-        private int _distanceKM = 0; 
+        private int _distanceKM = 0;
         private int _minFlightMinutes = 0;
 
 
@@ -111,7 +111,7 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             var itemList = new List<CMBItemWTag>();
             var sourceList = new List<string>();
 
-            for (int i = 0; i <  terminalCollection.Count; i++)
+            for (int i = 0; i < terminalCollection.Count; i++)
             {
                 var terminalRecord = terminalCollection[i];
                 var gates = terminalRecord.Gates;
@@ -156,7 +156,7 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
 
             var itemList = new List<CMBItemWTag>();
             var sourceList = new List<string>();
-            
+
             int selectedTerminalValue = cmbTerminalVal.SelectedValue is int terminalVal ? terminalVal : 0;
 
             for (int i = 0; i < terminalCollection.Count; i++)
@@ -369,8 +369,8 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             var origin = new GeoCoordinate(0, 0);
             var destination = new GeoCoordinate(0, 0);
             var originIATA = "";
-            var destinationIATA = ""; 
-            
+            var destinationIATA = "";
+
             for (int i = 0; i < airportCollection.Count; i++)
             {
                 var airportRecord = airportCollection[i];
@@ -397,7 +397,7 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
             int modelID = 0;
 
             var aircraftCollection = AircraftManager.GetAircraftCollection;
-            
+
             if (aircraftCollection.Count == 0)
             {
                 DebugLogger.LogWithStackTrace("aircraftCollection is empty. Updating route info aborted.");
@@ -433,7 +433,7 @@ namespace FlightReservationSystem.UserControls.SystemAdmin
                 {
                     speedKMH = aircraftModelRecord.Speed;
                     break;
-                } 
+                }
             }
 
             double totalHours = (double)distanceKM / speedKMH;
