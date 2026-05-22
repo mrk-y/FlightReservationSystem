@@ -194,7 +194,6 @@ namespace FlightReservationSystem.Helpers
 
                 if (field is TextBox tb && defaultValue is string tbVal && tb.Text != tbVal) return true;
                 else if (field is ComboBox cmb && defaultValue is int cmbVal && cmb.SelectedIndex != cmbVal) return true;
-                else if (field is DateTimePicker dtp && defaultValue is DateTime dtpVal && dtp.Value != dtpVal) return true;
                 else if (field is DataGridView dgv &&  defaultValue is int dgvVal && dgv.Rows.Count !=  dgvVal) return true;
             }
 
@@ -237,7 +236,6 @@ namespace FlightReservationSystem.Helpers
 
                 if (field is TextBox tb && defaultValue is string tbVal) tb.Text = tbVal;
                 else if (field is ComboBox cmb && defaultValue is int cmbVal) cmb.SelectedIndex = cmbVal;
-                else if (field is DateTimePicker dtp && defaultValue is DateTime dtpVal) dtp.Value = dtpVal;
                 else if (field is DataGridView dgv) dgv.Rows.Clear();
             }
         }
@@ -268,7 +266,6 @@ namespace FlightReservationSystem.Helpers
                 {
                     if (field is TextBox tb && defaultValue is string tbVal) tb.Text = tbVal;
                     else if (field is ComboBox cmb && defaultValue is int cmbVal) cmb.SelectedIndex = cmbVal;
-                    else if (field is DateTimePicker dtp && defaultValue is DateTime dtpVal) dtp.Value = dtpVal;
                     else if (field is DataGridView dgv) dgv.Rows.Clear();
                 }
             }

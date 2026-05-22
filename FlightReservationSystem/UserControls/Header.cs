@@ -16,5 +16,10 @@ namespace FlightReservationSystem.UserControls
         {
             InitializeComponent();
         }
+
+        private void Header_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

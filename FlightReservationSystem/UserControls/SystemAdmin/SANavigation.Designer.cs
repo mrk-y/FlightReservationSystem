@@ -31,6 +31,8 @@
             this.btnAddAircraft = new System.Windows.Forms.Button();
             this.btnAssignRoute = new System.Windows.Forms.Button();
             this.btnAssignCrews = new System.Windows.Forms.Button();
+            this.btnLogout = new System.Windows.Forms.Button();
+            this.btnStatistics = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnAddAircraft
@@ -99,15 +101,63 @@
             this.btnAssignCrews.UseVisualStyleBackColor = false;
             this.btnAssignCrews.Click += new System.EventHandler(this.btnAssignCrews_Click);
             // 
+            // btnLogout
+            // 
+            this.btnLogout.AutoSize = true;
+            this.btnLogout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnLogout.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
+            this.btnLogout.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLogout.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
+            this.btnLogout.FlatAppearance.BorderSize = 0;
+            this.btnLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLogout.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLogout.ForeColor = System.Drawing.Color.White;
+            this.btnLogout.Location = new System.Drawing.Point(1201, 0);
+            this.btnLogout.Margin = new System.Windows.Forms.Padding(8, 0, 0, 0);
+            this.btnLogout.Name = "btnLogout";
+            this.btnLogout.Padding = new System.Windows.Forms.Padding(4);
+            this.btnLogout.Size = new System.Drawing.Size(63, 33);
+            this.btnLogout.TabIndex = 3;
+            this.btnLogout.Tag = "";
+            this.btnLogout.Text = "Logout";
+            this.btnLogout.UseVisualStyleBackColor = false;
+            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
+            // 
+            // btnStatistics
+            // 
+            this.btnStatistics.AutoSize = true;
+            this.btnStatistics.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnStatistics.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
+            this.btnStatistics.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnStatistics.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(40)))), ((int)(((byte)(100)))));
+            this.btnStatistics.FlatAppearance.BorderSize = 0;
+            this.btnStatistics.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStatistics.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStatistics.ForeColor = System.Drawing.Color.White;
+            this.btnStatistics.Location = new System.Drawing.Point(301, 0);
+            this.btnStatistics.Margin = new System.Windows.Forms.Padding(0, 0, 8, 0);
+            this.btnStatistics.Name = "btnStatistics";
+            this.btnStatistics.Padding = new System.Windows.Forms.Padding(4);
+            this.btnStatistics.Size = new System.Drawing.Size(72, 33);
+            this.btnStatistics.TabIndex = 4;
+            this.btnStatistics.Tag = "";
+            this.btnStatistics.Text = "Statistics";
+            this.btnStatistics.UseVisualStyleBackColor = false;
+            this.btnStatistics.Click += new System.EventHandler(this.btnStatistics_Click);
+            // 
             // SANavigation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.btnStatistics);
+            this.Controls.Add(this.btnLogout);
             this.Controls.Add(this.btnAssignCrews);
             this.Controls.Add(this.btnAssignRoute);
             this.Controls.Add(this.btnAddAircraft);
+            this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "SANavigation";
             this.Size = new System.Drawing.Size(1264, 33);
             this.ResumeLayout(false);
@@ -120,5 +170,7 @@
         private System.Windows.Forms.Button btnAddAircraft;
         private System.Windows.Forms.Button btnAssignRoute;
         private System.Windows.Forms.Button btnAssignCrews;
+        private System.Windows.Forms.Button btnLogout;
+        private System.Windows.Forms.Button btnStatistics;
     }
 }

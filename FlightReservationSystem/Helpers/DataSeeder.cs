@@ -271,6 +271,59 @@ namespace FlightReservationSystem.Helpers
             }
         }
 
+        public static void PopulateAircraftStatAny()
+        {
+            AircraftManager.ClearAircraftCollection();
+
+            using (SqlConnection con = DatabaseConnection.Get())
+            {
+                try
+                {
+                    con.Open();
+                    string sql = "SELECT ac.AircraftID AS ac_AircraftID, " +
+                        "ac.Aircraft AS ac_Aircraft," +
+                        "ac.Model AS ac_Model, " +
+                        "ac.Airline AS ac_Airline, " +
+                        "ac.Airport AS ac_Airport, " +
+                        "ac.Status AS ac_Status " +
+                        "FROM Aircrafts ac " +
+                        "WHERE ac.IsActive = 1 ";
+
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                int db_ac_AircraftID = reader.GetInt32(reader.GetOrdinal("ac_AircraftID"));
+                                string db_ac_Aircraft = reader.GetString(reader.GetOrdinal("ac_Aircraft"));
+                                int db_ac_Model = reader.GetInt32(reader.GetOrdinal("ac_Model"));
+                                int db_ac_Airline = reader.GetInt32(reader.GetOrdinal("ac_Airline"));
+                                int db_ac_Airport = reader.GetInt32(reader.GetOrdinal("ac_Airport"));
+                                int db_ac_Status = reader.GetInt32(reader.GetOrdinal("ac_Status"));
+
+                                AircraftManager.AddAircraftStat1(new AircraftRecord
+                                {
+                                    ID = db_ac_AircraftID,
+                                    Name = db_ac_Aircraft,
+                                    ModelID = db_ac_Model,
+                                    AirlineID = db_ac_Airline,
+                                    AirportID = db_ac_Airport,
+                                    Status = db_ac_Status
+                                });
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DebugLogger.LogWithStackTrace($"{ex.Message}. Populating aborted.");
+                    MessageBoxHelper.ShowDeveloperErrorMessage("An unexpedted error occured while populating data.");
+                    return;
+                }
+            }
+        }
+
         public static void PopulateAircraftStat1()
         {
             AircraftManager.ClearAircraftCollection();
